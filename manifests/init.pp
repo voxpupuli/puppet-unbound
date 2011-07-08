@@ -4,7 +4,7 @@ class unbound {
   $unbound_confdir = $unbound::unbound_confdir
   $unbound_logdir  = $unbound::unbound_logdir
   $unbound_service = $unbound::service
-  $unbound_conf    = "$unbound_confdir/unbound.conf"
+  $unbound_conf    = "${unboubd::unbound_confdir}/unbound.conf"
 
   package { "unbound":
     ensure   => installed,
