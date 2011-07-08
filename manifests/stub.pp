@@ -3,7 +3,7 @@ define unbound::stub ($address) {
 
   $unbound_confdir = $unbound::params::unbound_confdir
 
-  concat::fragment { 'unbound-stube-$name':
+  concat::fragment { 'unbound-stub-$name':
     order   => '05',
     target  => "$unbound_confdir/unbound.conf",
     content => template("unbound/stub.erb"),
