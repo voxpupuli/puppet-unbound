@@ -6,7 +6,7 @@ class unbound {
   $unbound_service = $unbound::service
   $unbound_conf    = "$unbound_confdir/unbound.conf"
 
-  package { "unbound"]:
+  package { "unbound":
     ensure   => installed,
     provider => $kernel ? {
       Darwin  => macports,
