@@ -1,9 +1,9 @@
 class unbound {
   include unbound::params
 
-  $unbound_confdir = $unbound::unbound_confdir
-  $unbound_logdir  = $unbound::unbound_logdir
-  $unbound_service = $unbound::service
+  $unbound_confdir = $unbound::params::unbound_confdir
+  $unbound_logdir  = $unbound::params::unbound_logdir
+  $unbound_service = $unbound::params::service
 
   package { "unbound":
     ensure   => installed,
