@@ -1,4 +1,4 @@
-class unbound::stub ($address) {
+define unbound::stub ($address) {
 
   concat::fragment { 'unbound-stube-$name':
     order   => '05',
