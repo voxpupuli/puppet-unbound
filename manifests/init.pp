@@ -4,7 +4,6 @@ class unbound {
   $unbound_confdir = $unbound::unbound_confdir
   $unbound_logdir  = $unbound::unbound_logdir
   $unbound_service = $unbound::service
-  $unbound_conf    = "${unbound::unbound_confdir}/unbound.conf"
 
   package { "unbound":
     ensure   => installed,
@@ -22,7 +21,7 @@ class unbound {
 
   concat::fragment { 'unbound-header':
     order   => '00',
-    target  => "$unbound_conf",
+    target  => "$unbound_conf/unbound.conf",
     content => template("unbound/unbound.conf.erb"),
   }
 
