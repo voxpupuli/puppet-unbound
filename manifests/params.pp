@@ -2,7 +2,7 @@ class unbound::params {
  case $operatingsystem {
   'ubuntu', 'debian': {
     $unbound_confdir = '/etc/unbound'
-    $unbound_logdir = '/var/log/unbound'
+    $unbound_logdir = '/var/log'
     $unbound_service = 'unbound'
   }
   'darwin': {
