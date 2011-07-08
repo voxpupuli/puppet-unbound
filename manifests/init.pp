@@ -15,7 +15,7 @@ class unbound {
   }
 
   service { "unbound":
-    name   => $unbound_service
+    name   => $unbound_service,
     ensure => running,
     enable => true,
   }
