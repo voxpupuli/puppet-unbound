@@ -26,8 +26,6 @@ class unbound {
     content => template("unbound/unbound.conf.erb"),
   }
 
-  Concat::Fragment <| target == "$unbound_conf" |>
-
   concat { "$unbound_conf":
     notify => Service["unbound"],
   }
