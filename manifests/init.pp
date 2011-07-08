@@ -21,11 +21,11 @@ class unbound {
 
   concat::fragment { 'unbound-header':
     order   => '00',
-    target  => "$unbound_conf/unbound.conf",
+    target  => "$unbound_confdir/unbound.conf",
     content => template("unbound/unbound.conf.erb"),
   }
 
-  concat { "$unbound_conf":
+  concat { "$unbound_confdir/unbound.conf":
     notify => Service["unbound"],
   }
 
