@@ -13,7 +13,7 @@ define unbound::stub (
   }
 
   if $insecure == true {
-    concat::fragment { :
+    concat::fragment { "unbound-stub-$name-insecure":
       order   => '01',
       target  => "$unbound_confdir/unbound.conf",
       content => "  domain-insecure: \"${name}\"",
