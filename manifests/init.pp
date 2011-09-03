@@ -14,9 +14,11 @@ class unbound {
   }
 
   service { "unbound":
-    name   => $unbound_service,
-    ensure => running,
-    enable => true,
+    name      => $unbound_service,
+    ensure    => running,
+    enable    => true,
+    pattern   => "unbound",
+    hasstatus => false,
   }
 
   concat::fragment { 'unbound-header':
