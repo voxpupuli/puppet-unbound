@@ -6,4 +6,5 @@ server:
   access-control: 127.0.0.1/8 allow
   auto-trust-anchor-file: <%= unbound_confdir %>/root.key
   do-not-query-localhost: no
-  logfile: <%= unbound_logdir %>/unbound.log
+  #logfile: <%= unbound_logdir %>/unbound.log
+  use-syslog: yes
