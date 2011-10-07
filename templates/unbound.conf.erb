@@ -1,10 +1,12 @@
 server:
-  verbosity: 1
-  interface: ::0
-  interface: 0.0.0.0
-  access-control: ::1 allow
-  access-control: 127.0.0.1/8 allow
+  verbosity: <%= verbosity %>
   auto-trust-anchor-file: <%= unbound_confdir %>/root.key
   do-not-query-localhost: no
   #logfile: <%= unbound_logdir %>/unbound.log
   use-syslog: yes
+<% if interface.is_a? Array -%>
+<% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
+<% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>
+<% if access.is_a? Array -%>
+<% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
+<% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
