@@ -20,4 +20,10 @@ define unbound::stub (
     }
   }
 
+  concat::fragment { "unbound-stub-$name-local-zone":
+    order   => '02',
+    target  => "$unbound_confdir/unbound.conf",
+    content => "  local-zone: \"${name}\" transparent \n",
+  }
+
 }
