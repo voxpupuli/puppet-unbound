@@ -4,6 +4,7 @@ class unbound (
   $access    = ["::1","127.0.0.1/8"]
   ) {
   include unbound::params
+  include concat::setup
 
   $unbound_confdir = $unbound::params::unbound_confdir
   $unbound_logdir  = $unbound::params::unbound_logdir
