@@ -6,15 +6,16 @@ class unbound (
   include unbound::params
   include concat::setup
 
+  $unbound_package = $unbound::params::unbound_package
   $unbound_confdir = $unbound::params::unbound_confdir
   $unbound_logdir  = $unbound::params::unbound_logdir
   $unbound_service = $unbound::params::unbound_service
 
-  package { "unbound":
+  package { $unbound:package:
     ensure   => installed,
     provider => $kernel ? {
-      Darwin  => macports,
-      default => undef,
+      Darwin   => macports,
+      default  => undef,
     }
   }
 
