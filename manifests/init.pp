@@ -19,25 +19,25 @@ class unbound (
     }
   }
 
-  service { "unbound":
+  service { $unbound_service:
     name      => $unbound_service,
     ensure    => running,
     enable    => true,
     #pattern  => "unbound",
     hasstatus => false,
-    require   => Package["unbound"],
+    require   => Package[$unbound_package],
   }
 
   concat::fragment { 'unbound-header':
     order   => '00',
     target  => "$unbound_confdir/unbound.conf",
     content => template("unbound/unbound.conf.erb"),
-    require => Package["unbound"],
+    require => Package[$unbound_package],
   }
 
   concat { "$unbound_confdir/unbound.conf":
     notify  => Service[$unbound_service],
-    require => Package["unbound"],
+    require => Package[$unbound_package],
   }
 
   file { "$unbound_confdir/root.key":
@@ -45,7 +45,7 @@ class unbound (
     group   => "unbound",
     content => ". IN DS 19036 8 2 49AAC11D7B6F6446702E54A1607371607A1A41855200FD2CE1CDDE32F24E8FB5",
     replace => false,
-    require => Package["unbound"],
+    require => Package[$unbound_package],
   }
 
 }
