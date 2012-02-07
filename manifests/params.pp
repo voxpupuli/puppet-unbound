@@ -10,5 +10,10 @@ class unbound::params {
     $unbound_logdir = '/opt/local/var/log/unbound'
     $unbound_service = 'org.macports.unbound'
   }
+  'freebsd': {
+    $unbound_confdir = '/usr/local/etc/unbound'
+    $unbound_logdir  = '/usr/local/var/log/unbound'
+    $unbound_service = 'unbound'
+  }
  }
 }
