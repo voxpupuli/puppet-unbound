@@ -23,7 +23,6 @@ class unbound (
     name      => $unbound_service,
     ensure    => running,
     enable    => true,
-    #pattern  => "unbound",
     hasstatus => false,
     require   => Package[$unbound_package],
   }
