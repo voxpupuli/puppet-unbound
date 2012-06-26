@@ -4,23 +4,23 @@ server:
   do-not-query-localhost: no
   use-syslog: yes
   statistics-interval: <%= statistics_interval %>
-  <% if statistics_cumulative -%>
+<% if statistics_cumulative -%>
   statistics-cumulative: yes
-  <% end -%>
+<% end -%>
   num-threads: <%= num_threads %>
-  <% if prefetch -%>
+<% if prefetch -%>
   prefetch: yes
-  <% end -%>
-  <% if @private_domain -%>
+<% end -%>
+<% if @private_domain -%>
   private-domain: "<%= private_domain %>"
-  <% end -%>
+<% end -%>
 <% if interface.is_a? Array -%>
 <% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
 <% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>
 <% if outgoing_interface.is_a? Array -%>
-  <% outgoing_interface.each do |int| -%>
+<% outgoing_interface.each do |int| -%>
   outgoing-interface: <%= int %>
-  <% end -%>
+<% end -%>
 <% elsif @outgoing_interface -%>
   outgoing-interface: <%= outgoing_interface %>
 <% end -%>
