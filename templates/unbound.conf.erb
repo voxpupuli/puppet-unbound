@@ -2,11 +2,28 @@ server:
   verbosity: <%= verbosity %>
   auto-trust-anchor-file: <%= unbound_confdir %>/root.key
   do-not-query-localhost: no
-  #logfile: <%= unbound_logdir %>/unbound.log
   use-syslog: yes
+  statistics-interval: <%= statistics_interval %>
+  <% if statistics_cumulative -%>
+  statistics-cumulative: yes
+  <% end -%>
+  num-threads: <%= num_threads %>
+  <% if prefetch -%>
+  prefetch: yes
+  <% end -%>
+  <% if @private_domain -%>
+  private-domain: "<%= private_domain %>"
+  <% end -%>
 <% if interface.is_a? Array -%>
 <% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
 <% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>
+<% if outgoing_interface.is_a? Array -%>
+  <% outgoing_interface.each do |int| -%>
+  outgoing-interface: <%= int %>
+  <% end -%>
+<% elsif @outgoing_interface -%>
+  outgoing-interface: <%= outgoing_interface %>
+<% end -%>
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
