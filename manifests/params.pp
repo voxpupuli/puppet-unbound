@@ -6,6 +6,12 @@ class unbound::params {
       $unbound_service = 'unbound'
       $unbound_package = 'unbound'
     }
+    'redhat', 'centos', 'scientific': {
+      $unbound_confdir = '/etc/unbound'
+      $unbound_logdir = '/var/log'
+      $unbound_service = 'unbound'
+      $unbound_package = 'unbound'
+    }
     'darwin': {
       $unbound_confdir = '/opt/local/etc/unbound'
       $unbound_logdir  = '/opt/local/var/log/unbound'
