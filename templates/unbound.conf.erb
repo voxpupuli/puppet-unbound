@@ -1,6 +1,6 @@
 server:
   verbosity: <%= verbosity %>
-  auto-trust-anchor-file: <%= unbound_confdir %>/root.key
+  auto-trust-anchor-file: <%= unbound_confdir %>/<%= unbound_anchor_file %>
   do-not-query-localhost: no
   #logfile: <%= unbound_logdir %>/unbound.log
   use-syslog: yes
