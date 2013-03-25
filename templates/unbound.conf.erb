@@ -3,7 +3,6 @@ server:
   auto-trust-anchor-file: <%= unbound_confdir %>/<%= unbound_anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
-  control-enable: <%= control_enable %>
   statistics-interval: <%= statistics_interval %>
 <% if statistics_cumulative -%>
   statistics-cumulative: yes
@@ -31,3 +30,5 @@ server:
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
+remote-control:
+  control-enable: <%= control_enable %>
