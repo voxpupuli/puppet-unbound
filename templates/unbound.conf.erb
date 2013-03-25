@@ -1,3 +1,6 @@
+remote-control:
+  control-enable: <%= control_enable %>
+
 server:
   verbosity: <%= verbosity %>
   auto-trust-anchor-file: <%= unbound_confdir %>/<%= unbound_anchor_file %>
@@ -30,6 +33,3 @@ server:
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
-
-remote-control:
-  control-enable: <%= control_enable %>
