@@ -7,6 +7,7 @@ A puppet module for the Unbound caching resolver.
 * Debian
 * FreeBSD
 * OS X
+* RHEL clones (with EPEL)
 
 ## Usage
 
