@@ -30,5 +30,6 @@ server:
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
+
 remote-control:
   control-enable: <%= control_enable %>
