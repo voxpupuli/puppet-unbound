@@ -2,6 +2,7 @@ class unbound (
   $verbosity = 1,
   $interface = ['::0','0.0.0.0'],
   $access    = ['::1','127.0.0.1/8'],
+  $interface_automatic = false,
   $outgoing_interface = undef,
   $statistics_interval = 0,
   $statistics_cumulative = false,

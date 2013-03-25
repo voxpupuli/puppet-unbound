@@ -17,6 +17,7 @@ server:
 <% if interface.is_a? Array -%>
 <% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
 <% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>
+<% if interface_automatic -%><%=   "  interface-automatic: yes" %><% end -%>
 <% if outgoing_interface.is_a? Array -%>
 <% outgoing_interface.each do |int| -%>
   outgoing-interface: <%= int %>
