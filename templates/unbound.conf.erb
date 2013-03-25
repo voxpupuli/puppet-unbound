@@ -3,6 +3,7 @@ server:
   auto-trust-anchor-file: <%= unbound_confdir %>/<%= unbound_anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
+  control-enable: <%= control_enable %>
   statistics-interval: <%= statistics_interval %>
 <% if statistics_cumulative -%>
   statistics-cumulative: yes

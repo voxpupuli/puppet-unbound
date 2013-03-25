@@ -6,6 +6,7 @@ class unbound (
   $outgoing_interface = undef,
   $statistics_interval = 0,
   $statistics_cumulative = false,
+  $control_enable = 'no',
   $num_threads = 1,
   $private_domain = undef,
   $prefetch = false
