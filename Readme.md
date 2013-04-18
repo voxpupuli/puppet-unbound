@@ -39,3 +39,13 @@ direct queries.
 Unless you have DNSSEC for your private zones, they are considered insecure,
 noted by `insecure => true`.
 
+### Forward Zones
+
+For external domains resolving:
+
+    unbound::forward { '.':
+      address => [
+                  '8.8.8.8',
+                  '8.8.4.4'
+                 ]
+    }
