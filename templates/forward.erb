@@ -1,0 +1,7 @@
+forward-zone:
+  name: "<%= name %>"
+<% if address.is_a? Array -%>
+<% address.each do |addr| -%><%= "  forward-addr: #{addr}\n" %><% end -%>
+<% elsif address != '' -%>
+<%= "  forward-addr:  #{address}\n" -%>
+<% end -%>
