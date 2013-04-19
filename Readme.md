@@ -49,3 +49,13 @@ For external domains resolving:
                   '8.8.4.4'
                  ]
     }
+
+### Static DNS records
+
+For overriding DNS record in zone.
+
+    unbound::record { 'test.example.tld':
+        type => 'A',
+        content => '10.0.0.1',
+        ttl => '14400',
+    }
