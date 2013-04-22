@@ -39,3 +39,12 @@ direct queries.
 Unless you have DNSSEC for your private zones, they are considered insecure,
 noted by `insecure => true`.
 
+### Static DNS records
+
+For overriding DNS record in zone.
+
+    unbound::record { 'test.example.tld':
+        type => 'A',
+        content => '10.0.0.1',
+        ttl => '14400',
+    }
