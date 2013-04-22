@@ -34,7 +34,7 @@ direct queries.
     unbound::stub { "0.0.10.in-addr.arpa.":
       address  => '10.0.0.10',
       insecure => true,
-    } 
+    }
 
 Unless you have DNSSEC for your private zones, they are considered insecure,
 noted by `insecure => true`.
@@ -47,4 +47,15 @@ For overriding DNS record in zone.
         type => 'A',
         content => '10.0.0.1',
         ttl => '14400',
+    }
+
+### Forward Zones
+
+For external domains resolving:
+
+    unbound::forward { '.':
+      address => [
+                  '8.8.8.8',
+                  '8.8.4.4'
+                 ]
     }
