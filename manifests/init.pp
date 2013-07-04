@@ -10,6 +10,8 @@ class unbound (
   $num_threads = 1,
   $private_domain = undef,
   $prefetch = false
+  $version = undef,
+  $identity = undef,
 ) {
   include unbound::params
   include concat::setup
