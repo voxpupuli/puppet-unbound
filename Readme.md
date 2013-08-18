@@ -9,6 +9,11 @@ A puppet module for the Unbound caching resolver.
 * OS X
 * RHEL clones (with EPEL)
 
+## Requirements
+The `concat` module must be installed. It can be obtained from Puppet Forge:
+
+    puppet module install ripienaar/concat
+
 ## Usage
 
 ### Server Setup
