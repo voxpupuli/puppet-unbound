@@ -29,4 +29,5 @@ class unbound::params {
       $unbound_anchor_file = 'root.key'
     }
   }
+  $unbound_hints_file = 'root.hints'
 }

@@ -20,6 +20,7 @@ class unbound (
   $unbound_logdir      = $unbound::params::unbound_logdir
   $unbound_service     = $unbound::params::unbound_service
   $unbound_anchor_file = $unbound::params::unbound_anchor_file
+  $unbound_hints_file  = $unbound::params::unbound_hints_file
 
   $provider = $::kernel ? {
     Darwin  => 'macports',
@@ -39,11 +40,17 @@ class unbound (
     require   => Package[$unbound_package],
   }
 
+  $root_hints_url = 'http://www.internic.net/domain/named.root'
+  exec { 'download-roothints':
+    command => "curl -o ${unbound_confdir}/${unbound_hints_file} ${root_hints_url}",
+    creates => "${unbound_confdir}/${unbound_hints_file}",
+    path    => ["/usr/bin"],
+  }
   concat::fragment { 'unbound-header':
     order   => '00',
     target  => "${unbound_confdir}/unbound.conf",
     content => template('unbound/unbound.conf.erb'),
-    require => Package[$unbound_package],
+    require => [ Exec['download-roothints'], Package[$unbound_package] ],
   }
 
   concat { "${unbound_confdir}/unbound.conf":
