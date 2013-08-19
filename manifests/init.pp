@@ -45,12 +45,13 @@ class unbound (
     command => "curl -o ${unbound_confdir}/${unbound_hints_file} ${root_hints_url}",
     creates => "${unbound_confdir}/${unbound_hints_file}",
     path    => ["/usr/bin"],
+    before  => [ Concat::Fragment['unbound-header'] ],
   }
   concat::fragment { 'unbound-header':
     order   => '00',
     target  => "${unbound_confdir}/unbound.conf",
     content => template('unbound/unbound.conf.erb'),
-    require => [ Exec['download-roothints'], Package[$unbound_package] ],
+    require => Package[$unbound_package],
   }
 
   concat { "${unbound_confdir}/unbound.conf":
