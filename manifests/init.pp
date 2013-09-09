@@ -9,7 +9,8 @@ class unbound (
   $control_enable = 'no',
   $num_threads = 1,
   $private_domain = undef,
-  $prefetch = false
+  $prefetch = false,
+  $infra_host_ttl = undef
 ) {
   include unbound::params
   include concat::setup
