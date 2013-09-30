@@ -7,6 +7,7 @@ server:
   do-not-query-localhost: no
   use-syslog: yes
   statistics-interval: <%= statistics_interval %>
+  root-hints: <%= unbound_confdir %>/<%= unbound_hints_file %>
 <% if statistics_cumulative -%>
   statistics-cumulative: yes
 <% end -%>
