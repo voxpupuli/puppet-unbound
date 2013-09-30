@@ -33,3 +33,10 @@ server:
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
+<% if @identity -%>
+  identity: "<%= identity %>"
+<% end -%>
+<% if @version -%>
+  version: "<%= version %>"
+<% end -%>
+
