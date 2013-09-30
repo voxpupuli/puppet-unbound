@@ -33,3 +33,6 @@ server:
 <% if access.is_a? Array -%>
 <% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
+<% if infra_host_ttl %>
+  infra-host-ttl: <%= infra-host-ttl %>
+<% end %>
