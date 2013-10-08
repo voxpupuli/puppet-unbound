@@ -1,6 +1,6 @@
 class unbound (
   $verbosity = 1,
-  $interface = ['::0','0.0.0.0'],
+  $interface = $unbound::params::ipaddress_array,
   $access    = ['::1','127.0.0.1/8'],
   $interface_automatic = false,
   $outgoing_interface = undef,
@@ -11,7 +11,7 @@ class unbound (
   $private_domain = undef,
   $prefetch = false,
   $infra_host_ttl = undef
-) {
+) inherits unbound::params {
   include unbound::params
   include concat::setup
 
