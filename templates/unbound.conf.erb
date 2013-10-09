@@ -1,40 +1,40 @@
 remote-control:
-  control-enable: <%= control_enable %>
+  control-enable: <%= @control_enable %>
 
 server:
-  verbosity: <%= verbosity %>
-  auto-trust-anchor-file: <%= unbound_confdir %>/<%= unbound_anchor_file %>
+  verbosity: <%= @verbosity %>
+  auto-trust-anchor-file: <%= @unbound_confdir %>/<%= @unbound_anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
-  statistics-interval: <%= statistics_interval %>
-  root-hints: <%= unbound_confdir %>/<%= unbound_hints_file %>
-<% if statistics_cumulative -%>
+  statistics-interval: <%= @statistics_interval %>
+  root-hints: <%= @unbound_confdir %>/<%= @unbound_hints_file %>
+<% if @statistics_cumulative -%>
   statistics-cumulative: yes
 <% end -%>
-  num-threads: <%= num_threads %>
-<% if prefetch -%>
+  num-threads: <%= @num_threads %>
+<% if @prefetch -%>
   prefetch: yes
 <% end -%>
 <% if @private_domain -%>
-  private-domain: "<%= private_domain %>"
+  private-domain: "<%= @private_domain %>"
 <% end -%>
-  port: <%= port %>
-<% if interface.is_a? Array -%>
-<% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
+  port: <%= @port %>
+<% if @interface.is_a? Array -%>
+<% @interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
 <% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>
-<% if interface_automatic -%>
+<% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>
-<% if outgoing_interface.is_a? Array -%>
-<% outgoing_interface.each do |int| -%>
+<% if @outgoing_interface.is_a? Array -%>
+<% @outgoing_interface.each do |int| -%>
   outgoing-interface: <%= int %>
 <% end -%>
 <% elsif @outgoing_interface -%>
-  outgoing-interface: <%= outgoing_interface %>
+  outgoing-interface: <%= @outgoing_interface %>
 <% end -%>
-<% if access.is_a? Array -%>
-<% access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
+<% if @access.is_a? Array -%>
+<% @access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
 <% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
-<% if infra_host_ttl %>
-  infra-host-ttl: <%= infra-host-ttl %>
+<% if @infra_host_ttl %>
+  infra-host-ttl: <%= @infra_host_ttl %>
 <% end %>
