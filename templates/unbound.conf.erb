@@ -18,6 +18,7 @@ server:
 <% if @private_domain -%>
   private-domain: "<%= private_domain %>"
 <% end -%>
+  port: <%= port %>
 <% if interface.is_a? Array -%>
 <% interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
 <% elsif interface != '' -%><%=   "  interface: #{interface}" %><% end -%>

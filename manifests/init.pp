@@ -10,7 +10,8 @@ class unbound (
   $num_threads = 1,
   $private_domain = undef,
   $prefetch = false,
-  $infra_host_ttl = undef
+  $infra_host_ttl = undef,
+  $port = 53
 ) {
   include unbound::params
   include concat::setup
