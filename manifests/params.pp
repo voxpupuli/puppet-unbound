@@ -30,4 +30,5 @@ class unbound::params {
     }
   }
   $unbound_hints_file = 'root.hints'
+  $ipaddress_array = split("${::ipaddress_all}::0", ",")
 }
