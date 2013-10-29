@@ -14,7 +14,6 @@ class unbound (
   $port = 53
 ) {
   include unbound::params
-  include concat::setup
 
   # Localize some variables
   $unbound_package     = $unbound::params::unbound_package
