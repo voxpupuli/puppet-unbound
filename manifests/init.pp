@@ -12,7 +12,6 @@ class unbound (
   $prefetch = false,
   $infra_host_ttl = undef
 ) inherits unbound::params {
-  include unbound::params
   include concat::setup
 
   # Localize some variables
