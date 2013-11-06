@@ -25,10 +25,10 @@ server:
 <% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>
-<% if not @do_ipv4 -%>
+<% unless @do_ipv4 -%>
   do-ip4: no
 <% end -%>
-<% if not @do_ipv6 -%>
+<% unless @do_ipv6 -%>
   do-ip6: no
 <% end -%>
 <% if @outgoing_interface.is_a? Array -%>
