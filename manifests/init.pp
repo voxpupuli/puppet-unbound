@@ -6,6 +6,7 @@ class unbound (
   $do_ip6    = true,
   $interface_automatic = false,
   $outgoing_interface = undef,
+  $extended_statistics = no,
   $statistics_interval = 0,
   $statistics_cumulative = false,
   $control_enable = 'no',
