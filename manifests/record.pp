@@ -1,8 +1,11 @@
+# Class: unbound::record
+#
 # Create an unbound static dns record to override upstreams
+#
 define unbound::record (
-  $ttl = 14400,
-  $type = A,
-  $content
+  $content,
+  $ttl  = '14400',
+  $type = 'A'
 ) {
   include unbound::params
 
@@ -13,5 +16,4 @@ define unbound::record (
     target  => "${unbound_confdir}/unbound.conf",
     content => "  local-data: \"${name} ${ttl} IN ${type} ${content}\"\n",
   }
-
 }

@@ -1,3 +1,7 @@
+# Class: unbound
+#
+# Installs and configures Unbound, the caching DNS resolver from NLnet Labs
+#
 class unbound (
   $verbosity = 1,
   $interface = ['::0','0.0.0.0'],
@@ -48,7 +52,7 @@ class unbound (
   exec { 'download-roothints':
     command => "curl -o ${unbound_confdir}/${unbound_hints_file} ${root_hints_url}",
     creates => "${unbound_confdir}/${unbound_hints_file}",
-    path    => ["/usr/bin"],
+    path    => ['/usr/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],
   }
 
@@ -76,6 +80,4 @@ class unbound (
     replace => false,
     require => Package[$unbound_package],
   }
-
 }
-
