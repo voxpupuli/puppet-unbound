@@ -51,6 +51,11 @@ class unbound (
     path    => ["/usr/bin"],
     before  => [ Concat::Fragment['unbound-header'] ],
   }
+
+  file { "${unbound_confdir}/${unbound_hints_file}":
+    mode => '0444',
+  }
+
   concat::fragment { 'unbound-header':
     order   => '00',
     target  => "${unbound_confdir}/unbound.conf",
