@@ -1,4 +1,7 @@
+# Class: unbound::stub
+#
 # Create an unbound stub zone for caching upstream name resolvers.
+#
 define unbound::stub (
   $address,
   $insecure = false
@@ -7,10 +10,10 @@ define unbound::stub (
 
   $unbound_confdir = $unbound::params::unbound_confdir
 
-  concat::fragment { "unbound-stub-$name":
+  concat::fragment { "unbound-stub-${name}":
     order   => '05',
     target  => "${unbound_confdir}/unbound.conf",
-    content => template("unbound/stub.erb"),
+    content => template('unbound/stub.erb'),
   }
 
   if $insecure == true {
@@ -26,5 +29,4 @@ define unbound::stub (
     target  => "${unbound_confdir}/unbound.conf",
     content => "  local-zone: \"${name}\" transparent \n",
   }
-
 }
