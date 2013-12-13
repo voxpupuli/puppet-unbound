@@ -1,5 +1,9 @@
 remote-control:
+<% if @enable -%>
   control-enable: yes
+<% else -%>
+  control-enable: no
+<% end -%>
 <% if @interface.is_a? Array -%>
 <% @interface.each do |int| -%>
   control-interface: <%= int %>

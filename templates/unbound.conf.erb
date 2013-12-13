@@ -1,14 +1,11 @@
-remote-control:
-  control-enable: <%= @control_enable %>
-
 server:
   verbosity: <%= @verbosity %>
-  auto-trust-anchor-file: <%= @unbound_confdir %>/<%= @unbound_anchor_file %>
+  auto-trust-anchor-file: <%= @confdir %>/<%= @anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
   extended-statistics: <%= @extended_statistics %>
   statistics-interval: <%= @statistics_interval %>
-  root-hints: <%= @unbound_confdir %>/<%= @unbound_hints_file %>
+  root-hints: <%= @confdir %>/<%= @hints_file %>
 <% if @statistics_cumulative -%>
   statistics-cumulative: yes
 <% end -%>
