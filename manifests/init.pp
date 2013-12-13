@@ -73,7 +73,7 @@ class unbound (
 
   # Initialize the root key file if it doesn't already exist.
   file { "${unbound_confdir}/${unbound_anchor_file}":
-    owner   => $owner,
+    owner   => $unbound_owner,
     group   => 0,
     content => '. IN DS 19036 8 2 49AAC11D7B6F6446702E54A1607371607A1A41855200FD2CE1CDDE32F24E8FB5',
     replace => false,
