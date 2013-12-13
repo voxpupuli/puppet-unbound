@@ -1,4 +1,4 @@
-name    'puppet-unbound'
+name    'zleslie-unbound'
 version '0.0.5'
 source 'git://github.com/xaque208/puppet-unbound.git'
 author 'zleslie'
