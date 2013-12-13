@@ -4,7 +4,7 @@
 #
 class unbound (
   $verbosity             = 1,
-  $interface             = ['::0','0.0.0.0'],
+  $interface             = $unbound::params::ipaddress_array,
   $access                = ['::1','127.0.0.1/8'],
   $do_ip4                = true,
   $do_ip6                = true,
