@@ -1,5 +1,7 @@
 # Unbound
 
+[![Build Status](https://travis-ci.org/xaque208/puppet-unbound.png)](https://travis-ci.org/xaque208/puppet-unbound)
+
 A puppet module for the Unbound caching resolver.
 
 ## Supported Platforms
