@@ -8,7 +8,8 @@ A puppet module for the Unbound caching resolver.
 
 * Debian
 * FreeBSD
-* OS X
+* OpenBSD
+* OS X (macports)
 * RHEL clones (with EPEL)
 
 ## Requirements
@@ -16,16 +17,19 @@ The `concat` module must be installed. It can be obtained from Puppet Forge:
 
     puppet module install ripienaar/concat
 
+Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/adrienthebo/r10k):
+
+    mod 'concat', :git => 'git://github.com/ripienaar/puppet-concat.git'
+
 ## Usage
 
 ### Server Setup
 
 At minimum you should setup the interfaces to listen on and allow access to a few subnets.
 
-    class {
-      "unbound":
-        interface => ["::0","0.0.0.0"],
-        access    => ["10.0.0.0/20","::1"],
+    class { "unbound":
+      interface => ["::0","0.0.0.0"],
+      access    => ["10.0.0.0/20","::1"],
     }
 
 ### Stub Zones
@@ -58,11 +62,33 @@ For overriding DNS record in zone.
 
 ### Forward Zones
 
-For external domains resolving:
+Setup a forward zone with a list of address from which you should resolve queries.  You can configure a forward zone with something like the following:
 
     unbound::forward { '.':
       address => [
-                  '8.8.8.8',
-                  '8.8.4.4'
-                 ]
+        '8.8.8.8',
+        '8.8.4.4'
+        ]
     }
+
+This means that your server will use the Google DNS servers for any
+zones that it doesn't know how to reach and cache the result.
+
+### Remote Control
+
+The Unbound remote control the use of the unbound-control utility to
+issue commands to the Unbound daemon process.
+
+    include unbound::remote
+
+On some platforms this is needed to function correctly.
+
+## More information
+
+You can find more information about Unbound and its configuration items at
+[unbound.net](http://unbound.net).
+
+## Contribute
+
+Please help me make this module awesome!  Send pull requests and file issues.
+
