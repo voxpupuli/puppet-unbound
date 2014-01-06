@@ -4,12 +4,12 @@
 #
 define unbound::forward (
   $address,
+  $zone = $name,
 ) {
 
   include unbound::params
 
   $config_file = $unbound::params::config_file
-  $zone        = $name
 
   concat::fragment { "unbound-forward-${name}":
     order   => '05',
