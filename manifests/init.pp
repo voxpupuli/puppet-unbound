@@ -56,15 +56,15 @@ class unbound (
     mode => '0444',
   }
 
+  concat { $config_file:
+    notify  => Service[$service_name],
+    require => Package[$package_name],
+  }
+
   concat::fragment { 'unbound-header':
     order   => '00',
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
-  }
-
-  concat { $config_file:
-    notify  => Service[$service_name],
-    require => Package[$package_name],
   }
 
   # Initialize the root key file if it doesn't already exist.
