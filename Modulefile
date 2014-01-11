@@ -1,5 +1,5 @@
 name    'zleslie-unbound'
-version '0.0.5'
+version '1.0.0'
 source 'git://github.com/xaque208/puppet-unbound.git'
 author 'zleslie'
 license 'Apache License Version 2.0'
