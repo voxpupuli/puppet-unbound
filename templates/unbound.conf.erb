@@ -42,3 +42,33 @@ server:
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
+<% if @msg_cache_slabs -%>
+  msg-cache-slabs: <%= @msg_cache_slabs %>
+<% end -%>
+<% if @rrset_cache_slabs -%>
+  rrset-cache-slabs: <%= @rrset_cache_slabs %>
+<% end -%>
+<% if @infra_cache_slabs -%>
+  infra-cache-slabs: <%= @infra_cache_slabs %>
+<% end -%>
+<% if @key_cache_slabs -%>
+  key-cache-slabs: <%= @key_cache_slabs %>
+<% end -%>
+<% if @rrset_cache_size -%>
+  rrset-cache-size: <%= @rrset_cache_size %>
+<% end -%>
+<% if @msg_cache_size -%>
+  msg-cache-size: <%= @msg_cache_size %>
+<% end -%>
+<% if @key_cache_size -%>
+  key-cache-size: <%= @key_cache_size %>
+<% end -%>
+<% if @num_queries_per_thread -%>
+  num-queries-per-thread: <%= @num_queries_per_thread %>
+<% end -%>
+<% if @outgoing_range -%>
+  outgoing-range: <%= @outgoing_range %>
+<% end -%>
+<% if @so_rcvbuf -%>
+  so-rcvbuf: <%= @so_rcvbuf %>
+<% end -%>
