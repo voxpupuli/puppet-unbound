@@ -72,3 +72,6 @@ server:
 <% if @so_rcvbuf -%>
   so-rcvbuf: <%= @so_rcvbuf %>
 <% end -%>
+<% if @tcp_upstream -%>
+  tcp-upstream: yes
+<% end -%>

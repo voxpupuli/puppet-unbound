@@ -38,7 +38,8 @@ class unbound (
   $key_cache_size         = undef,
   $num_queries_per_thread = undef,
   $outgoing_range         = undef,
-  $so_rcvbuf              = undef
+  $so_rcvbuf              = undef,
+  $tcp_upstream           = false
 ) inherits unbound::params {
 
   package { $package_name:
