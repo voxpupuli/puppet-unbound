@@ -1,6 +1,5 @@
 # Class: unbound::local_zone
 #
-# 
 # Configures a local zone.
 # The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the
 # AS112 zones. The AS112 zones are reverse DNS zones for private use  and
@@ -13,7 +12,7 @@
 # String. Zone name
 #
 # [*type*]
-# String. Allowed (deny,refuse,static,transparent,typetransparent,redirect,nodefault)
+# String. (deny,refuse,static,transparent,typetransparent,redirect,nodefault)
 
 define unbound::local_zone (
   $type,
@@ -25,7 +24,7 @@ define unbound::local_zone (
   $config_file = $unbound::params::config_file
 
   concat::fragment { "unbound-localzone-${name}":
-    order   => '05',
+    order   => '00',
     target  => $config_file,
     content => template('unbound/local_zone.erb'),
   }
