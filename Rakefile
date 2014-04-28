@@ -38,7 +38,9 @@ namespace :ci do
     linter = PuppetLint.new
     linter.configuration.log_format =
         '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}'
-
+    linter.configuration.send('disable_class_inherits_from_params_class')
+    linter.configuration.send('disable_80chars')
+    linter.configuration.send('disable_autoloader_layout')
     lintrc = ".puppet-lintrc"
     if File.file?(lintrc)
       File.read(lintrc).each_line do |line|
