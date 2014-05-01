@@ -14,3 +14,10 @@ unbound::stub { "0.0.0.10.in-addr.arpa.":
   insecure => true,
 }
 
+unbound::local_zone { "10.in-addr.arpa.":
+  type => "nodefault"
+}
+
+unbound::forward { "10.in-addr.arpa.":
+  address  => '10.0.0.10',
+}
