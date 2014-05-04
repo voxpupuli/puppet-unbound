@@ -19,7 +19,7 @@ server:
   port: <%= @port %>
 <% if @interface.is_a? Array -%>
 <% @interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
-<% elsif @interface != '' -%><%=   "  interface: #{@interface}" %><% end -%>
+<% elsif @interface != '' -%><%=   "  interface: #{@interface}\n" %><% end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>
@@ -38,7 +38,7 @@ server:
 <% end -%>
 <% if @access.is_a? Array -%>
 <% @access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
-<% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
+<% elsif @access != '' -%><%=   "  access-control: #{@access} allow\n" %><% end -%>
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
