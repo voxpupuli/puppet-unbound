@@ -17,6 +17,7 @@ class unbound (
   $num_threads            = 1,
   $private_domain         = undef,
   $prefetch               = false,
+  $prefetch_key           = false,
   $infra_host_ttl         = undef,
   $port                   = 53,
   $confdir                = $unbound::params::confdir,
