@@ -13,6 +13,9 @@ server:
 <% if @prefetch -%>
   prefetch: yes
 <% end -%>
+<% if @prefetch_key -%>
+  prefetch-key: yes
+<% end -%>
 <% if @private_domain -%>
   private-domain: "<%= @private_domain %>"
 <% end -%>
