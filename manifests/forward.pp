@@ -12,7 +12,7 @@ define unbound::forward (
   $config_file = $unbound::params::config_file
 
   concat::fragment { "unbound-forward-${name}":
-    order   => '05',
+    order   => '20',
     target  => $config_file,
     content => template('unbound/forward.erb'),
   }

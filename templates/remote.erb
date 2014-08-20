@@ -1,26 +1,28 @@
+
 remote-control:
 <% if @enable -%>
-  control-enable: yes
+        control-enable: yes
 <% else -%>
-  control-enable: no
+        control-enable: no
 <% end -%>
 <% if @interface.is_a? Array -%>
 <% @interface.each do |int| -%>
-  control-interface: <%= int %>
+        control-interface: <%= int %>
 <% end -%>
 <% else -%>
-  control-interface: <%= @interface %>
+        control-interface: <%= @interface %>
 <% end -%>
-  control-port: <%= @port %>
+        control-port: <%= @port %>
 <% if @server_key_file -%>
-  server-key-file: <%= @server_key_file %>
+        server-key-file: <%= @server_key_file %>
 <% end -%>
 <% if @server_cert_file -%>
-  server-cert-file: <%= @server_cert_file %>
+        server-cert-file: <%= @server_cert_file %>
 <% end -%>
 <% if @control_key_file -%>
-  control-key-file: <%= @control_key_file %>
+        control-key-file: <%= @control_key_file %>
 <% end -%>
 <% if @control_cert_file -%>
-  control-cert-file: <%= @control_cert_file %>
+        control-cert-file: <%= @control_cert_file %>
 <% end -%>
+
