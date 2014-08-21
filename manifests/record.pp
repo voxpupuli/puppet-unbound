@@ -14,8 +14,8 @@ define unbound::record (
 
   $config_file = $unbound::params::config_file
 
-  $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
-  $local_data_ptr = "  local-data-ptr: \"${content} ${entry}\"\n"
+  $local_data     = "        local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
+  $local_data_ptr = "        local-data-ptr: \"${content} ${entry}\"\n"
 
   $config = $reverse? {
     true    => "${local_data}${local_data_ptr}",
@@ -23,7 +23,7 @@ define unbound::record (
   }
 
   concat::fragment { "unbound-stub-${title}-local-record":
-    order   => '02',
+    order   => '07',
     target  => $config_file,
     content => $config,
   }

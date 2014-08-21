@@ -24,7 +24,7 @@ define unbound::local_zone (
   $config_file = $unbound::params::config_file
 
   concat::fragment { "unbound-localzone-${name}":
-    order   => '00',
+    order   => '06',
     target  => $config_file,
     content => template('unbound/local_zone.erb'),
   }
