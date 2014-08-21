@@ -4,5 +4,4 @@ group :test do
   gem 'puppet'
   gem 'puppet-lint'
   gem 'rake'
-  gem 'rspec'
 end

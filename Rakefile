@@ -7,7 +7,6 @@ LINT_IGNORES = ['rvm']
 namespace :ci do 
   task :all do
     Rake::Task['ci:validate'].invoke
-    #Rake::Task['ci:spec'].invoke
     Rake::Task['ci:lint'].invoke
   end
 
@@ -17,12 +16,6 @@ namespace :ci do
       puts "Validating code parsing for #{puppet_file}"
       %x{puppet parser validate #{puppet_file}}
     end
-  end
-
-  desc "Run spec tests"
-  task :spec do
-    puts "Executing spec tests"
-    %x{bundle exec rspec}
   end
 
   desc "Check puppet module code style."
