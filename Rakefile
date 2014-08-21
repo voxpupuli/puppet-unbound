@@ -7,7 +7,7 @@ LINT_IGNORES = ['rvm']
 namespace :ci do 
   task :all do
     Rake::Task['ci:validate'].invoke
-    Rake::Task['ci:spec'].invoke
+    #Rake::Task['ci:spec'].invoke
     Rake::Task['ci:lint'].invoke
   end
 
