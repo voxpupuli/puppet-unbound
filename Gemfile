@@ -1,3 +1,8 @@
 source 'https://rubygems.org'
-gem 'puppet'
-gem 'puppet-lint'
+
+group :test do
+  gem 'puppet'
+  gem 'puppet-lint'
+  gem 'rake'
+  gem 'rspec'
+end
