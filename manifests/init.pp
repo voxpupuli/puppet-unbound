@@ -89,19 +89,14 @@ class unbound (
     before  => [ Concat::Fragment['unbound-header'] ],
   }
 
-  file  { "${confdir}":
+  file { [
+    $confdir,
+    $local_d,
+    $conf_d,
+    $keys_d
+    ]:
     ensure  => directory,
-    mode    => 0755,
-    owner   => 'root',
-    group   => 'root',
     require => Package[$package_name],
-  }
-  file { [ $local_d, $conf_d, $keys_d ]:
-    ensure  => directory,
-    mode    => 0755,
-    owner   => 'root',
-    group   => $group,
-    require => File["${confdir}"]
   }
 
   file { "${hints_file}":
