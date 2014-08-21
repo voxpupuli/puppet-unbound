@@ -51,6 +51,7 @@ namespace :ci do
       linter.file = puppet_file
       linter.run
       success = false if linter.errors?
+      puts "Failure in #{puppet_file}"
     end
 
     abort "Checking puppet module code style FAILED" if success.is_a?(FalseClass)
