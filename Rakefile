@@ -50,10 +50,10 @@ namespace :ci do
       puts "Evaluating code style for #{puppet_file}"
       linter.file = puppet_file
       linter.run
+      linter.print_problems
       success = false if linter.errors?
     end
 
-    linter.print_problems
     abort "Checking puppet module code style FAILED" if success.is_a?(FalseClass)
   end
 end
