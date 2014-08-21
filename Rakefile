@@ -53,7 +53,7 @@ namespace :ci do
       success = false if linter.errors?
     end
 
-    print_problems
+    linter.print_problems
     abort "Checking puppet module code style FAILED" if success.is_a?(FalseClass)
   end
 end
