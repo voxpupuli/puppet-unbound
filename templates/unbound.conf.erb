@@ -9,6 +9,9 @@ server:
 <% if @statistics_cumulative -%>
   statistics-cumulative: yes
 <% end -%>
+<% if @edns_buffer_size -%>
+  edns-buffer-size: <%= @edns_buffer_size %>
+<% end -%>
   num-threads: <%= @num_threads %>
 <% if @prefetch -%>
   prefetch: yes

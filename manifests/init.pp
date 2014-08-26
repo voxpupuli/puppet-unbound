@@ -19,6 +19,7 @@ class unbound (
   $prefetch               = false,
   $prefetch_key           = false,
   $infra_host_ttl         = undef,
+  $edns_buffer_size       = undef,
   $port                   = 53,
   $confdir                = $unbound::params::confdir,
   $config_file            = $unbound::params::config_file,
@@ -29,6 +30,7 @@ class unbound (
   $anchor_file            = $unbound::params::anchor_file,
   $hints_file             = $unbound::params::hints_file,
   $owner                  = $unbound::params::owner,
+  $fetch_client           = $unbound::params::fetch_client,
   $root_hints_url         = 'http://www.internic.net/domain/named.root',
   $msg_cache_slabs        = undef,
   $rrset_cache_slabs      = undef,
@@ -56,9 +58,8 @@ class unbound (
     require   => Package[$package_name],
   }
 
-
   exec { 'download-roothints':
-    command => "curl -o ${confdir}/${hints_file} ${root_hints_url}",
+    command => "${fetch_client} ${confdir}/${hints_file} ${root_hints_url}",
     creates => "${confdir}/${hints_file}",
     path    => ['/usr/bin','/usr/local/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],

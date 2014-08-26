@@ -12,6 +12,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = 'root.key'
       $owner        = 'unbound'
+      $fetch_client = 'wget -O'
     }
     'redhat', 'centos', 'scientific': {
       $confdir      = '/etc/unbound'
@@ -20,6 +21,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = 'root.anchor'
       $owner        = 'unbound'
+      $fetch_client = 'wget -O'
       }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
@@ -29,6 +31,7 @@ class unbound::params {
       $package_provider = 'macports'
       $anchor_file      = 'root.key'
       $owner            = 'unbound'
+      $fetch_client     = 'curl -o'
     }
     'freebsd': {
       $confdir      = '/usr/local/etc/unbound'
@@ -37,6 +40,7 @@ class unbound::params {
       $package_name = 'dns/unbound'
       $anchor_file  = 'root.key'
       $owner        = 'unbound'
+      $fetch_client = 'fetch -o'
     }
     'openbsd': {
       $confdir      = '/var/unbound/etc'
@@ -45,6 +49,16 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = 'root.key'
       $owner        = '_unbound'
+      $fetch_client = 'fetch -o'
+    }
+    default: {
+      $confdir      = '/etc/unbound'
+      $logdir       = '/var/log'
+      $service_name = 'unbound'
+      $package_name = 'unbound'
+      $anchor_file  = 'root.key'
+      $owner        = 'unbound'
+      $fetch_client = 'wget -O'
     }
   }
 
