@@ -49,7 +49,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = 'root.key'
       $owner        = '_unbound'
-      $fetch_client = 'fetch -o'
+      $fetch_client = 'ftp -o'
     }
     default: {
       $confdir      = '/etc/unbound'
