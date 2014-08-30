@@ -45,9 +45,14 @@ class unbound (
   $tcp_upstream           = false
 ) inherits unbound::params {
 
-  package { $package_name:
-    ensure   => installed,
-    provider => $package_provider,
+  if $package_name {
+    package { $package_name:
+      ensure   => installed,
+      provider => $package_provider,
+    }
+    Package["$package_name"] -> Service["$service_name"]
+    Package["$package_name"] -> Concat["$config_file"]
+    Package["$package_name"] -> File["${confdir}/${anchor_file}"]
   }
 
   service { $service_name:
@@ -55,7 +60,6 @@ class unbound (
     name      => $service_name,
     enable    => true,
     hasstatus => false,
-    require   => Package[$package_name],
   }
 
   exec { 'download-roothints':
@@ -71,7 +75,6 @@ class unbound (
 
   concat { $config_file:
     notify  => Service[$service_name],
-    require => Package[$package_name],
   }
 
   concat::fragment { 'unbound-header':
@@ -86,7 +89,6 @@ class unbound (
     group   => 0,
     content => '. IN DS 19036 8 2 49AAC11D7B6F6446702E54A1607371607A1A41855200FD2CE1CDDE32F24E8FB5',
     replace => false,
-    require => Package[$package_name],
   }
 
 }

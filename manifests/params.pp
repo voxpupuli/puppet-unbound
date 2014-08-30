@@ -46,7 +46,11 @@ class unbound::params {
       $confdir      = '/var/unbound/etc'
       $logdir       = '/var/log/unbound'
       $service_name = 'unbound'
-      $package_name = 'unbound'
+      if versioncmp($::operatingsystemrelease, '5.6') < 0 {
+        $package_name = 'unbound'
+      } else {
+        $package_name = undef
+      }
       $anchor_file  = 'root.key'
       $owner        = '_unbound'
       $fetch_client = 'ftp -o'
