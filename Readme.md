@@ -15,11 +15,11 @@ A puppet module for the Unbound caching resolver.
 ## Requirements
 The `concat` module must be installed. It can be obtained from Puppet Forge:
 
-    puppet module install ripienaar/concat
+    puppet module install puppetlabs/concat
 
 Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/adrienthebo/r10k):
 
-    mod 'concat', :git => 'git://github.com/ripienaar/puppet-concat.git'
+    mod 'concat', :git => 'git://github.com/puppetlabs/puppetlabs-concat.git'
 
 ## Usage
 
@@ -84,7 +84,7 @@ zones that it doesn't know how to reach and cache the result.
 
 ### Remote Control
 
-The Unbound remote control the use of the unbound-control utility to
+The Unbound remote controls the use of the unbound-control utility to
 issue commands to the Unbound daemon process.
 
 ```puppet
