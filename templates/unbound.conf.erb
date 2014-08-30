@@ -81,3 +81,13 @@ server:
 <% if @tcp_upstream -%>
   tcp-upstream: yes
 <% end -%>
+<% if @hide_identity -%>
+  hide-identity: yes
+<% else -%>
+  hide-identity: no
+<% end -%>
+<% if @hide_version -%>
+  hide-version: yes
+<% else -%>
+  hide-version: no
+<% end -%>
