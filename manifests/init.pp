@@ -42,7 +42,9 @@ class unbound (
   $num_queries_per_thread = undef,
   $outgoing_range         = undef,
   $so_rcvbuf              = undef,
-  $tcp_upstream           = false
+  $tcp_upstream           = false,
+  $hide_identity          = true,
+  $hide_version           = true,
 ) inherits unbound::params {
 
   if $package_name {
