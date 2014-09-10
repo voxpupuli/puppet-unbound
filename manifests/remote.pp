@@ -17,7 +17,7 @@ class unbound::remote (
   $config_file = $unbound::params::config_file
 
   concat::fragment { 'unbound-remote':
-    order   => 10,
+    order   => '10',
     target  => $config_file,
     content => template('unbound/remote.erb'),
   }
