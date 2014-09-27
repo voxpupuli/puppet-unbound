@@ -23,7 +23,7 @@ define unbound::record (
   }
 
   concat::fragment { "unbound-stub-${title}-local-record":
-    order   => '02',
+    order   => '07',
     target  => $config_file,
     content => $config,
   }
