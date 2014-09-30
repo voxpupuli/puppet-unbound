@@ -1,68 +1,31 @@
-# Managed by Puppet
-#
 server:
   verbosity: <%= @verbosity %>
-  trusted-keys-file: <%= @trusted_keys_file %>
-  auto-trust-anchor-file: <%= @anchor_file %>
+  auto-trust-anchor-file: <%= @confdir %>/<%= @anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
   extended-statistics: <%= @extended_statistics %>
   statistics-interval: <%= @statistics_interval %>
-  root-hints: <%= @hints_file %>
+  root-hints: <%= @confdir %>/<%= @hints_file %>
 <% if @statistics_cumulative -%>
   statistics-cumulative: yes
-<% end -%>
-  num-threads: <%= @num_threads %>
-<% if @outgoing_port_permit -%>
-  outgoing-port-permit: <%= @outgoing_port_permit %>
-<% end -%>
-<% if @outgoing_port_avoid -%>
-  outgoing-port-avoid: <%= @outgoing_port_avoid %>
-<% end -%>
-<% if @harden_glue -%>
-  harden-glue: yes
-<% end -%>
-<% if @harden_dnssec_stripped -%>
-  harden-dnssec-stripped: yes
-<% end -%>
-<% if @harden_below_nxdomain -%>
-  harden-below-nxdomain: yes
-<% end -%>
-<% if @harden_referral_path -%>
-  harden-referral-path: yes
-<% end -%>
-<% if @use_caps_for_id -%>
-  use-caps-for-id: no
-<% end -%>
-<% if @unwanted_reply_threshold -%>
-  unwanted-reply-threshold: <%= @unwanted_reply_threshold %>
 <% end -%>
 <% if @edns_buffer_size -%>
   edns-buffer-size: <%= @edns_buffer_size %>
 <% end -%>
+  num-threads: <%= @num_threads %>
 <% if @prefetch -%>
   prefetch: yes
 <% end -%>
 <% if @prefetch_key -%>
   prefetch-key: yes
 <% end -%>
-<% if @module_config -%>
-  module-config: "<%= @module_config %>"
-<% end -%>
-<% if @dlv_anchor_file -%>
-  dlv-anchor-file: "<%= @dlv_anchor_file %>"
-<% end -%>
 <% if @private_domain -%>
   private-domain: "<%= @private_domain %>"
 <% end -%>
   port: <%= @port %>
 <% if @interface.is_a? Array -%>
-<%- @interface.each do |int| -%>
-  interface: <%= int %>
-<%- end -%>
-<% elsif @interface != '' -%>
-  interface: <%= @interface %>
-<% end -%>
+<% @interface.each do |int| -%><%= "  interface: #{int}\n" %><% end -%>
+<% elsif @interface != '' -%><%=   "  interface: #{@interface}" %><% end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>
@@ -80,12 +43,8 @@ server:
   outgoing-interface: <%= @outgoing_interface %>
 <% end -%>
 <% if @access.is_a? Array -%>
-<% @access.each do |acc| -%>
-  access-control: <%= acc %> allow
-<% end -%>
-<% elsif access != '' -%>
-  access-control: <%= access %> allow
-<% end -%>
+<% @access.each do |acc| -%><%= "  access-control: #{acc} allow\n" %><% end -%>
+<% elsif access != '' -%><%=   "  access-control: #{access} allow" %><% end -%>
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
@@ -121,22 +80,6 @@ server:
 <% end -%>
 <% if @tcp_upstream -%>
   tcp-upstream: yes
-<% end -%>
-  chroot: "<%= @chroot %>"
-  username: "<%= @owner %>"
-  directory: "<%= @confdir %>"
-<% if @pidfile -%>
-  pidfile: "<%= @pidfile %>"
-<% end -%>
-<% if @val_clean_additional -%>
-  val-clean-additional: yes
-<% end -%>
-<% if @val_permissive_mode -%>
-  # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
-  val-permissive-mode: yes
-<% end -%>
-<% if @val_log_level -%>
-  val-log-level: <%= @val_log_level %>
 <% end -%>
 <% if @hide_identity -%>
   hide-identity: yes
