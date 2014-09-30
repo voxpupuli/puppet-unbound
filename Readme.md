@@ -11,7 +11,6 @@ A puppet module for the Unbound caching resolver.
 * OpenBSD
 * OS X (macports)
 * RHEL clones (with EPEL)
-* openSUSE (local repo or obs://server:dns)
 
 ## Requirements
 The `concat` module must be installed. It can be obtained from Puppet Forge:
