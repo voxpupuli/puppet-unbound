@@ -54,6 +54,42 @@
         "12.04",
         "14.04"
       ]
+    },
+    {
+      "operatingsystem": "Solaris",
+      "operatingsystemrelease": [
+        "10",
+        "11"
+      ]
+    },
+    {
+      "operatingsystem": "AIX",
+      "operatingsystemrelease": [
+        "5.3",
+        "6.1",
+        "7.1"
+      ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "10",
+        "9.3",
+        "8.4"
+      ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5.5"
+      ]
+    },
+    {
+      "operatingsystem": "NetBSD",
+      "operatingsystemrelease": [
+        "6.1.4",
+        "5.2.2"
+      ]
     }
   ],
   "requirements": [
