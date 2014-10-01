@@ -65,6 +65,7 @@ class unbound (
   $verbosity                    = $unbound::params::verbosity,
 ) inherits unbound::params {
 
+
   if $package_name {
     package { $package_name:
       ensure   => installed,
@@ -89,13 +90,17 @@ class unbound (
     before  => [ Concat::Fragment['unbound-header'] ],
   }
 
+  $require = $package_name ? {
+    false   => undef,
+    default => Package[$package_name],
+  }
   file { [
     $confdir,
     $conf_d,
     $keys_d
-    ]:
+  ]:
     ensure  => directory,
-    require => Package[$package_name],
+    require => $require,
   }
 
   file { $hints_file:
