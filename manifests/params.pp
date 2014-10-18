@@ -60,7 +60,7 @@ class unbound::params {
       $logdir         = '/var/log'
       $service_name   = 'unbound'
       $package_name   = 'unbound'
-      $anchor_file    = "/var/lib/unbound/root.key"
+      $anchor_file    = '/var/lib/unbound/root.key'
       $owner          = 'unbound'
       $group          = 'unbound'
       $pidfile        = '/var/run/unbound/unbound.pid'
@@ -81,7 +81,7 @@ class unbound::params {
   $conf_d                     = "${confdir}/conf.d"
   $config_file                = "${confdir}/unbound.conf"
   $control_enable             = false
-  $directory                  = "${confdir}"
+  $directory                  = $confdir
   $dlv_anchor_file            = undef
   $do_ip4                     = true
   $do_ip6                     = true
@@ -106,8 +106,8 @@ class unbound::params {
   $num_queries_per_thread     = undef
   $num_threads                = 1
   $outgoing_interface         = undef
-  $outgoing_port_avoid        = "0-32767"
-  $outgoing_port_permit       = "32768-65535"
+  $outgoing_port_avoid        = '0-32767'
+  $outgoing_port_permit       = '32768-65535'
   $outgoing_range             = undef
   $port                       = 53
   $prefetch                   = false
