@@ -1,4 +1,4 @@
-# Unbound
+# Puppet powered DNS with Unbound
 
 [![Build Status](https://travis-ci.org/xaque208/puppet-unbound.png)](https://travis-ci.org/xaque208/puppet-unbound)
 
@@ -16,11 +16,15 @@ A puppet module for the Unbound caching resolver.
 ## Requirements
 The `concat` module must be installed. It can be obtained from Puppet Forge:
 
+```
     puppet module install puppetlabs/concat
+```
 
 Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/adrienthebo/r10k):
 
+```Ruby
     mod 'concat', :git => 'git://github.com/puppetlabs/puppetlabs-concat.git'
+```
 
 ## Usage
 
@@ -92,7 +96,8 @@ issue commands to the Unbound daemon process.
     include unbound::remote
 ```
 
-On some platforms this is needed to function correctly.
+On some platforms this is needed to function correctly for things like service
+reloads.
 
 ## More information
 
