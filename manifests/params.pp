@@ -43,13 +43,14 @@ class unbound::params {
       $fetch_client = 'fetch -o'
     }
     'openbsd': {
-      $confdir      = '/var/unbound/etc'
       $logdir       = '/var/log/unbound'
       $service_name = 'unbound'
       if versioncmp($::operatingsystemrelease, '5.6') < 0 {
         $package_name = 'unbound'
+        $confdir      = '/var/unbound/etc'
       } else {
         $package_name = undef
+        $confdir      = '/etc/unbound'
       }
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = '_unbound'
