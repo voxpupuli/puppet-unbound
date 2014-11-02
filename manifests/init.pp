@@ -73,6 +73,9 @@ class unbound (
     Package[$package_name] -> Service[$service_name]
     Package[$package_name] -> Concat[$config_file]
     Package[$package_name] -> File[$anchor_file]
+    Package[$package_name] -> File[$confdir]
+    Package[$package_name] -> File[$conf_d]
+    Package[$package_name] -> File[$keys_d]
   }
 
   service { $service_name:
@@ -95,7 +98,6 @@ class unbound (
     $keys_d
     ]:
     ensure  => directory,
-    require => Package[$package_name],
   }
 
   file { $hints_file:
