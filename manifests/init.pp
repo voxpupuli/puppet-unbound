@@ -63,6 +63,7 @@ class unbound (
   $val_log_level                = $unbound::params::val_log_level,
   $val_permissive_mode          = $unbound::params::val_permissive_mode,
   $verbosity                    = $unbound::params::verbosity,
+  $custom_server_conf           = $unbound::params::custom_server_conf,
 ) inherits unbound::params {
 
   if $package_name {

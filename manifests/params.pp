@@ -127,4 +127,5 @@ class unbound::params {
   $val_log_level              = 1
   $val_permissive_mode        = false
   $verbosity                  = 1
+  $custom_server_conf         = []
 }
