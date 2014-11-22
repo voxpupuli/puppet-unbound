@@ -87,6 +87,18 @@ Setup a forward zone with a list of address from which you should resolve querie
 This means that your server will use the Google DNS servers for any
 zones that it doesn't know how to reach and cache the result.
 
+### Adding arbitrary unbound configuration parameters
+
+```puppet
+    class { "unbound":
+      interface => ["::0","0.0.0.0"],
+      access    => ["10.0.0.0/20","::1"],
+      custom_server_conf => [ 'include: "/etc/unbound/conf.d/*.conf"' ],
+    }
+```
+
+The _custom_server_conf_ option allows the addition of arbitrary configuration parameters to your server configuration. It expects an array, and each element gets added to the configuration file on a separate line. In the example above, we instruct Unbound to load other configuration files from a subdirectory.
+
 ### Remote Control
 
 The Unbound remote controls the use of the unbound-control utility to
