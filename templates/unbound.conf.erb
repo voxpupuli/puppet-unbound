@@ -148,3 +148,6 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% @custom_server_conf.each do |c| -%>
+  <%= c %>
+<% end -%>
