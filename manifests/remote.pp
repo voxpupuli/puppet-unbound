@@ -21,4 +21,9 @@ class unbound::remote (
     target  => $config_file,
     content => template('unbound/remote.erb'),
   }
+
+  exec { 'unbound-control-setup':
+    command => 'unbound-control-setup -d /var/unbound/etc && chgrp _unbound /var/unbound/etc/unbound_*',
+    creates => '/var/unbound/etc/unbound_server.pem',
+  }
 }
