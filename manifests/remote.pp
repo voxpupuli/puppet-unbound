@@ -6,11 +6,13 @@ class unbound::remote (
   $enable            = true,
   $interface         = ['::1', '127.0.0.1'],
   $port              = 953,
-  $server_key_file   = undef,
-  $server_cert_file  = undef,
-  $control_key_file  = undef,
-  $control_cert_file = undef
-) {
+  $server_key_file   = "${unbound::params::confdir}/unbound_server.key",
+  $server_cert_file  = "${unbound::params::confdir}/unbound_server.pem",
+  $control_key_file  = "${$unbound::params::confdir}/unbound_control.key",
+  $control_cert_file = "${$unbound::params::confdir}/unbound_control.pem",
+  $group             = $unbound::params::group,
+  $confdir           = $unbound::params::confdir,
+) inherits unbound::params {
 
   include unbound::params
 
@@ -23,7 +25,11 @@ class unbound::remote (
   }
 
   exec { 'unbound-control-setup':
-    command => 'unbound-control-setup -d /var/unbound/etc && chgrp _unbound /var/unbound/etc/unbound_*',
-    creates => '/var/unbound/etc/unbound_server.pem',
+    command => "unbound-control-setup -d ${confdir} && \
+		chgrp ${group} ${server_key_file} \
+			${server_cert_file} \
+			${control_key_file} \
+			${control_cert_file}",
+    creates => "${server_key_file}",
   }
 }
