@@ -30,6 +30,6 @@ class unbound::remote (
 			${server_cert_file} \
 			${control_key_file} \
 			${control_cert_file}",
-    creates => "${server_key_file}",
+    creates => $server_key_file,
   }
 }
