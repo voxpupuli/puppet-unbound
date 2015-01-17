@@ -86,19 +86,19 @@ class unbound (
     hasstatus => false,
   }
 
-  exec { 'download-roothints':
-    command => "${fetch_client} ${hints_file} ${root_hints_url}",
-    creates => $hints_file,
-    path    => ['/usr/bin','/usr/local/bin'],
-    before  => [ Concat::Fragment['unbound-header'] ],
-  }
-
   file { [
     $confdir,
     $conf_d,
     $keys_d
     ]:
     ensure  => directory,
+  } ->
+
+  exec { 'download-roothints':
+    command => "${fetch_client} ${hints_file} ${root_hints_url}",
+    creates => $hints_file,
+    path    => ['/usr/bin','/usr/local/bin'],
+    before  => [ Concat::Fragment['unbound-header'] ],
   }
 
   file { $hints_file:
