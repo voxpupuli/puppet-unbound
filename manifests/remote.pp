@@ -14,8 +14,6 @@ class unbound::remote (
   $confdir           = $unbound::params::confdir,
 ) inherits unbound::params {
 
-  include unbound::params
-
   $config_file = $unbound::params::config_file
 
   concat::fragment { 'unbound-remote':
@@ -25,11 +23,12 @@ class unbound::remote (
   }
 
   exec { 'unbound-control-setup':
-    command => "unbound-control-setup -d ${confdir} && \
-		chgrp ${group} ${server_key_file} \
-			${server_cert_file} \
-			${control_key_file} \
-			${control_cert_file}",
+    command => "unbound-control-setup -d ${confdir}",
     creates => $server_key_file,
+  } ->
+  file { [ $server_key_file, $server_cert_file, $control_key_file, $control_cert_file ]:
+    owner => 'root',
+    group => $group,
+    mode  => '0640',
   }
 }
