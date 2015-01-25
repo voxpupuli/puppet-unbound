@@ -12,6 +12,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = 'unbound'
+      $group        = 'unbound'
       $fetch_client = 'wget -O'
     }
     'redhat', 'centos', 'scientific': {
@@ -21,6 +22,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = 'unbound'
+      $group        = 'unbound'
       $fetch_client = 'wget -O'
       }
     'darwin': {
@@ -31,6 +33,7 @@ class unbound::params {
       $package_provider = 'macports'
       $anchor_file  = "${confdir}/root.anchor"
       $owner            = 'unbound'
+      $group            = 'unbound'
       $fetch_client     = 'curl -o'
     }
     'freebsd': {
@@ -40,6 +43,7 @@ class unbound::params {
       $package_name = 'dns/unbound'
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = 'unbound'
+      $group        = 'unbound'
       $fetch_client = 'fetch -o'
     }
     'openbsd': {
@@ -53,6 +57,7 @@ class unbound::params {
       }
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = '_unbound'
+      $group        = '_unbound'
       $fetch_client = 'ftp -o'
     }
     'sles', 'opensuse', 'suse': {
@@ -63,6 +68,7 @@ class unbound::params {
       $anchor_file    = '/var/lib/unbound/root.key'
       $owner          = 'unbound'
       $group          = 'unbound'
+      $group          = 'unbound'
       $pidfile        = '/var/run/unbound/unbound.pid'
     }
     default: {
@@ -72,6 +78,7 @@ class unbound::params {
       $package_name = 'unbound'
       $anchor_file  = "${confdir}/root.anchor"
       $owner        = 'unbound'
+      $group        = 'unbound'
       $fetch_client = 'wget -O'
     }
   }
