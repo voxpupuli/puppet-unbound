@@ -4,7 +4,9 @@
 #
 class unbound (
   $access                       = $unbound::params::access,
-  $anchor_file                  = $unbound::params::anchor_file,
+  $anchor_fetch_command         = $unbound::params::anchor_fetch_command,
+  $anchor_file                  = $unbound::params::auto_trust_anchor_file,
+  $auto_trust_anchor_file       = $unbound::params::auto_trust_anchor_file,
   $chroot                       = $unbound::params::chroot,
   $conf_d                       = $unbound::params::conf_d,
   $confdir                      = $unbound::params::confdir,
@@ -49,6 +51,7 @@ class unbound (
   $prefetch_key                 = $unbound::params::prefetch_key,
   $private_domain               = $unbound::params::private_domain,
   $root_hints_url               = $unbound::params::root_hints_url,
+  $runtime_dir                  = $unbound::params::runtime_dir,
   $rrset_cache_size             = $unbound::params::rrset_cache_size,
   $rrset_cache_slabs            = $unbound::params::rrset_cache_slabs,
   $service_name                 = $unbound::params::service_name,
@@ -56,6 +59,7 @@ class unbound (
   $statistics_cumulative        = $unbound::params::statistics_cumulative,
   $statistics_interval          = $unbound::params::statistics_interval,
   $tcp_upstream                 = $unbound::params::tcp_upstream,
+  $trust_anchor                 = $unbound::params::trust_anchor,
   $trusted_keys_file            = $unbound::params::trusted_keys_file,
   $unwanted_reply_threshold     = $unbound::params::unwanted_reply_threshold,
   $use_caps_for_id              = $unbound::params::use_caps_for_id,
@@ -73,10 +77,11 @@ class unbound (
     }
     Package[$package_name] -> Service[$service_name]
     Package[$package_name] -> Concat[$config_file]
-    Package[$package_name] -> File[$anchor_file]
     Package[$package_name] -> File[$confdir]
     Package[$package_name] -> File[$conf_d]
     Package[$package_name] -> File[$keys_d]
+    Package[$package_name] -> File[$runtime_dir]
+    Package[$package_name] -> Exec['download-roothints']
   }
 
   service { $service_name:
@@ -100,6 +105,26 @@ class unbound (
     path    => ['/usr/bin','/usr/local/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],
   }
+  if $confdir == $runtime_dir {
+    File[$confdir] {
+      owner => $owner,
+    }
+  } else {
+    file { $runtime_dir:
+      ensure => directory,
+      owner  => $owner,
+    }
+  }
+
+  exec { 'download-anchor-file':
+    command => $anchor_fetch_command,
+    creates => $auto_trust_anchor_file,
+    user    => $owner,
+    path    => ['/usr/sbin','/usr/local/sbin'],
+    returns => 1,
+    before  => [ Concat::Fragment['unbound-header'] ],
+    require => File[$runtime_dir],
+  }
 
   file { $hints_file:
     mode => '0444',
@@ -113,13 +138,5 @@ class unbound (
     order   => '00',
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
-  }
-
-  # Initialize the root key file if it doesn't already exist.
-  file { $anchor_file:
-    owner   => $owner,
-    group   => 0,
-    content => '. IN DS 19036 8 2 49AAC11D7B6F6446702E54A1607371607A1A41855200FD2CE1CDDE32F24E8FB5',
-    replace => false,
   }
 }

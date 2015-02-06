@@ -10,7 +10,7 @@ class unbound::params {
       $logdir       = '/var/log'
       $service_name = 'unbound'
       $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir  = '/var/lib/unbound'
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'wget -O'
@@ -20,7 +20,7 @@ class unbound::params {
       $logdir       = '/var/log'
       $service_name = 'unbound'
       $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir  = $confdir
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'wget -O'
@@ -31,7 +31,7 @@ class unbound::params {
       $service_name     = 'org.macports.unbound'
       $package_name     = 'unbound'
       $package_provider = 'macports'
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir      = $confdir
       $owner            = 'unbound'
       $group            = 'unbound'
       $fetch_client     = 'curl -o'
@@ -41,7 +41,7 @@ class unbound::params {
       $logdir       = '/var/log/unbound'
       $service_name = 'unbound'
       $package_name = 'dns/unbound'
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir  = $confdir
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'fetch -o'
@@ -55,7 +55,7 @@ class unbound::params {
       } else {
         $package_name = undef
       }
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir  = $confdir
       $owner        = '_unbound'
       $group        = '_unbound'
       $fetch_client = 'ftp -o'
@@ -65,18 +65,19 @@ class unbound::params {
       $logdir         = '/var/log'
       $service_name   = 'unbound'
       $package_name   = 'unbound'
-      $anchor_file    = '/var/lib/unbound/root.key'
+      $runtime_dir    = '/var/lib/unbound'
       $owner          = 'unbound'
       $group          = 'unbound'
       $group          = 'unbound'
       $pidfile        = '/var/run/unbound/unbound.pid'
+      $fetch_client   = 'wget -O'
     }
     default: {
       $confdir      = '/etc/unbound'
       $logdir       = '/var/log'
       $service_name = 'unbound'
       $package_name = 'unbound'
-      $anchor_file  = "${confdir}/root.anchor"
+      $runtime_dir  = $confdir
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'wget -O'
@@ -84,6 +85,8 @@ class unbound::params {
   }
 
   $access                     = ['::1','127.0.0.1/8']
+  $auto_trust_anchor_file     = "${runtime_dir}/root.key"
+  $anchor_fetch_command       = "unbound-anchor -a ${auto_trust_anchor_file}"
   $chroot                     = undef
   $conf_d                     = "${confdir}/conf.d"
   $config_file                = "${confdir}/unbound.conf"
