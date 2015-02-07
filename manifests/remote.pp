@@ -23,7 +23,7 @@ class unbound::remote (
   }
 
   exec { 'unbound-control-setup':
-    command => "unbound-control-setup -d ${confdir}",
+    command => "${unbound::params::control_setup_path} -d ${confdir}",
     creates => $server_key_file,
   } ->
   file { [ $server_key_file, $server_cert_file, $control_key_file, $control_cert_file ]:
