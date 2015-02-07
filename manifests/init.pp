@@ -77,6 +77,7 @@ class unbound (
       ensure   => installed,
       provider => $package_provider,
     }
+    Package[$package_name] -> Service[$service_name]
     Package[$package_name] -> Concat[$config_file]
     Package[$package_name] -> File[$confdir]
     Package[$package_name] -> File[$conf_d]
@@ -85,10 +86,8 @@ class unbound (
     Package[$package_name] -> Exec['download-roothints']
     if($checkconf_enable) {
       Package[$package_name] -> Exec['checkconf']
-      Concat[$config_file] -> Exec['checkconf']
-      Exec['checkconf'] -> Service[$service_name]
-    } else {
-      Package[$package_name] -> Service[$service_name]
+      Concat[$config_file] ~> Exec['checkconf']
+      Exec['checkconf'] ~> Service[$service_name]
     }
   }
 
@@ -139,7 +138,7 @@ class unbound (
   }
 
   concat { $config_file:
-    notify  => Service[$service_name],
+    notify => Service[$service_name],
   }
 
   concat::fragment { 'unbound-header':
@@ -149,12 +148,6 @@ class unbound (
   }
 
   if($checkconf_enable) {
-    Concat[$config_file] {
-      notify => [
-        Service[$service_name],
-        Exec['checkconf'],
-      ]
-    }
     exec { 'checkconf':
       command     => $checkconf_path,
       refreshonly => true,
