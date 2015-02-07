@@ -91,6 +91,9 @@ class unbound::params {
   $conf_d                     = "${confdir}/conf.d"
   $config_file                = "${confdir}/unbound.conf"
   $control_enable             = false
+  $control_setup_path		  = "/usr/sbin/unbound-control-setup"
+  $checkconf_enable           = false
+  $checkconf_path             = "/usr/sbin/unbound-checkconf"
   $directory                  = $confdir
   $dlv_anchor_file            = undef
   $do_ip4                     = true
