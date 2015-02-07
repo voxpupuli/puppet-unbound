@@ -12,7 +12,7 @@ define unbound::stub (
   $config_file = $unbound::params::config_file
 
   concat::fragment { "unbound-stub-${name}":
-    order   => '05',
+    order   => '15',
     target  => $config_file,
     content => template('unbound/stub.erb'),
   }
