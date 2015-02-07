@@ -68,6 +68,8 @@ class unbound (
   $val_permissive_mode          = $unbound::params::val_permissive_mode,
   $verbosity                    = $unbound::params::verbosity,
   $custom_server_conf           = $unbound::params::custom_server_conf,
+  $checkconf_enable             = $unbound::params::checkconf_enable,
+  $checkconf_path               = $unbound::params::checkconf_path,
 ) inherits unbound::params {
 
   if $package_name {
@@ -82,6 +84,11 @@ class unbound (
     Package[$package_name] -> File[$keys_d]
     Package[$package_name] -> File[$runtime_dir]
     Package[$package_name] -> Exec['download-roothints']
+    if($checkconf_enable) {
+      Package[$package_name] -> Exec['checkconf']
+      Concat[$config_file] ~> Exec['checkconf']
+      Exec['checkconf'] ~> Service[$service_name]
+    }
   }
 
   service { $service_name:
@@ -138,5 +145,13 @@ class unbound (
     order   => '00',
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
+  }
+
+  if($checkconf_enable) {
+    exec { 'checkconf':
+      command     => $checkconf_path,
+      refreshonly => true,
+      require     => Concat[$config_file],
+    }
   }
 }
