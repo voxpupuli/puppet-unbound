@@ -24,7 +24,7 @@ class unbound::params {
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'wget -O'
-      }
+    }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
       $logdir           = '/opt/local/var/log/unbound'
@@ -61,16 +61,15 @@ class unbound::params {
       $fetch_client = 'ftp -o'
     }
     'sles', 'opensuse', 'suse': {
-      $confdir        = '/etc/unbound'
-      $logdir         = '/var/log'
-      $service_name   = 'unbound'
-      $package_name   = 'unbound'
-      $runtime_dir    = '/var/lib/unbound'
-      $owner          = 'unbound'
-      $group          = 'unbound'
-      $group          = 'unbound'
-      $pidfile        = '/var/run/unbound/unbound.pid'
-      $fetch_client   = 'wget -O'
+      $confdir      = '/etc/unbound'
+      $logdir       = '/var/log'
+      $service_name = 'unbound'
+      $package_name = 'unbound'
+      $runtime_dir  = '/var/lib/unbound'
+      $owner        = 'unbound'
+      $group        = 'unbound'
+      $pidfile      = '/var/run/unbound/unbound.pid'
+      $fetch_client = 'wget -O'
     }
     default: {
       $confdir      = '/etc/unbound'
