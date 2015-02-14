@@ -2,7 +2,6 @@
 Gemfile.lock
 .*.sw?
 pkg
-spec/fixtures
 .rspec_system
 .vagrant
 .bundle
