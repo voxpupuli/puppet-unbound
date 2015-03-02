@@ -17,7 +17,7 @@ define unbound::stub (
     content => template('unbound/stub.erb'),
   }
 
-  if $insecure == true {
+  if str2bool($insecure) == true {
     concat::fragment { "unbound-stub-${name}-insecure":
       order   => '01',
       target  => $config_file,
