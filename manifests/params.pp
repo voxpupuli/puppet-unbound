@@ -6,24 +6,28 @@ class unbound::params {
 
   case $::operatingsystem {
     'ubuntu', 'debian': {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $runtime_dir  = '/var/lib/unbound'
-      $owner        = 'unbound'
-      $group        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir          = '/etc/unbound'
+      $logdir           = '/var/log'
+      $service_name     = 'unbound'
+      $package_name     = 'unbound'
+      $package_provider = undef
+      $runtime_dir      = '/var/lib/unbound'
+      $owner            = 'unbound'
+      $group            = 'unbound'
+      $pidfile          = undef
+      $fetch_client     = 'wget -O'
     }
     'redhat', 'centos', 'scientific': {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $runtime_dir  = $confdir
-      $owner        = 'unbound'
-      $group        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir          = '/etc/unbound'
+      $logdir           = '/var/log'
+      $service_name     = 'unbound'
+      $package_name     = 'unbound'
+      $package_provider = undef
+      $runtime_dir      = $confdir
+      $owner            = 'unbound'
+      $group            = 'unbound'
+      $pidfile          = undef
+      $fetch_client     = 'wget -O'
     }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
@@ -34,52 +38,60 @@ class unbound::params {
       $runtime_dir      = $confdir
       $owner            = 'unbound'
       $group            = 'unbound'
+      $pidfile          = undef
       $fetch_client     = 'curl -o'
     }
     'freebsd': {
-      $confdir      = '/usr/local/etc/unbound'
-      $logdir       = '/var/log/unbound'
-      $service_name = 'unbound'
-      $package_name = 'dns/unbound'
-      $runtime_dir  = $confdir
-      $owner        = 'unbound'
-      $group        = 'unbound'
-      $fetch_client = 'fetch -o'
+      $confdir          = '/usr/local/etc/unbound'
+      $logdir           = '/var/log/unbound'
+      $service_name     = 'unbound'
+      $package_name     = 'dns/unbound'
+      $package_provider = undef
+      $runtime_dir      = $confdir
+      $owner            = 'unbound'
+      $group            = 'unbound'
+      $pidfile          = undef
+      $fetch_client     = 'fetch -o'
     }
     'openbsd': {
-      $confdir      = '/var/unbound/etc'
-      $logdir       = '/var/log/unbound'
-      $service_name = 'unbound'
+      $confdir          = '/var/unbound/etc'
+      $logdir           = '/var/log/unbound'
+      $service_name     = 'unbound'
       if versioncmp($::operatingsystemrelease, '5.6') < 0 {
         $package_name = 'unbound'
       } else {
         $package_name = undef
       }
-      $runtime_dir  = $confdir
-      $owner        = '_unbound'
-      $group        = '_unbound'
-      $fetch_client = 'ftp -o'
+      $package_provider = undef
+      $runtime_dir      = $confdir
+      $owner            = '_unbound'
+      $group            = '_unbound'
+      $pidfile          = undef
+      $fetch_client     = 'ftp -o'
     }
     'sles', 'opensuse', 'suse': {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $runtime_dir  = '/var/lib/unbound'
-      $owner        = 'unbound'
-      $group        = 'unbound'
-      $pidfile      = '/var/run/unbound/unbound.pid'
-      $fetch_client = 'wget -O'
+      $confdir          = '/etc/unbound'
+      $logdir           = '/var/log'
+      $service_name     = 'unbound'
+      $package_name     = 'unbound'
+      $package_provider = undef
+      $runtime_dir      = '/var/lib/unbound'
+      $owner            = 'unbound'
+      $group            = 'unbound'
+      $pidfile          = '/var/run/unbound/unbound.pid'
+      $fetch_client     = 'wget -O'
     }
     default: {
-      $confdir      = '/etc/unbound'
-      $logdir       = '/var/log'
-      $service_name = 'unbound'
-      $package_name = 'unbound'
-      $runtime_dir  = $confdir
-      $owner        = 'unbound'
-      $group        = 'unbound'
-      $fetch_client = 'wget -O'
+      $confdir          = '/etc/unbound'
+      $logdir           = '/var/log'
+      $service_name     = 'unbound'
+      $package_name     = 'unbound'
+      $package_provider = undef
+      $runtime_dir      = $confdir
+      $owner            = 'unbound'
+      $group            = 'unbound'
+      $pidfile          = undef
+      $fetch_client     = 'wget -O'
     }
   }
 
