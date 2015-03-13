@@ -20,7 +20,7 @@ class unbound::params {
       $logdir       = '/var/log'
       $service_name = 'unbound'
       $package_name = 'unbound'
-      $runtime_dir  = $confdir
+      $runtime_dir  = '/var/lib/unbound'
       $owner        = 'unbound'
       $group        = 'unbound'
       $fetch_client = 'wget -O'
