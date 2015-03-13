@@ -23,7 +23,7 @@ class unbound::params {
       $runtime_dir  = $confdir
       $owner        = 'unbound'
       $group        = 'unbound'
-      $fetch_client = 'wget -O'
+      $fetch_client = 'curl -o'
     }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
