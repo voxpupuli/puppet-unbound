@@ -24,6 +24,7 @@ class unbound::params {
       $package_name     = 'unbound'
       $package_provider = undef
       $runtime_dir      = $confdir
+      $runtime_dir      = '/var/lib/unbound'
       $owner            = 'unbound'
       $group            = 'unbound'
       $pidfile          = undef
