@@ -5,7 +5,6 @@
 class unbound (
   $access                       = $unbound::params::access,
   $anchor_fetch_command         = $unbound::params::anchor_fetch_command,
-  $anchor_file                  = $unbound::params::auto_trust_anchor_file,
   $auto_trust_anchor_file       = $unbound::params::auto_trust_anchor_file,
   $chroot                       = $unbound::params::chroot,
   $conf_d                       = $unbound::params::conf_d,
@@ -59,7 +58,6 @@ class unbound (
   $statistics_cumulative        = $unbound::params::statistics_cumulative,
   $statistics_interval          = $unbound::params::statistics_interval,
   $tcp_upstream                 = $unbound::params::tcp_upstream,
-  $trust_anchor                 = $unbound::params::trust_anchor,
   $trusted_keys_file            = $unbound::params::trusted_keys_file,
   $unwanted_reply_threshold     = $unbound::params::unwanted_reply_threshold,
   $use_caps_for_id              = $unbound::params::use_caps_for_id,
