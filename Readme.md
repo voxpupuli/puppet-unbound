@@ -1,6 +1,6 @@
 # Puppet powered DNS with Unbound
 
-[![Build Status](https://travis-ci.org/xaque208/puppet-unbound.png)](https://travis-ci.org/xaque208/puppet-unbound)
+[![Build Status](https://travis-ci.org/xaque208/puppet-unbound.svg?branch=master)](https://travis-ci.org/xaque208/puppet-unbound)
 
 A puppet module for the Unbound caching resolver.
 
