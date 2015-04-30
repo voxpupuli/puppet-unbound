@@ -7,9 +7,7 @@ define unbound::stub (
   $insecure = false
 ) {
 
-  include unbound::params
-
-  $config_file = $unbound::params::config_file
+  $config_file = $unbound::config_file
 
   concat::fragment { "unbound-stub-${name}":
     order   => '15',

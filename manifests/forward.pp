@@ -7,9 +7,7 @@ define unbound::forward (
   $zone = $name,
 ) {
 
-  include unbound::params
-
-  $config_file = $unbound::params::config_file
+  $config_file = $unbound::config_file
 
   concat::fragment { "unbound-forward-${name}":
     order   => '20',
