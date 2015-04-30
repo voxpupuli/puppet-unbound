@@ -64,6 +64,7 @@ class unbound (
   $val_clean_additional         = $unbound::params::val_clean_additional,
   $val_log_level                = $unbound::params::val_log_level,
   $val_permissive_mode          = $unbound::params::val_permissive_mode,
+  $validate_cmd                 = $unbound::params::validate_cmd,
   $verbosity                    = $unbound::params::verbosity,
   $custom_server_conf           = $unbound::params::custom_server_conf,
 ) inherits unbound::params {
@@ -87,6 +88,7 @@ class unbound (
     name      => $service_name,
     enable    => true,
     hasstatus => false,
+    restart   => 'unbound-control reload',
   }
 
   file { [
@@ -129,7 +131,8 @@ class unbound (
   }
 
   concat { $config_file:
-    notify  => Service[$service_name],
+    validate_cmd => $validate_cmd,
+    notify       => Service[$service_name],
   }
 
   concat::fragment { 'unbound-header':

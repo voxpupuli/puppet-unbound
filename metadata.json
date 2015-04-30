@@ -99,12 +99,12 @@
     },
     {
       "name": "puppet",
-      "version_requirement": "3.x"
+      "version_requirement": "3.6"
     }
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",
   "dependencies": [
-    {"name":"puppetlabs/concat","version_requirement":">=1.1.0"},
+    {"name":"puppetlabs/concat","version_requirement":">=1.2.1"},
     {"name":"puppetlabs/stdlib","version_requirement":">=4.4.0"}
   ]
 }

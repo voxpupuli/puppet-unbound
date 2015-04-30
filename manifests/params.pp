@@ -16,6 +16,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'wget -O'
+      $validate_cmd      = undef
     }
     'redhat', 'centos', 'scientific': {
       $confdir          = '/etc/unbound'
@@ -28,6 +29,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'curl -o'
+      $validate_cmd      = '/sbin/unbound-checkconf %'
     }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
@@ -40,6 +42,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'curl -o'
+      $validate_cmd      = undef
     }
     'freebsd': {
       $confdir          = '/usr/local/etc/unbound'
@@ -52,6 +55,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'fetch -o'
+      $validate_cmd      = undef
     }
     'openbsd': {
       $confdir          = '/var/unbound/etc'
@@ -68,6 +72,7 @@ class unbound::params {
       $group            = '_unbound'
       $pidfile          = undef
       $fetch_client     = 'ftp -o'
+      $validate_cmd      = '/usr/sbin/unbound-checkconf %'
     }
     'sles', 'opensuse', 'suse': {
       $confdir          = '/etc/unbound'
@@ -80,6 +85,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = '/var/run/unbound/unbound.pid'
       $fetch_client     = 'wget -O'
+      $validate_cmd      = undef
     }
     default: {
       $confdir          = '/etc/unbound'
@@ -92,6 +98,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'wget -O'
+      $validate_cmd      = undef
     }
   }
 
