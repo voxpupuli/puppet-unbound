@@ -3,6 +3,7 @@
 # Configures a zone for DNS forwarding
 #
 define unbound::forward (
+  $forward_first = 'no',
   $address,
   $zone = $name,
 ) {
