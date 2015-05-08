@@ -5,6 +5,7 @@
 define unbound::forward (
   $address,
   $zone = $name,
+  $forward_first = 'no'
 ) {
 
   include unbound::params
