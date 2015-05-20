@@ -9,7 +9,7 @@ define unbound::stub (
 ) {
 
   if ! $address and ! $hostname {
-    fail('unbound::stub: either address or hostname must be specified.');
+    fail('unbound::stub: either address or hostname must be specified.')
   }
 
   include unbound::params
