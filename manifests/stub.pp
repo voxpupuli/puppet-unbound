@@ -8,6 +8,10 @@ define unbound::stub (
   $insecure = false
 ) {
 
+  if ! $address and ! $hostname {
+    fail('unbound::stub: either address or hostname must be specified.');
+  }
+
   include unbound::params
 
   $config_file = $unbound::params::config_file
