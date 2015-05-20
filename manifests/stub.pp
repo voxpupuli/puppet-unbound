@@ -4,6 +4,7 @@
 #
 define unbound::stub (
   $address,
+  $hostname,
   $insecure = false
 ) {
 

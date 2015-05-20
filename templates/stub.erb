@@ -1,5 +1,12 @@
 stub-zone:
   name: "<%= @name %>"
+<% if @address -%>
 <% Array(@address).each do |addr| -%>
   stub-addr: <%= addr %>
+<% end -%>
+<% end -%>
+<% if @hostname -%>
+<% Array(@hostname).each do |host| -%>
+  stub-host: <%= host %>
+<% end -%>
 <% end -%>

@@ -54,6 +54,11 @@ direct queries.
       address  => '10.0.0.10',
       insecure => true,
     }
+
+    unbound::stub { "10.0.10.in-addr.arpa.":
+      hostname => [ 'ns1.example.com', 'ns2.example.com' ],
+    }
+
 ```
 
 Unless you have DNSSEC for your private zones, they are considered insecure,

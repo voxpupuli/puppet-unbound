@@ -13,6 +13,10 @@ unbound::stub { '0.0.0.10.in-addr.arpa.':
   insecure => true,
 }
 
+unbound::stub { '10.0.10.in-addr.arpa.':
+  hostname => [ 'ns1.example.com', 'ns2.example.com' ],
+}
+
 unbound::local_zone { '10.in-addr.arpa.':
   type => 'nodefault'
 }
