@@ -7,6 +7,10 @@ define unbound::stub (
   $insecure = false
 ) {
 
+  if ! $address {
+    fail('unbound::stub: address(es) must be specified.')
+  }
+
   include unbound::params
 
   $config_file = $unbound::params::config_file
