@@ -54,6 +54,25 @@ direct queries.
       address  => '10.0.0.10',
       insecure => true,
     }
+
+    # port can be specified
+    unbound::stub { "0.0.10.in-addr.arpa.":
+      address  => '10.0.0.10@10053',
+      insecure => true,
+    }
+
+    # address can be an array.
+    # in the following case, generated conf would be as follows:
+    #
+    #   stub-host: ns1.example.com
+    #   stub-addr: 10.0.0.10@10053
+    #   stub-host: ns2.example.com
+    #
+    # note that conf will be generated in the same order provided.
+    unbound::stub { "10.0.10.in-addr.arpa.":
+      address => [ 'ns1.example.com', '10.0.0.10@10053', 'ns2.example.com' ],
+    }
+
 ```
 
 Unless you have DNSSEC for your private zones, they are considered insecure,
