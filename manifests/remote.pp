@@ -5,7 +5,7 @@
 class unbound::remote (
   $enable            = true,
   $interface         = ['::1', '127.0.0.1'],
-  $port              = 953,
+  $port              = 8953,
   $server_key_file   = "${unbound::params::confdir}/unbound_server.key",
   $server_cert_file  = "${unbound::params::confdir}/unbound_server.pem",
   $control_key_file  = "${$unbound::params::confdir}/unbound_control.key",
