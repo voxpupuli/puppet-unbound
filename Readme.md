@@ -14,6 +14,9 @@ A puppet module for the Unbound caching resolver.
 * openSUSE (local repo or obs://server:dns)
 
 ## Requirements
+
+### concat
+
 The `concat` module must be installed. It can be obtained from Puppet Forge:
 
 ```
@@ -24,6 +27,20 @@ Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/
 
 ```Ruby
     mod 'concat', :git => 'git://github.com/puppetlabs/puppetlabs-concat.git'
+```
+
+### stdlib
+
+The `stdlib` module must be installed. It can be obtained from Puppet Forge:
+
+```
+    puppet module install puppetlabs-stdlib
+```
+
+Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/adrienthebo/r10k):
+
+```Ruby
+    mod 'stdlib', :git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
 ```
 
 ## Usage

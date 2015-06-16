@@ -4,8 +4,13 @@
 #
 define unbound::forward (
   $address,
-  $zone = $name,
+  $zone          = $name,
+  $forward_first = 'no'
 ) {
+
+  # Validate yes/no
+  $r_yesno = [ 'yes', 'no' ]
+  validate_re($forward_first, $r_yesno)
 
   include unbound::params
 
