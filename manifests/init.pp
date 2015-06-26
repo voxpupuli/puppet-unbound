@@ -23,6 +23,8 @@ class unbound (
   $harden_dnssec_stripped       = $unbound::params::harden_dnssec_stripped,
   $harden_glue                  = $unbound::params::harden_glue,
   $harden_referral_path         = $unbound::params::harden_referral_path,
+  $hide_identity                = $unbound::params::hide_identity,
+  $hide_version                 = $unbound::params::hide_version,
   $hints_file                   = $unbound::params::hints_file,
   $infra_cache_slabs            = $unbound::params::infra_cache_slabs,
   $infra_host_ttl               = $unbound::params::infra_host_ttl,
