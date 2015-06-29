@@ -1,6 +1,6 @@
 {
   "name": "zleslie-unbound",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": "zleslie",
   "summary": "Puppet Unbound management module",
   "license": "Apache-2.0",
