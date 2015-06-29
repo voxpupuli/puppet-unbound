@@ -119,6 +119,8 @@ class unbound::params {
   $harden_dnssec_stripped     = true
   $harden_glue                = true
   $harden_referral_path       = true
+  $hide_identity              = true
+  $hide_version               = true
   $hints_file                 = "${confdir}/root.hints"
   $infra_cache_slabs          = undef
   $infra_host_ttl             = undef
