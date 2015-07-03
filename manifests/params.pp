@@ -9,7 +9,7 @@ class unbound::params {
       $confdir          = '/etc/unbound'
       $logdir           = '/var/log'
       $service_name     = 'unbound'
-      $package_name     = 'unbound'
+      $package_name     = undef
       $package_provider = undef
       $runtime_dir      = '/var/lib/unbound'
       $owner            = 'unbound'
@@ -45,15 +45,22 @@ class unbound::params {
       $validate_cmd      = undef
     }
     'freebsd': {
-      $confdir          = '/usr/local/etc/unbound'
+      if versioncmp($::operatingsystemrelease, '10') < 0 {
+        $confdir        = '/usr/local/etc/unbound'
+        $service_name   = 'unbound'
+        $package_name   = 'dns/unbound'
+        $pidfile        = undef
+      } else {
+        $confdir        = '/var/unbound'
+        $service_name   = 'local_unbound'
+        $package_name   = 'unbound'
+        $pidfile        = '/var/run/local_unbound.pid'
+      }
       $logdir           = '/var/log/unbound'
-      $service_name     = 'unbound'
-      $package_name     = 'dns/unbound'
       $package_provider = undef
       $runtime_dir      = $confdir
       $owner            = 'unbound'
       $group            = 'unbound'
-      $pidfile          = undef
       $fetch_client     = 'fetch -o'
       $validate_cmd      = undef
     }
