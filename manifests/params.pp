@@ -9,7 +9,7 @@ class unbound::params {
       $confdir          = '/etc/unbound'
       $logdir           = '/var/log'
       $service_name     = 'unbound'
-      $package_name     = undef
+      $package_name     = 'unbound'
       $package_provider = undef
       $runtime_dir      = '/var/lib/unbound'
       $owner            = 'unbound'
@@ -53,7 +53,7 @@ class unbound::params {
       } else {
         $confdir        = '/var/unbound'
         $service_name   = 'local_unbound'
-        $package_name   = 'unbound'
+        $package_name   = undef
         $pidfile        = '/var/run/local_unbound.pid'
       }
       $logdir           = '/var/log/unbound'
