@@ -13,10 +13,20 @@ unbound::stub { '0.0.0.10.in-addr.arpa.':
   insecure => true,
 }
 
+unbound::stub { '0.0.0.10.in-addr.arpa.':
+  address  => '10.0.0.10@10053',
+  insecure => true,
+}
+
+unbound::stub { '10.0.10.in-addr.arpa.':
+  address => [ 'ns1.example.com', '10.0.0.10@10053', 'ns2.example.com' ],
+}
+
 unbound::local_zone { '10.in-addr.arpa.':
   type => 'nodefault'
 }
 
 unbound::forward { '10.in-addr.arpa.':
-  address  => '10.0.0.10',
+  address       => '10.0.0.10',
+  forward_first => 'yes'
 }

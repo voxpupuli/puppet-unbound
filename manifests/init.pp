@@ -5,7 +5,6 @@
 class unbound (
   $access                       = $unbound::params::access,
   $anchor_fetch_command         = $unbound::params::anchor_fetch_command,
-  $anchor_file                  = $unbound::params::auto_trust_anchor_file,
   $auto_trust_anchor_file       = $unbound::params::auto_trust_anchor_file,
   $chroot                       = $unbound::params::chroot,
   $conf_d                       = $unbound::params::conf_d,
@@ -24,6 +23,8 @@ class unbound (
   $harden_dnssec_stripped       = $unbound::params::harden_dnssec_stripped,
   $harden_glue                  = $unbound::params::harden_glue,
   $harden_referral_path         = $unbound::params::harden_referral_path,
+  $hide_identity                = $unbound::params::hide_identity,
+  $hide_version                 = $unbound::params::hide_version,
   $hints_file                   = $unbound::params::hints_file,
   $infra_cache_slabs            = $unbound::params::infra_cache_slabs,
   $infra_host_ttl               = $unbound::params::infra_host_ttl,
@@ -59,13 +60,13 @@ class unbound (
   $statistics_cumulative        = $unbound::params::statistics_cumulative,
   $statistics_interval          = $unbound::params::statistics_interval,
   $tcp_upstream                 = $unbound::params::tcp_upstream,
-  $trust_anchor                 = $unbound::params::trust_anchor,
   $trusted_keys_file            = $unbound::params::trusted_keys_file,
   $unwanted_reply_threshold     = $unbound::params::unwanted_reply_threshold,
   $use_caps_for_id              = $unbound::params::use_caps_for_id,
   $val_clean_additional         = $unbound::params::val_clean_additional,
   $val_log_level                = $unbound::params::val_log_level,
   $val_permissive_mode          = $unbound::params::val_permissive_mode,
+  $validate_cmd                 = $unbound::params::validate_cmd,
   $verbosity                    = $unbound::params::verbosity,
   $custom_server_conf           = $unbound::params::custom_server_conf,
 ) inherits unbound::params {
@@ -89,6 +90,7 @@ class unbound (
     name      => $service_name,
     enable    => true,
     hasstatus => false,
+    restart   => 'unbound-control reload',
   }
 
   file { [
@@ -131,7 +133,8 @@ class unbound (
   }
 
   concat { $config_file:
-    notify  => Service[$service_name],
+    validate_cmd => $validate_cmd,
+    notify       => Service[$service_name],
   }
 
   concat::fragment { 'unbound-header':

@@ -1,6 +1,6 @@
 # Puppet powered DNS with Unbound
 
-[![Build Status](https://travis-ci.org/xaque208/puppet-unbound.png)](https://travis-ci.org/xaque208/puppet-unbound)
+[![Build Status](https://travis-ci.org/xaque208/puppet-unbound.svg?branch=master)](https://travis-ci.org/xaque208/puppet-unbound)
 
 A puppet module for the Unbound caching resolver.
 
@@ -14,6 +14,9 @@ A puppet module for the Unbound caching resolver.
 * openSUSE (local repo or obs://server:dns)
 
 ## Requirements
+
+### concat
+
 The `concat` module must be installed. It can be obtained from Puppet Forge:
 
 ```
@@ -24,6 +27,20 @@ Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/
 
 ```Ruby
     mod 'concat', :git => 'git://github.com/puppetlabs/puppetlabs-concat.git'
+```
+
+### stdlib
+
+The `stdlib` module must be installed. It can be obtained from Puppet Forge:
+
+```
+    puppet module install puppetlabs-stdlib
+```
+
+Or add this line to your `Puppetfile` and deploy with [R10k](https://github.com/adrienthebo/r10k):
+
+```Ruby
+    mod 'stdlib', :git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
 ```
 
 ## Usage
@@ -54,6 +71,25 @@ direct queries.
       address  => '10.0.0.10',
       insecure => true,
     }
+
+    # port can be specified
+    unbound::stub { "0.0.10.in-addr.arpa.":
+      address  => '10.0.0.10@10053',
+      insecure => true,
+    }
+
+    # address can be an array.
+    # in the following case, generated conf would be as follows:
+    #
+    #   stub-host: ns1.example.com
+    #   stub-addr: 10.0.0.10@10053
+    #   stub-host: ns2.example.com
+    #
+    # note that conf will be generated in the same order provided.
+    unbound::stub { "10.0.10.in-addr.arpa.":
+      address => [ 'ns1.example.com', '10.0.0.10@10053', 'ns2.example.com' ],
+    }
+
 ```
 
 Unless you have DNSSEC for your private zones, they are considered insecure,
