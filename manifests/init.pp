@@ -90,7 +90,12 @@ class unbound (
     name      => $service_name,
     enable    => true,
     hasstatus => false,
-    restart   => 'unbound-control reload',
+  }
+  if $control_enable {
+    Service[$service_name] {
+      restart   => 'unbound-control reload',
+    }
+    include unbound::remote
   }
 
   file { [
