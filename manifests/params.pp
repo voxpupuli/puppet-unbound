@@ -29,7 +29,7 @@ class unbound::params {
       $group            = 'unbound'
       $pidfile          = undef
       $fetch_client     = 'curl -o'
-      $validate_cmd      = '/sbin/unbound-checkconf %'
+      $validate_cmd     = '/usr/sbin/unbound-checkconf %'
     }
     'darwin': {
       $confdir          = '/opt/local/etc/unbound'
