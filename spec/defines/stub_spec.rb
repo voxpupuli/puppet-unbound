@@ -23,7 +23,7 @@ describe 'unbound::stub' do
 
     it do
       should contain_unbound__stub__validate_addr('ns1.example.com,10.0.10.in-addr.arpa.')
-      should contain_unbound__stub__validate_addr('10.0.0.1@10053,10.0.10.in-addr.arpa.')
+      should contain_unbound__stub__validate_addr('10.0.0.10@10053,10.0.10.in-addr.arpa.')
       should contain_unbound__stub__validate_addr('ns2.example.com,10.0.10.in-addr.arpa.')
     end
   end
