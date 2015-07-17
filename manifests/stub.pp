@@ -11,8 +11,12 @@ define unbound::stub (
   if ! $address {
     fail('unbound::stub: address(es) must be specified.')
   }
-  unbound::stub::validate_addr{ "${address}_${name}":
-    address => $address,
+
+  # An ugly construction that alows us to validate $address in whatever way it
+  # is supplied.
+  $validatable_addresses = suffix(flatten([$address]), ",${name}")
+
+  unbound::stub::validate_addr{ $validatable_addresses:
   }
 
   include unbound::params

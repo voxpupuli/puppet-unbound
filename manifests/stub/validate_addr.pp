@@ -2,11 +2,11 @@
 #
 # Validate address arg of unbound::stub
 #
-define unbound::stub::validate_addr(
-  $address
-) {
+define unbound::stub::validate_addr{
 
-  $addr_arr = split($address, '@')
+  $addr_name_arr = split($name, ',')
+
+  $addr_arr = split($addr_name_arr[0], '@')
 
   # check if the address arg is a valid ip address
   if is_ip_address($addr_arr[0]) {
@@ -22,7 +22,7 @@ define unbound::stub::validate_addr(
     }
 
   # address arg must be either ip address or hostname
-  } elsif ! is_domain_name($name) {
+  } elsif ! is_domain_name($addr_name_arr[0]) {
     fail('unbound::stub: invalid address.')
   }
 }
