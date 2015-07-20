@@ -94,7 +94,9 @@ class unbound (
   if $control_enable {
     Service[$service_name] {
       restart   => 'unbound-control reload',
+      require   => Class['unbound::remote'],
     }
+    Package[$package_name] -> Class['unbound::remote']
     include unbound::remote
   }
 
