@@ -96,7 +96,7 @@ class unbound (
       restart   => 'unbound-control reload',
       require   => Class['unbound::remote'],
     }
-    Package[$package_name] -> Class['unbound::remote']
+    Package<| title == $package_name |> -> Class['unbound::remote']
     include unbound::remote
   }
 
