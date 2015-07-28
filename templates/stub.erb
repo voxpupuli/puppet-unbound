@@ -1,11 +1,11 @@
 stub-zone:
   name: "<%= @name %>"
 <% if @address -%>
-<% Array(@address).each do |addr| -%>
-<% if scope.function_is_domain_name([addr]) -%>
+<% addrs = PuppetX::Unbound::ValidateAddrs.new(@address) -%>
+<% addrs.name_list.each do |addr| -%>
   stub-host: <%= addr %>
-<% else -%>
-  stub-addr: <%= addr %>
 <% end -%>
+<% addrs.ip_list.each do |addr| -%>
+  stub-addr: <%= addr %>
 <% end -%>
 <% end -%>
