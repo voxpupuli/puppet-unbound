@@ -69,6 +69,7 @@ class unbound (
   $validate_cmd                 = $unbound::params::validate_cmd,
   $verbosity                    = $unbound::params::verbosity,
   $custom_server_conf           = $unbound::params::custom_server_conf,
+  $skip_roothints_download      = $unbound::params::skip_roothints_download,
 ) inherits unbound::params {
 
   if $package_name {
@@ -83,6 +84,7 @@ class unbound (
     Package[$package_name] -> File[$keys_d]
     Package[$package_name] -> File[$runtime_dir]
     Package[$package_name] -> Exec['download-roothints']
+    Package[$package_name] -> File[$hints_file]
   }
 
   service { $service_name:
@@ -100,6 +102,12 @@ class unbound (
     include unbound::remote
   }
 
+  if $skip_roothints_download {
+    File[$hints_file] -> Exec['download-roothints']
+  } else {
+    Exec['download-roothints'] -> File[$hints_file]
+  }
+  
   file { [
     $confdir,
     $conf_d,
@@ -114,6 +122,7 @@ class unbound (
     path    => ['/usr/bin','/usr/local/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],
   }
+  
   if $confdir == $runtime_dir {
     File[$confdir] {
       owner => $owner,
@@ -136,7 +145,8 @@ class unbound (
   }
 
   file { $hints_file:
-    mode => '0444',
+    ensure => file,
+    mode   => '0444',
   }
 
   concat { $config_file:

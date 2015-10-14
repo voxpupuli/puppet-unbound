@@ -147,6 +147,16 @@ issue commands to the Unbound daemon process.
 On some platforms this is needed to function correctly for things like service
 reloads.
 
+### Skipping hints download
+
+In the case you're only building a caching forwarder and don't do iterative lookups you might not want to download the hints file containing the root nameservers because you don't need it, or you also might not be able to download it anyway because your server is firewalled which would cause the module would hang on trying to download the hints file. To skip the download set the skip_roothints_download parameter to true.
+
+```puppet
+    class { "unbound":
+      skip_roothints_download => true,
+    }
+```
+
 ## More information
 
 You can find more information about Unbound and its configuration items at
