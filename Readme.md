@@ -123,6 +123,18 @@ Setup a forward zone with a list of address from which you should resolve querie
 This means that your server will use the Google DNS servers for any
 zones that it doesn't know how to reach and cache the result.
 
+
+### Fine grain access-control
+
+```puppet
+    class { "unbound":
+      interface => ["::0","0.0.0.0"],
+      access    => ["10.0.0.0/20", "10.0.0.5/32 reject", "::1 allow_snoop"],
+    }
+```
+
+The access option allows to pass the action for each subnets, if the action is not provided we assume it’s 'allow'.
+
 ### Adding arbitrary unbound configuration parameters
 
 ```puppet

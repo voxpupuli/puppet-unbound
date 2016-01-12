@@ -1,6 +1,6 @@
 class { 'unbound':
   interface => ['::0','0.0.0.0'],
-  access    => ['fe80::/10','10.0.0.0/24'],
+  access    => ['fe80::/10','10.0.0.0/24', '127.0.0.1/32 allow_snoop'],
 }
 
 unbound::stub { 'example.com':
