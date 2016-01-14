@@ -81,10 +81,18 @@ server:
 <% end -%>
 <% if @access.is_a? Array -%>
 <% @access.each do |acc| -%>
+<% if acc.include? " " -%>
+  access-control: <%= acc %>
+<% else -%>
   access-control: <%= acc %> allow
 <% end -%>
+<% end -%>
 <% elsif access != '' -%>
+<% if access.include? " " -%>
+  access-control: <%= access %>
+<% else -%>
   access-control: <%= access %> allow
+<% end -%>
 <% end -%>
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
