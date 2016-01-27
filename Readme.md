@@ -92,8 +92,9 @@ direct queries.
 
 ```
 
-Or, using hiera:
-```unbound::stub:
+Or, using hiera
+```yaml
+unbound::stub:
   '10.0.10.in-addr.arpa.':
     address:
       - 'ns1.example.com'
@@ -116,8 +117,9 @@ For overriding DNS record in zone.
     }
 ```
 
-Or, using hiera:
-```unbound::record:
+Or, using hiera
+```yaml
+unbound::record:
   'test.example.tld':
     type: 'A'
     content: '10.0.0.1'
@@ -137,8 +139,9 @@ Setup a forward zone with a list of address from which you should resolve querie
     }
 ```
 
-Or, using hiera:
-```unbound::forward:
+Or, using hiera
+```yaml
+unbound::forward:
   '.':
     address:
       - '8.8.8.8'
