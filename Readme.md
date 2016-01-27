@@ -56,6 +56,16 @@ At minimum you should setup the interfaces to listen on and allow access to a fe
     }
 ```
 
+Or, using hiera
+```yaml
+unbound::interface:
+  - '::0'
+  - '0.0.0.0'
+unbound::access:
+  - '10.0.0.0/20'
+  - '::1'
+```
+
 ### Stub Zones
 
 These are zones for which you have an authoritative name server and want to
