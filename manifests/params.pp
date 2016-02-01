@@ -155,6 +155,7 @@ class unbound::params {
   $rrset_cache_size           = undef
   $rrset_cache_slabs          = undef
   $so_rcvbuf                  = undef
+  $so_sndbuf                  = undef
   $statistics_cumulative      = false
   $statistics_interval        = 0
   $tcp_upstream               = false

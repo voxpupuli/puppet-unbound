@@ -57,6 +57,7 @@ class unbound (
   $rrset_cache_slabs            = $unbound::params::rrset_cache_slabs,
   $service_name                 = $unbound::params::service_name,
   $so_rcvbuf                    = $unbound::params::so_rcvbuf,
+  $so_sndbuf                    = $unbound::params::so_sndbuf,
   $statistics_cumulative        = $unbound::params::statistics_cumulative,
   $statistics_interval          = $unbound::params::statistics_interval,
   $tcp_upstream                 = $unbound::params::tcp_upstream,

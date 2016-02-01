@@ -127,6 +127,9 @@ server:
 <% if @so_rcvbuf -%>
   so-rcvbuf: <%= @so_rcvbuf %>
 <% end -%>
+<% if @so_sndbuf -%>
+  so-sndbuf: <%= @so_sndbuf %>
+<% end -%>
 <% if @tcp_upstream -%>
   tcp-upstream: yes
 <% end -%>
