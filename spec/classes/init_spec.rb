@@ -40,4 +40,46 @@ describe 'unbound' do
       /^  access-control: 10.21.30.0\/24 allow\n  access-control: 10.21.30.5\/32 reject\n  access-control: 127.0.0.1\/32 allow_snoop\n  access-control: 123.123.123.0\/20 allow/
     )}
   end
+  context "stub passed to class" do
+    let (:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :concat_basedir => '/dne'
+    }}
+    let (:params) {{
+      :stub => { 'example-stub.com' => { 'address' => [ '10.0.0.1', '10.0.0.2' ], 'insecure' => 'true' } },
+    }}
+    it { should contain_class('concat::setup') }
+    it { should contain_concat('/etc/unbound/unbound.conf') }
+    it { should contain_concat__fragment('unbound-stub-example-stub.com').with_content(
+      /^stub-zone:\n  name: "example-stub.com"\n  stub-addr: 10.0.0.1\n  stub-addr: 10.0.0.2/
+    )}
+  end
+  context "forward passed to class" do
+    let (:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :concat_basedir => '/dne'
+    }}
+    let (:params) {{
+      :forward => { 'example-forward.com' => { 'address' => [ '10.0.0.1', '10.0.0.2' ], 'forward_first' => 'yes' } },
+    }}
+    it { should contain_class('concat::setup') }
+    it { should contain_concat('/etc/unbound/unbound.conf') }
+    it { should contain_concat__fragment('unbound-forward-example-forward.com').with_content(
+      /^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes/
+    )}
+  end
+  context "record passed to class" do
+    let (:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :concat_basedir => '/dne'
+    }}
+    let (:params) {{
+      :record => { 'a.example-record.com' => { 'type' => 'A', 'content' => [ '10.0.0.1', '10.0.0.2' ], 'ttl' => '14400', 'reverse' => true } },
+    }}
+    it { should contain_class('concat::setup') }
+    it { should contain_concat('/etc/unbound/unbound.conf') }
+    it { should contain_concat__fragment('unbound-stub-a.example-record.com-local-record').with_content(
+        /^  local-data: \"a.example-record.com 14400 IN A 10.0.0.110.0.0.2\"\n  local-data-ptr: \"10.0.0.110.0.0.2 a.example-record.com\"\n/
+    )}
+  end
 end

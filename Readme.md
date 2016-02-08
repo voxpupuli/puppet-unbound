@@ -56,6 +56,16 @@ At minimum you should setup the interfaces to listen on and allow access to a fe
     }
 ```
 
+Or, using hiera
+```yaml
+unbound::interface:
+  - '::0'
+  - '0.0.0.0'
+unbound::access:
+  - '10.0.0.0/20'
+  - '::1'
+```
+
 ### Stub Zones
 
 These are zones for which you have an authoritative name server and want to
@@ -92,6 +102,16 @@ direct queries.
 
 ```
 
+Or, using hiera
+```yaml
+unbound::stub:
+  '10.0.10.in-addr.arpa.':
+    address:
+      - 'ns1.example.com'
+      - '10.0.0.10@10053'
+      - 'ns2.example.com'
+```
+
 Unless you have DNSSEC for your private zones, they are considered insecure,
 noted by `insecure => true`.
 
@@ -107,6 +127,15 @@ For overriding DNS record in zone.
     }
 ```
 
+Or, using hiera
+```yaml
+unbound::record:
+  'test.example.tld':
+    type: 'A'
+    content: '10.0.0.1'
+    ttl: '14400'
+```
+
 ### Forward Zones
 
 Setup a forward zone with a list of address from which you should resolve queries.  You can configure a forward zone with something like the following:
@@ -118,6 +147,15 @@ Setup a forward zone with a list of address from which you should resolve querie
         '8.8.4.4'
         ]
     }
+```
+
+Or, using hiera
+```yaml
+unbound::forward:
+  '.':
+    address:
+      - '8.8.8.8'
+      - '8.8.4.4'
 ```
 
 This means that your server will use the Google DNS servers for any

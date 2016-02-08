@@ -3,6 +3,9 @@
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
 class unbound (
+  $forward                      = {},
+  $stub                         = {},
+  $record                       = {},
   $access                       = $unbound::params::access,
   $anchor_fetch_command         = $unbound::params::anchor_fetch_command,
   $auto_trust_anchor_file       = $unbound::params::auto_trust_anchor_file,
@@ -160,4 +163,18 @@ class unbound (
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
   }
+
+  validate_hash($forward)
+  if $forward {
+    create_resources('unbound::forward', $forward)
+  }
+  validate_hash($stub)
+  if $stub {
+    create_resources('unbound::stub', $stub)
+  }
+  validate_hash($record)
+  if $record {
+    create_resources('unbound::record', $record)
+  }
+
 }
