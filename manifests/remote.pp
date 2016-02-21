@@ -12,9 +12,8 @@ class unbound::remote (
   $control_cert_file = "${$unbound::confdir}/unbound_control.pem",
   $group             = $unbound::group,
   $confdir           = $unbound::confdir,
+  $config_file       = $unbound::params::config_file,
 ) inherits unbound::params {
-
-  $config_file = $unbound::params::config_file
 
   concat::fragment { 'unbound-remote':
     order   => '10',

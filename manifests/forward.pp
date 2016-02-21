@@ -5,15 +5,14 @@
 define unbound::forward (
   $address,
   $zone          = $name,
-  $forward_first = 'no'
+  $forward_first = 'no',
+  $config_file   = $unbound::params::config_file,
 ) {
 
   # Validate yes/no
   $r_yesno = [ 'yes', 'no' ]
   validate_re($forward_first, $r_yesno)
 
-
-  $config_file = $unbound::params::config_file
   include ::unbound::params
 
   concat::fragment { "unbound-forward-${name}":

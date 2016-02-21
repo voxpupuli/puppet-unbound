@@ -4,8 +4,9 @@
 #
 define unbound::stub (
   $address,
-  $insecure = false,
-  $type     = 'transparent',
+  $insecure    = false,
+  $type        = 'transparent',
+  $config_file = $unbound::params::config_file,
 ) {
 
   if ! $address {
@@ -14,8 +15,6 @@ define unbound::stub (
 
   validate_unbound_addr($address)
 
-
-  $config_file = $unbound::params::config_file
   include ::unbound::params
 
   concat::fragment { "unbound-stub-${name}":

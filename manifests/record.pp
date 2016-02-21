@@ -4,14 +4,13 @@
 #
 define unbound::record (
   $content,
-  $ttl     = '14400',
-  $type    = 'A',
-  $reverse = false,
-  $entry   = $name
+  $ttl         = '14400',
+  $type        = 'A',
+  $reverse     = false,
+  $entry       = $name,
+  $config_file = $unbound::params::config_file,
 ) {
 
-
-  $config_file = $unbound::params::config_file
   include ::unbound::params
 
   $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
