@@ -9,11 +9,14 @@
 # === Parameters
 #
 # [*zone*]
-# String. Zone name
+#    (required) String. Zone name
 #
 # [*type*]
-# String. (deny,refuse,static,transparent,typetransparent,redirect,nodefault)
-
+#   (required) String. (deny,refuse,static,transparent,typetransparent,redirect,nodefault)
+#
+# [*config_file*]
+#   (optional) name of configuration file
+#
 define unbound::local_zone (
   $type,
   $zone = $name,
