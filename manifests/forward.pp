@@ -12,9 +12,9 @@ define unbound::forward (
   $r_yesno = [ 'yes', 'no' ]
   validate_re($forward_first, $r_yesno)
 
-  include unbound::params
 
   $config_file = $unbound::params::config_file
+  include ::unbound::params
 
   concat::fragment { "unbound-forward-${name}":
     order   => '20',

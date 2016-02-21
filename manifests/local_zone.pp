@@ -19,9 +19,9 @@ define unbound::local_zone (
   $zone = $name,
 ) {
 
-  include unbound::params
 
   $config_file = $unbound::params::config_file
+  include ::unbound::params
 
   concat::fragment { "unbound-localzone-${name}":
     order   => '06',
