@@ -39,6 +39,12 @@ describe 'unbound' do
     it { should contain_concat__fragment('unbound-header').with_content(
       /^  access-control: 10.21.30.0\/24 allow\n  access-control: 10.21.30.5\/32 reject\n  access-control: 127.0.0.1\/32 allow_snoop\n  access-control: 123.123.123.0\/20 allow/
     )}
+    context "with a different config file" do
+      before do
+        params.merge!({ :config_file => '/etc/unbound/unbound.conf.d/foobar.conf' })
+      end
+      it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
+    end
   end
   context "stub passed to class" do
     let (:facts) {{
@@ -53,6 +59,12 @@ describe 'unbound' do
     it { should contain_concat__fragment('unbound-stub-example-stub.com').with_content(
       /^stub-zone:\n  name: "example-stub.com"\n  stub-addr: 10.0.0.1\n  stub-addr: 10.0.0.2/
     )}
+    context "with a different config file" do
+      before do
+        params.merge!({ :config_file => '/etc/unbound/unbound.conf.d/foobar.conf' })
+      end
+      it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
+    end
   end
   context "forward passed to class" do
     let (:facts) {{
@@ -67,6 +79,12 @@ describe 'unbound' do
     it { should contain_concat__fragment('unbound-forward-example-forward.com').with_content(
       /^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes/
     )}
+    context "with a different config file" do
+      before do
+        params.merge!({ :config_file => '/etc/unbound/unbound.conf.d/foobar.conf' })
+      end
+      it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
+    end
   end
   context "record passed to class" do
     let (:facts) {{
@@ -81,5 +99,11 @@ describe 'unbound' do
     it { should contain_concat__fragment('unbound-stub-a.example-record.com-local-record').with_content(
         /^  local-data: \"a.example-record.com 14400 IN A 10.0.0.110.0.0.2\"\n  local-data-ptr: \"10.0.0.110.0.0.2 a.example-record.com\"\n/
     )}
+    context "with a different config file" do
+      before do
+        params.merge!({ :config_file => '/etc/unbound/unbound.conf.d/foobar.conf' })
+      end
+      it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
+    end
   end
 end
