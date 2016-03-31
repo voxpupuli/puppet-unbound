@@ -73,15 +73,14 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "10",
-        "9.3",
-        "8.4"
+        "10.1",
+        "10.2"
       ]
     },
     {
       "operatingsystem": "OpenBSD",
       "operatingsystemrelease": [
-        "5.5"
+        "5.8"
       ]
     },
     {
