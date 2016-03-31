@@ -97,7 +97,7 @@ describe 'unbound' do
     it { should contain_class('concat::setup') }
     it { should contain_concat('/etc/unbound/unbound.conf') }
     it { should contain_concat__fragment('unbound-stub-a.example-record.com-local-record').with_content(
-        /^  local-data: \"a.example-record.com 14400 IN A 10.0.0.110.0.0.2\"\n  local-data-ptr: \"10.0.0.110.0.0.2 a.example-record.com\"\n/
+        /^  local-data: \"a.example-record.com 14400 IN A 10.0.0.1 10.0.0.2\"\n  local-data-ptr: \"10.0.0.1 10.0.0.2 a.example-record.com\"\n/
     )}
     context "with a different config file" do
       before do
