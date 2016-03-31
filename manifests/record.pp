@@ -31,10 +31,16 @@ define unbound::record (
   $config_file = $unbound::params::config_file,
 ) {
 
+  if is_array($content) {
+    $_content = join($content, ' ')
+  } else {
+    $_content = $content
+  }
+
   include ::unbound::params
 
-  $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
-  $local_data_ptr = "  local-data-ptr: \"${content} ${entry}\"\n"
+  $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${_content}\"\n"
+  $local_data_ptr = "  local-data-ptr: \"${_content} ${entry}\"\n"
 
   $config = $reverse? {
     true    => "${local_data}${local_data_ptr}",
