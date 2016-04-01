@@ -98,7 +98,7 @@
     },
     {
       "name": "puppet",
-      "version_requirement": ">= 3.6 < 5.0.0"
+      "version_requirement": ">= 3.6.0 < 5.0.0"
     }
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",
