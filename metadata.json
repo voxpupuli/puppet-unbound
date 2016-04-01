@@ -73,15 +73,14 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "10",
-        "9.3",
-        "8.4"
+        "10.1",
+        "10.2"
       ]
     },
     {
       "operatingsystem": "OpenBSD",
       "operatingsystemrelease": [
-        "5.5"
+        "5.8"
       ]
     },
     {
@@ -99,7 +98,7 @@
     },
     {
       "name": "puppet",
-      "version_requirement": "3.6"
+      "version_requirement": ">= 3.6 < 5.0.0"
     }
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",

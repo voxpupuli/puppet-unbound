@@ -31,6 +31,8 @@ define unbound::record (
   $config_file = $unbound::params::config_file,
 ) {
 
+  validate_string($content)
+
   include ::unbound::params
 
   $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
