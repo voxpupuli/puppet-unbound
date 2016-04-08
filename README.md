@@ -191,7 +191,9 @@ The Unbound remote controls the use of the unbound-control utility to
 issue commands to the Unbound daemon process.
 
 ```puppet
-    include unbound::remote
+    class { "unbound::remote":
+      enable => true,
+    }
 ```
 
 On some platforms this is needed to function correctly for things like service
