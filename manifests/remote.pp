@@ -5,7 +5,7 @@
 # === Parameters:
 #
 # [*enable*]
-#   (optional) The option is used to enable remote control, default is "yes".
+#   (optional) The option is used to enable remote control, default is false.
 #   If turned off, the server does not listen for  control.
 #
 # [*interface*]
