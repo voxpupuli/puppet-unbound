@@ -111,7 +111,7 @@ class unbound::params {
   $do_ip4                     = true
   $do_ip6                     = true
   $edns_buffer_size           = 1280
-  $extended_statistics        = no
+  $extended_statistics        = false
   $harden_below_nxdomain      = true
   $harden_dnssec_stripped     = true
   $harden_glue                = true
