@@ -106,4 +106,24 @@ describe 'unbound' do
       it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
     end
   end
+  context "custom extended_statistics passed to class" do
+    let (:facts) {{
+      :operatingsystem => 'Ubuntu',
+      :concat_basedir => '/dne'
+    }}
+    let (:params) {{
+      :extended_statistics => true,
+    }}
+    it { should contain_class('concat::setup') }
+    it { should contain_concat('/etc/unbound/unbound.conf') }
+    it { should contain_concat__fragment('unbound-header').with_content(
+        /^  extended-statistics: yes\n/
+    )}
+    context "with a different config file" do
+      before do
+        params.merge!({ :config_file => '/etc/unbound/unbound.conf.d/foobar.conf' })
+      end
+      it { should contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
+    end
+  end
 end
