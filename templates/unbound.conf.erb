@@ -23,15 +23,23 @@ server:
 <% end -%>
 <% if @harden_glue -%>
   harden-glue: yes
+<% else -%>
+  harden-glue: no
 <% end -%>
 <% if @harden_dnssec_stripped -%>
   harden-dnssec-stripped: yes
+<% else -%>
+  harden-dnssec-stripped: no
 <% end -%>
 <% if @harden_below_nxdomain -%>
   harden-below-nxdomain: yes
+<% else -%>
+  harden-below-nxdomain: no
 <% end -%>
 <% if @harden_referral_path -%>
   harden-referral-path: yes
+<% else -%>
+  harden-referral-path: no
 <% end -%>
 <% if @use_caps_for_id -%>
   use-caps-for-id: no
@@ -134,6 +142,8 @@ server:
 <% end -%>
 <% if @tcp_upstream -%>
   tcp-upstream: yes
+<% else -%>
+  tcp-upstream: no
 <% end -%>
   chroot: "<%= @chroot %>"
   username: "<%= @owner %>"
@@ -143,6 +153,8 @@ server:
 <% end -%>
 <% if @val_clean_additional -%>
   val-clean-additional: yes
+<% else -%>
+  val-clean-additional: no
 <% end -%>
 <% if @val_permissive_mode -%>
   # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
