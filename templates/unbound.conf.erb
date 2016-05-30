@@ -97,11 +97,11 @@ server:
   access-control: <%= acc %> allow
 <% end -%>
 <% end -%>
-<% elsif access != '' -%>
-<% if access.include? " " -%>
-  access-control: <%= access %>
+<% elsif @access != '' -%>
+<% if @access.include? " " -%>
+  access-control: <%= @access %>
 <% else -%>
-  access-control: <%= access %> allow
+  access-control: <%= @access %> allow
 <% end -%>
 <% end -%>
 <% if @infra_host_ttl -%>
