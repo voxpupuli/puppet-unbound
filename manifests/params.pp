@@ -156,6 +156,7 @@ class unbound::params {
   $val_permissive_mode        = false
   $verbosity                  = 1
   $cache_max_ttl              = undef
+  $cache_max_negative_ttl     = undef
   $custom_server_conf         = []
   $skip_roothints_download    = false
 }

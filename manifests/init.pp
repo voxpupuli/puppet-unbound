@@ -73,6 +73,7 @@ class unbound (
   $validate_cmd                 = $unbound::params::validate_cmd,
   $verbosity                    = $unbound::params::verbosity,
   $cache_max_ttl                = $unbound::params::cache_max_ttl,
+  $cache_max_negative_ttl       = $unbound::params::cache_max_negative_ttl,
   $custom_server_conf           = $unbound::params::custom_server_conf,
   $skip_roothints_download      = $unbound::params::skip_roothints_download,
 ) inherits unbound::params {
