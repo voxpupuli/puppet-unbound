@@ -75,4 +75,3 @@ describe 'PuppetX::Unbound::ValidateAddrs' do
     end
   end
 end
-

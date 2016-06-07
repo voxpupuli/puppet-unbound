@@ -111,7 +111,7 @@ class unbound (
   } else {
     Exec['download-roothints'] -> File[$hints_file]
   }
-  
+
   file { [
     $confdir,
     $conf_d,
@@ -126,7 +126,7 @@ class unbound (
     path    => ['/usr/bin','/usr/local/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],
   }
-  
+
   if $confdir == $runtime_dir {
     File[$confdir] {
       owner => $owner,
