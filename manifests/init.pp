@@ -151,7 +151,6 @@ class unbound (
   file { $hints_file:
     ensure  => file,
     mode    => '0444',
-    require => Exec['download-roothints'],
   }
 
   concat { $config_file:
