@@ -173,6 +173,12 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% if @cache_max_ttl -%>
+  cache-max-ttl: <%= @cache_max_ttl %>
+<% end -%>
+<% if @cache_max_negative_ttl -%>
+  cache-max-negative-ttl: <%= @cache_max_negative_ttl %>
+<% end -%>
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
 <% end -%>
