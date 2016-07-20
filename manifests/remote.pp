@@ -49,17 +49,19 @@
 #   (optional) Name of the unbound config file
 #
 class unbound::remote (
-  $enable            = $unbound::control_enable,
-  $interface         = ['::1', '127.0.0.1'],
-  $port              = 8953,
-  $server_key_file   = "${unbound::confdir}/unbound_server.key",
-  $server_cert_file  = "${unbound::confdir}/unbound_server.pem",
-  $control_key_file  = "${$unbound::confdir}/unbound_control.key",
-  $control_cert_file = "${$unbound::confdir}/unbound_control.pem",
-  $group             = $unbound::group,
-  $confdir           = $unbound::confdir,
-  $config_file       = $unbound::params::config_file,
-) inherits unbound::params {
+  Boolean $enable                     = $unbound::control_enable,
+  Array $interface                    = ['::1', '127.0.0.1'],
+  Integer $port                       = 8953,
+  Boolean $control_use_cert           = true,
+  Optional[String] $server_key_file   = "${unbound::confdir}/unbound_server.key",
+  Optional[String] $server_cert_file  = "${unbound::confdir}/unbound_server.pem",
+  Optional[String] $control_key_file  = "${$unbound::confdir}/unbound_control.key",
+  Optional[String] $control_cert_file = "${$unbound::confdir}/unbound_control.pem",
+  $group                              = $unbound::group,
+  $confdir                            = $unbound::confdir,
+  $config_file                        = $unbound::config_file,
+  $control_setup_path                 = $unbound::control_setup_path,
+) {
 
   concat::fragment { 'unbound-remote':
     order   => '10',
@@ -67,13 +69,17 @@ class unbound::remote (
     content => template('unbound/remote.erb'),
   }
 
-  exec { 'unbound-control-setup':
-    command => "${unbound::params::control_setup_path} -d ${confdir}",
-    creates => $server_key_file,
-  } ->
-  file { [ $server_key_file, $server_cert_file, $control_key_file, $control_cert_file ]:
-    owner => 'root',
-    group => $group,
-    mode  => '0640',
+  unless $control_setup_path.empty {
+    exec { 'unbound-control-setup':
+      command => "${control_setup_path} -d ${confdir}",
+      creates => $server_key_file,
+    }
+
+    file { [ $server_key_file, $server_cert_file, $control_key_file, $control_cert_file ]:
+      owner   => 'root',
+      group   => $group,
+      mode    => '0640',
+      require => Exec['unbound-control-setup'],
+    }
   }
 }

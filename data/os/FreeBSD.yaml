@@ -1,0 +1,14 @@
+---
+unbound::confdir: '/usr/local/etc/unbound'
+unbound::package_name: 'unbound'
+unbound::service_name: 'unbound'
+unbound::pidfile: '/usr/local/etc/unbound/unbound.pid'
+unbound::logdir: '/var/log/unbound'
+unbound::owner: 'unbound'
+unbound::group: 'unbound'
+unbound::fetch_client: 'fetch -o'
+
+unbound::control_enable: true
+unbound::control_setup_path: '/usr/local/sbin/unbound-control-setup'
+unbound::control_path: '/usr/local/sbin/unbound-control'
+unbound::validate_cmd: '/usr/local/sbin/unbound-checkconf %'

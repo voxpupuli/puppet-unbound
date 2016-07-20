@@ -1,0 +1,11 @@
+---
+unbound::confdir: '/etc/unbound'
+unbound::logdir: '/var/log'
+unbound::service_name: 'unbound'
+unbound::package_name: 'unbound'
+unbound::runtime_dir: '/var/lib/unbound'
+unbound::owner: 'unbound'
+unbound::group: 'unbound'
+unbound::pidfile: '/var/run/unbound/unbound.pid'
+unbound::fetch_client: 'wget -O'
+

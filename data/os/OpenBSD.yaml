@@ -1,0 +1,9 @@
+---
+unbound::confdir: '/var/unbound/etc'
+unbound::logdir: '/var/log/unbound'
+unbound::service_name: 'unbound'
+unbound::owner: '_unbound'
+unbound::group: '_unbound'
+unbound::fetch_client: 'ftp -o'
+unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
+unbound::package_name: ''

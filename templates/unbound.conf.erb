@@ -9,7 +9,9 @@ server:
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
+<% if @statistics_interval -%>
   statistics-interval: <%= @statistics_interval %>
+<% end -%>
   root-hints: <%= @hints_file %>
 <% if @statistics_cumulative -%>
   statistics-cumulative: yes
@@ -145,7 +147,9 @@ server:
 <% else -%>
   tcp-upstream: no
 <% end -%>
+<% if @chroot -%>
   chroot: "<%= @chroot %>"
+<% end -%>
   username: "<%= @owner %>"
   directory: "<%= @confdir %>"
 <% if @pidfile -%>

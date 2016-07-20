@@ -12,15 +12,18 @@ remote-control:
   control-interface: <%= @interface %>
 <% end -%>
   control-port: <%= @port %>
-<% if @server_key_file -%>
+
+<% if @control_use_cert -%>
+<%   if @server_key_file -%>
   server-key-file: <%= @server_key_file %>
-<% end -%>
-<% if @server_cert_file -%>
+<%   end -%>
+<%   if @server_cert_file -%>
   server-cert-file: <%= @server_cert_file %>
-<% end -%>
-<% if @control_key_file -%>
+<%   end -%>
+<%   if @control_key_file -%>
   control-key-file: <%= @control_key_file %>
-<% end -%>
-<% if @control_cert_file -%>
+<%   end -%>
+<%   if @control_cert_file -%>
   control-cert-file: <%= @control_cert_file %>
+<%   end -%>
 <% end -%>

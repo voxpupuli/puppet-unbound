@@ -73,14 +73,15 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "10.1",
-        "10.2"
+        "11",
+        "10"
       ]
     },
     {
       "operatingsystem": "OpenBSD",
       "operatingsystemrelease": [
-        "5.8"
+        "6.0",
+        "5.9"
       ]
     },
     {
@@ -93,17 +94,14 @@
   ],
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": ">= 3.2.0 < 3.4.0"
-    },
-    {
       "name": "puppet",
-      "version_requirement": ">= 3.6.0 < 5.0.0"
+      "version_requirement": ">= 4.2.0 < 5.0.0"
     }
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",
   "dependencies": [
     {"name":"puppetlabs/concat","version_requirement":">=1.2.1"},
     {"name":"puppetlabs/stdlib","version_requirement":">=4.4.0"}
-  ]
+  ],
+  "data_provider": "hiera"
 }

@@ -1,0 +1,79 @@
+---
+
+unbound::confdir: '/etc/unbound'
+unbound::service_name: 'unbound'
+unbound::package_name: 'unbound'
+unbound::package_provider: ~
+unbound::runtime_dir: "%{hiera('unbound::confdir')}"
+unbound::owner: 'unbound'
+unbound::pidfile: ~
+unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
+
+unbound::access:
+  - '::1'
+  - '127.0.0.1/8'
+unbound::auto_trust_anchor_file: "%{hiera('unbound::runtime_dir')}/root.key"
+unbound::anchor_fetch_command: "unbound-anchor -a %{hiera('unbound::auto_trust_anchor_file')}"
+unbound::chroot: ~
+unbound::conf_d: "%{hiera('unbound::confdir')}/conf.d"
+unbound::config_file: "%{hiera('unbound::confdir')}/unbound.conf"
+unbound::control_enable: false
+unbound::control_setup_path: '/usr/sbin/unbound-control-setup'
+unbound::control_path: '/usr/sbin/unbound-control'
+unbound::directory: "%{hiera('unbound::confdir')}"
+unbound::dlv_anchor_file: ~
+unbound::do_ip4: true
+unbound::do_ip6: true
+unbound::edns_buffer_size: 1280
+unbound::extended_statistics: false
+unbound::fetch_client: 'wget -O'
+unbound::group: 'unbound'
+unbound::harden_below_nxdomain: true
+unbound::harden_dnssec_stripped: true
+unbound::harden_glue: true
+unbound::harden_referral_path: true
+unbound::hide_identity: true
+unbound::hide_version: true
+unbound::hints_file: "%{hiera('unbound::confdir')}/root.hints"
+unbound::infra_cache_slabs: ~
+unbound::infra_host_ttl: ~
+unbound::interface: ['::0','0.0.0.0']
+unbound::interface_automatic: false
+unbound::key_cache_size: ~
+unbound::key_cache_slabs: ~
+unbound::keys_d: "%{hiera('unbound::confdir')}/keys.d"
+unbound::log_time_ascii: true
+unbound::logdir: '/var/log'
+unbound::module_config: ~
+unbound::msg_cache_size: ~
+unbound::msg_cache_slabs: ~
+unbound::num_queries_per_thread: ~
+unbound::num_threads: 1
+unbound::outgoing_interface: ~
+unbound::outgoing_port_avoid: '0-32767'
+unbound::outgoing_port_permit: '32768-65535'
+unbound::outgoing_range: ~
+unbound::port: 53
+unbound::prefetch: false
+unbound::prefetch_key: false
+unbound::private_domain: ~
+unbound::root_hints_url: 'https://www.internic.net/domain/named.root'
+unbound::rrset_cache_size: ~
+unbound::rrset_cache_slabs: ~
+unbound::so_rcvbuf: ~
+unbound::so_sndbuf: ~
+unbound::statistics_cumulative: false
+unbound::statistics_interval: ~
+unbound::tcp_upstream: false
+unbound::trusted_keys_file: "%{hiera('unbound::keys_d')}/*.key"
+unbound::unwanted_reply_threshold: 10000000
+unbound::use_caps_for_id: false
+unbound::val_clean_additional: true
+unbound::val_log_level: 1
+unbound::val_permissive_mode: false
+unbound::verbosity: 1
+unbound::cache_max_ttl: ~
+unbound::cache_max_negative_ttl: ~
+unbound::custom_server_conf: []
+unbound::skip_roothints_download: false
+
