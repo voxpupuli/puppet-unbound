@@ -107,9 +107,9 @@ For overriding DNS record in zone.
 
 ```puppet
 unbound::record { 'test.example.tld':
-    type => 'A',
+    type    => 'A',
     content => '10.0.0.1',
-    ttl => '14400',
+    ttl     => '14400',
 }
 ```
 
@@ -163,8 +163,8 @@ The access option allows to pass the action for each subnets, if the action is n
 
 ```puppet
 class { "unbound":
-  interface => ["::0","0.0.0.0"],
-  access    => ["10.0.0.0/20","::1"],
+  interface          => ["::0","0.0.0.0"],
+  access             => ["10.0.0.0/20","::1"],
   custom_server_conf => [ 'include: "/etc/unbound/conf.d/*.conf"' ],
 }
 ```
