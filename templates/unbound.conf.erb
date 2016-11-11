@@ -2,8 +2,10 @@
 #
 server:
   verbosity: <%= @verbosity %>
+<% if !@disable_dnssec -%>
   trusted-keys-file: <%= @trusted_keys_file %>
   auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
+<% end -%>
   do-not-query-localhost: no
   use-syslog: yes
 <% if @extended_statistics -%>
@@ -160,7 +162,7 @@ server:
 <% else -%>
   val-clean-additional: no
 <% end -%>
-<% if @val_permissive_mode -%>
+<% if @val_permissive_mode && !@disable_dnssec -%>
   # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
   val-permissive-mode: yes
 <% end -%>

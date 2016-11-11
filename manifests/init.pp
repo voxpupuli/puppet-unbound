@@ -7,6 +7,7 @@ class unbound (
   Hash $stub                         = {},
   Hash $record                       = {},
   Array $access,
+  Boolean $disable_dnssec,
   String $anchor_fetch_command,
   String $auto_trust_anchor_file,
   Optional[String] $chroot,
@@ -143,14 +144,16 @@ class unbound (
     }
   }
 
-  exec { 'download-anchor-file':
-    command => $anchor_fetch_command,
-    creates => $auto_trust_anchor_file,
-    user    => $owner,
-    path    => ['/usr/sbin','/usr/local/sbin'],
-    returns => 1,
-    before  => [ Concat::Fragment['unbound-header'] ],
-    require => File[$runtime_dir],
+  if ! $disable_dnssec {
+    exec { 'download-anchor-file':
+      command => $anchor_fetch_command,
+      creates => $auto_trust_anchor_file,
+      user    => $owner,
+      path    => ['/usr/sbin','/usr/local/sbin'],
+      returns => 1,
+      before  => [ Concat::Fragment['unbound-header'] ],
+      require => File[$runtime_dir],
+    }
   }
 
   file { $hints_file:

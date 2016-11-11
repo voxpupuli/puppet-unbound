@@ -12,6 +12,7 @@ unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 unbound::access:
   - '::1'
   - '127.0.0.1/8'
+unbound::disable_dnssec: false
 unbound::auto_trust_anchor_file: "%{hiera('unbound::runtime_dir')}/root.key"
 unbound::anchor_fetch_command: "unbound-anchor -a %{hiera('unbound::auto_trust_anchor_file')}"
 unbound::chroot: ~
