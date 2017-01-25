@@ -139,6 +139,18 @@ describe 'unbound' do
         it { should contain_exec('unbound-control-setup').with_command('/no/bin/unbound-control-setup -d /var/nowhere/unbound') }
       end
 
+
+      context "custom interface selection" do
+        let (:params) {{
+          :interface => ['::1', '127.0.0.1'],
+        }}
+
+        it { should contain_class('concat::setup') }
+        it { should contain_concat__fragment('unbound-header').with_content(
+          /^  interface: ::1\n  interface: 127.0.0.1\n/
+        )}
+      end
+
     end
   end
 
