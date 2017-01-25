@@ -161,6 +161,7 @@ class unbound (
   concat { $config_file:
     validate_cmd => $validate_cmd,
     notify       => Service[$service_name],
+    require      => Exec['download-anchor-file'],
   }
 
   concat::fragment { 'unbound-header':
