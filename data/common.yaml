@@ -9,6 +9,10 @@ unbound::owner: 'unbound'
 unbound::pidfile: ~
 unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 
+unbound::forward: {}
+unbound::stub: {}
+unbound::record: {}
+
 unbound::access:
   - '::1'
   - '127.0.0.1/8'

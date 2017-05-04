@@ -14,42 +14,37 @@ module PuppetX
         @address_list = Array(address_list).flatten
         @ip_list = []
         @name_list = []
-        validate()
+        validate
       end
 
       def validate
-        @address_list.each {|a|
-          if a =~ /@.*@/
-            raise Puppet::ParseError, "Too many @ signs in #{a}"
-          elsif a =~ /@/
+        @address_list.each do |a|
+          raise Puppet::ParseError, "Too many @ signs in #{a}" if a =~ %r{@.*@}
+          if a =~ %r{@}
             addr, port = a.split('@')
             begin
               Integer(port)
             rescue
               raise Puppet::ParseError, "Specifed port is not numeric in #{port}"
             end
-            if is_ip?(addr)
+            if ip?(addr)
               @ip_list << a
             else
               @name_list << a
             end
+          elsif ip?(a)
+            @ip_list << a
           else
-            if is_ip?(a)
-              @ip_list << a
-            else
-              @name_list << a
-            end
+            @name_list << a
           end
-        }
+        end
       end
 
-      def is_ip?(address)
-        begin
-          IPAddr.new address
-          return true
-        rescue
-          return false
-        end
+      def ip?(address)
+        IPAddr.new address
+        return true
+      rescue
+        return false
       end
     end
   end
