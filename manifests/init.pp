@@ -3,9 +3,9 @@
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
 class unbound (
-  Hash $forward                      = {},
-  Hash $stub                         = {},
-  Hash $record                       = {},
+  Hash $forward,
+  Hash $stub,
+  Hash $record,
   Array $access,
   String $anchor_fetch_command,
   String $auto_trust_anchor_file,
@@ -108,7 +108,7 @@ class unbound (
       require   => Class['unbound::remote'],
     }
     Package<| title == $package_name |> -> Class['unbound::remote']
-    include unbound::remote
+    include ::unbound::remote
   }
 
   if $skip_roothints_download {
@@ -120,12 +120,12 @@ class unbound (
   file { [
     $confdir,
     $conf_d,
-    $keys_d
+    $keys_d,
     ]:
     ensure  => directory,
-  } ->
+  }
 
-  exec { 'download-roothints':
+  -> exec { 'download-roothints':
     command => "${fetch_client} ${hints_file} ${root_hints_url}",
     creates => $hints_file,
     path    => ['/usr/bin','/usr/local/bin'],

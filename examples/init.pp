@@ -1,4 +1,4 @@
-class { 'unbound':
+class { '::unbound':
   interface => ['::0','0.0.0.0'],
   access    => ['fe80::/10','10.0.0.0/24', '127.0.0.1/32 allow_snoop'],
 }
@@ -23,10 +23,10 @@ unbound::stub { '10.0.10.in-addr.arpa.':
 }
 
 unbound::local_zone { '10.in-addr.arpa.':
-  type => 'nodefault'
+  type => 'nodefault',
 }
 
 unbound::forward { '10.in-addr.arpa.':
   address       => '10.0.0.10',
-  forward_first => 'yes'
+  forward_first => 'yes',
 }
