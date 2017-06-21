@@ -140,6 +140,7 @@ class unbound::params {
   $prefetch                   = false
   $prefetch_key               = false
   $private_domain             = undef
+  $python                     = undef
   $root_hints_url             = 'https://www.internic.net/domain/named.root'
   $rrset_cache_size           = undef
   $rrset_cache_slabs          = undef

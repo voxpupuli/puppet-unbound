@@ -54,6 +54,7 @@ class unbound (
   $prefetch                     = $unbound::params::prefetch,
   $prefetch_key                 = $unbound::params::prefetch_key,
   $private_domain               = $unbound::params::private_domain,
+  $python                       = $unbound::params::python,
   $root_hints_url               = $unbound::params::root_hints_url,
   $runtime_dir                  = $unbound::params::runtime_dir,
   $rrset_cache_size             = $unbound::params::rrset_cache_size,

@@ -182,3 +182,7 @@ server:
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
 <% end -%>
+<% if @python -%>
+python:
+  python-script: "<%= @python %>"
+<% end -%>
