@@ -6,6 +6,15 @@ server:
   auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
+
+
+<% if @do_not_query_address.is_a? Array -%>
+<%- @do_not_query_address.each do |int| -%>
+  do-not-query-address: <%= int %>
+<%- end -%>
+<% elsif @do_not_query_address != '' -%>
+  do-not-query-address: <%= @do_not_query_interface %>
+<% end -%>
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
@@ -106,6 +115,9 @@ server:
   access-control: <%= @access %> allow
 <% end -%>
 <% end -%>
+<% if @control_port -%>
+  control-port: <%= @control_port %>
+<% end -%>
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
@@ -176,6 +188,9 @@ server:
   hide-version: yes
 <% else -%>
   hide-version: no
+<% end -%>
+<% if @cache_min_ttl -%>
+  cache-min-ttl: <%= @cache_min_ttl %>
 <% end -%>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
