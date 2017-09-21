@@ -201,3 +201,6 @@ server:
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
 <% end -%>
+<% if @domain_insecure -%>
+  domain-insecure: <%= @domain_insecure %>
+<% end -%>

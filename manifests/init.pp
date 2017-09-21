@@ -14,6 +14,7 @@ class unbound (
   String $confdir,
   String $config_file,
   Array $control_interface,
+  String $domain_insecure,
   Array $do_not_query_address,
   Boolean $control_enable,
   String $control_setup_path,

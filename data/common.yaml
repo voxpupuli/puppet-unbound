@@ -88,4 +88,5 @@ unbound::cache_max_ttl: ~
 unbound::cache_max_negative_ttl: ~
 unbound::custom_server_conf: []
 unbound::skip_roothints_download: false
+unbound::domain_insecure: false
 
