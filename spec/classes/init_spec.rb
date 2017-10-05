@@ -39,7 +39,7 @@ describe 'unbound' do
         it { is_expected.not_to contain_package('unbound') }
         it { is_expected.to contain_service('unbound') }
         it { is_expected.to contain_concat('/var/unbound/etc/unbound.conf') }
-        it { is_expected.to contain_file('/var/unbound/etc') }
+        it { is_expected.to contain_file('/var/unbound/etc').with_owner('_unbound') }
         it { is_expected.to contain_file('/var/unbound/etc/conf.d') }
         it { is_expected.to contain_file('/var/unbound/etc/keys.d') }
         it { is_expected.to contain_file('/var/unbound/etc/root.hints') }
