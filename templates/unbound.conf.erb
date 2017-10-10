@@ -85,6 +85,9 @@ server:
 <%- @control_interface.each do |int| -%>
   control_interface: <%= int %>
 <%- end -%>
+<% elsif @control_interface != '' -%>
+  control-interface: <%= @control_interface %>
+<% end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>
