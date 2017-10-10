@@ -74,6 +74,7 @@ class unbound (
   $val_permissive_mode,
   $validate_cmd,
   $verbosity,
+  Optional[Integer] $cache_min_ttl,
   Optional[Integer] $cache_max_ttl,
   Optional[Integer] $cache_max_negative_ttl,
   $custom_server_conf,

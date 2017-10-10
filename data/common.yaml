@@ -76,6 +76,7 @@ unbound::val_clean_additional: true
 unbound::val_log_level: 1
 unbound::val_permissive_mode: false
 unbound::verbosity: 1
+unbound::cache_min_ttl: ~
 unbound::cache_max_ttl: ~
 unbound::cache_max_negative_ttl: ~
 unbound::custom_server_conf: []

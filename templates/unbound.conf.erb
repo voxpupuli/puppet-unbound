@@ -177,6 +177,9 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% if @cache_mimn_ttl -%>
+  cache-min-ttl: <%= @cache_min/ttl %>
+<%end -%>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
 <% end -%>
