@@ -20,6 +20,7 @@ class unbound (
   Optional[String] $dlv_anchor_file,
   Boolean $do_ip4,
   Boolean $do_ip6,
+  Boolean $do_not_query_address,
   Optional[Integer] $edns_buffer_size,
   Boolean $extended_statistics,
   String $fetch_client,
