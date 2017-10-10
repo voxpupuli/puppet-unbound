@@ -29,7 +29,7 @@ unbound::directory: "%{hiera('unbound::confdir')}"
 unbound::dlv_anchor_file: ~
 unbound::do_ip4: true
 unbound::do_ip6: true
-unbound::do_not_query_address
+unbound::do_not_query_address: ~
 unbound::edns_buffer_size: 1280
 unbound::extended_statistics: false
 unbound::fetch_client: 'wget -O'
