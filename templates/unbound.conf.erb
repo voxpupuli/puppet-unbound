@@ -67,6 +67,9 @@ server:
 <% if @private_domain -%>
   private-domain: "<%= @private_domain %>"
 <% end -%>
+<%if @domain_insecure -%>
+  domain-insecure: "<%= @domain_insecure %>"
+<% end -%>
   port: <%= @port %>
 <% if @interface.is_a? Array -%>
 <%- @interface.each do |int| -%>

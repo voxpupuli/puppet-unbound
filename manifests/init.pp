@@ -56,6 +56,7 @@ class unbound (
   $prefetch,
   $prefetch_key,
   $private_domain,
+  $domain_insecure,
   $root_hints_url,
   $runtime_dir,
   $rrset_cache_size,

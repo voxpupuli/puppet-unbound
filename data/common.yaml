@@ -61,6 +61,7 @@ unbound::port: 53
 unbound::prefetch: false
 unbound::prefetch_key: false
 unbound::private_domain: ~
+unbound::domain_insecure: ~
 unbound::root_hints_url: 'https://www.internic.net/domain/named.root'
 unbound::rrset_cache_size: ~
 unbound::rrset_cache_slabs: ~
