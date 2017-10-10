@@ -22,6 +22,7 @@ unbound::chroot: ~
 unbound::conf_d: "%{hiera('unbound::confdir')}/conf.d"
 unbound::config_file: "%{hiera('unbound::confdir')}/unbound.conf"
 unbound::control_enable: false
+unbound::control_interface: ['::1','127.0.0.1']
 unbound::control_setup_path: '/usr/sbin/unbound-control-setup'
 unbound::control_path: '/usr/sbin/unbound-control'
 unbound::directory: "%{hiera('unbound::confdir')}"

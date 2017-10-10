@@ -81,6 +81,10 @@ server:
 <% elsif @interface != '' -%>
   interface: <%= @interface %>
 <% end -%>
+<% if @control_interface.is_a? Array -%>
+<%- @control_interface.each do |int| -%>
+  control_interface: <%= int %>
+<%- end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
 <% end -%>

@@ -14,6 +14,7 @@ class unbound (
   String $confdir,
   String $config_file,
   Boolean $control_enable,
+  Array $control_interface,
   String $control_setup_path,
   String $control_path,
   String $directory,
