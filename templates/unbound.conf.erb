@@ -6,6 +6,14 @@ server:
   auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
   do-not-query-localhost: no
   use-syslog: yes
+
+<% if @do_not_query_address.is_a? Array -%>
+<%- @do_not_query_address.each do |int| -%>
+  do-not-query-address: <%= int %>
+<%- end -%>
+<% elsif @do_not_query_address != '' -%>
+  do-not-query-address: <%= @do_not_query_interface %>
+<% end -%>
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
@@ -67,6 +75,9 @@ server:
 <% if @private_domain -%>
   private-domain: "<%= @private_domain %>"
 <% end -%>
+<%if @domain_insecure -%>
+  domain-insecure: "<%= @domain_insecure %>"
+<% end -%>
   port: <%= @port %>
 <% if @interface.is_a? Array -%>
 <%- @interface.each do |int| -%>
@@ -74,6 +85,13 @@ server:
 <%- end -%>
 <% elsif @interface != '' -%>
   interface: <%= @interface %>
+<% end -%>
+<% if @control_interface.is_a? Array -%>
+<%- @control_interface.each do |int| -%>
+  control-interface: <%= int %>
+<%- end -%>
+<% elsif @control_interface != '' -%>
+  control-interface: <%= @control_interface %>
 <% end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
@@ -177,6 +195,9 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% if @cache_mimn_ttl -%>
+  cache-min-ttl: <%= @cache_min/ttl %>
+<%end -%>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
 <% end -%>
