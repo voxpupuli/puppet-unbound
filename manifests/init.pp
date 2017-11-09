@@ -78,6 +78,7 @@ class unbound (
   Optional[Integer] $cache_max_negative_ttl,
   $custom_server_conf,
   $skip_roothints_download,
+  Optional[String] $logfile = undef,
 ) {
 
   unless $package_name.empty {
