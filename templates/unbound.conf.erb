@@ -5,7 +5,12 @@ server:
   trusted-keys-file: <%= @trusted_keys_file %>
   auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
   do-not-query-localhost: no
+<% if @logfile -%>
+  logfile: <%= @logfile %>
+  use-syslog: no
+<% else -%>
   use-syslog: yes
+<% end -%>
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
