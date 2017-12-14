@@ -7,13 +7,7 @@ server:
   do-not-query-localhost: no
   use-syslog: yes
 
-<% if @do_not_query_address.is_a? Array -%>
-<%- @do_not_query_address.each do |int| -%>
-  do-not-query-address: <%= int %>
-<%- end -%>
-<% elsif @do_not_query_address != '' -%>
-  do-not-query-address: <%= @do_not_query_interface %>
-<% end -%>
+
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
