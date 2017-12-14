@@ -22,12 +22,14 @@ unbound::chroot: ~
 unbound::conf_d: "%{hiera('unbound::confdir')}/conf.d"
 unbound::config_file: "%{hiera('unbound::confdir')}/unbound.conf"
 unbound::control_enable: false
+unbound::control_interface: ['::1','127.0.0.1']
 unbound::control_setup_path: '/usr/sbin/unbound-control-setup'
 unbound::control_path: '/usr/sbin/unbound-control'
 unbound::directory: "%{hiera('unbound::confdir')}"
 unbound::dlv_anchor_file: ~
 unbound::do_ip4: true
 unbound::do_ip6: true
+unbound::do_not_query_address: ~
 unbound::edns_buffer_size: 1280
 unbound::extended_statistics: false
 unbound::fetch_client: 'wget -O'
@@ -61,6 +63,7 @@ unbound::port: 53
 unbound::prefetch: false
 unbound::prefetch_key: false
 unbound::private_domain: ~
+unbound::domain_insecure: false
 unbound::root_hints_url: 'https://www.internic.net/domain/named.root'
 unbound::rrset_cache_size: ~
 unbound::rrset_cache_slabs: ~
@@ -76,6 +79,7 @@ unbound::val_clean_additional: true
 unbound::val_log_level: 1
 unbound::val_permissive_mode: false
 unbound::verbosity: 1
+unbound::cache_min_ttl: ~
 unbound::cache_max_ttl: ~
 unbound::cache_max_negative_ttl: ~
 unbound::custom_server_conf: []

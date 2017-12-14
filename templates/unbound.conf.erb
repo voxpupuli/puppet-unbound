@@ -10,7 +10,6 @@ server:
   use-syslog: no
 <% else -%>
   use-syslog: yes
-<% end -%>
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
@@ -72,6 +71,9 @@ server:
 <% if @private_domain -%>
   private-domain: "<%= @private_domain %>"
 <% end -%>
+<%if @domain_insecure -%>
+  domain-insecure: "<%= @domain_insecure %>"
+<% end -%>
   port: <%= @port %>
 <% if @interface.is_a? Array -%>
 <%- @interface.each do |int| -%>
@@ -79,6 +81,13 @@ server:
 <%- end -%>
 <% elsif @interface != '' -%>
   interface: <%= @interface %>
+<% end -%>
+<% if @control_interface.is_a? Array -%>
+<%- @control_interface.each do |int| -%>
+  control-interface: <%= int %>
+<%- end -%>
+<% elsif @control_interface != '' -%>
+  control-interface: <%= @control_interface %>
 <% end -%>
 <% if @interface_automatic -%>
   interface-automatic: yes
@@ -182,6 +191,9 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% if @cache_mimn_ttl -%>
+  cache-min-ttl: <%= @cache_min/ttl %>
+<%end -%>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
 <% end -%>
