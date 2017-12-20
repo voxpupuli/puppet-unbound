@@ -16,6 +16,7 @@ unbound::record: {}
 unbound::access:
   - '::1'
   - '127.0.0.1/8'
+unbound::do_not_query_address: ~
 unbound::auto_trust_anchor_file: "%{hiera('unbound::runtime_dir')}/root.key"
 unbound::anchor_fetch_command: "unbound-anchor -a %{hiera('unbound::auto_trust_anchor_file')}"
 unbound::chroot: ~
@@ -76,8 +77,10 @@ unbound::val_clean_additional: true
 unbound::val_log_level: 1
 unbound::val_permissive_mode: false
 unbound::verbosity: 1
+unbound::cache_min_ttl: ~
 unbound::cache_max_ttl: ~
 unbound::cache_max_negative_ttl: ~
 unbound::custom_server_conf: []
 unbound::skip_roothints_download: false
+unbound::domain_insecure: ~
 

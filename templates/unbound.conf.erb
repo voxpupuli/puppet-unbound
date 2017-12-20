@@ -11,6 +11,13 @@ server:
 <% else -%>
   use-syslog: yes
 <% end -%>
+<% if @do_not_query_address -%>
+<%- @do_not_query_address.each do |int| -%>
+  do-not-query-address: <%= int %>
+<%- end -%>
+<% elsif @do_not_query_address != '' -%>
+  do-not-query-address: <%= @do_not_query_address%>
+<% end -%>
 <% if @extended_statistics -%>
   extended-statistics: yes
 <% end -%>
@@ -182,11 +189,17 @@ server:
 <% else -%>
   hide-version: no
 <% end -%>
+<% if @cache_min_ttl -%>
+  cache-min-ttl: <%= @cache_min_ttl %>
+<% end -%>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
 <% end -%>
 <% if @cache_max_negative_ttl -%>
   cache-max-negative-ttl: <%= @cache_max_negative_ttl %>
+<% end -%>
+<% if @domain_insecure -%>
+  domain-insecure: <%= @domain_insecure %>
 <% end -%>
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
