@@ -1,0 +1,206 @@
+# Managed by Puppet
+#
+server:
+  verbosity: <%= @verbosity %>
+  trusted-keys-file: <%= @trusted_keys_file %>
+  auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
+  do-not-query-localhost: no
+<% if @logfile -%>
+  logfile: <%= @logfile %>
+  use-syslog: no
+<% else -%>
+  use-syslog: yes
+<% if @do_not_query_address.is_a? Array -%>
+<%- @do_not_query_address.each do |int| -%>
+  do-not-query-address: <%= int %>
+<%- end -%>
+<% elsif @do_not_query_address != '' -%>
+  do-not-query-address: <%= @do_not_query_address%>
+<% end -%>
+<% end -%>
+<% if @extended_statistics -%>
+  extended-statistics: yes
+<% end -%>
+<% if @statistics_interval -%>
+  statistics-interval: <%= @statistics_interval %>
+<% end -%>
+  root-hints: <%= @hints_file %>
+<% if @statistics_cumulative -%>
+  statistics-cumulative: yes
+<% end -%>
+  num-threads: <%= @num_threads %>
+<% if @outgoing_port_permit -%>
+  outgoing-port-permit: <%= @outgoing_port_permit %>
+<% end -%>
+<% if @outgoing_port_avoid -%>
+  outgoing-port-avoid: <%= @outgoing_port_avoid %>
+<% end -%>
+<% if @harden_glue -%>
+  harden-glue: yes
+<% else -%>
+  harden-glue: no
+<% end -%>
+<% if @harden_dnssec_stripped -%>
+  harden-dnssec-stripped: yes
+<% else -%>
+  harden-dnssec-stripped: no
+<% end -%>
+<% if @harden_below_nxdomain -%>
+  harden-below-nxdomain: yes
+<% else -%>
+  harden-below-nxdomain: no
+<% end -%>
+<% if @harden_referral_path -%>
+  harden-referral-path: yes
+<% else -%>
+  harden-referral-path: no
+<% end -%>
+<% if @use_caps_for_id -%>
+  use-caps-for-id: no
+<% end -%>
+<% if @unwanted_reply_threshold -%>
+  unwanted-reply-threshold: <%= @unwanted_reply_threshold %>
+<% end -%>
+<% if @edns_buffer_size -%>
+  edns-buffer-size: <%= @edns_buffer_size %>
+<% end -%>
+<% if @prefetch -%>
+  prefetch: yes
+<% end -%>
+<% if @prefetch_key -%>
+  prefetch-key: yes
+<% end -%>
+<% if @module_config -%>
+  module-config: "<%= @module_config %>"
+<% end -%>
+<% if @dlv_anchor_file -%>
+  dlv-anchor-file: "<%= @dlv_anchor_file %>"
+<% end -%>
+<% if @private_domain -%>
+  private-domain: "<%= @private_domain %>"
+<% end -%>
+  port: <%= @port %>
+<% if @interface.is_a? Array -%>
+<%- @interface.each do |int| -%>
+  interface: <%= int %>
+<%- end -%>
+<% elsif @interface != '' -%>
+  interface: <%= @interface %>
+<% end -%>
+<% if @interface_automatic -%>
+  interface-automatic: yes
+<% end -%>
+<% unless @do_ip4 -%>
+  do-ip4: no
+<% end -%>
+<% unless @do_ip6 -%>
+  do-ip6: no
+<% end -%>
+<% if @outgoing_interface.is_a? Array -%>
+<% @outgoing_interface.each do |int| -%>
+  outgoing-interface: <%= int %>
+<% end -%>
+<% elsif @outgoing_interface -%>
+  outgoing-interface: <%= @outgoing_interface %>
+<% end -%>
+<% if @access.is_a? Array -%>
+<% @access.each do |acc| -%>
+<% if acc.include? " " -%>
+  access-control: <%= acc %>
+<% else -%>
+  access-control: <%= acc %> allow
+<% end -%>
+<% end -%>
+<% elsif @access != '' -%>
+<% if @access.include? " " -%>
+  access-control: <%= @access %>
+<% else -%>
+  access-control: <%= @access %> allow
+<% end -%>
+<% end -%>
+<% if @infra_host_ttl -%>
+  infra-host-ttl: <%= @infra_host_ttl %>
+<% end -%>
+<% if @msg_cache_slabs -%>
+  msg-cache-slabs: <%= @msg_cache_slabs %>
+<% end -%>
+<% if @rrset_cache_slabs -%>
+  rrset-cache-slabs: <%= @rrset_cache_slabs %>
+<% end -%>
+<% if @infra_cache_slabs -%>
+  infra-cache-slabs: <%= @infra_cache_slabs %>
+<% end -%>
+<% if @key_cache_slabs -%>
+  key-cache-slabs: <%= @key_cache_slabs %>
+<% end -%>
+<% if @rrset_cache_size -%>
+  rrset-cache-size: <%= @rrset_cache_size %>
+<% end -%>
+<% if @msg_cache_size -%>
+  msg-cache-size: <%= @msg_cache_size %>
+<% end -%>
+<% if @key_cache_size -%>
+  key-cache-size: <%= @key_cache_size %>
+<% end -%>
+<% if @num_queries_per_thread -%>
+  num-queries-per-thread: <%= @num_queries_per_thread %>
+<% end -%>
+<% if @outgoing_range -%>
+  outgoing-range: <%= @outgoing_range %>
+<% end -%>
+<% if @so_rcvbuf -%>
+  so-rcvbuf: <%= @so_rcvbuf %>
+<% end -%>
+<% if @so_sndbuf -%>
+  so-sndbuf: <%= @so_sndbuf %>
+<% end -%>
+<% if @tcp_upstream -%>
+  tcp-upstream: yes
+<% else -%>
+  tcp-upstream: no
+<% end -%>
+<% if @chroot -%>
+  chroot: "<%= @chroot %>"
+<% end -%>
+  username: "<%= @owner %>"
+  directory: "<%= @confdir %>"
+<% if @pidfile -%>
+  pidfile: "<%= @pidfile %>"
+<% end -%>
+<% if @val_clean_additional -%>
+  val-clean-additional: yes
+<% else -%>
+  val-clean-additional: no
+<% end -%>
+<% if @val_permissive_mode -%>
+  # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
+  val-permissive-mode: yes
+<% end -%>
+<% if @val_log_level -%>
+  val-log-level: <%= @val_log_level %>
+<% end -%>
+<% if @hide_identity -%>
+  hide-identity: yes
+<% else -%>
+  hide-identity: no
+<% end -%>
+<% if @hide_version -%>
+  hide-version: yes
+<% else -%>
+  hide-version: no
+<% end -%>
+<% if @cache_min_ttl -%>
+  cache-min-ttl: <%= @cache_min_ttl %>
+<% end -%>
+<% if @cache_max_ttl -%>
+  cache-max-ttl: <%= @cache_max_ttl %>
+<% end -%>
+<% if @cache_max_negative_ttl -%>
+  cache-max-negative-ttl: <%= @cache_max_negative_ttl %>
+<% end -%>
+<% if @domain_insecure -%>
+  domain-insecure: <%= @domain_insecure %>
+<% end -%>
+<% @custom_server_conf.each do |c| -%>
+  <%= c %>
+<% end -%>

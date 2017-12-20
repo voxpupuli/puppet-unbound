@@ -1,0 +1,107 @@
+{
+  "name": "zleslie-unbound",
+  "version": "2.0.0",
+  "author": "zleslie",
+  "summary": "Puppet Unbound management module",
+  "license": "Apache-2.0",
+  "source": "git://github.com/xaque208/puppet-unbound.git",
+  "project_page": "https://github.com/xaque208/puppet-unbound",
+  "issues_url": "https://github.com/xaque208/puppet-unbound/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    },
+    {
+      "operatingsystem": "Solaris",
+      "operatingsystemrelease": [
+        "10",
+        "11"
+      ]
+    },
+    {
+      "operatingsystem": "AIX",
+      "operatingsystemrelease": [
+        "5.3",
+        "6.1",
+        "7.1"
+      ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "11",
+        "10"
+      ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "6.0",
+        "5.9"
+      ]
+    },
+    {
+      "operatingsystem": "NetBSD",
+      "operatingsystemrelease": [
+        "6.1.4",
+        "5.2.2"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.2.0 < 5.0.0"
+    }
+  ],
+  "description": "A module to deploy and manage the Unbound caching resolver",
+  "dependencies": [
+    {"name":"puppetlabs/concat","version_requirement":">=1.2.1"},
+    {"name":"puppetlabs/stdlib","version_requirement":">=4.4.0"}
+  ],
+  "data_provider": "hiera"
+}
