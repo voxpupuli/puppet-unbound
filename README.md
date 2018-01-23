@@ -147,6 +147,53 @@ unbound::forward:
 This means that your server will use the Google DNS servers for any
 zones that it doesn't know how to reach and cache the result.
 
+### Domain Insecure
+
+Sets  domain  name  to  be  insecure,  DNSSEC  chain of trust is
+ignored towards the domain name.  So a trust  anchor  above  the
+domain  name  can  not  make the domain secure with a DS record,
+such a DS record is  then  ignored.   Also  keys  from  DLV  are
+ignored  for the domain.  Can be given multiple times to specify
+multiple domains that are treated as if unsigned.   If  you  set
+trust anchors for the domain they override this setting (and the
+domain is secured).
+
+
+```puppet
+class {'unbound:'
+  domain_insecure => ['example.com', example.org']
+}
+```
+
+Or, using hiera
+```yaml
+unbound::domain_insecure:
+- example.com
+- example.org
+```
+
+### Local Zones
+
+Configure a local zone. The type determines the answer  to  give
+if  there  is  no  match  from  local-data.  The types are deny,
+refuse, static, transparent, redirect, nodefault,  typetranspar-
+ent,  inform,  inform\_deny,  always\_transparent,  always\_refuse,
+always\_nxdomain.  See local-zone in the [unbound documentation](https://unbound.net/documentation/unbound.conf.html) 
+for more information.  You can configure a local-zone with something like the 
+following.
+
+```puppet
+class {'unbound:'
+  local_zone => { '10.0.10.in-addr.arpa.' => 'nodefault'}
+}
+```
+
+Or, using hiera
+```yaml
+unbound::local_zone:
+  10.0.10.in-addr.arpa.: nodefault
+  11.0.10.in-addr.arpa.: nodefault
+```
 
 ### Fine grain access-control
 

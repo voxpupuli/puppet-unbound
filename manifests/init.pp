@@ -6,6 +6,8 @@ class unbound (
   Hash $forward,
   Hash $stub,
   Hash $record,
+  Optional[Unbound::Local_zone] $local_zone,
+  Array[String] $domain_insecure,
   Array $access,
   String $anchor_fetch_command,
   String $auto_trust_anchor_file,

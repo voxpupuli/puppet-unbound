@@ -111,6 +111,14 @@ server:
   access-control: <%= @access %> allow
 <% end -%>
 <% end -%>
+<%- @domain_insecure.each do |zone| -%>
+  domain-insecure: "<%= zone %>"
+<%- end -%> 
+<%- if @local_zone -%>
+  <%- @local_zone.each_pair do |zone, type| -%>
+  local-zone: "<%= zone %>" <%= type %>
+  <%- end -%> 
+<%- end -%> 
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
