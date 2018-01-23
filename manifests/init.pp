@@ -6,6 +6,7 @@ class unbound (
   Hash $forward,
   Hash $stub,
   Hash $record,
+  Hash $local_zone,
   Array $access,
   String $anchor_fetch_command,
   String $auto_trust_anchor_file,
@@ -181,6 +182,10 @@ class unbound (
 
   if $record {
     create_resources('unbound::record', $record)
+  }
+
+  if $local_zone {
+    create_resources('unbound::local_zone', $local_zone)
   }
 
 }

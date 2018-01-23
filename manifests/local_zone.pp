@@ -18,9 +18,9 @@
 #   (optional) name of configuration file
 #
 define unbound::local_zone (
-  $type,
-  $zone = $name,
-  $config_file = $unbound::config_file,
+  Unbound::Local_zone_type $type,
+  String $zone = $name,
+  String $config_file = $unbound::config_file,
 ) {
 
   concat::fragment { "unbound-localzone-${name}":

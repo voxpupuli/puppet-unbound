@@ -148,6 +148,32 @@ This means that your server will use the Google DNS servers for any
 zones that it doesn't know how to reach and cache the result.
 
 
+### Local Zones
+
+Configure a local zone. The type determines the answer  to  give
+if  there  is  no  match  from  local-data.  The types are deny,
+refuse, static, transparent, redirect, nodefault,  typetranspar-
+ent,  inform,  inform\_deny,  always\_transparent,  always\_refuse,
+always\_nxdomain.  See local-zone in the [unbound documentation](https://unbound.net/documentation/unbound.conf.html) 
+for more information.  You can configure a local-zone with something like the 
+following.
+
+```puppet
+puppet::local_zone {'10.0.10.in-addr.arpa.':
+  type => 'nodefault'
+}
+```
+
+Or, using hiera
+```yaml
+unbound::local_zone:
+  10.0.10.in-addr.arpa.:
+    type: nodefault
+  11.0.10.in-addr.arpa.:
+    type: nodefault
+```
+
+
 ### Fine grain access-control
 
 ```puppet
