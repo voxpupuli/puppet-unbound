@@ -12,6 +12,7 @@ unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 unbound::forward: {}
 unbound::stub: {}
 unbound::record: {}
+unbound::local_zone: {}
 
 unbound::access:
   - '::1'

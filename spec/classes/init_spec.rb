@@ -103,6 +103,22 @@ describe 'unbound' do
         end
       end
 
+      context 'local_zone passed to class' do
+        let(:params) do
+          {
+            local_zone: { '0.0.10.in-addr.arpa.' => { 'type' => 'nodefault' } }
+          }
+        end
+        it { is_expected.to contain_class('concat::setup') }
+        it do
+          is_expected.to contain_concat__fragment(
+            'unbound-localzone-0.0.10.in-addr.arpa.'
+          ).with_content(
+            %r{^\s+local-zone: "0.0.10.in-addr.arpa." nodefault$}
+          )
+        end
+      end
+
       context 'custom extended_statistics passed to class' do
         let(:params) do
           {
