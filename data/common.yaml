@@ -12,7 +12,9 @@ unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 unbound::forward: {}
 unbound::stub: {}
 unbound::record: {}
+unbound::local_zone: ~
 
+unbound::domain_insecure: []
 unbound::access:
   - '::1'
   - '127.0.0.1/8'
