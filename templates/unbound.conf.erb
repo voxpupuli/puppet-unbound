@@ -1,5 +1,10 @@
 # Managed by Puppet
 #
+<%-
+  def bool2yesno (value)
+    return value ? 'yes' : 'no'
+  end
+-%>
 server:
   verbosity: <%= @verbosity %>
   trusted-keys-file: <%= @trusted_keys_file %>
@@ -11,16 +16,18 @@ server:
 <% else -%>
   use-syslog: yes
 <% end -%>
-<% if @extended_statistics -%>
-  extended-statistics: yes
+<% if @log_identity -%>
+  log-identity: <%= @log_identity %>
 <% end -%>
+  log-time-ascii: <%= bool2yesno(@log_time_ascii) %>
+  log-queries: <%= bool2yesno(@log_queries) %>
+  log-replies: <%= bool2yesno(@log_replies) %>
+  extended-statistics: <%= bool2yesno(@extended_statistics) %>
 <% if @statistics_interval -%>
   statistics-interval: <%= @statistics_interval %>
 <% end -%>
   root-hints: <%= @hints_file %>
-<% if @statistics_cumulative -%>
-  statistics-cumulative: yes
-<% end -%>
+  statistics-cumulative: <%= bool2yesno(@statistics_cumulative) %>
   num-threads: <%= @num_threads %>
 <% if @outgoing_port_permit -%>
   outgoing-port-permit: <%= @outgoing_port_permit %>
@@ -28,41 +35,19 @@ server:
 <% if @outgoing_port_avoid -%>
   outgoing-port-avoid: <%= @outgoing_port_avoid %>
 <% end -%>
-<% if @harden_glue -%>
-  harden-glue: yes
-<% else -%>
-  harden-glue: no
-<% end -%>
-<% if @harden_dnssec_stripped -%>
-  harden-dnssec-stripped: yes
-<% else -%>
-  harden-dnssec-stripped: no
-<% end -%>
-<% if @harden_below_nxdomain -%>
-  harden-below-nxdomain: yes
-<% else -%>
-  harden-below-nxdomain: no
-<% end -%>
-<% if @harden_referral_path -%>
-  harden-referral-path: yes
-<% else -%>
-  harden-referral-path: no
-<% end -%>
-<% if @use_caps_for_id -%>
-  use-caps-for-id: no
-<% end -%>
+  harden-glue: <%= bool2yesno(@harden_glue) %>
+  harden-dnssec-stripped: <%= bool2yesno(@harden_dnssec_stripped) %>
+  harden-below-nxdomain: <%= bool2yesno(@harden_below_nxdomain) %>
+  harden-referral-path: <%= bool2yesno(@harden_referral_path) %>
+  use-caps-for-id: <%= bool2yesno(@use_caps_for_id) %>
 <% if @unwanted_reply_threshold -%>
   unwanted-reply-threshold: <%= @unwanted_reply_threshold %>
 <% end -%>
 <% if @edns_buffer_size -%>
   edns-buffer-size: <%= @edns_buffer_size %>
 <% end -%>
-<% if @prefetch -%>
-  prefetch: yes
-<% end -%>
-<% if @prefetch_key -%>
-  prefetch-key: yes
-<% end -%>
+  prefetch: <%= bool2yesno(@prefetch) %>
+  prefetch-key: <%= bool2yesno(@prefetch_key) %>
 <% if @module_config -%>
   module-config: "<%= @module_config %>"
 <% end -%>
@@ -80,15 +65,9 @@ server:
 <% elsif @interface != '' -%>
   interface: <%= @interface %>
 <% end -%>
-<% if @interface_automatic -%>
-  interface-automatic: yes
-<% end -%>
-<% unless @do_ip4 -%>
-  do-ip4: no
-<% end -%>
-<% unless @do_ip6 -%>
-  do-ip6: no
-<% end -%>
+  interface-automatic: <%= bool2yesno(@interface_automatic) %>
+  do-ip4: <%= bool2yesno(@do_ip4) %>
+  do-ip6: <%= bool2yesno(@do_ip6) %>
 <% if @outgoing_interface.is_a? Array -%>
 <% @outgoing_interface.each do |int| -%>
   outgoing-interface: <%= int %>
@@ -155,11 +134,7 @@ server:
 <% if @so_sndbuf -%>
   so-sndbuf: <%= @so_sndbuf %>
 <% end -%>
-<% if @tcp_upstream -%>
-  tcp-upstream: yes
-<% else -%>
-  tcp-upstream: no
-<% end -%>
+  tcp-upstream: <%= bool2yesno(@tcp_upstream) %>
 <% if @chroot -%>
   chroot: "<%= @chroot %>"
 <% end -%>
@@ -168,28 +143,14 @@ server:
 <% if @pidfile -%>
   pidfile: "<%= @pidfile %>"
 <% end -%>
-<% if @val_clean_additional -%>
-  val-clean-additional: yes
-<% else -%>
-  val-clean-additional: no
-<% end -%>
-<% if @val_permissive_mode -%>
+  val-clean-additional: <%= bool2yesno(@val_clean_additional) %>
   # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
-  val-permissive-mode: yes
-<% end -%>
+  val-permissive-mode: <%= bool2yesno(@val_permissive_mode) %>
 <% if @val_log_level -%>
   val-log-level: <%= @val_log_level %>
 <% end -%>
-<% if @hide_identity -%>
-  hide-identity: yes
-<% else -%>
-  hide-identity: no
-<% end -%>
-<% if @hide_version -%>
-  hide-version: yes
-<% else -%>
-  hide-version: no
-<% end -%>
+  hide-identity: <%= bool2yesno(@hide_identity) %>
+  hide-version: <%= bool2yesno(@hide_version) %>
 <% if @cache_max_ttl -%>
   cache-max-ttl: <%= @cache_max_ttl %>
 <% end -%>

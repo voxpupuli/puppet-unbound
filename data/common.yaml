@@ -48,7 +48,10 @@ unbound::interface_automatic: false
 unbound::key_cache_size: ~
 unbound::key_cache_slabs: ~
 unbound::keys_d: "%{hiera('unbound::confdir')}/keys.d"
-unbound::log_time_ascii: true
+unbound::log_identity: ~
+unbound::log_time_ascii: false
+unbound::log_queries: false
+unbound::log_replies: false
 unbound::logdir: '/var/log'
 unbound::module_config: ~
 unbound::msg_cache_size: ~

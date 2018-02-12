@@ -147,6 +147,42 @@ describe 'unbound' do
         end
       end
 
+      context 'custom log_time_ascii passed to class' do
+        let(:params) { { log_identity: 'bind' } }
+        it do
+          is_expected.to contain_concat__fragment('unbound-header').with_content(
+            %r{^  log-identity: bind\n}
+          )
+        end
+      end
+
+      context 'custom log_time_ascii passed to class' do
+        let(:params) { { log_time_ascii: true } }
+        it do
+          is_expected.to contain_concat__fragment('unbound-header').with_content(
+            %r{^  log-time-ascii: yes\n}
+          )
+        end
+      end
+
+      context 'custom log_time_ascii passed to class' do
+        let(:params) { { log_queries: true } }
+        it do
+          is_expected.to contain_concat__fragment('unbound-header').with_content(
+            %r{^  log-queries: yes\n}
+          )
+        end
+      end
+
+      context 'custom log_time_ascii passed to class' do
+        let(:params) { { log_replies: true } }
+        it do
+          is_expected.to contain_concat__fragment('unbound-header').with_content(
+            %r{^  log-replies: yes\n}
+          )
+        end
+      end
+
       context 'platform control enablement' do
         let(:params) do
           {
