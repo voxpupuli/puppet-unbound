@@ -112,9 +112,9 @@ describe 'unbound' do
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
-            %r{^\s+domain-insecure: "0.0.10.in-addr.arpa."$}
+            %r{^\s+domain-insecure: 0.0.10.in-addr.arpa.$}
           ).with_content(
-            %r{^\s+domain-insecure: "example.com."$}
+            %r{^\s+domain-insecure: example.com.$}
           )
         end
       end
@@ -147,7 +147,8 @@ describe 'unbound' do
         end
       end
 
-      context 'custom log_time_ascii passed to class' do
+      context 'custom log_identity passed to class' do
+        let(:facts) { facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_identity: 'bind' } }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
@@ -174,7 +175,8 @@ describe 'unbound' do
         end
       end
 
-      context 'custom log_time_ascii passed to class' do
+      context 'custom log_replies passed to class' do
+        let(:facts) { facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_replies: true } }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(

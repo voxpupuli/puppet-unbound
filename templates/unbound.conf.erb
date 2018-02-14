@@ -1,162 +1,215 @@
 # Managed by Puppet
 #
 <%-
-  def bool2yesno (value)
-    return value ? 'yes' : 'no'
+  def unbound_version
+    version = @unbound_version ? @unbound_version : '0.a'
+    return version
+  end
+  def print_config(name, value, version=false )
+    if version and scope.call_function('versioncmp', [unbound_version, version]) < 0
+       return 
+    end
+    if value.is_a?(TrueClass)
+      return "  #{name}: yes\n"
+    elsif value.is_a?(FalseClass)
+      return "  #{name}: no\n"
+    elsif not value
+      return
+    elsif value.is_a?(Integer) or value.is_a?(String)
+      return "  #{name}: #{value}\n"
+    elsif value.is_a?(Array)
+      str = ''
+      value.each { |v| str << "  #{name}: #{v}\n" }
+      return str
+    end
   end
 -%>
 server:
-  verbosity: <%= @verbosity %>
-  trusted-keys-file: <%= @trusted_keys_file %>
-  auto-trust-anchor-file: <%= @auto_trust_anchor_file %>
-  do-not-query-localhost: no
+<%= print_config('verbosity', @verbosity) -%>
+<%= print_config('statistics-interval', @statistics_interval) -%>
+<%= print_config('statistics-cumulative', @statistics_cumulative) -%>
+<%= print_config('extended-statistics', @extended_statistics) -%>
+<%= print_config('num-threads', @num_threads) -%>
+<%= print_config('port', @port) -%>
+<%= print_config('interface', @interface) -%>
+<%= print_config('interface-automatic', @interface_automatic) -%>
+<%= print_config('outgoing-interface', @outgoing_interface, '1.5.10') -%>
+<%= print_config('outgoing-range', @outgoing_range) -%>
+<%- if @outgoing_port_permit_first -%>
+<%= print_config('outgoing-port-permit', @outgoing_port_permit) -%>
+<%= print_config('outgoing-port-avoid', @outgoing_port_avoid) -%>
+<%- else -%>
+<%= print_config('outgoing-port-permit', @outgoing_port_avoid) -%>
+<%= print_config('outgoing-port-avoid', @outgoing_port_permit) -%>
+<%- end -%>
+<%= print_config('outgoing-num-tcp', @outgoing_num_tcp) -%>
+<%= print_config('incoming-num-tcp', @incoming_num_tcp) -%>
+<%= print_config('edns-buffer-size', @edns_buffer_size) -%>
+<%= print_config('max-udp-size', @max_udp_size) -%>
+<%= print_config('msg-cache-slabs', @msg_cache_slabs) -%>
+<%= print_config('num-queries-per-thread', @num_queries_per_thread) -%>
+<%= print_config('jostle-timeout', @jostle_timeout) -%>
+<%= print_config('delay-close', @delay_close) -%>
+<%= print_config('so-rcvbuf', @so_rcvbuf) -%>
+<%= print_config('so-sndbuf', @so_sndbuf) -%>
+<%= print_config('so-reuseport', @so_reuseport, '1.4.22') -%>
+<%= print_config('ip-transparent', @ip_transparent, '1.5.4') -%>
+<%= print_config('ip-freebind', @ip_freebind, '1.5.9') -%>
+<%= print_config('rrset-cache-slabs', @rrset_cache_slabs) -%>
+<%= print_config('rrset-cache-size', @rrset_cache_size) -%>
+<%= print_config('cache-max-ttl', @cache_max_ttl) -%>
+<%= print_config('cache-max-negative-ttl', @cache_max_negative_ttl) -%>
+<%= print_config('cache-min-ttl', @cache_min_ttl) -%>
+<%= print_config('infra-host-ttl', @infra_host_ttl) -%>
+<%= print_config('infra-cache-numhosts', @infra_cache_numhosts) -%>
+<%= print_config('infra-cache-slabs', @infra_cache_slabs) -%>
+<%= print_config('infra-cache-min-rtt', @infra_cache_min_rtt) -%>
+<% if @define_tag and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+  define-tag: "<%= @define_tag.join(' ') %>"
+<%- end -%>
+<%= print_config('do-ip4', @do_ip4) -%>
+<%= print_config('do-ip6', @do_ip6) -%>
+<%= print_config('prefer-ip6', @prefer_ip6, '1.5.10') -%>
+<%= print_config('do-udp', @do_udp) -%>
+<%= print_config('do-tcp', @do_tcp) -%>
+<%= print_config('tcp-mss', @tcp_mss, '1.5.8') -%>
+<%= print_config('outgoing-tcp-mss', @outgoing_tcp_mss, '1.5.8') -%>
+<%= print_config('tcp-upstream', @tcp_upstream) -%>
+<%= print_config('udp-upstream-without-downstream', @udp_upstream_without_downstream) -%>
+<%= print_config('ssl-upstream', @ssl_upstream) -%>
+<%= print_config('ssl-service_key', @ssl_service_key) -%>
+<%= print_config('ssl-service_pem', @ssl_service_pem) -%>
+<%= print_config('ssl-port', @ssl_port) -%>
+<%= print_config('use-systemd', @use_systemd, '1.6.1') -%>
+<%= print_config('do-daemonize', @do_daemonize) -%>
+<% @access.each do |acc| -%>
+  <%- if acc.include? " " -%>
+  access-control: <%= acc %>
+  <%- else -%>
+  access-control: <%= acc %> allow
+  <%- end -%>
+<%- end -%>
+<%- if @access_control and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+  <%- @access_control.each_pair do |prefix, config| -%>
+    <%- if config.includes?('tags') -%>
+      <%- unless config.include?('action') or config.include?('rr_string') -%>
+  access-control-tag: <%= prefix %> "<%= tags.join(' ') %>"
+      <%- else -%>
+        <%- config['tags'].each do |tag| -%>
+          <%- if config.include?('action') -%>
+  access-control-tag-action: <%= prefix %> <%= tag %> <%= config['action'] %>
+          <%- end -%>
+          <%- if config.include?('rr_string') -%>
+  access-control-tag-action: <%= prefix %> <%= tag %> <%= config['rr_string'] %>
+          <%- end -%>
+        <%- end -%>
+      <%- end -%>
+    <%- end -%>
+    <%- if config.includes?('view') -%>
+  access-control-view: <%= prefix %> <% config['view'] %>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+<%= print_config('chroot', @chroot) -%>
+<%= print_config('username', @username) -%>
+<%= print_config('directory', @directory) -%>
 <% if @logfile -%>
   logfile: <%= @logfile %>
   use-syslog: no
 <% else -%>
   use-syslog: yes
 <% end -%>
-<% if @log_identity -%>
-  log-identity: <%= @log_identity %>
-<% end -%>
-  log-time-ascii: <%= bool2yesno(@log_time_ascii) %>
-  log-queries: <%= bool2yesno(@log_queries) %>
-  log-replies: <%= bool2yesno(@log_replies) %>
-  extended-statistics: <%= bool2yesno(@extended_statistics) %>
-<% if @statistics_interval -%>
-  statistics-interval: <%= @statistics_interval %>
-<% end -%>
-  root-hints: <%= @hints_file %>
-  statistics-cumulative: <%= bool2yesno(@statistics_cumulative) %>
-  num-threads: <%= @num_threads %>
-<% if @outgoing_port_permit -%>
-  outgoing-port-permit: <%= @outgoing_port_permit %>
-<% end -%>
-<% if @outgoing_port_avoid -%>
-  outgoing-port-avoid: <%= @outgoing_port_avoid %>
-<% end -%>
-  harden-glue: <%= bool2yesno(@harden_glue) %>
-  harden-dnssec-stripped: <%= bool2yesno(@harden_dnssec_stripped) %>
-  harden-below-nxdomain: <%= bool2yesno(@harden_below_nxdomain) %>
-  harden-referral-path: <%= bool2yesno(@harden_referral_path) %>
-  use-caps-for-id: <%= bool2yesno(@use_caps_for_id) %>
-<% if @unwanted_reply_threshold -%>
-  unwanted-reply-threshold: <%= @unwanted_reply_threshold %>
-<% end -%>
-<% if @edns_buffer_size -%>
-  edns-buffer-size: <%= @edns_buffer_size %>
-<% end -%>
-  prefetch: <%= bool2yesno(@prefetch) %>
-  prefetch-key: <%= bool2yesno(@prefetch_key) %>
-<% if @module_config -%>
-  module-config: "<%= @module_config %>"
-<% end -%>
-<% if @dlv_anchor_file -%>
-  dlv-anchor-file: "<%= @dlv_anchor_file %>"
-<% end -%>
-<% if @private_domain -%>
-  private-domain: "<%= @private_domain %>"
-<% end -%>
-  port: <%= @port %>
-<% if @interface.is_a? Array -%>
-<%- @interface.each do |int| -%>
-  interface: <%= int %>
-<%- end -%>
-<% elsif @interface != '' -%>
-  interface: <%= @interface %>
-<% end -%>
-  interface-automatic: <%= bool2yesno(@interface_automatic) %>
-  do-ip4: <%= bool2yesno(@do_ip4) %>
-  do-ip6: <%= bool2yesno(@do_ip6) %>
-<% if @outgoing_interface.is_a? Array -%>
-<% @outgoing_interface.each do |int| -%>
-  outgoing-interface: <%= int %>
-<% end -%>
-<% elsif @outgoing_interface -%>
-  outgoing-interface: <%= @outgoing_interface %>
-<% end -%>
-<% if @access.is_a? Array -%>
-<% @access.each do |acc| -%>
-<% if acc.include? " " -%>
-  access-control: <%= acc %>
-<% else -%>
-  access-control: <%= acc %> allow
-<% end -%>
-<% end -%>
-<% elsif @access != '' -%>
-<% if @access.include? " " -%>
-  access-control: <%= @access %>
-<% else -%>
-  access-control: <%= @access %> allow
-<% end -%>
-<% end -%>
-<%- @domain_insecure.each do |zone| -%>
-  domain-insecure: "<%= zone %>"
-<%- end -%> 
+<%= print_config('log-identity', @log_identity, '1.6.0') -%>
+<%= print_config('log-time-ascii', @log_time_ascii) -%>
+<%= print_config('log-queries', @log_queries) -%>
+<%= print_config('log-replies', @log_replies, '1.6.1') -%>
+<%= print_config('hide-identity', @hide_identity) -%>
+<%= print_config('pidfile', @pidfile) -%>
+<%= print_config('root-hints', @hints_file) -%>
+<%= print_config('identity', @identity) -%>
+<%= print_config('hide-version', @hide_version) -%>
+<%= print_config('version', @version) -%>
+<%= print_config('hide-trustanchor', @hide_trustanchor, '1.6.2') -%>
+<%= print_config('target-fetch-policy', @target_fetch_policy) -%>
+<%= print_config('harden-short-bufsize', @harden_short_bufsize) -%>
+<%= print_config('harden-large-queries', @harden_large_queries) -%>
+<%= print_config('harden-glue', @harden_glue) -%>
+<%= print_config('harden-dnssec-stripped', @harden_dnssec_stripped) -%>
+<%= print_config('harden-below-nxdomain', @harden_below_nxdomain) -%>
+<%= print_config('harden-referral-path', @harden_referral_path) -%>
+<%= print_config('harden-algo-downgrade', @harden_algo_downgrade, '1.5.3') -%>
+<%= print_config('use-caps-for-id', @use_caps_for_id) -%>
+<%= print_config('caps-whitlist', @caps_whitlist) -%>
+<%= print_config('qname-minimisation', @qname_minimisation, '1.5.7') -%>
+<%= print_config('qname-minimisation-strict', @qname_minimisation_strict, '1.6.0') -%>
+<%= print_config('private-address', @private_address) -%>
+<%= print_config('private-domain', @private_domain) -%>
+<%= print_config('unwanted-reply-threshold', @unwanted_reply_threshold) -%>
+<%= print_config('do-not-query-address', @do_not_query_address) -%>
+<%= print_config('do-not-query-localhost', @do_not_query_localhost) -%>
+<%= print_config('prefetch', @prefetch) -%>
+<%= print_config('prefetch-key', @prefetch_key) -%>
+<%= print_config('rrset-roundrobin', @rrset_roundrobin) -%>
+<%= print_config('minimal-responses', @minimal_responses) -%>
+<%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
+<%= print_config('trust-anchor-file', @trust_anchor_file) -%>
+<%= print_config('trust-anchor', @trust_anchor) -%>
+<%= print_config('trusted-keys-file', @trusted_keys_file) -%>
+<%= print_config('trust-anchor-signaling', @trust_anchor_signaling, '1.6.4') -%>
+<%= print_config('domain-insecure', @domain_insecure) -%>
+<%= print_config('val-sig-skew-min', @val_sig_skew_min) -%>
+<%= print_config('val-sig-skew-max', @val_sig_skew_max) -%>
+<%= print_config('val-bogus-ttl', @val_bogus_ttl) -%>
+<%= print_config('val-clean-additional', @val_clean_additional) -%>
+<%= print_config('val-log-level', @val_log_level) -%>
+<%= print_config('val-permissive-mode', @val_permissive_mode) -%>
+<%= print_config('ignore-cd-flag', @ignore_cd_flag) -%>
+<%= print_config('serve-expired', @serve_expired, '1.6.0') -%>
+<%= print_config('val-nsec3-keysize-iterations', @val_nsec3_keysize_iterations) -%>
+<%= print_config('add-holddown', @add_holddown) -%>
+<%= print_config('del-holddown', @del_holddown) -%>
+<%= print_config('keep-missing', @keep_missing) -%>
+<%= print_config('permit-small-holddown', @permit_small_holddown, '1.5.5') -%>
+<%= print_config('key-cache-size', @key_cache_size) -%>
+<%= print_config('key-cache-slabs', @key_cache_slabs) -%>
+<%= print_config('neg-cache-slabs', @neg_cache_size) -%>
+<%= print_config('unblock-lan-zones', @unblock_lan_zones) -%>
+<%= print_config('insecure-lan-zones', @insecure_lan_zones, '1.5.8') -%>
 <%- if @local_zone -%>
   <%- @local_zone.each_pair do |zone, type| -%>
   local-zone: "<%= zone %>" <%= type %>
   <%- end -%> 
 <%- end -%> 
-<% if @infra_host_ttl -%>
-  infra-host-ttl: <%= @infra_host_ttl %>
-<% end -%>
-<% if @msg_cache_slabs -%>
-  msg-cache-slabs: <%= @msg_cache_slabs %>
-<% end -%>
-<% if @rrset_cache_slabs -%>
-  rrset-cache-slabs: <%= @rrset_cache_slabs %>
-<% end -%>
-<% if @infra_cache_slabs -%>
-  infra-cache-slabs: <%= @infra_cache_slabs %>
-<% end -%>
-<% if @key_cache_slabs -%>
-  key-cache-slabs: <%= @key_cache_slabs %>
-<% end -%>
-<% if @rrset_cache_size -%>
-  rrset-cache-size: <%= @rrset_cache_size %>
-<% end -%>
-<% if @msg_cache_size -%>
-  msg-cache-size: <%= @msg_cache_size %>
-<% end -%>
-<% if @key_cache_size -%>
-  key-cache-size: <%= @key_cache_size %>
-<% end -%>
-<% if @num_queries_per_thread -%>
-  num-queries-per-thread: <%= @num_queries_per_thread %>
-<% end -%>
-<% if @outgoing_range -%>
-  outgoing-range: <%= @outgoing_range %>
-<% end -%>
-<% if @so_rcvbuf -%>
-  so-rcvbuf: <%= @so_rcvbuf %>
-<% end -%>
-<% if @so_sndbuf -%>
-  so-sndbuf: <%= @so_sndbuf %>
-<% end -%>
-  tcp-upstream: <%= bool2yesno(@tcp_upstream) %>
-<% if @chroot -%>
-  chroot: "<%= @chroot %>"
-<% end -%>
-  username: "<%= @owner %>"
-  directory: "<%= @confdir %>"
-<% if @pidfile -%>
-  pidfile: "<%= @pidfile %>"
-<% end -%>
-  val-clean-additional: <%= bool2yesno(@val_clean_additional) %>
-  # NOTE: TURNING THIS ON DISABLES ALL DNSSEC SECURITY
-  val-permissive-mode: <%= bool2yesno(@val_permissive_mode) %>
-<% if @val_log_level -%>
-  val-log-level: <%= @val_log_level %>
-<% end -%>
-  hide-identity: <%= bool2yesno(@hide_identity) %>
-  hide-version: <%= bool2yesno(@hide_version) %>
-<% if @cache_max_ttl -%>
-  cache-max-ttl: <%= @cache_max_ttl %>
-<% end -%>
-<% if @cache_max_negative_ttl -%>
-  cache-max-negative-ttl: <%= @cache_max_negative_ttl %>
-<% end -%>
+<%= print_config('local-data', @local_data) -%>
+<%= print_config('local-data-ptr', @local_data_ptr) -%>
+<%- if @local_zone_tag and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+	<%- @local_zone_tag.each_pair do |zone, tags| -%>
+  local-zone-tag: <%= zone %> "<%= tags.join(' ') %>
+  <%- end -%>
+<%- end -%>
+<%- if @local_zone_override and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+	<%- @local_zone_override.each_pair do |zone, config| -%>
+  local-zone-tag: <%= zone %> <%= config['netblock'] %> <%= config['type'] %>
+  <%- end -%>
+<%- end -%>
+<%= print_config('ratelimit', @ratelimit) -%>
+<%= print_config('ratelimit-size', @ratelimit_size) -%>
+<%= print_config('ratelimit-slabs', @ratelimit_slabs) -%>
+<%= print_config('ratelimit-factor', @ratelimit_factor) -%>
+<%- if @ratelimit_for_domain -%>
+  <%- @ratelimit_for_domain.each_pair do |domain, qps| %>
+  ratelimit-for-domain: <%= domain %> <%= qps %>
+  <%- end -%>
+<%- end -%>
+<%- if @ratelimit_below_domain -%>
+  <%- @ratelimit_below_domain.each_pair do |domain, qps| %>
+  ratelimit-below-domain: <%= domain %> <%= qps %>
+  <%- end -%>
+<%- end -%>
+<%= print_config('ip-ratelimit', @ip_ratelimit, '1.6.1') -%>
+<%= print_config('ip-ratelimit-size', @ip_ratelimit_size, '1.6.1') -%>
+<%= print_config('ip-ratelimit-slabs', @ip_ratelimit_slabs, '1.6.1') -%>
+<%= print_config('ip-ratelimit-factor', @ip_ratelimit_factor, '1.6.1') -%>
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
 <% end -%>
