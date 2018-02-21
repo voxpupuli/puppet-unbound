@@ -66,6 +66,7 @@ server:
   interface: <%= @interface %>
 <% end -%>
   interface-automatic: <%= bool2yesno(@interface_automatic) %>
+  ip-freebind: <%= bool2yesno(@ip_freebind) %>
   do-ip4: <%= bool2yesno(@do_ip4) %>
   do-ip6: <%= bool2yesno(@do_ip6) %>
 <% if @outgoing_interface.is_a? Array -%>
@@ -92,12 +93,12 @@ server:
 <% end -%>
 <%- @domain_insecure.each do |zone| -%>
   domain-insecure: "<%= zone %>"
-<%- end -%> 
+<%- end -%>
 <%- if @local_zone -%>
   <%- @local_zone.each_pair do |zone, type| -%>
   local-zone: "<%= zone %>" <%= type %>
-  <%- end -%> 
-<%- end -%> 
+  <%- end -%>
+<%- end -%>
 <% if @infra_host_ttl -%>
   infra-host-ttl: <%= @infra_host_ttl %>
 <% end -%>
