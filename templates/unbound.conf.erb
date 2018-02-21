@@ -21,7 +21,7 @@ server:
 <% end -%>
   log-time-ascii: <%= bool2yesno(@log_time_ascii) %>
   log-queries: <%= bool2yesno(@log_queries) %>
-  log-replies: <%= bool2yesno(@log_replies) %>
+  #log-replies: <%= bool2yesno(@log_replies) %>
   extended-statistics: <%= bool2yesno(@extended_statistics) %>
 <% if @statistics_interval -%>
   statistics-interval: <%= @statistics_interval %>
