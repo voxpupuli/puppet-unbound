@@ -45,7 +45,6 @@ unbound::infra_cache_slabs: ~
 unbound::infra_host_ttl: ~
 unbound::interface: ['::0','0.0.0.0']
 unbound::interface_automatic: false
-unbound::ip_freebind: false
 unbound::key_cache_size: ~
 unbound::key_cache_slabs: ~
 unbound::keys_d: "%{hiera('unbound::confdir')}/keys.d"

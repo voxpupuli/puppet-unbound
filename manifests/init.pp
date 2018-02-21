@@ -37,7 +37,6 @@ class unbound (
   Optional[Integer] $infra_host_ttl,
   Array $interface,
   Boolean $interface_automatic,
-  Boolean $ip_freebind,
   $key_cache_size,
   Optional[Integer] $key_cache_slabs,
   String $keys_d,

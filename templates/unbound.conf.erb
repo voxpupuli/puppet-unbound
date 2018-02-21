@@ -66,7 +66,6 @@ server:
   interface: <%= @interface %>
 <% end -%>
   interface-automatic: <%= bool2yesno(@interface_automatic) %>
-  ip-freebind: <%= bool2yesno(@ip_freebind) %>
   do-ip4: <%= bool2yesno(@do_ip4) %>
   do-ip6: <%= bool2yesno(@do_ip6) %>
 <% if @outgoing_interface.is_a? Array -%>
