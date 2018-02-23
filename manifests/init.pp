@@ -56,7 +56,7 @@ class unbound (
   Boolean                                              $use_systemd,                  # version 1.6.1
   Boolean                                              $do_daemonize,
   Optional[Hash[String, Unbound::Access_control]]      $access_control,               # version 1.5.10
-  Optional[Stdlib::Absolutepath]                       $chroot,
+  Optional[Variant[Enum[''],Stdlib::Absolutepath]]     $chroot,
   Optional[String]                                     $username,
   Stdlib::Absolutepath                                 $directory,
   Optional[Stdlib::Absolutepath]                       $logfile,
@@ -172,6 +172,11 @@ class unbound (
     Package[$package_name] -> Exec['download-roothints']
     Package[$package_name] -> File[$hints_file]
   }
+  $dirs = unique([$confdir, $conf_d, $keys_d, $runtime_dir, dirname($pidfile)])
+  ensure_resource('file', $dirs, {ensure => directory})
+  File[unique([$runtime_dir, dirname($pidfile)])] {
+    owner => $owner,
+  }
 
   service { $service_name:
     ensure    => running,
@@ -195,30 +200,12 @@ class unbound (
     Exec['download-roothints'] -> File[$hints_file]
   }
 
-  file { [
-    $confdir,
-    $conf_d,
-    $keys_d,
-    ]:
-    ensure  => directory,
-  }
-
-  -> exec { 'download-roothints':
+  exec { 'download-roothints':
     command => "${fetch_client} ${hints_file} ${root_hints_url}",
     creates => $hints_file,
     path    => ['/usr/bin','/usr/local/bin'],
     before  => [ Concat::Fragment['unbound-header'] ],
-  }
-
-  if $confdir == $runtime_dir {
-    File[$confdir] {
-      owner => $owner,
-    }
-  } else {
-    file { $runtime_dir:
-      ensure => directory,
-      owner  => $owner,
-    }
+    require => File[$dirs],
   }
 
   exec { 'download-anchor-file':

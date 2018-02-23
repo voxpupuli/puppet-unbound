@@ -152,7 +152,7 @@ describe 'unbound' do
         let(:params) { { log_identity: 'bind' } }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
-            %r{^  log-identity: bind\n}
+            %r{^  log-identity: "bind"\n}
           )
         end
       end

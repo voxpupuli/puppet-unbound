@@ -1,10 +1,5 @@
 ---
-unbound::confdir: '/etc/unbound'
-unbound::logdir: '/var/log'
-unbound::service_name: 'unbound'
-unbound::package_name: 'unbound'
+unbound::chroot: ''
 unbound::runtime_dir: '/var/lib/unbound'
-unbound::owner: 'unbound'
-unbound::group: 'unbound'
 unbound::fetch_client: 'curl -o'
 unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'

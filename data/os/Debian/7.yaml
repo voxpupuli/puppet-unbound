@@ -1,0 +1,2 @@
+---
+unbound::pidfile: '/var/run/unbound.pid'

@@ -15,7 +15,9 @@
       return "  #{name}: no\n"
     elsif not value
       return
-    elsif value.is_a?(Integer) or value.is_a?(String)
+    elsif value.is_a?(String)
+      return "  #{name}: \"#{value}\"\n"
+    elsif value.is_a?(Integer)
       return "  #{name}: #{value}\n"
     elsif value.is_a?(Array)
       str = ''
@@ -75,7 +77,7 @@ server:
 <%= print_config('tcp-mss', @tcp_mss, '1.5.8') -%>
 <%= print_config('outgoing-tcp-mss', @outgoing_tcp_mss, '1.5.8') -%>
 <%= print_config('tcp-upstream', @tcp_upstream) -%>
-<%= print_config('udp-upstream-without-downstream', @udp_upstream_without_downstream) -%>
+<%= print_config('udp-upstream-without-downstream', @udp_upstream_without_downstream, '1.6.7') -%>
 <%= print_config('ssl-upstream', @ssl_upstream) -%>
 <%= print_config('ssl-service_key', @ssl_service_key) -%>
 <%= print_config('ssl-service_pem', @ssl_service_pem) -%>
@@ -153,6 +155,7 @@ server:
 <%= print_config('minimal-responses', @minimal_responses) -%>
 <%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
+<%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>
 <%= print_config('trusted-keys-file', @trusted_keys_file) -%>
 <%= print_config('trust-anchor-signaling', @trust_anchor_signaling, '1.6.4') -%>
@@ -173,7 +176,7 @@ server:
 <%= print_config('key-cache-size', @key_cache_size) -%>
 <%= print_config('key-cache-slabs', @key_cache_slabs) -%>
 <%= print_config('neg-cache-slabs', @neg_cache_size) -%>
-<%= print_config('unblock-lan-zones', @unblock_lan_zones) -%>
+<%= print_config('unblock-lan-zones', @unblock_lan_zones, '1.5.0') -%>
 <%= print_config('insecure-lan-zones', @insecure_lan_zones, '1.5.8') -%>
 <%- if @local_zone -%>
   <%- @local_zone.each_pair do |zone, type| -%>
