@@ -1,8 +1,14 @@
 ## Unreleased
 
+## 2018-02-25 2.1.0
+### Summary
+This release contains updates to testing, configuration template improvements,
+and additional options from the unbound.conf manpage.
+
 ## 2016-10-28 2.0.0
 ### Summary
-This release contains bugfixes, platform support change, and puppet version support changes.
+This release contains bugfixes, platform support change, and puppet version
+support changes.
 
 #### Features
  - Use native Puppet4 class input validation

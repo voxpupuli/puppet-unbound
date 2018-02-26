@@ -1,6 +1,6 @@
 {
   "name": "zleslie-unbound",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "zleslie",
   "summary": "Puppet Unbound management module",
   "license": "Apache-2.0",
@@ -100,8 +100,14 @@
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",
   "dependencies": [
-    {"name":"puppetlabs/concat","version_requirement":">=1.2.1"},
-    {"name":"puppetlabs/stdlib","version_requirement":">=4.13.0"}
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">=1.2.1"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.13.0"
+    }
   ],
   "data_provider": "hiera"
 }
