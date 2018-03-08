@@ -2,9 +2,6 @@
 unbound::confdir: '/opt/local/etc/unbound'
 unbound::logdir: '/opt/local/var/log/unbound'
 unbound::service_name: 'org.macports.unbound'
-unbound::package_name: 'unbound'
 unbound::package_provider: 'macports'
-unbound::owner: 'unbound'
-unbound::group: 'unbound'
 unbound::fetch_client: 'curl -o'
 
