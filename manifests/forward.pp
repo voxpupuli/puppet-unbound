@@ -23,15 +23,19 @@
 #   because the servers are unreachable, instead it is tried without this
 #   clause. The default is 'no'.
 #
+# [*forward_ssl_upstream*]
+#   (optional) If enabled, unbound will query the forward DNS server via TLS.
+#
 # [*config_file*]
 #   (optional) name of configuration file
 #
 define unbound::forward (
-  Array $address                   = [],
-  Array $host                      = [],
-  $zone                            = $name,
-  Pattern[/yes|no/] $forward_first = 'no',
-  $config_file                     = $unbound::config_file,
+  Array $address                          = [],
+  Array $host                             = [],
+  $zone                                   = $name,
+  Pattern[/yes|no/] $forward_first        = 'no',
+  Pattern[/yes|no/] $forward_ssl_upstream = 'no',
+  $config_file                            = $unbound::config_file,
 ) {
 
   concat::fragment { "unbound-forward-${name}":
