@@ -94,7 +94,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.2.0 < 5.0.0"
+      "version_requirement": ">= 4.9.0"
     }
   ],
   "description": "A module to deploy and manage the Unbound caching resolver",
@@ -107,6 +107,5 @@
       "name": "puppetlabs/stdlib",
       "version_requirement": ">=4.13.0"
     }
-  ],
-  "data_provider": "hiera"
+  ]
 }
