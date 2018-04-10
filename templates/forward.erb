@@ -9,3 +9,6 @@ forward-zone:
 <% if @forward_first != 'no' -%>
   forward-first: <%= @forward_first %>
 <% end -%>
+<% if @forward_ssl_upstream != 'no' -%>
+  forward-ssl-upstream: <%= @forward_ssl_upstream %>
+<% end -%>

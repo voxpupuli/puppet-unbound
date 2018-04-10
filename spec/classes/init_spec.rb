@@ -92,13 +92,13 @@ describe 'unbound' do
       context 'forward passed to class' do
         let(:params) do
           {
-            forward: { 'example-forward.com' => { 'address' => ['10.0.0.1', '10.0.0.2'], 'forward_first' => 'yes' } }
+            forward: { 'example-forward.com' => { 'address' => ['10.0.0.1', '10.0.0.2'], 'forward_first' => 'yes', 'forward_ssl_upstream' => 'yes' } }
           }
         end
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
-            %r{^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes}
+            %r{^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes\n  forward-ssl-upstream: yes}
           )
         end
       end
