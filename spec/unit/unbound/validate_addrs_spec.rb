@@ -3,6 +3,7 @@ require 'puppet_x/unbound/validate_addrs'
 
 describe 'PuppetX::Unbound::ValidateAddrs' do
   subject(:validate) { PuppetX::Unbound::ValidateAddrs }
+
   describe '#ip_list' do
     context 'a single address' do
       it 'does not raise an error' do
