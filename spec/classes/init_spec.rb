@@ -72,6 +72,7 @@ describe 'unbound' do
 
       context 'with a different config file' do
         let(:params) { { config_file: '/etc/unbound/unbound.conf.d/foobar.conf' } }
+
         it { is_expected.to contain_concat('/etc/unbound/unbound.conf.d/foobar.conf') }
       end
 
@@ -81,6 +82,7 @@ describe 'unbound' do
             stub: { 'example-stub.com' => { 'address' => ['10.0.0.1', '10.0.0.2'], 'insecure' => 'true' } }
           }
         end
+
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-stub-example-stub.com').with_content(
@@ -95,6 +97,7 @@ describe 'unbound' do
             forward: { 'example-forward.com' => { 'address' => ['10.0.0.1', '10.0.0.2'], 'forward_first' => 'yes', 'forward_ssl_upstream' => 'yes' } }
           }
         end
+
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
@@ -109,6 +112,7 @@ describe 'unbound' do
             domain_insecure: ['0.0.10.in-addr.arpa.', 'example.com.']
           }
         end
+
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
@@ -125,6 +129,7 @@ describe 'unbound' do
             local_zone: { '0.0.10.in-addr.arpa.' => 'nodefault' }
           }
         end
+
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
@@ -139,6 +144,7 @@ describe 'unbound' do
             extended_statistics: true
           }
         end
+
         it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
@@ -150,6 +156,7 @@ describe 'unbound' do
       context 'custom log_identity passed to class' do
         let(:facts) { facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_identity: 'bind' } }
+
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-identity: "bind"\n}
@@ -159,6 +166,7 @@ describe 'unbound' do
 
       context 'custom log_time_ascii passed to class' do
         let(:params) { { log_time_ascii: true } }
+
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-time-ascii: yes\n}
@@ -168,6 +176,7 @@ describe 'unbound' do
 
       context 'custom log_time_ascii passed to class' do
         let(:params) { { log_queries: true } }
+
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-queries: yes\n}
@@ -178,6 +187,7 @@ describe 'unbound' do
       context 'custom log_replies passed to class' do
         let(:facts) { facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_replies: true } }
+
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-replies: yes\n}
@@ -191,6 +201,7 @@ describe 'unbound' do
             control_enable: true
           }
         end
+
         it { is_expected.to contain_class('unbound::remote') }
         it { is_expected.to contain_class('concat::setup') }
         it do
@@ -217,6 +228,7 @@ describe 'unbound' do
             confdir: '/var/nowhere/unbound'
           }
         end
+
         it { is_expected.to contain_class('unbound::remote') }
         it { is_expected.to contain_class('concat::setup') }
         it do

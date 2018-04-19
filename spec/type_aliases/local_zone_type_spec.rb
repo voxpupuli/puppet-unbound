@@ -3,10 +3,10 @@ require 'spec_helper'
 if Puppet::Util::Package.versioncmp(Puppet.version, '4.5.0') >= 0
   describe 'Unbound::Local_zone_type' do
     describe 'valid modes' do
-      %w(
+      %w[
         deny refuse static transparent redirect nodefault typetransparent
         inform inform_deny always_transparent always_refuse always_nxdomain
-      ).each do |value|
+      ].each do |value|
         describe value.inspect do
           it { is_expected.to allow_value(value) }
         end

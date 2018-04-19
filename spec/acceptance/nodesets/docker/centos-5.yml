@@ -3,14 +3,15 @@
 # https://github.com/voxpupuli/modulesync
 # https://github.com/voxpupuli/modulesync_config
 HOSTS:
-  debian-7-x64:
-    platform: debian-7-amd64
+  centos-5-x64:
+    platform: el-5-x86_64
     hypervisor: docker
-    image: debian:7
+    image: centos:5
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
-      - 'apt-get update && apt-get install -y cron locales-all net-tools wget'
+      - 'yum install -y crontabs initscripts iproute openssl sysvinit-tools tar wget which'
+      - 'sed -i -e "/mingetty/d" /etc/inittab'
 CONFIG:
   trace_limit: 200
   masterless: true
