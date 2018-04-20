@@ -25,6 +25,31 @@ matrix:
   - rvm: 2.4.3
     bundler_args: --without system_tests development release
     env: PUPPET_VERSION="~> 5.0" CHECK=build
+  - rvm: 2.3
+    bundler_args: --without development
+    env: BEAKER_set=docker/ubuntu-14.04 CHECK=beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3
+    bundler_args: --without development
+    env: BEAKER_set=docker/ubuntu-16.04 CHECK=beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3
+    bundler_args: --without development
+    env: BEAKER_set=docker/centos-6 CHECK=beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3
+    bundler_args: --without development
+    env: BEAKER_set=docker/centos-7 CHECK=beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3
+    bundler_args: --without development
+    env: BEAKER_set=docker/debian-8 CHECK=beaker
+    services: docker
+    sudo: required
 branches:
   only:
   - master
