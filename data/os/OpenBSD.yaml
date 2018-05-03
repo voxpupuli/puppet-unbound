@@ -1,5 +1,6 @@
 ---
 unbound::confdir: '/var/unbound/etc'
+unbound::pidfile: '/var/run/unbound.pid'
 unbound::logdir: '/var/log/unbound'
 unbound::owner: '_unbound'
 unbound::group: '_unbound'
