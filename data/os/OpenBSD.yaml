@@ -7,3 +7,4 @@ unbound::group: '_unbound'
 unbound::fetch_client: 'ftp -o'
 unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 unbound::package_name: ''
+unbound::restart_cmd: "/usr/sbin/rcctl restart %{hiera('unbound::service_name')}"

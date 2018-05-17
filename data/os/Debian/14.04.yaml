@@ -1,0 +1,1 @@
+unbound::restart_cmd: "/usr/bin/service %{hiera('unbound::service_name')} restart"
