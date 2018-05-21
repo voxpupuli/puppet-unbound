@@ -1,1 +1,1 @@
-type Unbound::Size = Pattern[/d+([kmg])?/]
+type Unbound::Size = Pattern[/\d+([kmg])?/]
