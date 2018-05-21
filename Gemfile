@@ -63,6 +63,11 @@ group :release do
   gem 'puppet-strings', '~> 1.0',    :require => false
 end
 
+group :testextra do
+  gem 'rspec-mocks',         :require => false
+  gem 'rspec-expectations',  :require => false
+end
+
 
 
 if facterversion = ENV['FACTER_GEM_VERSION']
