@@ -153,6 +153,7 @@ class unbound (
   String                                               $root_hints_url,
   Stdlib::Absolutepath                                 $runtime_dir,
   String                                               $service_name,
+  Boolean                                              $service_hasstatus,
   String                                               $validate_cmd,
   Array[String]                                        $custom_server_conf,
   Boolean                                              $skip_roothints_download,
@@ -182,7 +183,7 @@ class unbound (
     ensure    => running,
     name      => $service_name,
     enable    => true,
-    hasstatus => false,
+    hasstatus => $service_hasstatus,
   }
 
   if $control_enable {
