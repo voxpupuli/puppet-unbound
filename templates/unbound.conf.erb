@@ -145,7 +145,6 @@ server:
 <%= print_config('caps-whitlist', @caps_whitlist) -%>
 <%= print_config('qname-minimisation', @qname_minimisation, '1.5.7') -%>
 <%= print_config('qname-minimisation-strict', @qname_minimisation_strict, '1.6.0') -%>
-<%= print_config('module-config', @module_config) -%>
 <%= print_config('private-address', @private_address) -%>
 <%= print_config('private-domain', @private_domain) -%>
 <%= print_config('unwanted-reply-threshold', @unwanted_reply_threshold) -%>
@@ -156,6 +155,9 @@ server:
 <%= print_config('rrset-roundrobin', @rrset_roundrobin) -%>
 <%= print_config('minimal-responses', @minimal_responses) -%>
 <%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
+<%- if @module_config %>
+  module-config: "<%= @module_config.join(' ') %>
+<%- end -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>

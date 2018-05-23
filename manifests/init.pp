@@ -146,7 +146,7 @@ class unbound (
   String                                               $fetch_client,
   String                                               $group,
   String                                               $keys_d,
-  Optional[String]                                     $module_config,
+  Optional[Array[Unbound::Module]]                     $module_config,
   String                                               $owner,
   String                                               $package_name,
   Optional[String]                                     $package_provider,
@@ -158,6 +158,25 @@ class unbound (
   String                                               $restart_cmd,
   Array[String]                                        $custom_server_conf,
   Boolean                                              $skip_roothints_download,
+  Optional[Stdlib::Absolutepath]                       $python_script,
+  Optional[String]                                     $dns64_prefix,
+  Boolean                                              $dns64_synthall,
+  Optional[Array[String]]                              $send_client_subnet,
+  Optional[Array[String]]                              $client_subnet_zone,
+  Boolean                                              $client_subnet_always_forward,
+  Integer[0,128]                                       $max_client_subnet_ipv6,
+  Integer[0,32]                                        $max_client_subnet_ipv4,
+  Boolean                                              $ipsecmod_enabled,
+  Optional[Stdlib::Absolutepath]                       $ipsecmod_hook,
+  Boolean                                              $ipsecmod_strict,
+  Integer[1]                                           $ipsecmod_max_ttl,
+  Boolean                                              $ipsecmod_ignore_bogus,
+  Optional[Array[String]]                              $ipsecmod_whitelist,
+  Optional[String]                                     $backend,
+  String                                               $secret_seed,
+  String                                               $redis_server_host,
+  Integer[1,65536]                                     $redis_server_port,
+  Integer[1]                                           $redis_timeout,
 ) {
 
   unless $package_name.empty {
@@ -252,6 +271,11 @@ class unbound (
     order   => '00',
     target  => $config_file,
     content => template('unbound/unbound.conf.erb'),
+  }
+  concat::fragment { 'unbound-modules':
+    order   => '09',
+    target  => $config_file,
+    content => template('unbound/unbound.modules.conf.erb'),
   }
 
   if $forward {

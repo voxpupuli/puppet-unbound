@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe 'unbound' do
+  let(:params) { {} }
+
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       case facts[:os]['family']
@@ -71,8 +73,619 @@ describe 'unbound' do
             %r{num-queries-per-thread}
           )
         end
+        it do
+          is_expected.to contain_concat__fragment(
+            'unbound-modules'
+          ).without_content(
+            %r{python:}
+          ).without_content(
+            %r{cachedb:}
+          ).without_content(
+            %r{ipsecmod:}
+          ).without_content(
+            %r{dns64:}
+          ).without_content(
+            %r{subnetcache:}
+          )
+        end
       end
+      context 'module config' do
+        context 'dns64' do
+          before { params.merge!(module_config: %w[dns64]) }
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{dns64-prefix: "64:ff9b::/96"}
+            ).with_content(
+              %r{dns64-synthall: no}
+            )
+          end
+        end
+        context 'dns64 dns64-prefix' do
+          before do
+            params.merge!(
+              module_config: %w[dns64],
+              dns64_prefix: '42:ff9b::/96'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{dns64-prefix: "42:ff9b::/96"}
+            ).with_content(
+              %r{dns64-synthall: no}
+            )
+          end
+        end
+        context 'dns64 dns64-synthall' do
+          before do
+            params.merge!(
+              module_config: %w[dns64],
+              dns64_synthall: true
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{dns64-prefix: "64:ff9b::/96"}
+            ).with_content(
+              %r{dns64-synthall: yes}
+            )
+          end
+        end
+        context 'subnetcache not supported' do
+          before { params.merge!(module_config: %w[subnetcache]) }
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).without_content(
+              %r{client-subnet-always-forward:}
+            ).without_content(
+              %r{max-client-subnet-ipv6:}
+            ).without_content(
+              %r{max-client-subnet-ipv4:}
+            )
+          end
+        end
+        context 'subnetcache' do
+          let(:facts) { facts.merge(unbound_version: '1.6.1') }
 
+          before { params.merge!(module_config: %w[subnetcache]) }
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).with_content(
+              %r{client-subnet-always-forward: no}
+            ).with_content(
+              %r{max-client-subnet-ipv6: 56}
+            ).with_content(
+              %r{max-client-subnet-ipv4: 24}
+            )
+          end
+        end
+        context 'subnetcache send-client-subnet' do
+          let(:facts) { facts.merge(unbound_version: '1.6.1') }
+
+          before do
+            params.merge!(
+              module_config: %w[subnetcache],
+              send_client_subnet: ['192.0.2.0/24', '2001::db8:/48']
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{send-client-subnet: "192.0.2.0/24"}
+            ).with_content(
+              %r{send-client-subnet: "2001::db8:/48"}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).with_content(
+              %r{client-subnet-always-forward: no}
+            ).with_content(
+              %r{max-client-subnet-ipv6: 56}
+            ).with_content(
+              %r{max-client-subnet-ipv4: 24}
+            )
+          end
+        end
+        context 'subnetcache client_subnet_zone' do
+          before do
+            params.merge!(
+              module_config: %w[subnetcache],
+              client_subnet_zone: ['example.com', 'example.net']
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone: "example.com"}
+            ).without_content(
+              %r{client-subnet-zone: "example.net"}
+            ).without_content(
+              %r{client-subnet-always-forward: no}
+            ).without_content(
+              %r{max-client-subnet-ipv6: 56}
+            ).without_content(
+              %r{max-client-subnet-ipv4: 24}
+            )
+          end
+        end
+        context 'subnetcache client_subnet_always_forward' do
+          before do
+            params.merge!(
+              module_config: %w[subnetcache],
+              client_subnet_always_forward: true
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).without_content(
+              %r{client-subnet-always-forward: yes}
+            ).without_content(
+              %r{max-client-subnet-ipv6: 56}
+            ).without_content(
+              %r{max-client-subnet-ipv4: 24}
+            )
+          end
+        end
+        context 'subnetcache max_client_subnet_ipv6' do
+          before do
+            params.merge!(
+              module_config: %w[subnetcache],
+              max_client_subnet_ipv6: 42
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).without_content(
+              %r{client-subnet-always-forward: no}
+            ).without_content(
+              %r{max-client-subnet-ipv6: 42}
+            ).without_content(
+              %r{max-client-subnet-ipv4: 24}
+            )
+          end
+        end
+        context 'subnetcache max_client_subnet_ipv4' do
+          before do
+            params.merge!(
+              module_config: %w[subnetcache],
+              max_client_subnet_ipv4: 21
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{send-client-subnet:}
+            ).without_content(
+              %r{client-subnet-zone:}
+            ).without_content(
+              %r{client-subnet-always-forward: no}
+            ).without_content(
+              %r{max-client-subnet-ipv6: 56}
+            ).without_content(
+              %r{max-client-subnet-ipv4: 42}
+            )
+          end
+        end
+        context 'ipsecmod not supported' do
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).without_content(
+              %r{ipsecmod-enabled:}
+            ).without_content(
+              %r{ipsecmod-hook:}
+            ).without_content(
+              %r{ipsecmod-strict:}
+            ).without_content(
+              %r{ipsecmod-max-ttl:}
+            ).without_content(
+              %r{ipsecmod-ignore-bogus:}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod disable' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar',
+              ipsecmod_enabled: false
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: no}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod default' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod ipsecmod-hook' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar/42'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar/42"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod ipsecmod_strict' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar',
+              ipsecmod_strict: true
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: yes}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod ipsecmod_max_ttl' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar',
+              ipsecmod_max_ttl: 42
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 42}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod ipsecmod-ignore-bogus' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar',
+              ipsecmod_ignore_bogus: true
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: yes}
+            ).without_content(
+              %r{ipsecmod-whitelist:}
+            )
+          end
+        end
+        context 'ipsecmod ipsecmod-whitelist' do
+          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+
+          before do
+            params.merge!(
+              module_config: %w[ipsecmod],
+              ipsecmod_hook: '/foo/bar',
+              ipsecmod_whitelist: ['example.com', 'example.net']
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{ipsecmod-enabled: yes}
+            ).with_content(
+              %r{ipsecmod-hook: "/foo/bar"}
+            ).with_content(
+              %r{ipsecmod-strict: no}
+            ).with_content(
+              %r{ipsecmod-max-ttl: 3600}
+            ).with_content(
+              %r{ipsecmod-ignore-bogus: no}
+            ).with_content(
+              %r{ipsecmod-whitelist: "example.com"}
+            ).with_content(
+              %r{ipsecmod-whitelist: "example.net"}
+            )
+          end
+        end
+        context 'python ' do
+          before do
+            params.merge!(
+              module_config: %w[python],
+              python_script: '/foo/bar'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{python:}
+            ).with_content(
+              %r{\s+python-script: "/foo/bar"}
+            )
+          end
+        end
+        context 'cachedb' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb]
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).without_content(
+              %r{\s+backend:}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).without_content(
+              %r{\s+redis-server-host:}
+            ).without_content(
+              %r{\s+redis-server-port:}
+            ).without_content(
+              %r{\s+redis-timeout:}
+            )
+          end
+        end
+        context 'cachedb backend redis' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb],
+              backend: 'redis'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).with_content(
+              %r{\s+backend: "redis"}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).with_content(
+              %r{\s+redis-server-host: "127.0.0.1"}
+            ).with_content(
+              %r{\s+redis-server-port: 6379}
+            ).with_content(
+              %r{\s+redis-timeout: 100}
+            )
+          end
+        end
+        context 'cachedb backend foobar' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb],
+              backend: 'foobar'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).with_content(
+              %r{\s+backend: "foobar"}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).without_content(
+              %r{\s+redis-server-host:}
+            ).without_content(
+              %r{\s+redis-server-port:}
+            ).without_content(
+              %r{\s+redis-timeout:}
+            )
+          end
+        end
+        context 'cachedb redis_server_host' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb],
+              backend: 'redis',
+              redis_server_host: '192.0.2.1'
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).with_content(
+              %r{\s+backend: "redis"}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).with_content(
+              %r{\s+redis-server-host: "192.0.2.1"}
+            ).with_content(
+              %r{\s+redis-server-port: 6379}
+            ).with_content(
+              %r{\s+redis-timeout: 100}
+            )
+          end
+        end
+        context 'cachedb redis_server_port' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb],
+              backend: 'redis',
+              redis_server_port: 42
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).with_content(
+              %r{\s+backend: "redis"}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).with_content(
+              %r{\s+redis-server-host: "127.0.0.1"}
+            ).with_content(
+              %r{\s+redis-server-port: 42}
+            ).with_content(
+              %r{\s+redis-timeout: 100}
+            )
+          end
+        end
+        context 'cachedb redis-timeout' do
+          before do
+            params.merge!(
+              module_config: %w[cachedb],
+              backend: 'redis',
+              redis_timeout: 42
+            )
+          end
+          it do
+            is_expected.to contain_concat__fragment(
+              'unbound-modules'
+            ).with_content(
+              %r{cachedb:}
+            ).with_content(
+              %r{\s+backend: "redis"}
+            ).with_content(
+              %r{\s+secret-seed: "default"}
+            ).with_content(
+              %r{\s+redis-server-host: "127.0.0.1"}
+            ).with_content(
+              %r{\s+redis-server-port: 6379}
+            ).with_content(
+              %r{\s+redis-timeout: 42}
+            )
+          end
+        end
+      end
       context 'with modified access' do
         let(:params) do
           {
