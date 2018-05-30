@@ -174,10 +174,19 @@ class unbound (
     Package[$package_name] -> Exec['download-roothints']
     Package[$package_name] -> File[$hints_file]
   }
-  $dirs = unique([$confdir, $conf_d, $keys_d, $runtime_dir, dirname($pidfile)])
+  $dirs = $pidfile ? {
+    undef => unique([$confdir, $conf_d, $keys_d, $runtime_dir]),
+    default => unique([$confdir, $conf_d, $keys_d, $runtime_dir, dirname($pidfile)]),
+  }
   ensure_resource('file', $dirs, {ensure => directory})
-  File[unique([$runtime_dir, dirname($pidfile)])] {
-    owner => $owner,
+  if $pidfile {
+    File[unique([$runtime_dir, dirname($pidfile)])] {
+      owner => $owner,
+    }
+  } else {
+    File[$runtime_dir] {
+      owner => $owner,
+    }
   }
 
   service { $service_name:

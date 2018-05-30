@@ -5,54 +5,72 @@ describe 'unbound' do
     context "on #{os}" do
       let(:facts) { facts.merge(concat_basedir: '/dne') }
 
-      it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_class('unbound') }
-
-      # Check the default options are left undef and out of the resulting fragment
-      it { is_expected.to contain_concat__fragment('unbound-header') }
-      it { is_expected.not_to contain_concat__fragment('unbound-header').with_content(%r{infra-cache-slabs}) }
-      it { is_expected.not_to contain_concat__fragment('unbound-header').with_content(%r{key-cache-slabs}) }
-      it { is_expected.not_to contain_concat__fragment('unbound-header').with_content(%r{msg-cache-slabs}) }
-      it { is_expected.not_to contain_concat__fragment('unbound-header').with_content(%r{rrset-cache-slabs}) }
-      it { is_expected.not_to contain_concat__fragment('unbound-header').with_content(%r{num-queries-per-thread}) }
-
-      case facts[:osfamily]
+      case facts[:os]['family']
       when 'Debian'
-        it { is_expected.to contain_package('unbound') }
-        it { is_expected.to contain_service('unbound') }
-        it { is_expected.to contain_concat('/etc/unbound/unbound.conf') }
-        it { is_expected.to contain_file('/etc/unbound') }
-        it { is_expected.to contain_file('/etc/unbound/conf.d') }
-        it { is_expected.to contain_file('/etc/unbound/keys.d') }
-        it { is_expected.to contain_file('/etc/unbound/root.hints') }
-
+        case facts[:os]['release']['major']
+        when '7'
+          let(:pidfile) { '/var/run/unbound.pid' }
+        else
+          let(:pidfile) { '/run/unbound.pid' }
+        end
+        let(:service) { 'unbound' }
+        let(:conf_dir) { '/etc/unbound' }
       when 'RedHat'
-        it { is_expected.to contain_package('unbound') }
-        it { is_expected.to contain_service('unbound') }
-        it { is_expected.to contain_concat('/etc/unbound/unbound.conf') }
-        it { is_expected.to contain_file('/etc/unbound') }
-        it { is_expected.to contain_file('/etc/unbound/conf.d') }
-        it { is_expected.to contain_file('/etc/unbound/keys.d') }
-        it { is_expected.to contain_file('/etc/unbound/root.hints') }
-
+        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        let(:service) { 'unbound' }
+        let(:conf_dir) { '/etc/unbound' }
       when 'OpenBSD'
-        it { is_expected.not_to contain_package('unbound') }
-        it { is_expected.to contain_service('unbound') }
-        it { is_expected.to contain_concat('/var/unbound/etc/unbound.conf') }
-        it { is_expected.to contain_file('/var/unbound/etc') }
-        it { is_expected.to contain_file('/var/unbound/etc/conf.d') }
-        it { is_expected.to contain_file('/var/unbound/etc/keys.d') }
-        it { is_expected.to contain_file('/var/unbound/etc/root.hints') }
-
+        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        let(:service) { 'unbound' }
+        let(:conf_dir) { '/var/unbound/etc' }
       when 'FreeBSD'
-        it { is_expected.to contain_package('unbound') }
-        it { is_expected.to contain_service('unbound') }
-        it { is_expected.to contain_concat('/usr/local/etc/unbound/unbound.conf') }
-        it { is_expected.to contain_file('/usr/local/etc/unbound') }
-        it { is_expected.to contain_file('/usr/local/etc/unbound/conf.d') }
-        it { is_expected.to contain_file('/usr/local/etc/unbound/keys.d') }
-        it { is_expected.to contain_file('/usr/local/etc/unbound/root.hints') }
+        let(:pidfile) { '/usr/local/etc/unbound/unbound.pid' }
+        let(:service) { 'unbound' }
+        let(:conf_dir) { '/usr/local/etc/unbound' }
+      when 'Darwin'
+        let(:pidfile) { '/var/run/unbound.pid' }
+        let(:service) { 'org.macports.unbound' }
+        let(:conf_dir) { '/opt/local//etc/unbound' }
+      else
+        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        let(:service) { 'unbound' }
+        let(:conf_dir) { '/etc/unbound' }
+      end
+      let(:package) { 'unbound' }
+      let(:conf_file) { "#{conf_dir}/unbound.conf" }
+      let(:conf_d_dir) { "#{conf_dir}/conf.d" }
+      let(:keys_d_dir) { "#{conf_dir}/keys.d" }
+      let(:hints_file) { "#{conf_dir}/root.hints" }
 
+      context 'with default params' do
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_class('unbound') }
+        it { is_expected.to contain_package(package) }
+        it { is_expected.to contain_service(service) }
+        it { is_expected.to contain_concat(conf_file) }
+        it { is_expected.to contain_file(conf_dir) }
+        it { is_expected.to contain_file(conf_d_dir) }
+        it { is_expected.to contain_file(keys_d_dir) }
+        it { is_expected.to contain_file(hints_file) }
+        it do
+          is_expected.to contain_concat__fragment(
+            'unbound-header'
+          ).with_content(
+            %r{\s+root-hints:\s"#{hints_file}"}
+          ).with_content(
+            %r{\s+pidfile:\s"#{pidfile}"}
+          ).without_content(
+            %r{infra-cache-slabs}
+          ).without_content(
+            %r{key-cache-slabs}
+          ).without_content(
+            %r{msg-cache-slabs}
+          ).without_content(
+            %r{rrset-cache-slabs}
+          ).without_content(
+            %r{num-queries-per-thread}
+          )
+        end
       end
 
       context 'with modified access' do
@@ -252,6 +270,15 @@ describe 'unbound' do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  interface: ::1\n  interface: 127.0.0.1\n}
           )
+        end
+      end
+      context 'empty pidfile' do
+        let(:params) { {pidfile: :undef} }
+
+        it do
+          is_expected.to contain_concat__fragment(
+            'unbound-header'
+          ).without_content('pidfile:')
         end
       end
     end
