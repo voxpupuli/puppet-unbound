@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2018-05-31 2.3.0
+
+### Summary
+Backwards incompatible change for setting unbound service 'hasstatus' to true.  This was previously disabled for older Debian, but this has likely been a bad default to have.
+
+
 ## 2018-05-21 2.2.0
 ### Summary
 This release contains a significant modulesync update, and several small default param changes.
