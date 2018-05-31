@@ -1,7 +1,10 @@
 ## Unreleased
 
-## 2018-05-31 2.3.0
+## 2018-05-31 2.3.1
+### Summary
+Add missing module-config parameter to the template.  This was lost as part of 8ab7ee7cdb7ec940c6f2fabd5c3aadca5a1448e4, and here we are bringing it back.
 
+## 2018-05-31 2.3.0
 ### Summary
 Backwards incompatible change for setting unbound service 'hasstatus' to true.  This was previously disabled for older Debian, but this has likely been a bad default to have.
 
