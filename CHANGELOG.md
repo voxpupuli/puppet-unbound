@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 2018-06-02 2.3.2
+Updates to modulesync_config, and ensure that unbound is restarted when the
+interface is changed, as a reload is insufficient.
+
 ## 2018-05-31 2.3.1
 ### Summary
 Add missing module-config parameter to the template.  This was lost as part of 8ab7ee7cdb7ec940c6f2fabd5c3aadca5a1448e4, and here we are bringing it back.
