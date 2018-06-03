@@ -138,6 +138,7 @@ unbound::package_provider: ~
 unbound::runtime_dir: "%{hiera('unbound::confdir')}"
 unbound::owner: 'unbound'
 unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
+unbound::restart_cmd: "/bin/systemctl restart %{hiera('unbound::service_name')}"
 
 unbound::forward: {}
 unbound::stub: {}

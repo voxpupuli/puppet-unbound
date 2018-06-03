@@ -155,6 +155,7 @@ class unbound (
   String                                               $service_name,
   Boolean                                              $service_hasstatus,
   String                                               $validate_cmd,
+  String                                               $restart_cmd,
   Array[String]                                        $custom_server_conf,
   Boolean                                              $skip_roothints_download,
 ) {
@@ -187,6 +188,14 @@ class unbound (
   }
 
   if $control_enable {
+    file {"${confdir}/interfaces.txt":
+      ensure  => file,
+      notify  => Exec[$restart_cmd],
+      content => "# Used by puppet-unbound\n${interface.join('\n')}",
+    }
+    exec {$restart_cmd:
+      refreshonly => true,
+    }
     Service[$service_name] {
       restart   => "${control_path} reload",
       require   => Class['unbound::remote'],

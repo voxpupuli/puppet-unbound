@@ -7,3 +7,4 @@ unbound::control_enable: true
 unbound::control_setup_path: '/usr/local/sbin/unbound-control-setup'
 unbound::control_path: '/usr/local/sbin/unbound-control'
 unbound::validate_cmd: '/usr/local/sbin/unbound-checkconf %'
+unbound::restart_cmd: "/usr/sbin/service %{hiera('unbound::service_name')} restart"
