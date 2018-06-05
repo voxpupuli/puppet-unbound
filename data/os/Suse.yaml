@@ -1,3 +1,2 @@
 ---
 unbound::runtime_dir: '/var/lib/unbound'
-unbound::pidfile: '/var/run/unbound/unbound.pid'
