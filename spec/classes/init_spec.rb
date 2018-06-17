@@ -3,8 +3,6 @@ require 'spec_helper'
 describe 'unbound' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
-      let(:facts) { facts.merge(concat_basedir: '/dne') }
-
       case facts[:os]['family']
       when 'Debian'
         case facts[:os]['release']['major']
@@ -36,6 +34,8 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       end
+
+      let(:facts) { facts.merge(concat_basedir: '/dne') }
       let(:package) { 'unbound' }
       let(:conf_file) { "#{conf_dir}/unbound.conf" }
       let(:conf_d_dir) { "#{conf_dir}/conf.d" }
@@ -273,7 +273,7 @@ describe 'unbound' do
         end
       end
       context 'empty pidfile' do
-        let(:params) { {pidfile: :undef} }
+        let(:params) { { pidfile: :undef } }
 
         it do
           is_expected.to contain_concat__fragment(
