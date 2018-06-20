@@ -160,4 +160,24 @@ unbound::module_config: ~
 unbound::root_hints_url: 'https://www.internic.net/domain/named.root'
 unbound::custom_server_conf: []
 unbound::skip_roothints_download: false
+unbound::python_script: ~
+unbound::dns64_prefix: '64:ff9b::/96'
+unbound::dns64_synthall: false
+unbound::send_client_subnet: ~
+unbound::client_subnet_zone: ~
+unbound::client_subnet_always_forward: false
+unbound::max_client_subnet_ipv6: 56
+unbound::max_client_subnet_ipv4: 24
+unbound::ipsecmod_enabled: true
+unbound::ipsecmod_hook: ~
+unbound::ipsecmod_strict: false
+unbound::ipsecmod_max_ttl: 3600
+unbound::ipsecmod_ignore_bogus: false
+unbound::ipsecmod_whitelist: ~
+unbound::backend: ~
+unbound::secret_seed: default
+unbound::redis_server_host: 127.0.0.1
+unbound::redis_server_port: 6379
+unbound::redis_timeout: 100
+
 
