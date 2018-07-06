@@ -188,6 +188,13 @@ class {'unbound:'
 }
 ```
 
+Or, using unbound::localzone
+```puppet
+unbound::localzone { '10.0.10.in-addr.arpa.':
+  type => 'nodefault'
+}
+```
+
 Or, using hiera
 ```yaml
 unbound::local_zone:
