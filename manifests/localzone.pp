@@ -1,4 +1,4 @@
-# Class: unbound::local_zone
+# Class: unbound::localzone
 #
 # Configures a local zone.
 # The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the
@@ -17,7 +17,7 @@
 # [*config_file*]
 #   (optional) name of configuration file
 #
-define unbound::local_zone (
+define unbound::localzone (
   Unbound::Local_zone_type $type,
   String $zone = $name,
   $config_file = $unbound::config_file,

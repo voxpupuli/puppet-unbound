@@ -188,9 +188,9 @@ class {'unbound:'
 }
 ```
 
-Or, using unbound::local_zone
+Or, using unbound::localzone
 ```puppet
-unbound::local_zone { '10.0.10.in-addr.arpa.':
+unbound::localzone { '10.0.10.in-addr.arpa.':
   type => 'nodefault'
 }
 ```
