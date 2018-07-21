@@ -1,5 +1,7 @@
 ## Unreleased
 
+Change default value for interface
+
 ## 2018-06-02 2.3.2
 Updates to modulesync_config, and ensure that unbound is restarted when the
 interface is changed, as a reload is insufficient.
