@@ -156,7 +156,7 @@ server:
 <%= print_config('minimal-responses', @minimal_responses) -%>
 <%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
 <%- if @module_config %>
-  module-config: "<%= @module_config.join(' ') %>
+  module-config: "<%= @module_config.join(' ') %>"
 <%- end -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
