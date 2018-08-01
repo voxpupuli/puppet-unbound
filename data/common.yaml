@@ -5,7 +5,7 @@ unbound::statistics_interval: ~
 unbound::extended_statistics: false
 unbound::num_threads: 1
 unbound::port: 53
-unbound::interface: ['::0','0.0.0.0']
+unbound::interface: ~
 unbound::interface_automatic: false
 unbound::outgoing_interface: ~
 unbound::outgoing_range: ~

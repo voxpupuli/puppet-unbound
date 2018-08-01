@@ -9,7 +9,7 @@ class unbound (
   Boolean                                              $extended_statistics,
   Integer[1]                                           $num_threads,
   Integer[0, 65535]                                    $port,
-  Array[String]                                        $interface,
+  Optional[Array[String]]                              $interface,
   Boolean                                              $interface_automatic,
   Optional[Array[String]]                              $outgoing_interface,           # version 1.5.10
   Optional[Integer[1]]                                 $outgoing_range,
@@ -219,7 +219,7 @@ class unbound (
     file {"${confdir}/interfaces.txt":
       ensure  => file,
       notify  => Exec[$restart_cmd],
-      content => "# Used by puppet-unbound\n${interface.join('\n')}",
+      content => template('unbound/interfaces.txt.erb'),
     }
     exec {$restart_cmd:
       refreshonly => true,
