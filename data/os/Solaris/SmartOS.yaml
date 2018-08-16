@@ -1,0 +1,10 @@
+---
+unbound::confdir: '/opt/local/etc/unbound'
+unbound::pidfile: '/usr/local/etc/unbound/unbound.pid'
+unbound::logdir: '/var/log/unbound'
+unbound::fetch_client: 'wget -O'
+unbound::control_setup_path: '/opt/local/sbin/unbound-control-setup'
+unbound::control_path: '/opt/local/sbin/unbound-control'
+unbound::validate_cmd: '/opt/local/sbin/unbound-checkconf %'
+unbound::restart_cmd: "/usr/sbin/svcadm restart %{hiera('unbound::service_name')}"
+unbound::anchor_fetch_command: "/opt/local/sbin/unbound-anchor -a %{hiera('unbound::auto_trust_anchor_file')}"
