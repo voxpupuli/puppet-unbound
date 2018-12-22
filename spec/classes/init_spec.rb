@@ -693,7 +693,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  access-control: 10.21.30.0\/24 allow\n  access-control: 10.21.30.5\/32 reject\n  access-control: 127.0.0.1\/32 allow_snoop\n  access-control: 123.123.123.0\/20 allow}
@@ -714,7 +713,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-stub-example-stub.com').with_content(
             %r{^stub-zone:\n  name: "example-stub.com"\n  stub-addr: 10.0.0.1\n  stub-addr: 10.0.0.2}
@@ -729,7 +727,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
             %r{^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes\n  forward-ssl-upstream: yes}
@@ -744,7 +741,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^\s+domain-insecure: 0.0.10.in-addr.arpa.$}
@@ -761,7 +757,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^\s+local-zone: "0.0.10.in-addr.arpa." nodefault$}
@@ -776,7 +771,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  extended-statistics: yes\n}
@@ -834,7 +828,6 @@ describe 'unbound' do
         end
 
         it { is_expected.to contain_class('unbound::remote') }
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-remote').with_content(
             %r{^  control-enable: yes\n}
@@ -861,7 +854,6 @@ describe 'unbound' do
         end
 
         it { is_expected.to contain_class('unbound::remote') }
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-remote').with_content(
             %r{^  control-enable: yes\n}
@@ -878,7 +870,6 @@ describe 'unbound' do
           }
         end
 
-        it { is_expected.to contain_class('concat::setup') }
         it do
           is_expected.to contain_concat__fragment('unbound-header').with_content(
             %r{^  interface: ::1\n  interface: 127.0.0.1\n}
