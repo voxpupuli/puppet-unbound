@@ -1,6 +1,17 @@
 ## Unreleased
 
-Change default value for interface
+## 2018-12-21 2.4.0
+### Summary
+Improvements and additional support for unbound features.
+
+Notable changes:
+  * Change default value for interface.
+  * Change default values for harden_short_bufsize and harden_large_queries.
+  * Include new options for python_script, dns64, client_subnet_*, ipsecmod_* and redis_* and a few more unbound modules.
+  * Add support for SmartOS.
+  * Pidfile fix.
+  * Slight changes to data types on unbound class.
+  * Revive localzone define.
 
 ## 2018-06-02 2.3.2
 Updates to modulesync_config, and ensure that unbound is restarted when the
