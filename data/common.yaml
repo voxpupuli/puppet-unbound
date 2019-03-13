@@ -179,5 +179,8 @@ unbound::secret_seed: default
 unbound::redis_server_host: 127.0.0.1
 unbound::redis_server_port: 6379
 unbound::redis_timeout: 100
+unbound::dirs_no_manage:
+  - /run
+  - /var/run
 
 

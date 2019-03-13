@@ -177,6 +177,7 @@ class unbound (
   String                                               $redis_server_host,
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
+  Array[Stdlib::Absolutepath]                          $dirs_no_manage,
 ) {
 
   unless $package_name.empty {
@@ -193,20 +194,26 @@ class unbound (
     Package[$package_name] -> Exec['download-roothints']
     Package[$package_name] -> File[$hints_file]
   }
-  $dirs = $pidfile ? {
-    undef => unique([$confdir, $conf_d, $keys_d, $runtime_dir]),
-    default => unique([$confdir, $conf_d, $keys_d, $runtime_dir, dirname($pidfile)]),
-  }
-  ensure_resource('file', $dirs, {ensure => directory})
   if $pidfile {
-    File[unique([$runtime_dir, dirname($pidfile)])] {
-      owner => $owner,
+    $pid_dir = dirname($pidfile)
+    $dirs = unique([$confdir, $conf_d, $keys_d, $runtime_dir, $pid_dir])
+    unique([$runtime_dir, $pid_dir]).each |String $dir| {
+      if !($dir in $dirs_no_manage) {
+        File[$dir] {
+          owner => $owner,
+        }
+      }
     }
-  } else {
-    File[$runtime_dir] {
-      owner => $owner,
+  } else  {
+    $dirs = unique([$confdir, $conf_d, $keys_d, $runtime_dir])
+    if !($runtime_dir in $dirs_no_manage) {
+      File[$runtime_dir] {
+        owner => $owner,
+      }
     }
   }
+
+  ensure_resource('file', $dirs, {ensure => directory})
 
   service { $service_name:
     ensure    => running,
