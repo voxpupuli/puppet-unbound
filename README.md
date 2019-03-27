@@ -178,8 +178,8 @@ Configure a local zone. The type determines the answer  to  give
 if  there  is  no  match  from  local-data.  The types are deny,
 refuse, static, transparent, redirect, nodefault,  typetranspar-
 ent,  inform,  inform\_deny,  always\_transparent,  always\_refuse,
-always\_nxdomain.  See local-zone in the [unbound documentation](https://unbound.net/documentation/unbound.conf.html) 
-for more information.  You can configure a local-zone with something like the 
+always\_nxdomain.  See local-zone in the [unbound documentation](https://unbound.net/documentation/unbound.conf.html)
+for more information.  You can configure a local-zone with something like the
 following.
 
 ```puppet

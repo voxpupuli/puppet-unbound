@@ -229,7 +229,7 @@ class unbound (
       require   => Class['unbound::remote'],
     }
     Package<| title == $package_name |> -> Class['unbound::remote']
-    include ::unbound::remote
+    include unbound::remote
   }
 
   if $skip_roothints_download {
