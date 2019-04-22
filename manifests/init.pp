@@ -46,6 +46,8 @@ class unbound (
   Boolean                                              $do_udp,
   Boolean                                              $do_tcp,
   Optional[Integer[0]]                                 $tcp_mss,                      # version 1.5.8
+  Optional[Stdlib::Absolutepath]                       $tls_cert_bundle,
+  Boolean                                              $tls_upstream,
   Optional[Integer[0]]                                 $outgoing_tcp_mss,             # version 1.5.8
   Boolean                                              $tcp_upstream,
   Boolean                                              $udp_upstream_without_downstream,

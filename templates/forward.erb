@@ -12,3 +12,6 @@ forward-zone:
 <% if @forward_ssl_upstream != 'no' -%>
   forward-ssl-upstream: <%= @forward_ssl_upstream %>
 <% end -%>
+<% if @forward_tls_upstream != 'no' -%>
+  forward-tls-upstream: <%= @forward_tls_upstream %>
+<% end -%>

@@ -35,6 +35,7 @@ define unbound::forward (
   $zone                                   = $name,
   Pattern[/yes|no/] $forward_first        = 'no',
   Pattern[/yes|no/] $forward_ssl_upstream = 'no',
+  Pattern[/yes|no/] $forward_tls_upstream = 'no',
   $config_file                            = $unbound::config_file,
 ) {
 

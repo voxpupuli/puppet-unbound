@@ -46,6 +46,8 @@ unbound::tcp_mss: ~
 unbound::outgoing_tcp_mss: ~
 unbound::tcp_upstream: false
 unbound::udp_upstream_without_downstream: false
+unbound::tls_cert_bundle: ~
+unbound::tls_upstream: false
 unbound::ssl_upstream: false
 unbound::ssl_service_key: ~
 unbound::ssl_service_pem: ~
