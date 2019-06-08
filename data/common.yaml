@@ -76,7 +76,7 @@ unbound::harden_large_queries: false
 unbound::harden_glue: true
 unbound::harden_dnssec_stripped: true
 unbound::harden_below_nxdomain: true
-unbound::harden_referral_path: true
+unbound::harden_referral_path: false
 unbound::harden_algo_downgrade: false
 unbound::use_caps_for_id: false
 unbound::caps_whitlist: ~
