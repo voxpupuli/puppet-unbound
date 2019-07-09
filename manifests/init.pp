@@ -46,15 +46,15 @@ class unbound (
   Boolean                                              $do_udp,
   Boolean                                              $do_tcp,
   Optional[Integer[0]]                                 $tcp_mss,                      # version 1.5.8
-  Optional[Stdlib::Absolutepath]                       $tls_cert_bundle,
-  Boolean                                              $tls_upstream,
+  Optional[Stdlib::Absolutepath]                       $tls_cert_bundle,              # version 1.7.0
+  Boolean                                              $tls_upstream,                 # version 1.7.0
   Optional[Integer[0]]                                 $outgoing_tcp_mss,             # version 1.5.8
   Boolean                                              $tcp_upstream,
   Boolean                                              $udp_upstream_without_downstream,
-  Boolean                                              $ssl_upstream,
-  Optional[Stdlib::Absolutepath]                       $ssl_service_key,
-  Optional[Stdlib::Absolutepath]                       $ssl_service_pem,
-  Optional[Integer[0,65535]]                           $ssl_port,
+  Boolean                                              $ssl_upstream,                 # version 1.7.0
+  Optional[Stdlib::Absolutepath]                       $ssl_service_key,              # version 1.7.0
+  Optional[Stdlib::Absolutepath]                       $ssl_service_pem,              # version 1.7.0
+  Optional[Integer[0,65535]]                           $ssl_port,                     # version 1.7.0
   Boolean                                              $use_systemd,                  # version 1.6.1
   Boolean                                              $do_daemonize,
   Optional[Hash[String, Unbound::Access_control]]      $access_control,               # version 1.5.10
