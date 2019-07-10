@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require 'beaker-rspec'
+require 'beaker-puppet'
+require 'beaker/puppet_install_helper'
+require 'beaker/module_install_helper'
+require 'beaker-rspec'
 
 modules = [
   'puppetlabs-stdlib',
@@ -14,6 +18,9 @@ def install_modules(host, modules)
   end
 end
 # Install Puppet on all hosts
+step 'install puppet on all hosts' do
+  run_puppet_install_helper('foss', '6.0.0')
+end
 hosts.each do |host|
   step "install packages on #{host}"
   if host['platform'] =~ %r{freebsd}
@@ -28,12 +35,6 @@ hosts.each do |host|
       host.install_package('dnsutils')
     end
     on(host, 'sysctl net.ipv6.conf.all.disable_ipv6=0')
-    install_puppet_on(
-      host,
-      version: '4',
-      puppet_agent_version: '1.9.0',
-      default_action: 'gem_install'
-    )
   end
   # remove search list and domain from resolve.conf
   install_modules(host, modules)

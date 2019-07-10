@@ -58,7 +58,7 @@ group :system_tests do
   gem 'beaker-puppet',                      :require => false
   gem 'beaker-puppet_install_helper',       :require => false
   gem 'beaker-module_install_helper',       :require => false
-  gem 'rbnacl', '>= 4',                     :require => false
+  gem 'rbnacl', '< 5',                      :require => false
   gem 'rbnacl-libsodium',                   :require => false
   gem 'bcrypt_pbkdf',                       :require => false
 end

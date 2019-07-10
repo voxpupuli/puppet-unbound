@@ -26,3 +26,8 @@
       env: BEAKER_set=docker/debian-8 CHECK=beaker
       services: docker
       sudo: required
+    - rvm: 2.3
+      bundler_args: --without development
+      env: BEAKER_set=docker/debian-9 CHECK=beaker
+      services: docker
+      sudo: required
