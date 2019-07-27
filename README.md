@@ -15,7 +15,7 @@ A puppet module for the Unbound caching resolver.
 
 ## Requirements
 
-To use this moudule, you must be running at least Puppet 4.4.  If you are on an
+To use this module, you must be running at least Puppet 4.4.  If you are on an
 older version of Puppet, please use a 1.x version of this module.
 
 To use this module, you must install the `puppetlabs/concat` and
