@@ -135,6 +135,8 @@ unbound::ip_ratelimit_factor: ~
 unbound::confdir: '/etc/unbound'
 unbound::service_name: 'unbound'
 unbound::service_hasstatus: true
+unbound::service_enable: true
+unbound::service_ensure: 'running'
 unbound::package_name: 'unbound'
 unbound::package_provider: ~
 unbound::runtime_dir: "%{hiera('unbound::confdir')}"
