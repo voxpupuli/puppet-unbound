@@ -156,6 +156,8 @@ class unbound (
   Stdlib::Absolutepath                                 $runtime_dir,
   String                                               $service_name,
   Boolean                                              $service_hasstatus,
+  Enum['running', 'stopped']                           $service_ensure,
+  Boolean                                              $service_enable,
   String                                               $validate_cmd,
   String                                               $restart_cmd,
   Array[String]                                        $custom_server_conf,
@@ -211,9 +213,9 @@ class unbound (
   }
 
   service { $service_name:
-    ensure    => running,
+    ensure    => $service_ensure,
     name      => $service_name,
-    enable    => true,
+    enable    => $service_enable,
     hasstatus => $service_hasstatus,
   }
 
