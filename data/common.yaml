@@ -138,6 +138,7 @@ unbound::service_hasstatus: true
 unbound::service_enable: true
 unbound::service_ensure: 'running'
 unbound::package_name: 'unbound'
+unbound::package_ensure: 'installed'
 unbound::package_provider: ~
 unbound::runtime_dir: "%{hiera('unbound::confdir')}"
 unbound::owner: 'unbound'
