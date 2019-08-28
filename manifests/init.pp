@@ -152,10 +152,13 @@ class unbound (
   String                                               $owner,
   String                                               $package_name,
   Optional[String]                                     $package_provider,
+  String                                               $package_ensure,
   String                                               $root_hints_url,
   Stdlib::Absolutepath                                 $runtime_dir,
   String                                               $service_name,
   Boolean                                              $service_hasstatus,
+  Enum['running', 'stopped']                           $service_ensure,
+  Boolean                                              $service_enable,
   String                                               $validate_cmd,
   String                                               $restart_cmd,
   Array[String]                                        $custom_server_conf,
@@ -183,7 +186,7 @@ class unbound (
 
   unless $package_name.empty {
     package { $package_name:
-      ensure   => installed,
+      ensure   => $package_ensure,
       #provider => $package_provider,
     }
     Package[$package_name] -> Service[$service_name]
@@ -211,9 +214,9 @@ class unbound (
   }
 
   service { $service_name:
-    ensure    => running,
+    ensure    => $service_ensure,
     name      => $service_name,
-    enable    => true,
+    enable    => $service_enable,
     hasstatus => $service_hasstatus,
   }
 
