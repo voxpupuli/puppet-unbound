@@ -20,7 +20,7 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       when 'OpenBSD'
-        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        let(:pidfile) { '/var/run/unbound.pid' }
         let(:service) { 'unbound' }
         let(:conf_dir) { '/var/unbound/etc' }
       when 'FreeBSD'
@@ -47,7 +47,9 @@ describe 'unbound' do
       context 'with default params' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('unbound') }
-        it { is_expected.to contain_package(package) }
+        if facts[:os]['family'] != 'OpenBSD'
+          it { is_expected.to contain_package(package) }
+        end
         it { is_expected.to contain_service(service) }
         it { is_expected.to contain_concat(conf_file) }
         it { is_expected.to contain_file(conf_dir) }
