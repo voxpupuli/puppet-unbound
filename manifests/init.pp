@@ -209,6 +209,27 @@ class unbound (
       owner => $owner,
     }
   }
+  if $pidfile and $facts['os']['name'] == 'Debian'{
+    file{ '/etc/systemd/system/unbound.service.d':
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
+    file{ '/etc/systemd/system/unbound.service.d/pid.conf':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('unbound/pid.conf.erb'),
+      notify  => Exec['/etc/systemd/system/unbound.service.d/pid.conf_follow_up'],
+    }
+    exec{ '/etc/systemd/system/unbound.service.d/pid.conf_follow_up':
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+      notify      => Service[$service_name],
+    }
+  }
 
   service { $service_name:
     ensure    => running,
