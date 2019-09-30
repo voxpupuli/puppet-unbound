@@ -5,34 +5,36 @@ describe 'unbound' do
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
+      pidfile = nil
+
       case facts[:os]['family']
       when 'Debian'
-        case facts[:os]['release']['major']
-        when '7'
-          let(:pidfile) { '/var/run/unbound.pid' }
-        else
-          let(:pidfile) { '/run/unbound.pid' }
-        end
+        pidfile = case facts[:os]['release']['major']
+                  when '6', '7', '8'
+                    '/var/run/unbound.pid'
+                  else
+                    '/run/unbound.pid'
+                  end
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       when 'RedHat'
-        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        pidfile = '/var/run/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       when 'OpenBSD'
-        let(:pidfile) { '/var/run/unbound.pid' }
+        pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/var/unbound/etc' }
       when 'FreeBSD'
-        let(:pidfile) { '/usr/local/etc/unbound/unbound.pid' }
+        pidfile = '/usr/local/etc/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/usr/local/etc/unbound' }
       when 'Darwin'
-        let(:pidfile) { '/var/run/unbound.pid' }
+        pidfile = '/var/run/unbound.pid'
         let(:service) { 'org.macports.unbound' }
         let(:conf_dir) { '/opt/local//etc/unbound' }
       else
-        let(:pidfile) { '/var/run/unbound/unbound.pid' }
+        pidfile = '/var/run/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       end
@@ -56,6 +58,11 @@ describe 'unbound' do
         it { is_expected.to contain_file(conf_d_dir) }
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
+        it { is_expected.not_to contain_file('/run') }
+        it { is_expected.not_to contain_file('/var/run') }
+        if pidfile =~ %r{unbound/unbound\.pid\Z}
+          it { is_expected.to contain_file(File.dirname(pidfile)) }
+        end
         it do
           is_expected.to contain_concat__fragment(
             'unbound-header'
