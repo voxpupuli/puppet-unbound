@@ -10,7 +10,7 @@ describe 'unbound' do
       case facts[:os]['family']
       when 'Debian'
         pidfile = case facts[:os]['release']['major']
-                  when '7'
+                  when '6', '7', '8'
                     '/var/run/unbound.pid'
                   else
                     '/run/unbound.pid'
