@@ -31,6 +31,7 @@ if Dir.exist?(File.expand_path('../../lib', __FILE__))
 end
 
 RSpec.configure do |c|
+  c.mock_with :rspec
   # Coverage generation
   c.after(:suite) do
     RSpec::Puppet::Coverage.report!

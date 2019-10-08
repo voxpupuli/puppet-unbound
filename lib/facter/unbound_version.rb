@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-unbound_bin = case Facter.value('kernel')
-              when 'FreeBSD'
-                '/usr/local/sbin/unbound'
-              else
-                '/usr/sbin/unbound'
-              end
-if File.exist? unbound_bin
-  unbound_version = Facter::Util::Resolution.exec(
-    "#{unbound_bin} -V 2>&1"
-  ).match(%r{Version\s+(\d+(?:\.\d+)*)})[1]
-  Facter.add(:unbound_version) do
-    setcode do
-      unbound_version
+Facter.add(:unbound_version) do
+  confine { Facter.value(:kernel) != 'windows' }
+  setcode do
+    if Facter::Util::Resolution.which('unbound')
+      unbound_version = Facter::Util::Resolution.exec('unbound -V 2>&1')
+      %r{Version\s+(\d+(?:\.\d+){2})\s+}.match(unbound_version)[1]
     end
   end
 end
