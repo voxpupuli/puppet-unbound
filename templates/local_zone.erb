@@ -1,1 +1,6 @@
   local-zone: "<%= @zone %>" <%= @type %>
+  <%- if ! @local_data.empty? -%>
+    <%- @local_data.each do |resource_records| -%>
+  local-data: "<%= resource_records %>"
+    <%- end -%>
+  <%- end -%>
