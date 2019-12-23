@@ -425,9 +425,6 @@ Style/NumericLiterals:
 Style/OneLineConditional:
   Enabled: True
 
-Style/OpMethod:
-  Enabled: True
-
 Style/ParenthesesAroundCondition:
   Enabled: True
 
@@ -505,6 +502,12 @@ Layout/ClosingParenthesisIndentation:
   Enabled: True
 
 # RSpec
+#
+RSpec/OverwritingSetup:
+  Enabled: False
+
+RSpec/ScatteredLet:
+  Enabled: False
 
 RSpec/BeforeAfterAll:
   Exclude:
