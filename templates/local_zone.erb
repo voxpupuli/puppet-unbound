@@ -1,1 +1,10 @@
+server:
   local-zone: "<%= @zone %>" <%= @type %>
+  <%- @local_data.each do |resource_record| -%>
+    <%- rr = resource_record['name'] -%>
+    <%- rr = "#{rr} #{resource_record['ttl']}" if resource_record['ttl'] -%>
+    <%- rr = "#{rr} #{resource_record['class']}" if resource_record['class'] -%>
+    <%- rr = "#{rr} #{resource_record['type']}" -%>
+    <%- rr = "#{rr} #{resource_record['data']}" -%>
+  local-data: "<%= rr %>"
+  <%- end -%>
