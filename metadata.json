@@ -75,8 +75,8 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "11",
-        "10"
+        "12",
+        "11"
       ]
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=4.13.0"
+      "version_requirement": ">=5.0.0"
     }
   ]
 }
