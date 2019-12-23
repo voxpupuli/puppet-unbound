@@ -5,9 +5,20 @@ describe 'unbound' do
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
+      let(:facts) { facts }
+
       pidfile = nil
 
-      case facts[:os]['family']
+      if facts.dig(:os, :family).nil?
+        if facts.dig(:osfamil)
+          puts "Skipping tests on on platform #{facts[:osfamily]} due to missing facts[:os][:family]"
+        else
+          puts "Skipping tests on on platform #{facts[:kernel]} due to missing facts[:os][:family]"
+        end
+        next
+      end
+
+      case facts['os']['family']
       when 'Debian'
         pidfile = case facts[:os]['release']['major']
                   when '6', '7', '8'
