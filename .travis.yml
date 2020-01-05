@@ -22,36 +22,6 @@ matrix:
   - rvm: 2.4.4
     bundler_args: --without system_tests development release
     env: PUPPET_VERSION="~> 5.0" CHECK=build DEPLOY_TO_FORGE=yes
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/ubuntu-14.04 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/ubuntu-16.04 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/centos-6 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/centos-7 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/debian-8 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    env: BEAKER_set=docker/debian-9 CHECK=beaker
-    services: docker
-    sudo: required
 branches:
   only:
   - master
@@ -68,7 +38,7 @@ deploy:
   provider: puppetforge
   user: puppet
   password:
-    secure: ""
+    secure: "VwocUy9qJNYTt6ZKqWb7JnQs7ZG0P/we6K6Wlua/MJ5D0GMtijTSqHBD8GDgvOxuwr8tYSp8TU1LEQk7jvNYqaV5IpJ2Zr6MXlTexIGY/IT9RERbSqZQhVq3YCoilKAp4a5we0YmKDT8mcgBZr9Qc4xUEYrPl3b8DdFi5EKsF2c="
   on:
     tags: true
     # all_branches is required to use tags
