@@ -6,6 +6,12 @@ describe 'unbound' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
+      let(:facts) { facts.merge(concat_basedir: '/dne') }
+      let(:package) { 'unbound' }
+      let(:conf_file) { "#{conf_dir}/unbound.conf" }
+      let(:conf_d_dir) { "#{conf_dir}/conf.d" }
+      let(:keys_d_dir) { "#{conf_dir}/keys.d" }
+      let(:hints_file) { "#{conf_dir}/root.hints" }
 
       pidfile = nil
 
@@ -49,13 +55,6 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       end
-
-      let(:facts) { facts.merge(concat_basedir: '/dne') }
-      let(:package) { 'unbound' }
-      let(:conf_file) { "#{conf_dir}/unbound.conf" }
-      let(:conf_d_dir) { "#{conf_dir}/conf.d" }
-      let(:keys_d_dir) { "#{conf_dir}/keys.d" }
-      let(:hints_file) { "#{conf_dir}/root.hints" }
 
       context 'with default params' do
         it { is_expected.to compile.with_all_deps }
