@@ -1,6 +1,11 @@
 # Puppet powered DNS with Unbound
 
-[![Puppet Forge](https://img.shields.io/puppetforge/v/zleslie/unbound.svg)](https://forge.puppet.com/zleslie/unbound) [![Build Status](https://travis-ci.org/xaque208/puppet-unbound.svg?branch=master)](https://travis-ci.org/xaque208/puppet-unbound)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-unbound.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-unbound)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-unbound/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-unbound)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
 
 A puppet module for the Unbound caching resolver.
 
