@@ -1,12 +1,12 @@
 {
-  "name": "zleslie-unbound",
+  "name": "puppet-unbound",
   "version": "2.5.0",
-  "author": "zleslie",
+  "author": "Vox Pupuli",
   "summary": "Puppet Unbound management module",
   "license": "Apache-2.0",
-  "source": "git://github.com/xaque208/puppet-unbound.git",
-  "project_page": "https://github.com/xaque208/puppet-unbound",
-  "issues_url": "https://github.com/xaque208/puppet-unbound/issues",
+  "source": "git://github.com/voxpupuli/puppet-unbound.git",
+  "project_page": "https://github.com/voxpupuli/puppet-unbound",
+  "issues_url": "https://github.com/voxpupuli/puppet-unbound/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
