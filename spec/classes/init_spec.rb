@@ -5,7 +5,6 @@ describe 'unbound' do
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
-      let(:facts) { facts }
       let(:facts) { facts.merge(concat_basedir: '/dne') }
       let(:package) { 'unbound' }
       let(:conf_file) { "#{conf_dir}/unbound.conf" }
