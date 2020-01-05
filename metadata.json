@@ -2,7 +2,7 @@
   "name": "puppet-unbound",
   "version": "2.5.0",
   "author": "Vox Pupuli",
-  "summary": "Puppet Unbound management module",
+  "summary": "A module to deploy and manage the Unbound caching resolver",
   "license": "Apache-2.0",
   "source": "git://github.com/voxpupuli/puppet-unbound.git",
   "project_page": "https://github.com/voxpupuli/puppet-unbound",
@@ -97,10 +97,9 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.9.0"
+      "version_requirement": ">= 5.5.8 < 7.0.0"
     }
   ],
-  "description": "A module to deploy and manage the Unbound caching resolver",
   "dependencies": [
     {
       "name": "puppetlabs/concat",
