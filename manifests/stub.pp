@@ -29,17 +29,11 @@
 #   (optional) Name of the unbound config file
 #
 define unbound::stub (
-  $address,
-  $insecure    = false,
-  $type        = 'transparent',
-  $config_file = $unbound::config_file,
+  Variant[Array[Unbound::Address], Unbound::Address] $address,
+  Variant[Boolean, Enum['true', 'false']]            $insecure    = false,
+  Unbound::Local_zone_type                           $type        = 'transparent',
+  Unix::Path                                         $config_file = $unbound::config_file,
 ) {
-
-  if ! $address {
-    fail('unbound::stub: address(es) must be specified.')
-  }
-
-  validate_unbound_addr($address)
 
   concat::fragment { "unbound-stub-${name}":
     order   => '15',
