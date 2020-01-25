@@ -32,7 +32,7 @@ define unbound::stub (
   Variant[Array[Unbound::Address], Unbound::Address] $address,
   Variant[Boolean, Enum['true', 'false']]            $insecure    = false,
   Unbound::Local_zone_type                           $type        = 'transparent',
-  Unix::Path                                         $config_file = $unbound::config_file,
+  Stdlib::Unixpath                                   $config_file = $unbound::config_file,
 ) {
 
   concat::fragment { "unbound-stub-${name}":
