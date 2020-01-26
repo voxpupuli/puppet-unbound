@@ -7,7 +7,14 @@ describe 'unbound::stub' do
     context "on #{os}" do
       let(:facts) { facts }
 
+      let(:params) do
+        {
+          address: ['::1']
+        }
+      end
+
       it { is_expected.to contain_unbound__stub('lab.example.com') }
+      it { is_expected.to contain_concat__fragment('unbound-stub-lab.example.com') }
     end
   end
 end
