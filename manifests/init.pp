@@ -153,6 +153,7 @@ class unbound (
   String                                               $package_name,
   Optional[String]                                     $package_provider,
   String                                               $package_ensure,
+  Boolean                                              $purge_conf_d,
   String                                               $root_hints_url,
   Stdlib::Absolutepath                                 $runtime_dir,
   String                                               $service_name,
@@ -182,6 +183,7 @@ class unbound (
   String                                               $redis_server_host,
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
+  String                                               $unbound_conf_d,
 ) {
 
   unless $package_name.empty {
@@ -266,7 +268,15 @@ class unbound (
     mode   => '0444',
   }
 
-  concat { $config_file:
+  # purge unmanaged files in configuration directory
+  file { $unbound_conf_d:
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    purge   => $purge_conf_d,
+    recurse => $purge_conf_d,
+  }
+  -> concat { $config_file:
     validate_cmd => $validate_cmd,
     notify       => Service[$service_name],
     require      => Exec['download-anchor-file'],
@@ -294,5 +304,4 @@ class unbound (
   if $record {
     create_resources('unbound::record', $record)
   }
-
 }
