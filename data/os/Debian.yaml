@@ -1,3 +1,4 @@
 ---
 unbound::pidfile: '/run/unbound.pid'
 unbound::runtime_dir: '/var/lib/unbound'
+unbound::purge_unbound_conf_d: true

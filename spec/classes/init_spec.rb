@@ -9,6 +9,7 @@ describe 'unbound' do
       let(:package) { 'unbound' }
       let(:conf_file) { "#{conf_dir}/unbound.conf" }
       let(:conf_d_dir) { "#{conf_dir}/conf.d" }
+      let(:unbound_conf_d) { "#{conf_dir}/unbound.conf.d" }
       let(:keys_d_dir) { "#{conf_dir}/keys.d" }
       let(:hints_file) { "#{conf_dir}/root.hints" }
 
@@ -67,6 +68,15 @@ describe 'unbound' do
         it { is_expected.to contain_file(conf_d_dir) }
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
+        it do
+          is_expected.to contain_file(unbound_conf_d).with(
+            'ensure'  => 'directory',
+            'owner'   => 'root',
+            'group'   => 'root',
+            'purge'   => false,
+            'recurse' => false
+          )
+        end
         it { is_expected.not_to contain_file('/run') }
         it { is_expected.not_to contain_file('/var/run') }
         if pidfile =~ %r{unbound/unbound\.pid\Z}
