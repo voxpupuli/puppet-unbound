@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 2018-12-21 2.6.0
+### Summary
+Improvements and additional support for unbound features.
+
+Notable changes:
+  * #220 remove validate\_unbond\_addr and replace with type checking
+  * #225 option to manage and purge the `${confdir}unbound.conf.d`
+
 ## 2018-12-21 2.4.0
 ### Summary
 Improvements and additional support for unbound features.
