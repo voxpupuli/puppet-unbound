@@ -14,7 +14,7 @@ unbound::outgoing_port_avoid: '0-32767'
 unbound::outgoing_port_permit_first: true
 unbound::outgoing_num_tcp: ~
 unbound::incoming_num_tcp: ~
-unbound::edns_buffer_size: 1280
+unbound::edns_buffer_size: 4096
 unbound::max_udp_size: ~
 unbound::msg_buffer_size: ~
 unbound::msg_cache_size: ~
