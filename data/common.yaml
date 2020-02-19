@@ -1,7 +1,7 @@
 ---
 unbound::verbosity: 1
-unbound::statistics_cumulative: false
 unbound::statistics_interval: ~
+unbound::statistics_cumulative: false
 unbound::extended_statistics: false
 unbound::num_threads: 1
 unbound::port: 53
