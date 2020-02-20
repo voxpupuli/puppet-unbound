@@ -72,7 +72,7 @@ describe 'unbound' do
           is_expected.to contain_file(unbound_conf_d).with(
             'ensure'  => 'directory',
             'owner'   => 'root',
-            'group'   => 'root',
+            'group'   => '0',
             'purge'   => false,
             'recurse' => false
           )

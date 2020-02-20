@@ -272,7 +272,7 @@ class unbound (
   file { $unbound_conf_d:
     ensure  => 'directory',
     owner   => 'root',
-    group   => 'root',
+    group   => '0',
     purge   => $purge_unbound_conf_d,
     recurse => $purge_unbound_conf_d,
   }
