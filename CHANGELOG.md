@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.7.0](https://github.com/voxpupuli/puppet-unbound/tree/v2.7.0) (2020-04-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.6.0...v2.7.0)
+
+**Implemented enhancements:**
+
+- Add support for CentOS / RedHat 8 [\#233](https://github.com/voxpupuli/puppet-unbound/pull/233) ([dhoppe](https://github.com/dhoppe))
+
+**Merged pull requests:**
+
+- Fix on OS where root group != 'root' [\#231](https://github.com/voxpupuli/puppet-unbound/pull/231) ([buzzdeee](https://github.com/buzzdeee))
+- Fix order of parameters [\#229](https://github.com/voxpupuli/puppet-unbound/pull/229) ([dhoppe](https://github.com/dhoppe))
+
 ## [v2.6.0](https://github.com/voxpupuli/puppet-unbound/tree/v2.6.0) (2020-02-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/2.5.0...v2.6.0)
@@ -25,6 +38,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
+- Update CHANGELOG.md, based on command bundle exec rake changelog [\#227](https://github.com/voxpupuli/puppet-unbound/pull/227) ([dhoppe](https://github.com/dhoppe))
 - ignore lint: quote boolean values have been \[i belive\] supported for … [\#226](https://github.com/voxpupuli/puppet-unbound/pull/226) ([b4ldr](https://github.com/b4ldr))
 - Add test for unbound::stub [\#222](https://github.com/voxpupuli/puppet-unbound/pull/222) ([xaque208](https://github.com/xaque208))
 - validate\_unbond\_addr: replace functionality with a custom type [\#220](https://github.com/voxpupuli/puppet-unbound/pull/220) ([b4ldr](https://github.com/b4ldr))
@@ -116,11 +130,15 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Add missing module-config parameter to the template [\#174](https://github.com/voxpupuli/puppet-unbound/pull/174) ([fklajn-opera](https://github.com/fklajn-opera))
+- Add missing module-config parameter to the template [\#174](https://github.com/voxpupuli/puppet-unbound/pull/174) ([fklajn](https://github.com/fklajn))
 
 ## [2.3.0](https://github.com/voxpupuli/puppet-unbound/tree/2.3.0) (2018-05-31)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/2.2.0-ICANN1...2.3.0)
+
+**Merged pull requests:**
+
+- add hasstatus switch [\#175](https://github.com/voxpupuli/puppet-unbound/pull/175) ([b4ldr](https://github.com/b4ldr))
 
 ## [2.2.0-ICANN1](https://github.com/voxpupuli/puppet-unbound/tree/2.2.0-ICANN1) (2018-05-30)
 
@@ -131,17 +149,13 @@ These should not affect the functionality of the module.
 - 2.1.0 does not work with unbound version \< 1.6.7 [\#172](https://github.com/voxpupuli/puppet-unbound/issues/172)
 - service hasstatus =\> false [\#171](https://github.com/voxpupuli/puppet-unbound/issues/171)
 
-**Merged pull requests:**
-
-- add hasstatus switch [\#175](https://github.com/voxpupuli/puppet-unbound/pull/175) ([b4ldr](https://github.com/b4ldr))
-
 ## [2.2.0](https://github.com/voxpupuli/puppet-unbound/tree/2.2.0) (2018-05-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/2.1.0...2.2.0)
 
 **Merged pull requests:**
 
-- Fix regressions [\#169](https://github.com/voxpupuli/puppet-unbound/pull/169) ([fklajn-opera](https://github.com/fklajn-opera))
+- Fix regressions [\#169](https://github.com/voxpupuli/puppet-unbound/pull/169) ([fklajn](https://github.com/fklajn))
 - Set unbound pidfile for 6.3 [\#167](https://github.com/voxpupuli/puppet-unbound/pull/167) ([xaque208](https://github.com/xaque208))
 - Update from xaque208 modulesync\_config [\#165](https://github.com/voxpupuli/puppet-unbound/pull/165) ([xaque208](https://github.com/xaque208))
 - Include .sync.yml for lost beaker tests [\#164](https://github.com/voxpupuli/puppet-unbound/pull/164) ([xaque208](https://github.com/xaque208))
