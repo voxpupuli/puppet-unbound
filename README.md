@@ -49,6 +49,7 @@ class { "unbound":
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::interface:
   - '::0'
@@ -94,6 +95,7 @@ unbound::stub { "10.0.10.in-addr.arpa.":
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::stub:
   '10.0.10.in-addr.arpa.':
@@ -119,6 +121,7 @@ unbound::record { 'test.example.tld':
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::record:
   'test.example.tld':
@@ -129,7 +132,8 @@ unbound::record:
 
 ### Forward Zones
 
-Setup a forward zone with a list of address from which you should resolve queries.  You can configure a forward zone with something like the following:
+Setup a forward zone with a list of address from which you should resolve
+queries.  You can configure a forward zone with something like the following:
 
 ```puppet
 unbound::forward { '.':
@@ -141,6 +145,7 @@ unbound::forward { '.':
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::forward:
   '.':
@@ -163,7 +168,6 @@ multiple domains that are treated as if unsigned.   If  you  set
 trust anchors for the domain they override this setting (and the
 domain is secured).
 
-
 ```puppet
 class {'unbound:'
   domain_insecure => ['example.com', example.org']
@@ -171,6 +175,7 @@ class {'unbound:'
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::domain_insecure:
 - example.com
@@ -194,6 +199,7 @@ class {'unbound:'
 ```
 
 Or, using unbound::localzone
+
 ```puppet
 unbound::localzone { '10.0.10.in-addr.arpa.':
   type => 'nodefault'
@@ -201,6 +207,7 @@ unbound::localzone { '10.0.10.in-addr.arpa.':
 ```
 
 Or, using hiera
+
 ```yaml
 unbound::local_zone:
   10.0.10.in-addr.arpa.: nodefault
@@ -216,7 +223,8 @@ class { "unbound":
 }
 ```
 
-The access option allows to pass the action for each subnets, if the action is not provided we assume it’s 'allow'.
+The access option allows to pass the action for each subnets, if the action is
+not provided we assume it’s 'allow'.
 
 ### Adding arbitrary unbound configuration parameters
 
