@@ -225,11 +225,13 @@ class unbound (
   if $control_enable {
     file {"${confdir}/interfaces.txt":
       ensure  => file,
-      notify  => Exec[$restart_cmd],
+      notify  => Exec['restart unbound'],
       content => template('unbound/interfaces.txt.erb'),
     }
-    exec {$restart_cmd:
+    exec { 'restart unbound':
+      command     => $restart_cmd,
       refreshonly => true,
+      require     => Service[$service_name],
     }
     Service[$service_name] {
       restart   => "${control_path} reload",
