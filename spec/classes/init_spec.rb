@@ -865,13 +865,13 @@ describe 'unbound' do
         case facts[:osfamily]
         when 'FreeBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/local/sbin/unbound-control-setup -d /usr/local/etc/unbound') }
-          it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/service restart unbound')}
+          it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/service restart unbound') }
         when 'OpenBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /var/unbound/etc') }
-          it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/rcctl restart unbound')}
+          it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/rcctl restart unbound') }
         else
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /etc/unbound') }
-          it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound')}
+          it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
         end
       end
 
@@ -900,23 +900,23 @@ describe 'unbound' do
             control_enable: true,
             interface: [
               '1.2.3.4',
-              '4.3.2.1',
+              '4.3.2.1'
             ],
-            restart_cmd: '/bin/false',
+            restart_cmd: '/bin/false'
           }
         end
 
         it {
-          is_expected.to contain_file('/etc/unbound/interfaces.txt')
-            .with_content('# Used by puppet-unbound')
-            .with_content(%r{^1.2.3.4$})
-            .with_content(%r{^4.3.2.1$})
-            .that_notifies('Exec[restart unbound]')
+          is_expected.to contain_file('/etc/unbound/interfaces.txt').
+            with_content('# Used by puppet-unbound').
+            with_content(%r{^1.2.3.4$}).
+            with_content(%r{^4.3.2.1$}).
+            that_notifies('Exec[restart unbound]')
         }
 
         it {
-          is_expected.to contain_exec('restart unbound')
-            .that_requires('Service[unbound]')
+          is_expected.to contain_exec('restart unbound').
+            that_requires('Service[unbound]')
         }
       end
 
