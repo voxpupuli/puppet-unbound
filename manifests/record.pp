@@ -30,7 +30,16 @@ define unbound::record (
   $entry       = $name,
   $config_file = $unbound::config_file,
 ) {
-  $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
+  if $type != 'TXT' {
+    $local_data     = "  local-data: \"${entry} ${ttl} IN ${type} ${content}\"\n"
+  } else {
+    # Long TXT records must be broken into strings of 255 characters as per RFC 4408
+    $real_content = $content.slice(255)
+    .reduce('') |String $record, Array $s| {
+      "${record}\"${s.join()}\""
+    }
+    $local_data     = "  local-data: '${entry} ${ttl} IN ${type} ${real_content}'\n"
+  }
   $local_data_ptr = "  local-data-ptr: \"${content} ${entry}\"\n"
 
   $config = $reverse? {
