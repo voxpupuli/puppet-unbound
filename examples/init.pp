@@ -19,7 +19,7 @@ unbound::stub { '0.0.0.10.in-addr.arpa.':
 }
 
 unbound::stub { '10.0.10.in-addr.arpa.':
-  address => [ 'ns1.example.com', '10.0.0.10@10053', 'ns2.example.com' ],
+  address => ['ns1.example.com', '10.0.0.10@10053', 'ns2.example.com'],
 }
 
 unbound::localzone { '10.in-addr.arpa.':

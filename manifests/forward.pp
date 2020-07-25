@@ -38,7 +38,6 @@ define unbound::forward (
   Pattern[/yes|no/] $forward_tls_upstream = 'no',
   $config_file                            = $unbound::config_file,
 ) {
-
   concat::fragment { "unbound-forward-${name}":
     order   => '20',
     target  => $config_file,
