@@ -1,7 +1,17 @@
 # frozen_string_literal: true
 
 require 'spec_helper_acceptance'
+if fact('osfamily') == 'FreeBSD'
+  apply_manifest("package{'dns/bind-tools': ensure => 'present'}")
+else
+  if fact('osfamily') == 'RedHat'
+    apply_manifest("package{'bind-utils': ensure => 'present'}")
+  else
+    apply_manifest("package{'dnsutils': ensure => 'present'}")
+  end
 
+  shell('sysctl net.ipv6.conf.all.disable_ipv6=0')
+end
 describe 'unbound class' do
   describe 'running puppet code' do
     it 'work with no errors' do

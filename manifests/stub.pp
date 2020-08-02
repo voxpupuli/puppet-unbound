@@ -36,7 +36,6 @@ define unbound::stub (
   Unbound::Local_zone_type                           $type        = 'transparent',
   Stdlib::Unixpath                                   $config_file = lookup('unbound::config_file'),
 ) {
-
   concat::fragment { "unbound-stub-${name}":
     order   => '15',
     target  => $config_file,

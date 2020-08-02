@@ -185,7 +185,6 @@ class unbound (
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
 ) {
-
   unless $package_name.empty {
     package { $package_name:
       ensure   => $package_ensure,
@@ -203,14 +202,14 @@ class unbound (
 
   $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
-  if $_piddir and !($_piddir in [ '/run', '/var/run' ]) {
+  if $_piddir and !($_piddir in ['/run', '/var/run']) {
     $dirs = unique($_base_dirs + [$_piddir])
     $_owned_dirs = unique([$runtime_dir, $_piddir])
   } else {
     $dirs = unique($_base_dirs)
     $_owned_dirs = [$runtime_dir]
   }
-  ensure_resource('file', $dirs, {ensure => directory})
+  ensure_resource('file', $dirs, { ensure => directory })
   File[$_owned_dirs] {
     owner => $owner,
   }
@@ -223,7 +222,7 @@ class unbound (
   }
 
   if $control_enable {
-    file {"${confdir}/interfaces.txt":
+    file { "${confdir}/interfaces.txt":
       ensure  => file,
       notify  => Exec['restart unbound'],
       content => template('unbound/interfaces.txt.erb'),
@@ -251,7 +250,7 @@ class unbound (
     command => "${fetch_client} ${hints_file} ${root_hints_url}",
     creates => $hints_file,
     path    => ['/usr/bin','/usr/local/bin'],
-    before  => [ Concat::Fragment['unbound-header'] ],
+    before  => [Concat::Fragment['unbound-header']],
     require => File[$dirs],
   }
 
@@ -261,7 +260,7 @@ class unbound (
     user    => $owner,
     path    => ['/usr/sbin','/usr/local/sbin'],
     returns => 1,
-    before  => [ Concat::Fragment['unbound-header'] ],
+    before  => [Concat::Fragment['unbound-header']],
     require => File[$runtime_dir],
   }
 

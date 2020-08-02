@@ -62,7 +62,6 @@ class unbound::remote (
   $config_file                        = $unbound::config_file,
   $control_setup_path                 = $unbound::control_setup_path,
 ) {
-
   concat::fragment { 'unbound-remote':
     order   => '10',
     target  => $config_file,
@@ -75,7 +74,7 @@ class unbound::remote (
       creates => $server_key_file,
     }
 
-    file { [ $server_key_file, $server_cert_file, $control_key_file, $control_cert_file ]:
+    file { [$server_key_file, $server_cert_file, $control_key_file, $control_cert_file]:
       owner   => 'root',
       group   => $group,
       mode    => '0640',
