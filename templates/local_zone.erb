@@ -5,6 +5,11 @@ server:
     <%- rr = "#{rr} #{resource_record['ttl']}" if resource_record['ttl'] -%>
     <%- rr = "#{rr} #{resource_record['class']}" if resource_record['class'] -%>
     <%- rr = "#{rr} #{resource_record['type']}" -%>
-    <%- rr = "#{rr} #{resource_record['data']}" -%>
+    <%- if resource_record['type'] != 'TXT' -%>
+      <%- rr = "#{rr} #{resource_record['data']}" -%>
   local-data: "<%= rr %>"
+    <%- else -%>
+      <%- rr = "#{rr} #{(resource_record['data'].scan /.{1,255}/).inject(''){|r, s| "#{r}\"#{s}\""}}" -%>
+  local-data: '<%= rr %>'
+    <%- end -%>
   <%- end -%>
