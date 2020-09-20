@@ -32,6 +32,7 @@ define unbound::stub (
   Variant[Array[Unbound::Address], Unbound::Address] $address,
   # lint:ignore:quoted_booleans
   Variant[Boolean, Enum['true', 'false']]            $insecure    = false,
+  Variant[Boolean, Enum['true', 'false']]            $no_cache    = false,
   # lint:endignore
   Unbound::Local_zone_type                           $type        = 'transparent',
   Stdlib::Unixpath                                   $config_file = lookup('unbound::config_file'),
