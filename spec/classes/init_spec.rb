@@ -26,12 +26,7 @@ describe 'unbound' do
 
       case facts['os']['family']
       when 'Debian'
-        pidfile = case facts[:os]['release']['major']
-                  when '6', '7', '8'
-                    '/var/run/unbound.pid'
-                  else
-                    '/run/unbound.pid'
-                  end
+        pidfile = '/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
       when 'RedHat'
