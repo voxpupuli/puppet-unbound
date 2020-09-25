@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.8.0](https://github.com/voxpupuli/puppet-unbound/tree/v2.8.0) (2020-09-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.7.0...v2.8.0)
+
+Debian 8 is EOL since some time now. This 2.8.0 release will be the last one with Debian 8 support. The next release will be 3.0.0 without Debian 8!
+
+**Implemented enhancements:**
+
+- Implement Archlinux support [\#243](https://github.com/voxpupuli/puppet-unbound/pull/243) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Single quote TXT records and break them into strings of 255 characters [\#238](https://github.com/voxpupuli/puppet-unbound/pull/238) ([FredericLespez](https://github.com/FredericLespez))
+
+**Closed issues:**
+
+- Handle TXT records containing double quotes and white space [\#237](https://github.com/voxpupuli/puppet-unbound/issues/237)
+
+**Merged pull requests:**
+
+- Resolve puppet-lint notices [\#240](https://github.com/voxpupuli/puppet-unbound/pull/240) ([jcpunk](https://github.com/jcpunk))
+- modulesync 3.0.0 & puppet-lint updates [\#239](https://github.com/voxpupuli/puppet-unbound/pull/239) ([bastelfreak](https://github.com/bastelfreak))
+- Restart for interface change after service is configured [\#236](https://github.com/voxpupuli/puppet-unbound/pull/236) ([nward](https://github.com/nward))
+- Fix several markdown lint issues [\#235](https://github.com/voxpupuli/puppet-unbound/pull/235) ([dhoppe](https://github.com/dhoppe))
+
 ## [v2.7.0](https://github.com/voxpupuli/puppet-unbound/tree/v2.7.0) (2020-04-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.6.0...v2.7.0)
