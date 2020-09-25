@@ -17,6 +17,7 @@ A puppet module for the Unbound caching resolver.
 * OS X (macports)
 * RHEL clones (with EPEL)
 * openSUSE (local repo or obs://server:dns)
+* Archlinux
 
 ## Requirements
 
