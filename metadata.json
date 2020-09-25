@@ -1,6 +1,6 @@
 {
   "name": "puppet-unbound",
-  "version": "2.8.0",
+  "version": "2.8.1-rc0",
   "author": "Vox Pupuli",
   "summary": "A module to deploy and manage the Unbound caching resolver",
   "license": "Apache-2.0",
