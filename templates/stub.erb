@@ -1,6 +1,6 @@
 stub-zone:
   name: "<%= @name %>"
-<% @address.each do |addr| -%>
+<% [@address].flatten.each do |addr| -%>
   stub-addr: <%= addr %>
 <% end -%>
 <% if @no_cache == 'true' or @no_cache == true -%>
