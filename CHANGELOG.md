@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v3.0.0) (2020-09-30)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.8.0...v3.0.0)
+
+**Breaking changes:**
+
+- Drop Debian 6/7/8 support and compatibility [\#246](https://github.com/voxpupuli/puppet-unbound/pull/246) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add support for stub-no-cache option [\#241](https://github.com/voxpupuli/puppet-unbound/pull/241) ([xaque208](https://github.com/xaque208))
+
+**Fixed bugs:**
+
+- Fix erb template to allow string for address attribute [\#247](https://github.com/voxpupuli/puppet-unbound/pull/247) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Disable Debian 8 acceptance tests [\#248](https://github.com/voxpupuli/puppet-unbound/pull/248) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.8.0](https://github.com/voxpupuli/puppet-unbound/tree/v2.8.0) (2020-09-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.7.0...v2.8.0)
