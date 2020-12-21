@@ -211,6 +211,7 @@ class unbound (
   Stdlib::Absolutepath                          $unbound_conf_d                  = "${confdir}/unbound.conf.d",
   Unbound::Hints_file                           $hints_file                      = "${confdir}/root.hints",
   Optional[String[1]]                           $hints_file_content              = undef,
+  Hash[String[1], Unbound::Rpz]                 $rpzs                            = {},
 ) {
   $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
