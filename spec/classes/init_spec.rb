@@ -869,13 +869,6 @@ describe 'unbound' do
         when 'OpenBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /var/unbound/etc') }
           it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/rcctl restart unbound') }
-        when 'RedHat'
-          if facts[:os]['release']['major'].to_i == 6
-            it { is_expected.to contain_exec('restart unbound').with_command('/usr/bin/service unbound restart') }
-          else
-            it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
-          end
-          it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /etc/unbound') }
         else
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /etc/unbound') }
           it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
