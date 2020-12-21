@@ -19,6 +19,7 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
+        "6",
         "7",
         "8"
       ]
@@ -34,6 +35,7 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
+        "6",
         "7",
         "8"
       ]
