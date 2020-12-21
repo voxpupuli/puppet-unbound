@@ -15,8 +15,8 @@ describe 'unbound' do
 
       pidfile = nil
 
-      if facts.dig(:os, :family).nil?
-        if facts.dig(:osfamil)
+      if facts.dig(:os, 'family').nil?
+        if facts.dig(:osfamily)
           puts "Skipping tests on on platform #{facts[:osfamily]} due to missing facts[:os][:family]"
         else
           puts "Skipping tests on on platform #{facts[:kernel]} due to missing facts[:os][:family]"
@@ -24,31 +24,37 @@ describe 'unbound' do
         next
       end
 
-      case facts['os']['family']
+      case facts[:os]['family']
       when 'Debian'
         pidfile = '/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
+        let(:purge_unbound_conf_d) { true }
       when 'RedHat'
         pidfile = '/var/run/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
+        let(:purge_unbound_conf_d) { false }
       when 'OpenBSD'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/var/unbound/etc' }
+        let(:purge_unbound_conf_d) { false }
       when 'FreeBSD'
         pidfile = '/usr/local/etc/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/usr/local/etc/unbound' }
+        let(:purge_unbound_conf_d) { false }
       when 'Darwin'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'org.macports.unbound' }
         let(:conf_dir) { '/opt/local//etc/unbound' }
+        let(:purge_unbound_conf_d) { false }
       else
         pidfile = '/var/run/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
+        let(:purge_unbound_conf_d) { false }
       end
 
       context 'with default params' do
@@ -68,8 +74,8 @@ describe 'unbound' do
             'ensure'  => 'directory',
             'owner'   => 'root',
             'group'   => '0',
-            'purge'   => false,
-            'recurse' => false
+            'purge'   => purge_unbound_conf_d,
+            'recurse' => purge_unbound_conf_d
           )
         end
         it { is_expected.not_to contain_file('/run') }
@@ -857,13 +863,19 @@ describe 'unbound' do
           )
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'FreeBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/local/sbin/unbound-control-setup -d /usr/local/etc/unbound') }
-          it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/service restart unbound') }
         when 'OpenBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /var/unbound/etc') }
           it { is_expected.to contain_exec('restart unbound').with_command('/usr/sbin/rcctl restart unbound') }
+        when 'RedHat'
+          if facts[:os]['release']['major'].to_i == 6
+            it { is_expected.to contain_exec('restart unbound').with_command('/usr/bin/service unbound restart') }
+          else
+            it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
+          end
+          it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /etc/unbound') }
         else
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/sbin/unbound-control-setup -d /etc/unbound') }
           it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
@@ -897,13 +909,13 @@ describe 'unbound' do
               '1.2.3.4',
               '4.3.2.1'
             ],
-            restart_cmd: '/bin/false'
+            restart_cmd: '/bin/false',
+            confdir: '/etc/unbound'
           }
         end
 
         it {
           is_expected.to contain_file('/etc/unbound/interfaces.txt').
-            with_content('# Used by puppet-unbound').
             with_content(%r{^1.2.3.4$}).
             with_content(%r{^4.3.2.1$}).
             that_notifies('Exec[restart unbound]')
