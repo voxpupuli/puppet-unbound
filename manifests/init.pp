@@ -210,8 +210,11 @@ class unbound (
     $_owned_dirs = [$runtime_dir]
   }
   ensure_resource('file', $dirs, { ensure => directory })
-  File[$_owned_dirs] {
-    owner => $owner,
+
+  $_owned_dirs.each |$dir| {
+    File<| title == $_owned_dirs |> {
+      owner => $owner,
+    }
   }
 
   service { $service_name:
