@@ -24,6 +24,7 @@ group :development do
 end
 
 group :system_tests do
+  gem 'puppet_metadata', '~> 0.3.0',  :require => false
   gem 'voxpupuli-acceptance',  :require => false
 end
 
@@ -35,14 +36,11 @@ group :release do
 end
 
 
+gem 'puppetlabs_spec_helper', '~> 2.0', :require => false
+gem 'rake', :require => false
+gem 'facter', ENV['FACTER_GEM_VERSION'], :require => false, :groups => [:test]
 
-if facterversion = ENV['FACTER_GEM_VERSION']
-  gem 'facter', facterversion.to_s, :require => false, :groups => [:test]
-else
-  gem 'facter', :require => false, :groups => [:test]
-end
-
-ENV['PUPPET_VERSION'].nil? ? puppetversion = '~> 6.0' : puppetversion = ENV['PUPPET_VERSION'].to_s
+puppetversion = ENV['PUPPET_VERSION'] || '~> 6.0'
 gem 'puppet', puppetversion, :require => false, :groups => [:test]
 
 # vim: syntax=ruby

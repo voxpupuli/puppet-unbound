@@ -15,7 +15,7 @@ end
 describe 'unbound class' do
   describe 'running puppet code' do
     it 'work with no errors' do
-      pp = "class {'unbound': }"
+      pp = "class {'unbound': verbosity => 5, logfile => '/tmp/unbound.log'}"
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_failures: true)
       expect(apply_manifest(pp, catch_failures: true).exit_code).to eq 0
@@ -29,19 +29,10 @@ describe 'unbound class' do
     describe port(53) do
       it { is_expected.to be_listening }
     end
-    describe command('dig +dnssec . soa @localhost') do
-      its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+SOA\s+a\.root-servers\.net\.\snstld\.verisign-grs\.com\.\s\d+\s1800\s900\s604800\s86400} }
-      its(:stdout) { is_expected.to match %r{flags: qr rd ra ad;} }
-    end
-    describe command('dig +dnssec . soa @localhost') do
-      its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+SOA\s+a\.root-servers\.net\.\snstld\.verisign-grs\.com\.\s\d+\s1800\s900\s604800\s86400} }
-      its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+RRSIG\s+SOA} }
-      its(:stdout) { is_expected.to match %r{flags: qr rd ra ad;} }
-    end
-    describe command('dig +dnssec SOA dnssec-failed.org @localhost') do
+    describe command('dig +tcp +dnssec -t SOA dnssec-failed.org @127.0.0.1') do
       its(:stdout) { is_expected.to match %r{status: SERVFAIL} }
     end
-    describe command('dig +dnssec +cd SOA dnssec-failed.org @localhost') do
+    describe command('dig +dnssec +cd -t SOA dnssec-failed.org @127.0.0.1') do
       its(:stdout) { is_expected.to match %r{status: NOERROR} }
     end
   end

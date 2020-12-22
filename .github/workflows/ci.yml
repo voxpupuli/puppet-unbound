@@ -1,0 +1,24 @@
+name: CI
+
+on: pull_request
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development:test:release
+    strategy:
+      fail-fast: false
+    name: 'Debian 10 puppet 6'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake beaker
+        env:
+          BEAKER_PUPPET_COLLECTION: puppet6
+          BEAKER_setfile: "debian10-64{hostname=debian10-64.example.com}"
