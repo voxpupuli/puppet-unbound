@@ -219,6 +219,3 @@ server:
 <%= print_config('ip-ratelimit-size', @ip_ratelimit_size, '1.6.1') -%>
 <%= print_config('ip-ratelimit-slabs', @ip_ratelimit_slabs, '1.6.1') -%>
 <%= print_config('ip-ratelimit-factor', @ip_ratelimit_factor, '1.6.1') -%>
-<% @custom_server_conf.each do |c| -%>
-  <%= c %>
-<% end -%>
