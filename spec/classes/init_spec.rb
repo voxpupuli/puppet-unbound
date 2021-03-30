@@ -942,6 +942,12 @@ describe 'unbound' do
           ).without_content('pidfile:')
         end
       end
+
+      context 'with File defaults' do
+        let(:pre_condition) { "File { mode => '0644', owner => 'root', group => 'root' }" }
+
+        it { is_expected.to compile.with_all_deps }
+      end
     end
   end
 end
