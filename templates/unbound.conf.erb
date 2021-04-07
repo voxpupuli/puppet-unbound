@@ -48,11 +48,13 @@ server:
 <%= print_config('incoming-num-tcp', @incoming_num_tcp) -%>
 <%= print_config('edns-buffer-size', @edns_buffer_size) -%>
 <%= print_config('max-udp-size', @max_udp_size) -%>
+<%= print_config('stream-wait-size', @stream_wait_size, '1.9.0') -%>
 <%= print_config('msg-cache-size', @msg_cache_size) -%>
 <%= print_config('msg-cache-slabs', @msg_cache_slabs) -%>
 <%= print_config('num-queries-per-thread', @num_queries_per_thread) -%>
 <%= print_config('jostle-timeout', @jostle_timeout) -%>
 <%= print_config('delay-close', @delay_close) -%>
+<%= print_config('unknown-server-time-limit', @unknown_server_time_limit, '1.8.2') -%>
 <%= print_config('so-rcvbuf', @so_rcvbuf) -%>
 <%= print_config('so-sndbuf', @so_sndbuf) -%>
 <%= print_config('so-reuseport', @so_reuseport, '1.4.22') -%>
@@ -77,6 +79,9 @@ server:
 <%= print_config('do-tcp', @do_tcp) -%>
 <%= print_config('tcp-mss', @tcp_mss, '1.5.8') -%>
 <%= print_config('outgoing-tcp-mss', @outgoing_tcp_mss, '1.5.8') -%>
+<%= print_config('tcp-idle-timeout', @tcp_idle_timeout, '1.8.0') -%>
+<%= print_config('edns-tcp-keepalive', @edns_tcp_keepalive, '1.8.0') -%>
+<%= print_config('edns-tcp-keepalive-timeout', @edns_tcp_keepalive_timeout, '1.8.0') -%>
 <%= print_config('tcp-upstream', @tcp_upstream) -%>
 <%= print_config('udp-upstream-without-downstream', @udp_upstream_without_downstream, '1.6.7') -%>
 <%= print_config('tls-upstream', @tls_upstream, '1.7.0') -%>
@@ -85,6 +90,8 @@ server:
 <%= print_config('ssl-service-key', @ssl_service_key, '1.7.0') -%>
 <%= print_config('ssl-service-pem', @ssl_service_pem, '1.7.0') -%>
 <%= print_config('ssl-port', @ssl_port, '1.7.0') -%>
+<%= print_config('tls-ciphers', @tls_ciphers, '1.9.0') -%>
+<%= print_config('tls-ciphersuites', @tls_ciphersuites, '1.9.0') -%>
 <%= print_config('use-systemd', @use_systemd, '1.6.1') -%>
 <%= print_config('do-daemonize', @do_daemonize) -%>
 <% @access.each do |acc| -%>
@@ -128,6 +135,9 @@ server:
 <%= print_config('log-time-ascii', @log_time_ascii) -%>
 <%= print_config('log-queries', @log_queries) -%>
 <%= print_config('log-replies', @log_replies, '1.6.1') -%>
+<%= print_config('log-tag-queryreply', @log_tag_queryreply, '1.9.0') -%>
+<%= print_config('log-local-actions', @log_local_actions, '1.8.0') -%>
+<%= print_config('log-servfail', @log_servfail, '1.8.0') -%>
 <%= print_config('hide-identity', @hide_identity) -%>
 <%= print_config('pidfile', @pidfile) -%>
 <%= print_config('root-hints', @hints_file) -%>
@@ -154,6 +164,7 @@ server:
 <%= print_config('do-not-query-localhost', @do_not_query_localhost) -%>
 <%= print_config('prefetch', @prefetch) -%>
 <%= print_config('prefetch-key', @prefetch_key) -%>
+<%= print_config('deny-any', @deny_any, '1.8.2') -%>
 <%= print_config('rrset-roundrobin', @rrset_roundrobin) -%>
 <%= print_config('minimal-responses', @minimal_responses) -%>
 <%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
@@ -174,6 +185,10 @@ server:
 <%= print_config('val-permissive-mode', @val_permissive_mode) -%>
 <%= print_config('ignore-cd-flag', @ignore_cd_flag) -%>
 <%= print_config('serve-expired', @serve_expired, '1.6.0') -%>
+<%= print_config('serve-expired-ttl', @serve_expired_ttl, '1.8.0') -%>
+<%= print_config('serve-expired-ttl-reset', @serve_expired_ttl_reset, '1.8.0') -%>
+<%= print_config('serve-expired-reply-ttl', @serve_expired_reply_ttl, '1.8.0') -%>
+<%= print_config('serve-expired-client-timeout', @serve_expired_client_timeout, '1.8.0') -%>
 <%= print_config('val-nsec3-keysize-iterations', @val_nsec3_keysize_iterations) -%>
 <%= print_config('add-holddown', @add_holddown) -%>
 <%= print_config('del-holddown', @del_holddown) -%>
@@ -219,6 +234,8 @@ server:
 <%= print_config('ip-ratelimit-size', @ip_ratelimit_size, '1.6.1') -%>
 <%= print_config('ip-ratelimit-slabs', @ip_ratelimit_slabs, '1.6.1') -%>
 <%= print_config('ip-ratelimit-factor', @ip_ratelimit_factor, '1.6.1') -%>
+<%= print_config('fast-server-permil', @fast_server_permil, '1.8.2') -%>
+<%= print_config('fast-server-num', @fast_server_num, '1.8.2') -%>
 <% @custom_server_conf.each do |c| -%>
   <%= c %>
 <% end -%>
