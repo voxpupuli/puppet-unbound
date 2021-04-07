@@ -16,12 +16,14 @@ unbound::outgoing_num_tcp: ~
 unbound::incoming_num_tcp: ~
 unbound::edns_buffer_size: 1280
 unbound::max_udp_size: ~
+unbound::stream_wait_size: ~
 unbound::msg_buffer_size: ~
 unbound::msg_cache_size: ~
 unbound::msg_cache_slabs: ~
 unbound::num_queries_per_thread: ~
 unbound::jostle_timeout: ~
 unbound::delay_close: ~
+unbound::unknown_server_time_limit: ~
 unbound::so_rcvbuf: ~
 unbound::so_sndbuf: ~
 unbound::so_reuseport: false
@@ -44,6 +46,9 @@ unbound::do_udp: true
 unbound::do_tcp: true
 unbound::tcp_mss: ~
 unbound::outgoing_tcp_mss: ~
+unbound::tcp_idle_timeout: ~
+unbound::edns_tcp_keepalive: false
+unbound::edns_tcp_keepalive_timeout: ~
 unbound::tcp_upstream: false
 unbound::udp_upstream_without_downstream: false
 unbound::tls_cert_bundle: ~
@@ -52,6 +57,8 @@ unbound::ssl_upstream: false
 unbound::ssl_service_key: ~
 unbound::ssl_service_pem: ~
 unbound::ssl_port: ~
+unbound::tls_ciphers: ~
+unbound::tls_ciphersuites: ~
 unbound::use_systemd: false
 unbound::do_daemonize: true
 unbound::access_control: ~
@@ -63,6 +70,9 @@ unbound::log_identity: ~
 unbound::log_time_ascii: false
 unbound::log_queries: false
 unbound::log_replies: false
+unbound::log_tag_queryreply: false
+unbound::log_local_actions: false
+unbound::log_servfail: false
 unbound::pidfile: '/var/run/unbound/unbound.pid'
 unbound::hints_file: "%{hiera('unbound::confdir')}/root.hints"
 unbound::hide_identity: true
@@ -89,6 +99,7 @@ unbound::do_not_query_address: ~
 unbound::do_not_query_localhost: true
 unbound::prefetch: false
 unbound::prefetch_key: false
+unbound::deny_any: false
 unbound::rrset_roundrobin: false
 unbound::minimal_responses: false
 unbound::disable_dnssec_lame_check: false
@@ -106,6 +117,10 @@ unbound::val_log_level: ~
 unbound::val_permissive_mode: false
 unbound::ignore_cd_flag: false
 unbound::serve_expired: false
+unbound::serve_expired_ttl: ~
+unbound::serve_expired_ttl_reset: false
+unbound::serve_expired_reply_ttl: ~
+unbound::serve_expired_client_timeout: ~
 unbound::val_nsec3_keysize_iterations: ~
 unbound::add_holddown: ~
 unbound::del_holddown: ~
@@ -131,6 +146,8 @@ unbound::ip_ratelimit: ~
 unbound::ip_ratelimit_size: ~
 unbound::ip_ratelimit_slabs: ~
 unbound::ip_ratelimit_factor: ~
+unbound::fast_server_permil: ~
+unbound::fast_server_num: ~
 
 unbound::confdir: '/etc/unbound'
 unbound::service_name: 'unbound'
@@ -173,6 +190,10 @@ unbound::client_subnet_zone: ~
 unbound::client_subnet_always_forward: false
 unbound::max_client_subnet_ipv6: 56
 unbound::max_client_subnet_ipv4: 24
+unbound::min_client_subnet_ipv6: ~
+unbound::min_client_subnet_ipv4: ~
+unbound::max_ecs_tree_size_ipv4: ~
+unbound::max_ecs_tree_size_ipv6: ~
 unbound::ipsecmod_enabled: true
 unbound::ipsecmod_hook: ~
 unbound::ipsecmod_strict: false

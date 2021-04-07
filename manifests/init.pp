@@ -20,11 +20,13 @@ class unbound (
   Optional[Integer[0]]                                 $incoming_num_tcp,
   Integer[0,4096]                                      $edns_buffer_size,
   Optional[Integer[0,65536]]                           $max_udp_size,
+  Optional[Unbound::Size]                              $stream_wait_size,             # version 1.9.0
   Optional[Unbound::Size]                              $msg_cache_size,
   Optional[Integer]                                    $msg_cache_slabs,
   Optional[Integer]                                    $num_queries_per_thread,
   Optional[Integer[1]]                                 $jostle_timeout,
   Optional[Integer[0]]                                 $delay_close,
+  Optional[Integer[1]]                                 $unknown_server_time_limit,    # version 1.8.2
   Optional[Unbound::Size]                              $so_rcvbuf,
   Optional[Unbound::Size]                              $so_sndbuf,
   Boolean                                              $so_reuseport,                 # Version 1.4.22
@@ -49,12 +51,17 @@ class unbound (
   Optional[Stdlib::Absolutepath]                       $tls_cert_bundle,              # version 1.7.0
   Boolean                                              $tls_upstream,                 # version 1.7.0
   Optional[Integer[0]]                                 $outgoing_tcp_mss,             # version 1.5.8
+  Optional[Integer[0]]                                 $tcp_idle_timeout,             # version 1.8.0
+  Boolean                                              $edns_tcp_keepalive,           # version 1.8.0
+  Optional[Integer[0]]                                 $edns_tcp_keepalive_timeout,   # version 1.8.0
   Boolean                                              $tcp_upstream,
   Boolean                                              $udp_upstream_without_downstream,
   Boolean                                              $ssl_upstream,                 # version 1.7.0
   Optional[Stdlib::Absolutepath]                       $ssl_service_key,              # version 1.7.0
   Optional[Stdlib::Absolutepath]                       $ssl_service_pem,              # version 1.7.0
   Optional[Integer[0,65535]]                           $ssl_port,                     # version 1.7.0
+  Optional[String]                                     $tls_ciphers,                  # version 1.9.0
+  Optional[String]                                     $tls_ciphersuites,             # version 1.9.0
   Boolean                                              $use_systemd,                  # version 1.6.1
   Boolean                                              $do_daemonize,
   Optional[Hash[String, Unbound::Access_control]]      $access_control,               # version 1.5.10
@@ -66,6 +73,9 @@ class unbound (
   Boolean                                              $log_time_ascii,
   Boolean                                              $log_queries,
   Boolean                                              $log_replies,                  # version 1.6.1
+  Boolean                                              $log_tag_queryreply,           # version 1.9.0
+  Boolean                                              $log_local_actions,            # version 1.8.0
+  Boolean                                              $log_servfail,                 # version 1.8.0
   Optional[Stdlib::Absolutepath]                       $pidfile,
   Stdlib::Absolutepath                                 $hints_file,
   Boolean                                              $hide_identity,
@@ -92,6 +102,7 @@ class unbound (
   Boolean                                              $do_not_query_localhost,
   Boolean                                              $prefetch,
   Boolean                                              $prefetch_key,
+  Boolean                                              $deny_any,                     # version 1.8.2
   Boolean                                              $rrset_roundrobin,
   Boolean                                              $minimal_responses,
   Boolean                                              $disable_dnssec_lame_check,    # version 1.5.9
@@ -109,6 +120,10 @@ class unbound (
   Boolean                                              $val_permissive_mode,
   Boolean                                              $ignore_cd_flag,
   Boolean                                              $serve_expired,                # version 1.6.0
+  Optional[Integer[0]]                                 $serve_expired_ttl,            # version 1.8.0
+  Boolean                                              $serve_expired_ttl_reset,      # version 1.8.0
+  Optional[Integer[0]]                                 $serve_expired_reply_ttl,      # version 1.8.0
+  Optional[Integer[0]]                                 $serve_expired_client_timeout, # version 1.8.0
   Optional[Array[Integer[1]]]                          $val_nsec3_keysize_iterations,
   Optional[Integer[0]]                                 $add_holddown,
   Optional[Integer[0]]                                 $del_holddown,
@@ -134,6 +149,8 @@ class unbound (
   Optional[Unbound::Size]                              $ip_ratelimit_size,            # version 1.6.1
   Optional[Integer[0]]                                 $ip_ratelimit_slabs,           # version 1.6.1
   Optional[Integer[0]]                                 $ip_ratelimit_factor,
+  Optional[Integer[0,1000]]                            $fast_server_permil,           # version 1.8.2
+  Optional[Integer[1]]                                 $fast_server_num,              # version 1.8.2
   Hash                                                 $forward,
   Hash                                                 $stub,
   Hash                                                 $record,
@@ -172,6 +189,10 @@ class unbound (
   Boolean                                              $client_subnet_always_forward,
   Integer[0,128]                                       $max_client_subnet_ipv6,
   Integer[0,32]                                        $max_client_subnet_ipv4,
+  Optional[Integer[0,128]]                             $min_client_subnet_ipv6,       # version 1.8.2
+  Optional[Integer[0,32]]                              $min_client_subnet_ipv4,       # version 1.8.2
+  Optional[Integer[0]]                                 $max_ecs_tree_size_ipv4,       # version 1.8.2
+  Optional[Integer[0]]                                 $max_ecs_tree_size_ipv6,       # version 1.8.2
   Boolean                                              $ipsecmod_enabled,
   Optional[Stdlib::Absolutepath]                       $ipsecmod_hook,
   Boolean                                              $ipsecmod_strict,
