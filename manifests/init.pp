@@ -209,7 +209,7 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
-  Optional[String[1]]                                  $hints_file_content
+  Optional[String[1]]                                  $hints_file_content    = undef,
   Boolean                                              $manage_roothints_file = true,
 ) {
   unless $package_name.empty {
@@ -224,7 +224,9 @@ class unbound (
     Package[$package_name] -> File[$keys_d]
     Package[$package_name] -> File[$runtime_dir]
     Package[$package_name] -> Exec['download-roothints']
-    Package[$package_name] -> File[$hints_file]
+    if $manage_roothints_file {
+      Package[$package_name] -> File[$hints_file]
+    }
   }
 
   $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
@@ -304,7 +306,7 @@ class unbound (
     file { $hints_file:
       ensure => file,
       mode   => '0444',
-      *      => $_hints_file_content
+      *      => $_hints_file_content,
     }
   }
 
