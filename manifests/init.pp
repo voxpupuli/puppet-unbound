@@ -2,6 +2,10 @@
 #
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
+# @param manage_roothints_file
+#   Toggle for if the module should manage the root hints file. Useful if file is managed elsewhere.
+# @param hints_file_content
+#   Contents of the root hints file, if it's not remotely fetched.
 class unbound (
   Integer[0,5]                                         $verbosity,
   Optional[Integer]                                    $statistics_interval,
@@ -205,6 +209,8 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
+  Optional[String[1]]                                  $hints_file_content
+  Boolean                                              $manage_roothints_file = true,
 ) {
   unless $package_name.empty {
     package { $package_name:
@@ -264,12 +270,6 @@ class unbound (
     include unbound::remote
   }
 
-  if $skip_roothints_download {
-    File[$hints_file] -> Exec['download-roothints']
-  } else {
-    Exec['download-roothints'] -> File[$hints_file]
-  }
-
   exec { 'download-roothints':
     command => "${fetch_client} ${hints_file} ${root_hints_url}",
     creates => $hints_file,
@@ -288,9 +288,24 @@ class unbound (
     require => File[$runtime_dir],
   }
 
-  file { $hints_file:
-    ensure => file,
-    mode   => '0444',
+  # If hints file is not used, Unbound will instead use built-in hints.
+  if $manage_roothints_file {
+    if $skip_roothints_download {
+      File[$hints_file] -> Exec['download-roothints']
+    } else {
+      Exec['download-roothints'] -> File[$hints_file]
+    }
+    if $hints_file_content != undef and $skip_roothints_download {
+      $_hints_file_content = { 'content' => $hints_file_content }
+    } else {
+      $_hints_file_content = {}
+    }
+
+    file { $hints_file:
+      ensure => file,
+      mode   => '0444',
+      *      => $_hints_file_content
+    }
   }
 
   # purge unmanaged files in configuration directory

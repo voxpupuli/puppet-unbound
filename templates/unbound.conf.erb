@@ -140,7 +140,9 @@ server:
 <%= print_config('log-servfail', @log_servfail, '1.8.0') -%>
 <%= print_config('hide-identity', @hide_identity) -%>
 <%= print_config('pidfile', @pidfile) -%>
+<%- if @manage_roothints_file %>
 <%= print_config('root-hints', @hints_file) -%>
+<%- end -%>
 <%= print_config('identity', @identity) -%>
 <%= print_config('hide-version', @hide_version) -%>
 <%= print_config('version', @version) -%>
