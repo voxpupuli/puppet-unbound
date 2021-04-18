@@ -953,6 +953,20 @@ describe 'unbound' do
         it { is_expected.not_to contain_file(hints_file) }
       end
 
+      context 'no root hints' do
+        let(:params) do
+          {
+            hints_file: :undef
+          }
+        end
+
+        it do 
+          is_expected.to contain_concat__fragment(
+            'unbound-header'
+          ).without_content('root-hints:')
+        end
+      end
+
       context 'hieradata root hints' do
         let(:params) do
           {

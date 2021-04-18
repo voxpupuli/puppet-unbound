@@ -2,6 +2,8 @@
 #
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
+# @param hints_file
+#   File path to the root-hints. Type[Undef] to remove root hints reference from unbound.conf
 # @param manage_roothints_file
 #   Toggle for if the module should manage the root hints file. Useful if file is managed elsewhere.
 # @param hints_file_content
@@ -81,7 +83,6 @@ class unbound (
   Boolean                                              $log_local_actions,            # version 1.8.0
   Boolean                                              $log_servfail,                 # version 1.8.0
   Optional[Stdlib::Absolutepath]                       $pidfile,
-  Stdlib::Absolutepath                                 $hints_file,
   Boolean                                              $hide_identity,
   Optional[String]                                     $identity,
   Boolean                                              $hide_version,
@@ -209,6 +210,7 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
+  Optional[Stdlib::Absolutepath]                       $hints_file            = "${confdir}/root.hints",
   Optional[String[1]]                                  $hints_file_content    = undef,
   Boolean                                              $manage_roothints_file = true,
 ) {
