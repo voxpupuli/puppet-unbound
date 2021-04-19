@@ -943,20 +943,10 @@ describe 'unbound' do
         end
       end
 
-      context 'unmanaged root hints' do
-        let(:params) do
-          {
-            create_root_hints: false
-          }
-        end
-
-        it { is_expected.not_to contain_file(hints_file) }
-      end
-
       context 'no root hints in config' do
         let(:params) do
           {
-            root_hints_in_config: false
+            hints_file: 'builtin'
           }
         end
 

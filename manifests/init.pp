@@ -3,11 +3,7 @@
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
 # @param hints_file
-#   File path to the root-hints.
-# @param root_hints_in_config
-#   Toggle whether or not root-hints even should be included in unbound.conf. (default: true)
-# @param create_root_hints
-#   Toggle for if module should manage root hints. Useful if root-hints is managed elsewhere but still needed in unbound.conf.
+#   File path to the root-hints. Set to 'builtin' to remove root-hint option from unbound.conf and use built-in hints.
 # @param hints_file_content
 #   Contents of the root hints file, if it's not remotely fetched.
 class unbound (
@@ -212,10 +208,8 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
-  Stdlib::Absolutepath                                 $hints_file               = "${confdir}/root.hints",
-  Boolean                                              $root_hints_in_config     = true,
-  Boolean                                              $create_root_hints        = true,
-  Optional[String[1]]                                  $hints_file_content       = undef,
+  Variant[Enum['builtin'], Stdlib::Absolutepath]       $hints_file           = "${confdir}/root.hints",
+  Optional[String[1]]                                  $hints_file_content   = undef,
 ) {
   unless $package_name.empty {
     package { $package_name:
@@ -228,8 +222,10 @@ class unbound (
     Package[$package_name] -> File[$conf_d]
     Package[$package_name] -> File[$keys_d]
     Package[$package_name] -> File[$runtime_dir]
-    Package[$package_name] -> Exec['download-roothints']
-    if $create_root_hints {
+    unless $hints_file == 'builtin' {
+      unless $hints_file_content or $skip_roothints_download {
+        Package[$package_name] -> Exec['download-roothints']
+      }
       Package[$package_name] -> File[$hints_file]
     }
   }
@@ -277,14 +273,6 @@ class unbound (
     include unbound::remote
   }
 
-  exec { 'download-roothints':
-    command => "${fetch_client} ${hints_file} ${root_hints_url}",
-    creates => $hints_file,
-    path    => ['/usr/bin','/usr/local/bin'],
-    before  => [Concat::Fragment['unbound-header']],
-    require => File[$dirs],
-  }
-
   exec { 'download-anchor-file':
     command => $anchor_fetch_command,
     creates => $auto_trust_anchor_file,
@@ -295,23 +283,23 @@ class unbound (
     require => File[$runtime_dir],
   }
 
-  # If hints file is not used, Unbound will instead use built-in hints.
-  if $create_root_hints {
-    if $skip_roothints_download {
-      File[$hints_file] -> Exec['download-roothints']
-    } else {
-      Exec['download-roothints'] -> File[$hints_file]
-    }
-
-    $_hints_file_content = $skip_roothints_download ? {
-      true    => $hints_file_content,
-      default => undef,
+  # If hint_file is 'builtin', Unbound should use built-in hints instead of file
+  if $hints_file != 'builtin' {
+    # Remotely fetch root hints unless hint-files content is set or is explicitlly skipped
+    unless $hints_file_content or $skip_roothints_download {
+      exec { 'download-roothints':
+        command => "${fetch_client} ${hints_file} ${root_hints_url}",
+        creates => $hints_file,
+        path    => ['/usr/bin','/usr/local/bin'],
+        before  => [Concat::Fragment['unbound-header'],File[$hints_file]],
+        require => File[$dirs],
+      }
     }
 
     file { $hints_file:
       ensure  => file,
       mode    => '0444',
-      content => $_hints_file_content,
+      content => $hints_file_content,
     }
   }
 
