@@ -963,7 +963,7 @@ describe 'unbound' do
         it do 
           is_expected.to contain_concat__fragment(
             'unbound-header'
-          ).without_content('root-hints:')
+          ).without_content(%r{root-hints})
         end
       end
 
