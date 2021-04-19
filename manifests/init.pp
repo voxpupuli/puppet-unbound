@@ -3,9 +3,11 @@
 # Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
 # @param hints_file
-#   File path to the root-hints. Type[Undef] to remove root hints reference from unbound.conf
-# @param manage_roothints_file
-#   Toggle for if the module should manage the root hints file. Useful if file is managed elsewhere.
+#   File path to the root-hints.
+# @param root_hints_in_config
+#   Toggle whether or not root-hints even should be included in unbound.conf. (default: true)
+# @param create_root_hints
+#   Toggle for if module should manage root hints. Useful if root-hints is managed elsewhere but still needed in unbound.conf.
 # @param hints_file_content
 #   Contents of the root hints file, if it's not remotely fetched.
 class unbound (
@@ -210,9 +212,10 @@ class unbound (
   Integer[1,65536]                                     $redis_server_port,
   Integer[1]                                           $redis_timeout,
   Stdlib::Absolutepath                                 $unbound_conf_d,
-  Optional[Stdlib::Absolutepath]                       $hints_file            = "${confdir}/root.hints",
-  Optional[String[1]]                                  $hints_file_content    = undef,
-  Boolean                                              $manage_roothints_file = true,
+  Stdlib::Absolutepath                                 $hints_file               = "${confdir}/root.hints",
+  Boolean                                              $root_hints_in_config     = true,
+  Boolean                                              $create_root_hints        = true,
+  Optional[String[1]]                                  $hints_file_content       = undef,
 ) {
   unless $package_name.empty {
     package { $package_name:
@@ -226,7 +229,7 @@ class unbound (
     Package[$package_name] -> File[$keys_d]
     Package[$package_name] -> File[$runtime_dir]
     Package[$package_name] -> Exec['download-roothints']
-    if $manage_roothints_file {
+    if $create_root_hints {
       Package[$package_name] -> File[$hints_file]
     }
   }
@@ -293,22 +296,22 @@ class unbound (
   }
 
   # If hints file is not used, Unbound will instead use built-in hints.
-  if $manage_roothints_file {
+  if $create_root_hints {
     if $skip_roothints_download {
       File[$hints_file] -> Exec['download-roothints']
     } else {
       Exec['download-roothints'] -> File[$hints_file]
     }
-    if $hints_file_content != undef and $skip_roothints_download {
-      $_hints_file_content = { 'content' => $hints_file_content }
-    } else {
-      $_hints_file_content = {}
+
+    $_hints_file_content = $skip_roothints_download ? {
+      true    => $hints_file_content,
+      default => undef,
     }
 
     file { $hints_file:
-      ensure => file,
-      mode   => '0444',
-      *      => $_hints_file_content,
+      ensure  => file,
+      mode    => '0444',
+      content => $_hints_file_content,
     }
   }
 
