@@ -211,25 +211,6 @@ class unbound (
   Variant[Enum['builtin'], Stdlib::Absolutepath]       $hints_file           = "${confdir}/root.hints",
   Optional[String[1]]                                  $hints_file_content   = undef,
 ) {
-  unless $package_name.empty {
-    package { $package_name:
-      ensure   => $package_ensure,
-      #provider => $package_provider,
-    }
-    Package[$package_name] -> Service[$service_name]
-    Package[$package_name] -> Concat[$config_file]
-    Package[$package_name] -> File[$confdir]
-    Package[$package_name] -> File[$conf_d]
-    Package[$package_name] -> File[$keys_d]
-    Package[$package_name] -> File[$runtime_dir]
-    unless $hints_file == 'builtin' {
-      unless $hints_file_content or $skip_roothints_download {
-        Package[$package_name] -> Exec['download-roothints']
-      }
-      Package[$package_name] -> File[$hints_file]
-    }
-  }
-
   $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
   if $_piddir and !($_piddir in ['/run', '/var/run']) {
@@ -239,11 +220,22 @@ class unbound (
     $dirs = unique($_base_dirs)
     $_owned_dirs = [$runtime_dir]
   }
-  ensure_resource('file', $dirs, { ensure => directory })
 
-  $_owned_dirs.each |$dir| {
-    File<| title == $_owned_dirs |> {
-      owner => $owner,
+  # OpenBSD passes an empty string
+  unless $package_name.empty {
+    package { $package_name:
+      ensure => $package_ensure,
+      before => [File[$dirs], Concat[$config_file], Service[$service_name]],
+    }
+  }
+  $dirs.each |$dir| {
+    $_owner = $dir in $_owned_dirs ? {
+      true    => $owner,
+      default => undef,
+    }
+    file { $dir:
+      ensure => directory,
+      owner  => $_owner,
     }
   }
 
@@ -269,8 +261,11 @@ class unbound (
       restart   => "${control_path} reload",
       require   => Class['unbound::remote'],
     }
-    Package<| title == $package_name |> -> Class['unbound::remote']
     include unbound::remote
+
+    unless $package_name.empty {
+      Package[$package_name] -> Class['unbound::remote']
+    }
   }
 
   exec { 'download-anchor-file':
@@ -279,7 +274,7 @@ class unbound (
     user    => $owner,
     path    => ['/usr/sbin','/usr/local/sbin'],
     returns => 1,
-    before  => [Concat::Fragment['unbound-header']],
+    before  => Concat::Fragment['unbound-header'],
     require => File[$runtime_dir],
   }
 
@@ -291,8 +286,11 @@ class unbound (
         command => "${fetch_client} ${hints_file} ${root_hints_url}",
         creates => $hints_file,
         path    => ['/usr/bin','/usr/local/bin'],
-        before  => [Concat::Fragment['unbound-header'],File[$hints_file]],
+        before  => [Concat::Fragment['unbound-header'], File[$hints_file]],
         require => File[$dirs],
+      }
+      unless $package_name.empty {
+        Package[$package_name] -> Exec['download-roothints']
       }
     }
 
@@ -329,15 +327,21 @@ class unbound (
     content => template('unbound/unbound.modules.conf.erb'),
   }
 
-  if $forward {
-    create_resources('unbound::forward', $forward)
+  $forward.each |$title, $config| {
+    unbound::forward { $title:
+      * => $config,
+    }
   }
 
-  if $stub {
-    create_resources('unbound::stub', $stub)
+  $stub.each |$title, $config| {
+    unbound::stub { $title:
+      * => $config,
+    }
   }
 
-  if $record {
-    create_resources('unbound::record', $record)
+  $record.each |$title, $config| {
+    unbound::record { $title:
+      * => $config,
+    }
   }
 }
