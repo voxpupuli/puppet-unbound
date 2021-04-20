@@ -4,12 +4,8 @@ remote-control:
 <% else -%>
   control-enable: no
 <% end -%>
-<% if @interface.is_a? Array -%>
 <% @interface.each do |int| -%>
   control-interface: <%= int %>
-<% end -%>
-<% else -%>
-  control-interface: <%= @interface %>
 <% end -%>
   control-port: <%= @port %>
 
