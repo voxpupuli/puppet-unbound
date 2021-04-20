@@ -7,7 +7,7 @@
   end
   def print_config(name, value, version=false )
     if version and scope.call_function('versioncmp', [unbound_version, version]) < 0
-       return 
+       return
     end
     if value.is_a?(TrueClass)
       return "  #{name}: yes\n"
@@ -19,7 +19,7 @@
       return "  #{name}: \"#{value}\"\n"
     elsif value.is_a?(Integer)
       return "  #{name}: #{value}\n"
-    elsif value.is_a?(Array)
+    elsif value.is_a?(Array) and !value.empty?
       str = ''
       value.each { |v| str << "  #{name}: #{v}\n" }
       return str
@@ -69,7 +69,7 @@ server:
 <%= print_config('infra-cache-numhosts', @infra_cache_numhosts) -%>
 <%= print_config('infra-cache-slabs', @infra_cache_slabs) -%>
 <%= print_config('infra-cache-min-rtt', @infra_cache_min_rtt) -%>
-<% if @define_tag and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+<% if !@define_tag.empty? and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
   define-tag: "<%= @define_tag.join(' ') %>"
 <%- end -%>
 <%= print_config('do-ip4', @do_ip4) -%>
@@ -101,7 +101,7 @@ server:
   access-control: <%= acc %> allow
   <%- end -%>
 <%- end -%>
-<%- if @access_control and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
   <%- @access_control.each_pair do |prefix, config| -%>
     <%- if config.includes?('tags') -%>
       <%- unless config.include?('action') or config.include?('rr_string') -%>
@@ -170,7 +170,7 @@ server:
 <%= print_config('rrset-roundrobin', @rrset_roundrobin) -%>
 <%= print_config('minimal-responses', @minimal_responses) -%>
 <%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
-<%- if @module_config %>
+<%- unless @module_config.empty? %>
   module-config: "<%= @module_config.join(' ') %>"
 <%- end -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
@@ -201,20 +201,18 @@ server:
 <%= print_config('neg-cache-size', @neg_cache_size) -%>
 <%= print_config('unblock-lan-zones', @unblock_lan_zones, '1.5.0') -%>
 <%= print_config('insecure-lan-zones', @insecure_lan_zones, '1.5.8') -%>
-<%- if @local_zone -%>
-  <%- @local_zone.each_pair do |zone, type| -%>
+<%- @local_zone.each_pair do |zone, type| -%>
   local-zone: "<%= zone %>" <%= type %>
-  <%- end -%> 
 <%- end -%> 
 <%= print_config('local-data', @local_data) -%>
 <%= print_config('local-data-ptr', @local_data_ptr) -%>
-<%- if @local_zone_tag and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
-	<%- @local_zone_tag.each_pair do |zone, tags| -%>
+<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+  <%- @local_zone_tag.each_pair do |zone, tags| -%>
   local-zone-tag: <%= zone %> "<%= tags.join(' ') %>
   <%- end -%>
 <%- end -%>
-<%- if @local_zone_override and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
-	<%- @local_zone_override.each_pair do |zone, config| -%>
+<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+  <%- @local_zone_override.each_pair do |zone, config| -%>
   local-zone-tag: <%= zone %> <%= config['netblock'] %> <%= config['type'] %>
   <%- end -%>
 <%- end -%>
@@ -222,15 +220,11 @@ server:
 <%= print_config('ratelimit-size', @ratelimit_size) -%>
 <%= print_config('ratelimit-slabs', @ratelimit_slabs) -%>
 <%= print_config('ratelimit-factor', @ratelimit_factor) -%>
-<%- if @ratelimit_for_domain -%>
-  <%- @ratelimit_for_domain.each_pair do |domain, qps| %>
+<%- @ratelimit_for_domain.each_pair do |domain, qps| %>
   ratelimit-for-domain: <%= domain %> <%= qps %>
-  <%- end -%>
 <%- end -%>
-<%- if @ratelimit_below_domain -%>
-  <%- @ratelimit_below_domain.each_pair do |domain, qps| %>
+<%- @ratelimit_below_domain.each_pair do |domain, qps| %>
   ratelimit-below-domain: <%= domain %> <%= qps %>
-  <%- end -%>
 <%- end -%>
 <%= print_config('ip-ratelimit', @ip_ratelimit, '1.6.1') -%>
 <%= print_config('ip-ratelimit-size', @ip_ratelimit_size, '1.6.1') -%>
