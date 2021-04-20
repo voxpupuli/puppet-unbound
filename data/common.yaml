@@ -74,7 +74,6 @@ unbound::log_tag_queryreply: false
 unbound::log_local_actions: false
 unbound::log_servfail: false
 unbound::pidfile: '/var/run/unbound/unbound.pid'
-unbound::hints_file: "%{hiera('unbound::confdir')}/root.hints"
 unbound::hide_identity: true
 unbound::identity: ~
 unbound::hide_version: true

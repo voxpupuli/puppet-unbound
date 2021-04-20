@@ -943,6 +943,37 @@ describe 'unbound' do
         end
       end
 
+      context 'no root hints in config' do
+        let(:params) do
+          {
+            hints_file: 'builtin'
+          }
+        end
+
+        it do 
+          is_expected.to contain_concat__fragment(
+            'unbound-header'
+          ).without_content(%r{root-hints})
+        end
+      end
+
+      context 'hieradata root hints' do
+        let(:params) do
+          {
+            skip_roothints_download: true,
+            hints_file_content: File.read('spec/classes/expected/hieradata-root-hint.conf'),
+          }
+        end
+        
+        it do
+          is_expected.to contain_file(hints_file).with(
+            'ensure'  => 'file',
+            'mode'    => '0444',
+            'content' => File.read('spec/classes/expected/hieradata-root-hint.conf'),
+          )
+        end
+      end
+
       context 'with File defaults' do
         let(:pre_condition) { "File { mode => '0644', owner => 'root', group => 'root' }" }
 
