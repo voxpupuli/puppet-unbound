@@ -950,7 +950,7 @@ describe 'unbound' do
           }
         end
 
-        it do 
+        it do
           is_expected.to contain_concat__fragment(
             'unbound-header'
           ).without_content(%r{root-hints})
@@ -964,12 +964,12 @@ describe 'unbound' do
             hints_file_content: File.read('spec/classes/expected/hieradata-root-hint.conf'),
           }
         end
-        
+
         it do
           is_expected.to contain_file(hints_file).with(
             'ensure'  => 'file',
             'mode'    => '0444',
-            'content' => File.read('spec/classes/expected/hieradata-root-hint.conf'),
+            'content' => File.read('spec/classes/expected/hieradata-root-hint.conf')
           )
         end
       end
