@@ -4,7 +4,8 @@ unbound::pidfile: '/var/run/unbound.pid'
 unbound::logdir: '/var/log/unbound'
 unbound::owner: '_unbound'
 unbound::group: '_unbound'
+unbound::service_name: 'unbound'
 unbound::fetch_client: 'ftp -o'
 unbound::validate_cmd: '/usr/sbin/unbound-checkconf %'
 unbound::package_name: ''
-unbound::restart_cmd: "/usr/sbin/rcctl restart %{hiera('unbound::service_name')}"
+unbound::restart_cmd: "/usr/sbin/rcctl restart %{lookup('unbound::service_name')}"
