@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v4.0.0) (2021-04-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v3.0.0...v4.0.0)
+
+**Fixed bugs:**
+
+- Resource default statements in module [\#242](https://github.com/voxpupuli/puppet-unbound/issues/242)
+
+**Merged pull requests:**
+
+- puppetlabs/concat: Allow 7.x [\#268](https://github.com/voxpupuli/puppet-unbound/pull/268) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 7.x [\#267](https://github.com/voxpupuli/puppet-unbound/pull/267) ([bastelfreak](https://github.com/bastelfreak))
+- puppet5: drop puppet 5 support [\#266](https://github.com/voxpupuli/puppet-unbound/pull/266) ([b4ldr](https://github.com/b4ldr))
+- move defaults to class so that puppet-strings can build better docs [\#265](https://github.com/voxpupuli/puppet-unbound/pull/265) ([b4ldr](https://github.com/b4ldr))
+- Refactor [\#264](https://github.com/voxpupuli/puppet-unbound/pull/264) ([b4ldr](https://github.com/b4ldr))
+- Provide root-hints variables & overrides for different scenarios [\#263](https://github.com/voxpupuli/puppet-unbound/pull/263) ([jared-gs](https://github.com/jared-gs))
+- Unbound 1.9.0 [\#262](https://github.com/voxpupuli/puppet-unbound/pull/262) ([steadramon](https://github.com/steadramon))
+- 242: use collections to add additional parameters [\#260](https://github.com/voxpupuli/puppet-unbound/pull/260) ([b4ldr](https://github.com/b4ldr))
+- Drop RedHat 6 \(and derivatives\) support [\#256](https://github.com/voxpupuli/puppet-unbound/pull/256) ([b4ldr](https://github.com/b4ldr))
+- Revert "modulesync 4.0.0" [\#255](https://github.com/voxpupuli/puppet-unbound/pull/255) ([b4ldr](https://github.com/b4ldr))
+- Fix spec test [\#254](https://github.com/voxpupuli/puppet-unbound/pull/254) ([b4ldr](https://github.com/b4ldr))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v3.0.0) (2020-09-30)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v2.8.0...v3.0.0)
