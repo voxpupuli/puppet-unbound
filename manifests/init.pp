@@ -22,7 +22,7 @@ class unbound (
   Boolean                                       $outgoing_port_permit_first      = true,
   Optional[Integer[0]]                          $outgoing_num_tcp                = undef,
   Optional[Integer[0]]                          $incoming_num_tcp                = undef,
-  Integer[0,4096]                               $edns_buffer_size                = 1280,
+  Integer[0,4096]                               $edns_buffer_size                = 1232,
   Optional[Integer[0,65536]]                    $max_udp_size                    = undef,
   Optional[Unbound::Size]                       $stream_wait_size                = undef,  # version 1.9.0
   Optional[Unbound::Size]                       $msg_cache_size                  = undef,
