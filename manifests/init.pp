@@ -53,7 +53,7 @@ class unbound (
   Boolean                                       $do_tcp                          = true,
   Optional[Integer[0]]                          $tcp_mss                         = undef,  # version 1.5.8
   Optional[Stdlib::Absolutepath]                $tls_cert_bundle                 = undef,  # version 1.7.0
-  Boolean                                       $tls_upstreami                   = false,  # version 1.7.0
+  Boolean                                       $tls_upstream                    = false,  # version 1.7.0
   Optional[Integer[0]]                          $outgoing_tcp_mss                = undef,  # version 1.5.8
   Optional[Integer[0]]                          $tcp_idle_timeout                = undef,  # version 1.8.0
   Boolean                                       $edns_tcp_keepalive              = false,  # version 1.8.0
