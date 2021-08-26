@@ -134,8 +134,8 @@ class unbound (
   Boolean                                       $unblock_lan_zones               = false,
   Boolean                                       $insecure_lan_zones              = false,  # version 1.5.8 
   Unbound::Local_zone                           $local_zone                      = {},
-  Optional[Array[String[1]]]                    $local_data                      = [],
-  Optional[Array[String[1]]]                    $local_data_ptr                  = [],
+  Array[String[1]]                              $local_data                      = [],
+  Array[String[1]]                              $local_data_ptr                  = [],
   Hash[String[1], Array[String[1]]]             $local_zone_tag                  = {},     # version 1.5.10
   Hash[String[1], Unbound::Local_zone_override] $local_zone_override             = {},     # version 1.5.10
   Optional[Integer[0]]                          $ratelimit                       = undef,
