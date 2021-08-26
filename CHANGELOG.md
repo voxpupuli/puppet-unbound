@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.1](https://github.com/voxpupuli/puppet-unbound/tree/v4.0.1) (2021-08-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v4.0.0...v4.0.1)
+
+**Fixed bugs:**
+
+- $tls\_upstreami -\> $tls\_upstream typo [\#276](https://github.com/voxpupuli/puppet-unbound/pull/276) ([steadramon](https://github.com/steadramon))
+- Adjustment for DNS Flag Day 2020 [\#275](https://github.com/voxpupuli/puppet-unbound/pull/275) ([steadramon](https://github.com/steadramon))
+
+**Merged pull requests:**
+
+- Allow stdlib 8.0.0 [\#277](https://github.com/voxpupuli/puppet-unbound/pull/277) ([smortex](https://github.com/smortex))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v4.0.0) (2021-04-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v3.0.0...v4.0.0)
