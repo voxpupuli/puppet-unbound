@@ -1,11 +1,13 @@
 # Puppet powered DNS with Unbound
 
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-unbound.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-unbound)
-[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-unbound/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-unbound)
+[![Build Status](https://github.com/voxpupuli/puppet-unbound/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-unbound/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-unbound/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-unbound/actions/workflows/release.yml)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/unbound.svg)](https://forge.puppetlabs.com/puppet/unbound)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-unbound)
+[![Apache-2.0 License](https://img.shields.io/github/license/voxpupuli/puppet-unbound.svg)](LICENSE)
 
 A puppet module for the Unbound caching resolver.
 
