@@ -7,6 +7,7 @@
 # @param hints_file_content
 #   Contents of the root hints file, if it's not remotely fetched.
 class unbound (
+  Boolean                                       $manage_service                  = true,
   Integer[0,5]                                  $verbosity                       = 1,
   Optional[Integer]                             $statistics_interval             = undef,
   Boolean                                       $statistics_cumulative           = false,
@@ -225,8 +226,11 @@ class unbound (
   unless $package_name.empty {
     package { $package_name:
       ensure => $package_ensure,
-      before => [File[$dirs], Concat[$config_file], Service[$service_name]],
+      before => [File[$dirs], Concat[$config_file]],
     }
+    $package_require = { require => Package[$package_name] }
+  } else {
+    $package_require = {}
   }
   $dirs.each |$dir| {
     $_owner = $dir in $_owned_dirs ? {
@@ -239,11 +243,17 @@ class unbound (
     }
   }
 
-  service { $service_name:
-    ensure    => $service_ensure,
-    name      => $service_name,
-    enable    => $service_enable,
-    hasstatus => $service_hasstatus,
+  if $manage_service {
+    service { $service_name:
+      ensure    => $service_ensure,
+      name      => $service_name,
+      enable    => $service_enable,
+      hasstatus => $service_hasstatus,
+      *         => $package_require,
+    }
+    $script_content = { notify => Service[$service_name] }
+  } else {
+    $script_content = {}
   }
 
   if $control_enable {
