@@ -268,9 +268,11 @@ class unbound (
       refreshonly => true,
       require     => $service_reuse,
     }
-    Service[$service_name] {
-      restart   => "${control_path} reload",
-      require   => Class['unbound::remote'],
+    if $service_manage {
+      Service[$service_name] {
+        restart   => "${control_path} reload",
+        require   => Class['unbound::remote'],
+      }
     }
     include unbound::remote
 
