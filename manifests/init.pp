@@ -7,7 +7,7 @@
 # @param hints_file_content
 #   Contents of the root hints file, if it's not remotely fetched.
 class unbound (
-  Boolean                                       $manage_service                  = true,
+  Boolean                                       $service_manage                  = true,
   Integer[0,5]                                  $verbosity                       = 1,
   Optional[Integer]                             $statistics_interval             = undef,
   Boolean                                       $statistics_cumulative           = false,
@@ -224,7 +224,7 @@ class unbound (
 
   # OpenBSD passes an empty string
   unless $package_name.empty {
-    if $manage_service {
+    if $service_manage {
       $before_package = [File[$dirs], Concat[$config_file], Package[$service_name]]
     } else {
       $before_package = [File[$dirs], Concat[$config_file]]
@@ -245,7 +245,7 @@ class unbound (
     }
   }
 
-  if $manage_service {
+  if $service_manage {
     service { $service_name:
       ensure    => $service_ensure,
       name      => $service_name,
