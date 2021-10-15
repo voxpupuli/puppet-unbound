@@ -222,6 +222,18 @@ class unbound (
     $_owned_dirs = [$runtime_dir]
   }
 
+  if $service_manage {
+    service { $service_name:
+      ensure    => $service_ensure,
+      name      => $service_name,
+      enable    => $service_enable,
+      hasstatus => $service_hasstatus,
+    }
+    $service_reuse = Service[$service_name]
+  } else {
+    $service_reuse = undef
+  }
+
   # OpenBSD passes an empty string
   unless $package_name.empty {
     if $service_manage {
@@ -245,18 +257,6 @@ class unbound (
     }
   }
 
-  if $service_manage {
-    service { $service_name:
-      ensure    => $service_ensure,
-      name      => $service_name,
-      enable    => $service_enable,
-      hasstatus => $service_hasstatus,
-    }
-    $script_content = { notify => Service[$service_name] }
-  } else {
-    $script_content = {}
-  }
-
   if $control_enable {
     file { "${confdir}/interfaces.txt":
       ensure  => file,
@@ -266,7 +266,7 @@ class unbound (
     exec { 'restart unbound':
       command     => $restart_cmd,
       refreshonly => true,
-      require     => Service[$service_name],
+      require     => $service_reuse,
     }
     Service[$service_name] {
       restart   => "${control_path} reload",
@@ -324,7 +324,7 @@ class unbound (
   concat { $config_file:
     validate_cmd => $validate_cmd,
     require      => Exec['download-anchor-file'],
-    *            => $script_content,
+    notify       => $service_reuse,
   }
 
   concat::fragment { 'unbound-header':
