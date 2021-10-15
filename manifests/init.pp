@@ -224,13 +224,15 @@ class unbound (
 
   # OpenBSD passes an empty string
   unless $package_name.empty {
+    if $manage_service {
+      $before_package = [File[$dirs], Concat[$config_file], Package[$service_name]]
+    } else {
+      $before_package = [File[$dirs], Concat[$config_file]]
+    }
     package { $package_name:
       ensure => $package_ensure,
-      before => [File[$dirs], Concat[$config_file]],
+      before => $before_package,
     }
-    $package_require = { require => Package[$package_name] }
-  } else {
-    $package_require = {}
   }
   $dirs.each |$dir| {
     $_owner = $dir in $_owned_dirs ? {
@@ -249,7 +251,6 @@ class unbound (
       name      => $service_name,
       enable    => $service_enable,
       hasstatus => $service_hasstatus,
-      *         => $package_require,
     }
     $script_content = { notify => Service[$service_name] }
   } else {
@@ -322,8 +323,8 @@ class unbound (
 
   concat { $config_file:
     validate_cmd => $validate_cmd,
-    notify       => Service[$service_name],
     require      => Exec['download-anchor-file'],
+    *            => $script_content,
   }
 
   concat::fragment { 'unbound-header':
