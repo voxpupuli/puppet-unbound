@@ -225,7 +225,7 @@ class unbound (
   # OpenBSD passes an empty string
   unless $package_name.empty {
     if $service_manage {
-      $before_package = [File[$dirs], Concat[$config_file], Package[$service_name]]
+      $before_package = [File[$dirs], Concat[$config_file], Service[$service_name]]
     } else {
       $before_package = [File[$dirs], Concat[$config_file]]
     }
