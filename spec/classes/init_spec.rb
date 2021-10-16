@@ -876,7 +876,7 @@ describe 'unbound' do
       end
       context 'service management diabled' do
         let(:params) { { service_manage: false, } }
-        it { is_expected.to_not contain_service(service) }
+        it { is_expected.not_to contain_service(service) }
       end
       context 'arbitrary control enablement' do
         let(:params) do
