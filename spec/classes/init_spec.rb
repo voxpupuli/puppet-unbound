@@ -874,7 +874,10 @@ describe 'unbound' do
           it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
         end
       end
-
+      context 'service management diabled' do
+        let(:params) { { service_manage: false, } }
+        it { is_expected.to_not contain_service(service) }
+      end
       context 'arbitrary control enablement' do
         let(:params) do
           {
