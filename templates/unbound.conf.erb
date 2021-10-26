@@ -35,7 +35,7 @@ server:
 <%= print_config('port', @port) -%>
 <%= print_config('interface', @interface) -%>
 <%= print_config('interface-automatic', @interface_automatic) -%>
-<%= print_config('outgoing-interface', @outgoing_interface, '1.5.10') -%>
+<%= print_config('outgoing-interface', @outgoing_interface) -%>
 <%= print_config('outgoing-range', @outgoing_range) -%>
 <%- if @outgoing_port_permit_first -%>
 <%= print_config('outgoing-port-permit', @outgoing_port_permit) -%>
@@ -57,9 +57,9 @@ server:
 <%= print_config('unknown-server-time-limit', @unknown_server_time_limit, '1.8.2') -%>
 <%= print_config('so-rcvbuf', @so_rcvbuf) -%>
 <%= print_config('so-sndbuf', @so_sndbuf) -%>
-<%= print_config('so-reuseport', @so_reuseport, '1.4.22') -%>
-<%= print_config('ip-transparent', @ip_transparent, '1.5.4') -%>
-<%= print_config('ip-freebind', @ip_freebind, '1.5.9') -%>
+<%= print_config('so-reuseport', @so_reuseport) -%>
+<%= print_config('ip-transparent', @ip_transparent) -%>
+<%= print_config('ip-freebind', @ip_freebind) -%>
 <%= print_config('rrset-cache-slabs', @rrset_cache_slabs) -%>
 <%= print_config('rrset-cache-size', @rrset_cache_size) -%>
 <%= print_config('cache-max-ttl', @cache_max_ttl) -%>
@@ -69,16 +69,16 @@ server:
 <%= print_config('infra-cache-numhosts', @infra_cache_numhosts) -%>
 <%= print_config('infra-cache-slabs', @infra_cache_slabs) -%>
 <%= print_config('infra-cache-min-rtt', @infra_cache_min_rtt) -%>
-<% if !@define_tag.empty? and scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
+<% if !@define_tag.empty? -%>
   define-tag: "<%= @define_tag.join(' ') %>"
 <%- end -%>
 <%= print_config('do-ip4', @do_ip4) -%>
 <%= print_config('do-ip6', @do_ip6) -%>
-<%= print_config('prefer-ip6', @prefer_ip6, '1.5.10') -%>
+<%= print_config('prefer-ip6', @prefer_ip6) -%>
 <%= print_config('do-udp', @do_udp) -%>
 <%= print_config('do-tcp', @do_tcp) -%>
-<%= print_config('tcp-mss', @tcp_mss, '1.5.8') -%>
-<%= print_config('outgoing-tcp-mss', @outgoing_tcp_mss, '1.5.8') -%>
+<%= print_config('tcp-mss', @tcp_mss) -%>
+<%= print_config('outgoing-tcp-mss', @outgoing_tcp_mss) -%>
 <%= print_config('tcp-idle-timeout', @tcp_idle_timeout, '1.8.0') -%>
 <%= print_config('edns-tcp-keepalive', @edns_tcp_keepalive, '1.8.0') -%>
 <%= print_config('edns-tcp-keepalive-timeout', @edns_tcp_keepalive_timeout, '1.8.0') -%>
@@ -92,7 +92,7 @@ server:
 <%= print_config('ssl-port', @ssl_port, '1.7.0') -%>
 <%= print_config('tls-ciphers', @tls_ciphers, '1.9.0') -%>
 <%= print_config('tls-ciphersuites', @tls_ciphersuites, '1.9.0') -%>
-<%= print_config('use-systemd', @use_systemd, '1.6.1') -%>
+<%= print_config('use-systemd', @use_systemd) -%>
 <%= print_config('do-daemonize', @do_daemonize) -%>
 <% @access.each do |acc| -%>
   <%- if acc.include? " " -%>
@@ -101,25 +101,23 @@ server:
   access-control: <%= acc %> allow
   <%- end -%>
 <%- end -%>
-<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
-  <%- @access_control.each_pair do |prefix, config| -%>
-    <%- if config.include?('tags') -%>
-      <%- unless config.include?('action') or config.include?('rr_string') -%>
+<%- @access_control.each_pair do |prefix, config| -%>
+  <%- if config.include?('tags') -%>
+    <%- unless config.include?('action') or config.include?('rr_string') -%>
   access-control-tag: <%= prefix %> "<%= tags.join(' ') %>"
-      <%- else -%>
-        <%- config['tags'].each do |tag| -%>
-          <%- if config.include?('action') -%>
+    <%- else -%>
+      <%- config['tags'].each do |tag| -%>
+        <%- if config.include?('action') -%>
   access-control-tag-action: <%= prefix %> <%= tag %> <%= config['action'] %>
-          <%- end -%>
-          <%- if config.include?('rr_string') -%>
+        <%- end -%>
+        <%- if config.include?('rr_string') -%>
   access-control-tag-action: <%= prefix %> <%= tag %> <%= config['rr_string'] %>
-          <%- end -%>
         <%- end -%>
       <%- end -%>
     <%- end -%>
-    <%- if config.include?('view') -%>
+  <%- end -%>
+  <%- if config.include?('view') -%>
   access-control-view: <%= prefix %> <% config['view'] %>
-    <%- end -%>
   <%- end -%>
 <%- end -%>
 <%= print_config('chroot', @chroot) -%>
@@ -131,10 +129,10 @@ server:
 <% else -%>
   use-syslog: yes
 <% end -%>
-<%= print_config('log-identity', @log_identity, '1.6.0') -%>
+<%= print_config('log-identity', @log_identity) -%>
 <%= print_config('log-time-ascii', @log_time_ascii) -%>
 <%= print_config('log-queries', @log_queries) -%>
-<%= print_config('log-replies', @log_replies, '1.6.1') -%>
+<%= print_config('log-replies', @log_replies) -%>
 <%= print_config('log-tag-queryreply', @log_tag_queryreply, '1.9.0') -%>
 <%= print_config('log-local-actions', @log_local_actions, '1.8.0') -%>
 <%= print_config('log-servfail', @log_servfail, '1.8.0') -%>
@@ -146,7 +144,7 @@ server:
 <%= print_config('identity', @identity) -%>
 <%= print_config('hide-version', @hide_version) -%>
 <%= print_config('version', @version) -%>
-<%= print_config('hide-trustanchor', @hide_trustanchor, '1.6.2') -%>
+<%= print_config('hide-trustanchor', @hide_trustanchor) -%>
 <%- unless @target_fetch_policy.empty? -%>
 <%= print_config('target-fetch-policy', @target_fetch_policy.join(' ')) -%>
 <%- end -%>
@@ -156,11 +154,11 @@ server:
 <%= print_config('harden-dnssec-stripped', @harden_dnssec_stripped) -%>
 <%= print_config('harden-below-nxdomain', @harden_below_nxdomain) -%>
 <%= print_config('harden-referral-path', @harden_referral_path) -%>
-<%= print_config('harden-algo-downgrade', @harden_algo_downgrade, '1.5.3') -%>
+<%= print_config('harden-algo-downgrade', @harden_algo_downgrade) -%>
 <%= print_config('use-caps-for-id', @use_caps_for_id) -%>
 <%= print_config('caps-whitlist', @caps_whitlist) -%>
-<%= print_config('qname-minimisation', @qname_minimisation, '1.5.7') -%>
-<%= print_config('qname-minimisation-strict', @qname_minimisation_strict, '1.6.0') -%>
+<%= print_config('qname-minimisation', @qname_minimisation) -%>
+<%= print_config('qname-minimisation-strict', @qname_minimisation_strict) -%>
 <%= print_config('private-address', @private_address) -%>
 <%= print_config('private-domain', @private_domain) -%>
 <%= print_config('unwanted-reply-threshold', @unwanted_reply_threshold) -%>
@@ -171,7 +169,7 @@ server:
 <%= print_config('deny-any', @deny_any, '1.8.2') -%>
 <%= print_config('rrset-roundrobin', @rrset_roundrobin) -%>
 <%= print_config('minimal-responses', @minimal_responses) -%>
-<%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check, '1.5.9') -%>
+<%= print_config('disable-dnssec-lame-check', @disable_dnssec_lame_check) -%>
 <%- unless @module_config.empty? %>
   module-config: "<%= @module_config.join(' ') %>"
 <%- end -%>
@@ -179,7 +177,7 @@ server:
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>
 <%= print_config('trusted-keys-file', @trusted_keys_file) -%>
-<%= print_config('trust-anchor-signaling', @trust_anchor_signaling, '1.6.4') -%>
+<%= print_config('trust-anchor-signaling', @trust_anchor_signaling) -%>
 <%= print_config('domain-insecure', @domain_insecure) -%>
 <%= print_config('val-sig-skew-min', @val_sig_skew_min) -%>
 <%= print_config('val-sig-skew-max', @val_sig_skew_max) -%>
@@ -188,7 +186,7 @@ server:
 <%= print_config('val-log-level', @val_log_level) -%>
 <%= print_config('val-permissive-mode', @val_permissive_mode) -%>
 <%= print_config('ignore-cd-flag', @ignore_cd_flag) -%>
-<%= print_config('serve-expired', @serve_expired, '1.6.0') -%>
+<%= print_config('serve-expired', @serve_expired) -%>
 <%= print_config('serve-expired-ttl', @serve_expired_ttl, '1.8.0') -%>
 <%= print_config('serve-expired-ttl-reset', @serve_expired_ttl_reset, '1.8.0') -%>
 <%= print_config('serve-expired-reply-ttl', @serve_expired_reply_ttl, '1.8.0') -%>
@@ -197,26 +195,22 @@ server:
 <%= print_config('add-holddown', @add_holddown) -%>
 <%= print_config('del-holddown', @del_holddown) -%>
 <%= print_config('keep-missing', @keep_missing) -%>
-<%= print_config('permit-small-holddown', @permit_small_holddown, '1.5.5') -%>
+<%= print_config('permit-small-holddown', @permit_small_holddown) -%>
 <%= print_config('key-cache-size', @key_cache_size) -%>
 <%= print_config('key-cache-slabs', @key_cache_slabs) -%>
 <%= print_config('neg-cache-size', @neg_cache_size) -%>
-<%= print_config('unblock-lan-zones', @unblock_lan_zones, '1.5.0') -%>
-<%= print_config('insecure-lan-zones', @insecure_lan_zones, '1.5.8') -%>
+<%= print_config('unblock-lan-zones', @unblock_lan_zones) -%>
+<%= print_config('insecure-lan-zones', @insecure_lan_zones) -%>
 <%- @local_zone.each_pair do |zone, type| -%>
   local-zone: "<%= zone %>" <%= type %>
 <%- end -%> 
 <%= print_config('local-data', @local_data) -%>
 <%= print_config('local-data-ptr', @local_data_ptr) -%>
-<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
-  <%- @local_zone_tag.each_pair do |zone, tags| -%>
-  local-zone-tag: <%= zone %> "<%= tags.join(' ') %>
-  <%- end -%>
+<%- @local_zone_tag.each_pair do |zone, tags| -%>
+local-zone-tag: <%= zone %> "<%= tags.join(' ') %>
 <%- end -%>
-<%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
-  <%- @local_zone_override.each_pair do |zone, config| -%>
-  local-zone-tag: <%= zone %> <%= config['netblock'] %> <%= config['type'] %>
-  <%- end -%>
+<%- @local_zone_override.each_pair do |zone, config| -%>
+local-zone-tag: <%= zone %> <%= config['netblock'] %> <%= config['type'] %>
 <%- end -%>
 <%= print_config('ratelimit', @ratelimit) -%>
 <%= print_config('ratelimit-size', @ratelimit_size) -%>
@@ -228,10 +222,10 @@ server:
 <%- @ratelimit_below_domain.each_pair do |domain, qps| %>
   ratelimit-below-domain: <%= domain %> <%= qps %>
 <%- end -%>
-<%= print_config('ip-ratelimit', @ip_ratelimit, '1.6.1') -%>
-<%= print_config('ip-ratelimit-size', @ip_ratelimit_size, '1.6.1') -%>
-<%= print_config('ip-ratelimit-slabs', @ip_ratelimit_slabs, '1.6.1') -%>
-<%= print_config('ip-ratelimit-factor', @ip_ratelimit_factor, '1.6.1') -%>
+<%= print_config('ip-ratelimit', @ip_ratelimit) -%>
+<%= print_config('ip-ratelimit-size', @ip_ratelimit_size) -%>
+<%= print_config('ip-ratelimit-slabs', @ip_ratelimit_slabs) -%>
+<%= print_config('ip-ratelimit-factor', @ip_ratelimit_factor) -%>
 <%= print_config('fast-server-permil', @fast_server_permil, '1.8.2') -%>
 <%= print_config('fast-server-num', @fast_server_num, '1.8.2') -%>
 <% @custom_server_conf.each do |c| -%>
