@@ -21,11 +21,11 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1'
-            ].join("\n") + "\n"
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+            ZONE
           )
         }
       end
@@ -43,12 +43,12 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1',
-              '  stub-no-cache: yes'
-            ].join("\n") + "\n"
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+                stub-no-cache: yes
+            ZONE
           )
         }
       end
@@ -66,12 +66,12 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1',
-              '  stub-no-cache: yes'
-            ].join("\n") + "\n"
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+                stub-no-cache: yes
+            ZONE
           )
         }
       end

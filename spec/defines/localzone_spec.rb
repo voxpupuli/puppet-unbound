@@ -28,11 +28,11 @@ describe 'unbound::localzone' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
-            content: [
-              'server:',
-              '  local-zone: "example.com" transparent',
-              '  local-data: \'txt.example.com TXT "Short TXT Record"\''
-            ].join("\n") + "\n"
+            content: <<~ZONE
+              server:
+                local-zone: "example.com" transparent
+                local-data: 'txt.example.com TXT "Short TXT Record"'
+            ZONE
           )
         }
       end
@@ -57,11 +57,11 @@ describe 'unbound::localzone' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
-            content: [
-              'server:',
-              '  local-zone: "example.com" transparent',
-              "  local-data: 'txt.example.com TXT \"#{long_txt_record_chunked}\"'"
-            ].join("\n") + "\n"
+            content: <<~ZONE
+              server:
+                local-zone: "example.com" transparent
+                local-data: 'txt.example.com TXT "#{long_txt_record_chunked}"'
+            ZONE
           )
         }
       end

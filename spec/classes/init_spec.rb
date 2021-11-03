@@ -5,6 +5,7 @@ require 'spec_helper'
 describe 'unbound' do
   let(:params) { {} }
 
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts.merge(concat_basedir: '/dne') }
@@ -32,11 +33,6 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
         let(:purge_unbound_conf_d) { true }
-      when 'RedHat'
-        pidfile = '/var/run/unbound/unbound.pid'
-        let(:service) { 'unbound' }
-        let(:conf_dir) { '/etc/unbound' }
-        let(:purge_unbound_conf_d) { false }
       when 'OpenBSD'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
@@ -833,7 +829,7 @@ describe 'unbound' do
         end
       end
 
-      context 'local_zone passed to class' do
+      context 'local_zone passed to class with nodefault' do
         let(:params) do
           {
             local_zone: { '0.0.10.in-addr.arpa.' => 'nodefault' }
@@ -882,7 +878,7 @@ describe 'unbound' do
         end
       end
 
-      context 'custom log_time_ascii passed to class' do
+      context 'custom log_queries passed to class' do
         let(:params) { { log_queries: true } }
 
         it do
@@ -1044,4 +1040,5 @@ describe 'unbound' do
       end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end

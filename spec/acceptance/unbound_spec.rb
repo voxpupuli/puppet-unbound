@@ -35,11 +35,6 @@ describe 'unbound class' do
 
     describe command('dig +dnssec . soa @localhost') do
       its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+SOA\s+a\.root-servers\.net\.\snstld\.verisign-grs\.com\.\s\d+\s1800\s900\s604800\s86400} }
-      its(:stdout) { is_expected.to match %r{flags: qr rd ra ad;} }
-    end
-
-    describe command('dig +dnssec . soa @localhost') do
-      its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+SOA\s+a\.root-servers\.net\.\snstld\.verisign-grs\.com\.\s\d+\s1800\s900\s604800\s86400} }
       its(:stdout) { is_expected.to match %r{\.\s+\d+\s+IN\s+RRSIG\s+SOA} }
       its(:stdout) { is_expected.to match %r{flags: qr rd ra ad;} }
     end
