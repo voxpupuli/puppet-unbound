@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'unbound::stub' do
@@ -16,8 +18,9 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
             content: [
               'stub-zone:',
               '  name: "lab.example.com"',
@@ -37,8 +40,9 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
             content: [
               'stub-zone:',
               '  name: "lab.example.com"',
@@ -59,8 +63,9 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
             content: [
               'stub-zone:',
               '  name: "lab.example.com"',

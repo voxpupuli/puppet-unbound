@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'unbound::localzone' do
@@ -23,8 +25,9 @@ describe 'unbound::localzone' do
         end
 
         it { is_expected.to contain_unbound__localzone('example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-localzone-example.com').with(
+          expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
             content: [
               'server:',
               '  local-zone: "example.com" transparent',
@@ -35,8 +38,8 @@ describe 'unbound::localzone' do
       end
 
       context 'with a TXT record (>255 characters)' do
-        long_txt_record = 'Long TXT Record ' + 'X' * 255
-        long_txt_record_chunked = 'Long TXT Record ' + 'X' * 239 + '""' + 'X' * 16
+        long_txt_record = "Long TXT Record #{'X' * 255}"
+        long_txt_record_chunked = "Long TXT Record #{'X' * 239}\"\"#{'X' * 16}"
         let(:params) do
           {
             type: 'transparent',
@@ -51,8 +54,9 @@ describe 'unbound::localzone' do
         end
 
         it { is_expected.to contain_unbound__localzone('example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-localzone-example.com').with(
+          expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
             content: [
               'server:',
               '  local-zone: "example.com" transparent',
