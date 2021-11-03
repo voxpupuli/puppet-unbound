@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'unbound::stub' do
@@ -16,13 +18,14 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1'
-            ].join("\n") + "\n"
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+            ZONE
           )
         }
       end
@@ -37,14 +40,15 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1',
-              '  stub-no-cache: yes'
-            ].join("\n") + "\n"
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+                stub-no-cache: yes
+            ZONE
           )
         }
       end
@@ -59,14 +63,15 @@ describe 'unbound::stub' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_unbound__stub('lab.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: [
-              'stub-zone:',
-              '  name: "lab.example.com"',
-              '  stub-addr: ::1',
-              '  stub-no-cache: yes'
-            ].join("\n") + "\n"
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
+            content: <<~ZONE
+              stub-zone:
+                name: "lab.example.com"
+                stub-addr: ::1
+                stub-no-cache: yes
+            ZONE
           )
         }
       end

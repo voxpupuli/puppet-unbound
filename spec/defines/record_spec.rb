@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'unbound::record' do
@@ -18,16 +20,17 @@ describe 'unbound::record' do
         end
 
         it { is_expected.to contain_unbound__record('record.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
+          expect(subject).to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
             content: "  local-data: 'record.example.com 14400 IN TXT \"Short TXT Record\"'\n"
           )
         }
       end
 
       context 'with a TXT record (>255 characters)' do
-        long_txt_record = 'Long TXT Record ' + 'X' * 255
-        long_txt_record_chunked = 'Long TXT Record ' + 'X' * 239 + '""' + 'X' * 16
+        long_txt_record = "Long TXT Record #{'X' * 255}"
+        long_txt_record_chunked = "Long TXT Record #{'X' * 239}\"\"#{'X' * 16}"
         let(:params) do
           {
             type: 'TXT',
@@ -37,8 +40,9 @@ describe 'unbound::record' do
         end
 
         it { is_expected.to contain_unbound__record('record.example.com') }
+
         it {
-          is_expected.to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
+          expect(subject).to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
             content: "  local-data: 'record.example.com 14400 IN TXT \"#{long_txt_record_chunked}\"'\n"
           )
         }

@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'unbound' do
   let(:params) { {} }
 
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts.merge(concat_basedir: '/dne') }
@@ -16,7 +19,7 @@ describe 'unbound' do
       pidfile = nil
 
       if facts.dig(:os, 'family').nil?
-        if facts.dig(:osfamily)
+        if facts[:osfamily]
           puts "Skipping tests on on platform #{facts[:osfamily]} due to missing facts[:os][:family]"
         else
           puts "Skipping tests on on platform #{facts[:kernel]} due to missing facts[:os][:family]"
@@ -30,11 +33,6 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
         let(:purge_unbound_conf_d) { true }
-      when 'RedHat'
-        pidfile = '/var/run/unbound/unbound.pid'
-        let(:service) { 'unbound' }
-        let(:conf_dir) { '/etc/unbound' }
-        let(:purge_unbound_conf_d) { false }
       when 'OpenBSD'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
@@ -60,31 +58,31 @@ describe 'unbound' do
       context 'with default params' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('unbound') }
-        if facts[:os]['family'] != 'OpenBSD'
-          it { is_expected.to contain_package(package) }
-        end
+
+        it { is_expected.to contain_package(package) } if facts[:os]['family'] != 'OpenBSD'
         it { is_expected.to contain_service(service) }
         it { is_expected.to contain_concat(conf_file) }
         it { is_expected.to contain_file(conf_dir) }
         it { is_expected.to contain_file(conf_d_dir) }
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
+
         it do
-          is_expected.to contain_file(unbound_conf_d).with(
-            'ensure'  => 'directory',
-            'owner'   => 'root',
-            'group'   => '0',
-            'purge'   => purge_unbound_conf_d,
+          expect(subject).to contain_file(unbound_conf_d).with(
+            'ensure' => 'directory',
+            'owner' => 'root',
+            'group' => '0',
+            'purge' => purge_unbound_conf_d,
             'recurse' => purge_unbound_conf_d
           )
         end
+
         it { is_expected.not_to contain_file('/run') }
         it { is_expected.not_to contain_file('/var/run') }
-        if pidfile =~ %r{unbound/unbound\.pid\Z}
-          it { is_expected.to contain_file(File.dirname(pidfile)) }
-        end
+
+        it { is_expected.to contain_file(File.dirname(pidfile)) } if pidfile =~ %r{unbound/unbound\.pid\Z}
         it do
-          is_expected.to contain_concat__fragment(
+          expect(subject).to contain_concat__fragment(
             'unbound-header'
           ).with_content(
             %r{\s+root-hints:\s"#{hints_file}"}
@@ -102,8 +100,9 @@ describe 'unbound' do
             %r{num-queries-per-thread}
           )
         end
+
         it do
-          is_expected.to contain_concat__fragment(
+          expect(subject).to contain_concat__fragment(
             'unbound-modules'
           ).without_content(
             %r{python:}
@@ -118,11 +117,13 @@ describe 'unbound' do
           )
         end
       end
+
       context 'module config' do
         context 'dns64' do
           before { params.merge!(module_config: %w[dns64]) }
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{dns64-prefix: "64:ff9b::/96"}
@@ -131,6 +132,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'dns64 dns64-prefix' do
           before do
             params.merge!(
@@ -138,8 +140,9 @@ describe 'unbound' do
               dns64_prefix: '42:ff9b::/96'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{dns64-prefix: "42:ff9b::/96"}
@@ -148,6 +151,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'dns64 dns64-synthall' do
           before do
             params.merge!(
@@ -155,8 +159,9 @@ describe 'unbound' do
               dns64_synthall: true
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{dns64-prefix: "64:ff9b::/96"}
@@ -165,10 +170,12 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache not supported' do
           before { params.merge!(module_config: %w[subnetcache]) }
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -183,12 +190,14 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache' do
           let(:facts) { facts.merge(unbound_version: '1.6.1') }
 
           before { params.merge!(module_config: %w[subnetcache]) }
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -203,6 +212,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache send-client-subnet' do
           let(:facts) { facts.merge(unbound_version: '1.6.1') }
 
@@ -212,8 +222,9 @@ describe 'unbound' do
               send_client_subnet: ['192.0.2.0/24', '2001::db8:/48']
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{send-client-subnet: "192.0.2.0/24"}
@@ -230,6 +241,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache client_subnet_zone' do
           before do
             params.merge!(
@@ -237,8 +249,9 @@ describe 'unbound' do
               client_subnet_zone: ['example.com', 'example.net']
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -255,6 +268,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache client_subnet_always_forward' do
           before do
             params.merge!(
@@ -262,8 +276,9 @@ describe 'unbound' do
               client_subnet_always_forward: true
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -278,6 +293,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache max_client_subnet_ipv6' do
           before do
             params.merge!(
@@ -285,8 +301,9 @@ describe 'unbound' do
               max_client_subnet_ipv6: 42
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -301,6 +318,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'subnetcache max_client_subnet_ipv4' do
           before do
             params.merge!(
@@ -308,8 +326,9 @@ describe 'unbound' do
               max_client_subnet_ipv4: 21
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{send-client-subnet:}
@@ -324,6 +343,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod not supported' do
           before do
             params.merge!(
@@ -331,8 +351,9 @@ describe 'unbound' do
               ipsecmod_hook: '/foo/bar'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).without_content(
               %r{ipsecmod-enabled:}
@@ -349,6 +370,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod disable' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -359,8 +381,9 @@ describe 'unbound' do
               ipsecmod_enabled: false
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: no}
@@ -377,6 +400,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod default' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -386,8 +410,9 @@ describe 'unbound' do
               ipsecmod_hook: '/foo/bar'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -404,6 +429,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod ipsecmod-hook' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -413,8 +439,9 @@ describe 'unbound' do
               ipsecmod_hook: '/foo/bar/42'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -431,6 +458,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod ipsecmod_strict' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -441,8 +469,9 @@ describe 'unbound' do
               ipsecmod_strict: true
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -459,6 +488,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod ipsecmod_max_ttl' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -469,8 +499,9 @@ describe 'unbound' do
               ipsecmod_max_ttl: 42
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -487,6 +518,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod ipsecmod-ignore-bogus' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -497,8 +529,9 @@ describe 'unbound' do
               ipsecmod_ignore_bogus: true
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -515,6 +548,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'ipsecmod ipsecmod-whitelist' do
           let(:facts) { facts.merge(unbound_version: '1.6.4') }
 
@@ -525,8 +559,9 @@ describe 'unbound' do
               ipsecmod_whitelist: ['example.com', 'example.net']
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{ipsecmod-enabled: yes}
@@ -545,15 +580,17 @@ describe 'unbound' do
             )
           end
         end
-        context 'python ' do
+
+        context 'python' do
           before do
             params.merge!(
               module_config: %w[python],
               python_script: '/foo/bar'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{python:}
@@ -562,14 +599,16 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb' do
           before do
             params.merge!(
               module_config: %w[cachedb]
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -586,6 +625,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb backend redis' do
           before do
             params.merge!(
@@ -593,8 +633,9 @@ describe 'unbound' do
               backend: 'redis'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -611,6 +652,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb backend foobar' do
           before do
             params.merge!(
@@ -618,8 +660,9 @@ describe 'unbound' do
               backend: 'foobar'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -636,6 +679,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb redis_server_host' do
           before do
             params.merge!(
@@ -644,8 +688,9 @@ describe 'unbound' do
               redis_server_host: '192.0.2.1'
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -662,6 +707,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb redis_server_port' do
           before do
             params.merge!(
@@ -670,8 +716,9 @@ describe 'unbound' do
               redis_server_port: 42
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -688,6 +735,7 @@ describe 'unbound' do
             )
           end
         end
+
         context 'cachedb redis-timeout' do
           before do
             params.merge!(
@@ -696,8 +744,9 @@ describe 'unbound' do
               redis_timeout: 42
             )
           end
+
           it do
-            is_expected.to contain_concat__fragment(
+            expect(subject).to contain_concat__fragment(
               'unbound-modules'
             ).with_content(
               %r{cachedb:}
@@ -715,6 +764,7 @@ describe 'unbound' do
           end
         end
       end
+
       context 'with modified access' do
         let(:params) do
           {
@@ -723,8 +773,8 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
-            %r{^  access-control: 10.21.30.0\/24 allow\n  access-control: 10.21.30.5\/32 reject\n  access-control: 127.0.0.1\/32 allow_snoop\n  access-control: 123.123.123.0\/20 allow}
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
+            %r{^  access-control: 10.21.30.0/24 allow\n  access-control: 10.21.30.5/32 reject\n  access-control: 127.0.0.1/32 allow_snoop\n  access-control: 123.123.123.0/20 allow}
           )
         end
       end
@@ -743,7 +793,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-stub-example-stub.com').with_content(
+          expect(subject).to contain_concat__fragment('unbound-stub-example-stub.com').with_content(
             %r{^stub-zone:\n  name: "example-stub.com"\n  stub-addr: 10.0.0.1\n  stub-addr: 10.0.0.2}
           )
         end
@@ -757,7 +807,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
+          expect(subject).to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
             %r{^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes\n  forward-ssl-upstream: yes}
           )
         end
@@ -771,7 +821,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^\s+domain-insecure: 0.0.10.in-addr.arpa.$}
           ).with_content(
             %r{^\s+domain-insecure: example.com.$}
@@ -779,7 +829,7 @@ describe 'unbound' do
         end
       end
 
-      context 'local_zone passed to class' do
+      context 'local_zone passed to class with nodefault' do
         let(:params) do
           {
             local_zone: { '0.0.10.in-addr.arpa.' => 'nodefault' }
@@ -787,7 +837,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^\s+local-zone: "0.0.10.in-addr.arpa." nodefault$}
           )
         end
@@ -801,7 +851,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  extended-statistics: yes\n}
           )
         end
@@ -812,7 +862,7 @@ describe 'unbound' do
         let(:params) { { log_identity: 'bind' } }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-identity: "bind"\n}
           )
         end
@@ -822,17 +872,17 @@ describe 'unbound' do
         let(:params) { { log_time_ascii: true } }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-time-ascii: yes\n}
           )
         end
       end
 
-      context 'custom log_time_ascii passed to class' do
+      context 'custom log_queries passed to class' do
         let(:params) { { log_queries: true } }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-queries: yes\n}
           )
         end
@@ -843,7 +893,7 @@ describe 'unbound' do
         let(:params) { { log_replies: true } }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  log-replies: yes\n}
           )
         end
@@ -857,8 +907,9 @@ describe 'unbound' do
         end
 
         it { is_expected.to contain_class('unbound::remote') }
+
         it do
-          is_expected.to contain_concat__fragment('unbound-remote').with_content(
+          expect(subject).to contain_concat__fragment('unbound-remote').with_content(
             %r{^  control-enable: yes\n}
           )
         end
@@ -874,11 +925,13 @@ describe 'unbound' do
           it { is_expected.to contain_exec('restart unbound').with_command('/bin/systemctl restart unbound') }
         end
       end
+
       context 'service management diabled' do
         let(:params) { { manage_service: false, } }
 
         it { is_expected.not_to contain_service(service) }
       end
+
       context 'arbitrary control enablement' do
         let(:params) do
           {
@@ -889,8 +942,9 @@ describe 'unbound' do
         end
 
         it { is_expected.to contain_class('unbound::remote') }
+
         it do
-          is_expected.to contain_concat__fragment('unbound-remote').with_content(
+          expect(subject).to contain_concat__fragment('unbound-remote').with_content(
             %r{^  control-enable: yes\n}
           )
         end
@@ -912,14 +966,14 @@ describe 'unbound' do
         end
 
         it {
-          is_expected.to contain_file('/etc/unbound/interfaces.txt').
+          expect(subject).to contain_file('/etc/unbound/interfaces.txt').
             with_content(%r{^1.2.3.4$}).
             with_content(%r{^4.3.2.1$}).
             that_notifies('Exec[restart unbound]')
         }
 
         it {
-          is_expected.to contain_exec('restart unbound').
+          expect(subject).to contain_exec('restart unbound').
             that_requires('Service[unbound]')
         }
       end
@@ -932,16 +986,17 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment('unbound-header').with_content(
+          expect(subject).to contain_concat__fragment('unbound-header').with_content(
             %r{^  interface: ::1\n  interface: 127.0.0.1\n}
           )
         end
       end
+
       context 'empty pidfile' do
         let(:params) { { pidfile: :undef } }
 
         it do
-          is_expected.to contain_concat__fragment(
+          expect(subject).to contain_concat__fragment(
             'unbound-header'
           ).without_content('pidfile:')
         end
@@ -955,7 +1010,7 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_concat__fragment(
+          expect(subject).to contain_concat__fragment(
             'unbound-header'
           ).without_content(%r{root-hints})
         end
@@ -970,9 +1025,9 @@ describe 'unbound' do
         end
 
         it do
-          is_expected.to contain_file(hints_file).with(
-            'ensure'  => 'file',
-            'mode'    => '0444',
+          expect(subject).to contain_file(hints_file).with(
+            'ensure' => 'file',
+            'mode' => '0444',
             'content' => File.read('spec/classes/expected/hieradata-root-hint.conf')
           )
         end
@@ -985,4 +1040,5 @@ describe 'unbound' do
       end
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 end
