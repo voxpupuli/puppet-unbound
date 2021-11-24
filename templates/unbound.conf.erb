@@ -5,7 +5,7 @@
     version = @unbound_version ? @unbound_version : '0.a'
     return version
   end
-  def print_config(name, value, version=false )
+  def print_config(name, value, version=false, allow_blank=true)
     if version and scope.call_function('versioncmp', [unbound_version, version]) < 0
        return
     end
@@ -15,7 +15,7 @@
       return "  #{name}: no\n"
     elsif not value
       return
-    elsif value.is_a?(String)
+    elsif value.is_a?(String) and (!value.empty? or allow_blank)
       return "  #{name}: \"#{value}\"\n"
     elsif value.is_a?(Integer)
       return "  #{name}: #{value}\n"
@@ -122,7 +122,7 @@ server:
     <%- end -%>
   <%- end -%>
 <%- end -%>
-<%= print_config('chroot', @chroot) -%>
+<%= print_config('chroot', @chroot, false, true) -%>
 <%= print_config('username', @username) -%>
 <%= print_config('directory', @directory) -%>
 <% if @logfile -%>
