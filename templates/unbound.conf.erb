@@ -147,7 +147,7 @@ server:
 <%= print_config('hide-version', @hide_version) -%>
 <%= print_config('version', @version) -%>
 <%= print_config('hide-trustanchor', @hide_trustanchor, '1.6.2') -%>
-<%= print_config('target-fetch-policy', @target_fetch_policy) -%>
+<%= print_config('target-fetch-policy', "#{@target_fetch_policy}") -%>
 <%= print_config('harden-short-bufsize', @harden_short_bufsize) -%>
 <%= print_config('harden-large-queries', @harden_large_queries) -%>
 <%= print_config('harden-glue', @harden_glue) -%>
