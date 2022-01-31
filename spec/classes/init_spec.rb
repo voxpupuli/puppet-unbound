@@ -118,6 +118,42 @@ describe 'unbound' do
         end
       end
 
+      context 'with access control configured' do
+        let(:facts) { facts.merge(unbound_version: '1.6.1') }
+        let :params do
+          {
+            access_control: {
+              'foobar' => {
+                'view' => 'allow'
+              },
+              'foobaz' => {
+                'action' => 'allow',
+                'rr_string' => '::/0',
+                'tags' => %w[123 456]
+              }
+            }
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it {
+          expect(subject).to contain_concat__fragment(
+            'unbound-header'
+          ).with_content(
+            %r{\s+access-control-view: foobar}
+          ).with_content(
+            %r{\s+access-control-tag-action: foobaz 123 allow}
+          ).with_content(
+            %r{\s+access-control-tag-action: foobaz 123 ::/0}
+          ).with_content(
+            %r{\s+access-control-tag-action: foobaz 456 allow}
+          ).with_content(
+            %r{\s+access-control-tag-action: foobaz 456 ::/0}
+          )
+        }
+      end
+
       context 'module config' do
         context 'dns64' do
           before { params.merge!(module_config: %w[dns64]) }

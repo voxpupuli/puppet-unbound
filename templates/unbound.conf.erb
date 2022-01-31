@@ -103,7 +103,7 @@ server:
 <%- end -%>
 <%- if scope.call_function('versioncmp', [unbound_version, '1.5.10']) >= 0 -%>
   <%- @access_control.each_pair do |prefix, config| -%>
-    <%- if config.includes?('tags') -%>
+    <%- if config.include?('tags') -%>
       <%- unless config.include?('action') or config.include?('rr_string') -%>
   access-control-tag: <%= prefix %> "<%= tags.join(' ') %>"
       <%- else -%>
@@ -117,7 +117,7 @@ server:
         <%- end -%>
       <%- end -%>
     <%- end -%>
-    <%- if config.includes?('view') -%>
+    <%- if config.include?('view') -%>
   access-control-view: <%= prefix %> <% config['view'] %>
     <%- end -%>
   <%- end -%>
