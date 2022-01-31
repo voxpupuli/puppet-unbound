@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v5.0.0) (2022-02-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v4.0.1...v5.0.0)
+
+**Breaking changes:**
+
+- Drop support for FreeBSD 11 \(EOL\) [\#283](https://github.com/voxpupuli/puppet-unbound/pull/283) ([smortex](https://github.com/smortex))
+- Drop support for Debian 9 \(EOL\) [\#280](https://github.com/voxpupuli/puppet-unbound/pull/280) ([smortex](https://github.com/smortex))
+
+**Implemented enhancements:**
+
+- Make service manageable [\#285](https://github.com/voxpupuli/puppet-unbound/pull/285) ([and0x000](https://github.com/and0x000))
+- Add support for FreeBSD 13 [\#284](https://github.com/voxpupuli/puppet-unbound/pull/284) ([smortex](https://github.com/smortex))
+- Add support for Debian 11 [\#281](https://github.com/voxpupuli/puppet-unbound/pull/281) ([smortex](https://github.com/smortex))
+
+**Fixed bugs:**
+
+- fix typo in template: includes? -\> include? / make access\_control parameter useable [\#293](https://github.com/voxpupuli/puppet-unbound/pull/293) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Add unit tests for access\_control datatype [\#292](https://github.com/voxpupuli/puppet-unbound/pull/292) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.0.1](https://github.com/voxpupuli/puppet-unbound/tree/v4.0.1) (2021-08-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v4.0.0...v4.0.1)
@@ -447,7 +470,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 - stub: local-zones have multiple types; allow type to be overwritten [\#94](https://github.com/voxpupuli/puppet-unbound/pull/94) ([kmullin](https://github.com/kmullin))
 - Bring back hide\_version and hide\_identity [\#93](https://github.com/voxpupuli/puppet-unbound/pull/93) ([kmullin](https://github.com/kmullin))
 - default port 8953 for remote-control [\#91](https://github.com/voxpupuli/puppet-unbound/pull/91) ([ghost](https://github.com/ghost))
-- add forward-first option for forward zones. [\#87](https://github.com/voxpupuli/puppet-unbound/pull/87) ([RyanFolsom](https://github.com/RyanFolsom))
+- add forward-first option for forward zones. [\#87](https://github.com/voxpupuli/puppet-unbound/pull/87) ([ryanfolsom](https://github.com/ryanfolsom))
 
 ## [1.1.5](https://github.com/voxpupuli/puppet-unbound/tree/1.1.5) (2015-06-03)
 

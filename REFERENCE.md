@@ -44,6 +44,7 @@ The following parameters are available in the `unbound` class:
 
 * [`hints_file`](#hints_file)
 * [`hints_file_content`](#hints_file_content)
+* [`manage_service`](#manage_service)
 * [`verbosity`](#verbosity)
 * [`statistics_interval`](#statistics_interval)
 * [`statistics_cumulative`](#statistics_cumulative)
@@ -90,7 +91,7 @@ The following parameters are available in the `unbound` class:
 * [`do_tcp`](#do_tcp)
 * [`tcp_mss`](#tcp_mss)
 * [`tls_cert_bundle`](#tls_cert_bundle)
-* [`tls_upstreami`](#tls_upstreami)
+* [`tls_upstream`](#tls_upstream)
 * [`outgoing_tcp_mss`](#outgoing_tcp_mss)
 * [`tcp_idle_timeout`](#tcp_idle_timeout)
 * [`edns_tcp_keepalive`](#edns_tcp_keepalive)
@@ -261,6 +262,14 @@ Contents of the root hints file, if it's not remotely fetched.
 
 Default value: ``undef``
 
+##### <a name="manage_service"></a>`manage_service`
+
+Data type: `Boolean`
+
+
+
+Default value: ``true``
+
 ##### <a name="verbosity"></a>`verbosity`
 
 Data type: `Integer[0,5]`
@@ -387,7 +396,7 @@ Data type: `Integer[0,4096]`
 
 
 
-Default value: `1280`
+Default value: `1232`
 
 ##### <a name="max_udp_size"></a>`max_udp_size`
 
@@ -629,7 +638,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Default value: ``undef``
 
-##### <a name="tls_upstreami"></a>`tls_upstreami`
+##### <a name="tls_upstream"></a>`tls_upstream`
 
 Data type: `Boolean`
 
@@ -1279,7 +1288,7 @@ Default value: `{}`
 
 ##### <a name="local_data"></a>`local_data`
 
-Data type: `Optional[Array[String[1]]]`
+Data type: `Array[String[1]]`
 
 
 
@@ -1287,7 +1296,7 @@ Default value: `[]`
 
 ##### <a name="local_data_ptr"></a>`local_data_ptr`
 
-Data type: `Optional[Array[String[1]]]`
+Data type: `Array[String[1]]`
 
 
 
@@ -1964,7 +1973,7 @@ Default value: ``true``
 
 ##### <a name="server_key_file"></a>`server_key_file`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 
 
@@ -1972,7 +1981,7 @@ Default value: `"${unbound::confdir}/unbound_server.key"`
 
 ##### <a name="server_cert_file"></a>`server_cert_file`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 
 
@@ -1980,7 +1989,7 @@ Default value: `"${unbound::confdir}/unbound_server.pem"`
 
 ##### <a name="control_key_file"></a>`control_key_file`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 
 
@@ -1988,7 +1997,7 @@ Default value: `"${$unbound::confdir}/unbound_control.key"`
 
 ##### <a name="control_cert_file"></a>`control_cert_file`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 
 
