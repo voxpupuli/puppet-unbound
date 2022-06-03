@@ -243,8 +243,6 @@ The following strings are known to work:
 * ubuntu2004
 * debian9
 * debian10
-* centos7
-* centos8
 
 For more information and tips & tricks, see [voxpupuli-acceptance's documentation](https://github.com/voxpupuli/voxpupuli-acceptance#running-tests).
 
