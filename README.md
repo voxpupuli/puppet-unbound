@@ -84,16 +84,18 @@ unbound::stub { "0.0.10.in-addr.arpa.":
   insecure => true,
 }
 
-# address can be an array.
+# address can be an array along with nameservers.
 # in the following case, generated conf would be as follows:
 #
-#   stub-host: ns1.example.com
+#   stub-addr: 10.0.0.53
 #   stub-addr: 10.0.0.10@10053
+#   stub-host: ns1.example.com
 #   stub-host: ns2.example.com
 #
 # note that conf will be generated in the same order provided.
 unbound::stub { "10.0.10.in-addr.arpa.":
-  address => [ 'ns1.example.com', '10.0.0.10@10053', 'ns2.example.com' ],
+  address    => [ 10.0.0.53', '10.0.0.10@10053'],
+  namservers => [ 'ns1.example.com', 'ns2.example.com' ],
 }
 ```
 
@@ -103,8 +105,10 @@ Or, using hiera
 unbound::stub:
   '10.0.10.in-addr.arpa.':
     address:
-      - 'ns1.example.com'
+      - '10.0.0.53
       - '10.0.0.10@10053'
+    nameserveres:
+      - 'ns1.example.com'
       - 'ns2.example.com'
 ```
 
