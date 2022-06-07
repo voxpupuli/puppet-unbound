@@ -21,8 +21,14 @@ describe 'unbound class' do
       expect(apply_manifest(pp, catch_failures: true).exit_code).to eq 0
     end
 
-    describe command('service unbound restart') do
-      its(:exit_status) { is_expected.to eq 0 }
+    if fact('osfamily') == 'Archlinux'
+      describe command('systemctl restart unbound') do
+        its(:exit_status) { is_expected.to eq 0 }
+      end
+    else
+      describe command('service unbound restart') do
+        its(:exit_status) { is_expected.to eq 0 }
+      end
     end
 
     describe service('unbound') do

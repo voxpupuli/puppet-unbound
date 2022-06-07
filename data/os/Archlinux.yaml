@@ -1,0 +1,2 @@
+unbound::fetch_client: 'curl --silent --output'
+unbound::owner: 'root'
