@@ -1074,6 +1074,83 @@ describe 'unbound' do
 
         it { is_expected.to compile.with_all_deps }
       end
+
+      context 'RPZs config' do
+        let(:params) do
+          {
+            module_config: ['respip'],
+            rpzs: {
+              'test1' => {
+                'primary' => ['192.0.1.2', 'primary.example.org'],
+              },
+              'test2' => {
+                'url' => ['https://primary.example.org/zone'],
+                'allow_notify' => ['192.0.1.2', '2001:db8::'],
+                'zonefile' => '/foo/bar',
+                'rpz_action_override' => 'drop',
+                'rpz_log' => true,
+                'rpz_log_name' => 'foobar',
+                'tags' => %w[foo bar],
+              },
+              'test3' => {
+                'url' => ['https://primary.example.org/zone'],
+                'allow_notify' => ['192.0.1.2', '2001:db8::'],
+                'zonefile' => '/foo/bar',
+                'rpz_action_override' => 'cname',
+                'rpz_cname_override' => 'cname.example.org',
+                'rpz_log' => true,
+                'rpz_log_name' => 'foobar',
+                'tags' => %w[foo bar],
+              },
+            }
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it do
+          is_expected.to contain_concat__fragment('unbound-modules').
+            with_content(
+              %r{
+                rpz:
+                \s+name:\stest1
+                \s+primary:\s"192\.0\.1\.2"
+                \s+primary:\s"primary\.example\.org"
+              }x
+            ).
+            with_content(
+              %r{
+                rpz:
+                \s+name:\stest2
+                \s+url:\s"https://primary\.example\.org/zone"
+                \s+allow-notify:\s"192\.0\.1\.2"
+                \s+allow-notify:\s"2001:db8::"
+                \s+zonefile:\s"/foo/bar"
+                \s+rpz-action-overrude:\s"drop"
+                \s+rpz-log:\syes
+                \s+rpz-log-name:\s"foobar"
+                \s+tags:\s"foo"
+                \s+tags:\s"bar"
+              }x
+            ).
+            with_content(
+              %r{
+                rpz:
+                \s+name:\stest3
+                \s+url:\s"https://primary\.example\.org/zone"
+                \s+allow-notify:\s"192\.0\.1\.2"
+                \s+allow-notify:\s"2001:db8::"
+                \s+zonefile:\s"/foo/bar"
+                \s+rpz-action-overrude:\s"cname"
+                \s+rpz-cname-override:\s"cname\.example\.org"
+                \s+rpz-log:\syes
+                \s+rpz-log-name:\s"foobar"
+                \s+tags:\s"foo"
+                \s+tags:\s"bar"
+              }x
+            )
+        end
+      end
     end
   end
   # rubocop:enable RSpec/MultipleMemoizedHelpers

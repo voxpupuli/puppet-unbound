@@ -7,7 +7,7 @@
   end
   def print_config(name, value, version=false )
     if version and scope.call_function('versioncmp', [unbound_version, version]) < 0
-       return 
+       return
     end
     if value.is_a?(TrueClass)
       return "  #{name}: yes\n"
@@ -63,5 +63,21 @@ cachedb:
 <%= print_config('redis-server-host', @redis_server_host) -%>
 <%= print_config('redis-server-port', @redis_server_port) -%>
 <%= print_config('redis-timeout', @redis_timeout) -%>
+  <%- end -%>
+<%- end -%>
+<%- if @module_config and @module_config.include?('respip') -%>
+  <%- @rpzs.each_pair do |name, rpz| -%>
+rpz:
+  name: <%= name %>
+<%= print_config('primary', rpz['primary']) -%>
+<%= print_config('primary', rpz['master']) -%>
+<%= print_config('url', rpz['url']) -%>
+<%= print_config('allow-notify', rpz['allow_notify']) -%>
+<%= print_config('zonefile', rpz['zonefile']) -%>
+<%= print_config('rpz-action-overrude', rpz['rpz_action_override']) -%>
+<%= print_config('rpz-cname-override', rpz['rpz_cname_override']) -%>
+<%= print_config('rpz-log', rpz['rpz_log']) -%>
+<%= print_config('rpz-log-name', rpz['rpz_log_name']) -%>
+<%= print_config('tags', rpz['tags']) -%>
   <%- end -%>
 <%- end -%>

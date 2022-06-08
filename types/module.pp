@@ -1,3 +1,4 @@
+# @summary list of valid modules
 type Unbound::Module = Enum[
   'validator',
   'iterator',
@@ -6,4 +7,5 @@ type Unbound::Module = Enum[
   'subnetcache',
   'ipsecmod',
   'cachedb',
+  'respip',
 ]
