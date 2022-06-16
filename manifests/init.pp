@@ -85,7 +85,7 @@ class unbound (
   Boolean                                       $hide_version                    = true,
   Optional[String[1]]                           $version                         = undef,
   Boolean                                       $hide_trustanchor                = true,   # version 1.6.2
-  Array[Integer]                                $target_fetch_policy             = [],
+  Optional[Array[Integer,1]]                    $target_fetch_policy             = undef,
   Boolean                                       $harden_short_bufsize            = false,
   Boolean                                       $harden_large_queries            = false,
   Boolean                                       $harden_glue                     = true,
