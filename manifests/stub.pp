@@ -9,6 +9,9 @@
 #   array or a single value. To use a nondefault port for DNS communication
 #   append  '@' with the port number.
 #
+# [*nameservers*]
+#   (optional) Name of stub zone nameserver. Is itself resolved before it is used.
+#
 # [*insecure*]
 #   (optional) Defaults to false. Sets domain name to be insecure, DNSSEC chain
 #   of trust is ignored towards the domain name.  So a trust anchor  above the
@@ -30,6 +33,7 @@
 #
 define unbound::stub (
   Variant[Array[Unbound::Address], Unbound::Address] $address,
+  Array[Stdlib::Host]                                 $nameservers = [],
   # lint:ignore:quoted_booleans
   Variant[Boolean, Enum['true', 'false']]            $insecure    = false,
   Variant[Boolean, Enum['true', 'false']]            $no_cache    = false,
