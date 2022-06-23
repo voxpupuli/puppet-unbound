@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.1.0](https://github.com/voxpupuli/puppet-unbound/tree/v5.1.0) (2022-06-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.0.0...v5.1.0)
+
+**Implemented enhancements:**
+
+- Add support for multiple contents/records in unbound::record [\#300](https://github.com/voxpupuli/puppet-unbound/pull/300) ([b4ldr](https://github.com/b4ldr))
+- Add support for stub nameservers and fix docs [\#298](https://github.com/voxpupuli/puppet-unbound/pull/298) ([b4ldr](https://github.com/b4ldr))
+- Add RPZ support [\#259](https://github.com/voxpupuli/puppet-unbound/pull/259) ([b4ldr](https://github.com/b4ldr))
+
+**Fixed bugs:**
+
+- Arch Linux: Set correct owner amd fetch\_client [\#301](https://github.com/voxpupuli/puppet-unbound/pull/301) ([b4ldr](https://github.com/b4ldr))
+
+**Closed issues:**
+
+- Documentation is misleading when using unbound::stub [\#297](https://github.com/voxpupuli/puppet-unbound/issues/297)
+- No support Static record mapping to multiple IP [\#296](https://github.com/voxpupuli/puppet-unbound/issues/296)
+- Please support 'respip' in module\_config [\#250](https://github.com/voxpupuli/puppet-unbound/issues/250)
+
+**Merged pull requests:**
+
+- 'target-fetch-policy' is supposed to be a single string [\#289](https://github.com/voxpupuli/puppet-unbound/pull/289) ([rumpelst1lzk1n](https://github.com/rumpelst1lzk1n))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v5.0.0) (2022-02-01)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v4.0.1...v5.0.0)
