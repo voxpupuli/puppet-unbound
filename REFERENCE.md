@@ -25,9 +25,11 @@
 * [`Unbound::Local_zone`](#unboundlocal_zone): custom enum type for local-zone types
 * [`Unbound::Local_zone_override`](#unboundlocal_zone_override)
 * [`Unbound::Local_zone_type`](#unboundlocal_zone_type): custom enum type for local-zone types
-* [`Unbound::Module`](#unboundmodule)
+* [`Unbound::Module`](#unboundmodule): list of valid modules
 * [`Unbound::Range`](#unboundrange)
 * [`Unbound::Resource_record_type`](#unboundresource_record_type): custom type for resource record used for local-data
+* [`Unbound::Rpz`](#unboundrpz): Type used to validate rzp configueration
+* [`Unbound::Rpz::Action`](#unboundrpzaction): list of valid rpz actions
 * [`Unbound::Size`](#unboundsize)
 
 ## Classes
@@ -245,6 +247,7 @@ The following parameters are available in the `unbound` class:
 * [`redis_server_port`](#redis_server_port)
 * [`redis_timeout`](#redis_timeout)
 * [`unbound_conf_d`](#unbound_conf_d)
+* [`rpzs`](#rpzs)
 
 ##### <a name="hints_file"></a>`hints_file`
 
@@ -1870,6 +1873,14 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `"${confdir}/unbound.conf.d"`
 
+##### <a name="rpzs"></a>`rpzs`
+
+Data type: `Hash[String[1], Unbound::Rpz]`
+
+
+
+Default value: `{}`
+
 ### <a name="unboundremote"></a>`unbound::remote`
 
 Class: unbound::remote
@@ -2267,7 +2278,7 @@ The following parameters are available in the `unbound::record` defined type:
 
 ##### <a name="content"></a>`content`
 
-Data type: `String`
+Data type: `Variant[Array[String[1]], String[1]]`
 
 
 
@@ -2324,6 +2335,9 @@ Create an unbound stub zone for caching upstream name resolvers
   array or a single value. To use a nondefault port for DNS communication
   append  '@' with the port number.
 
+[*nameservers*]
+  (optional) Name of stub zone nameserver. Is itself resolved before it is used.
+
 [*insecure*]
   (optional) Defaults to false. Sets domain name to be insecure, DNSSEC chain
   of trust is ignored towards the domain name.  So a trust anchor  above the
@@ -2348,6 +2362,7 @@ Create an unbound stub zone for caching upstream name resolvers
 The following parameters are available in the `unbound::stub` defined type:
 
 * [`address`](#address)
+* [`nameservers`](#nameservers)
 * [`insecure`](#insecure)
 * [`no_cache`](#no_cache)
 * [`type`](#type)
@@ -2358,6 +2373,14 @@ The following parameters are available in the `unbound::stub` defined type:
 Data type: `Variant[Array[Unbound::Address], Unbound::Address]`
 
 
+
+##### <a name="nameservers"></a>`nameservers`
+
+Data type: `Array[Stdlib::Host]`
+
+
+
+Default value: `[]`
 
 ##### <a name="insecure"></a>`insecure`
 
@@ -2491,12 +2514,12 @@ Enum['deny', 'refuse', 'static', 'transparent', 'redirect', 'nodefault', 'typetr
 
 ### <a name="unboundmodule"></a>`Unbound::Module`
 
-The Unbound::Module data type.
+list of valid modules
 
 Alias of
 
 ```puppet
-Enum['validator', 'iterator', 'python', 'dns64', 'subnetcache', 'ipsecmod', 'cachedb']
+Enum['validator', 'iterator', 'python', 'dns64', 'subnetcache', 'ipsecmod', 'cachedb', 'respip']
 ```
 
 ### <a name="unboundrange"></a>`Unbound::Range`
@@ -2523,6 +2546,95 @@ Struct[{
     'type'      => String,
     'data'      => String,
 }]
+```
+
+### <a name="unboundrpz"></a>`Unbound::Rpz`
+
+Type used to validate rzp configueration
+
+Alias of
+
+```puppet
+Struct[{
+    primary             => Optional[Array[Stdlib::Host]],
+    master              => Optional[Array[Stdlib::Host]],
+    url                 => Optional[Array[Stdlib::HTTPUrl]],
+    allow_notify        => Optional[Array[Stdlib::Host]],
+    zonefile            => Optional[Stdlib::Unixpath],
+    rpz_action_override => Optional[Unbound::Rpz::Action],
+    rpz_cname_override  => Optional[Stdlib::Fqdn],
+    rpz_log             => Optional[Boolean],
+    rpz_log_name        => Optional[String],
+    tags                => Optional[Array[String]],
+}]
+```
+
+#### Parameters
+
+The following parameters are available in the `Unbound::Rpz` data type:
+
+* [`primary`](#primary)
+* [`master`](#master)
+* [`url`](#url)
+* [`allow_notify`](#allow_notify)
+* [`zonefile`](#zonefile)
+* [`rpz_action_override`](#rpz_action_override)
+* [`rpz_cname_override`](#rpz_cname_override)
+* [`rpz_log`](#rpz_log)
+* [`rpz_log_name`](#rpz_log_name)
+* [`tags`](#tags)
+
+##### <a name="primary"></a>`primary`
+
+the primary name server
+
+##### <a name="master"></a>`master`
+
+another name for the primary name server
+
+##### <a name="url"></a>`url`
+
+to download the rpz zone
+
+##### <a name="allow_notify"></a>`allow_notify`
+
+list of hosts allowed to notify
+
+##### <a name="zonefile"></a>`zonefile`
+
+path to zonefile
+
+##### <a name="rpz_action_override"></a>`rpz_action_override`
+
+Always use this RPZ action for matching triggers
+from this zone. Possible action are: nxdomain, nodata, passthru, drop,
+disabled and cname.
+
+##### <a name="rpz_cname_override"></a>`rpz_cname_override`
+
+The CNAME target domain to use if the cname action
+is configured for rpz-action-override.
+
+##### <a name="rpz_log"></a>`rpz_log`
+
+Log all applied RPZ actions for this RPZ zone
+
+##### <a name="rpz_log_name"></a>`rpz_log_name`
+
+Specify a string to be part of the log line, for easy referencing.
+
+##### <a name="tags"></a>`tags`
+
+Limit the policies from this RPZ clause to clients with a matching tag
+
+### <a name="unboundrpzaction"></a>`Unbound::Rpz::Action`
+
+list of valid rpz actions
+
+Alias of
+
+```puppet
+Enum['nxdomain', 'nodata', 'passthru', 'drop', 'disabled', 'cname']
 ```
 
 ### <a name="unboundsize"></a>`Unbound::Size`
