@@ -4,15 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v5.1.0](https://github.com/voxpupuli/puppet-unbound/tree/v5.1.0) (2022-06-23)
+## [v5.1.1](https://github.com/voxpupuli/puppet-unbound/tree/v5.1.1) (2022-07-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.1.0...v5.1.1)
+
+**Fixed bugs:**
+
+- metadata.json: Fix source URL [\#304](https://github.com/voxpupuli/puppet-unbound/pull/304) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v5.1.0](https://github.com/voxpupuli/puppet-unbound/tree/v5.1.0) (2022-06-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.0.0...v5.1.0)
 
 **Implemented enhancements:**
 
-- Add support for multiple contents/records in unbound::record [\#300](https://github.com/voxpupuli/puppet-unbound/pull/300) ([b4ldr](https://github.com/b4ldr))
-- Add support for stub nameservers and fix docs [\#298](https://github.com/voxpupuli/puppet-unbound/pull/298) ([b4ldr](https://github.com/b4ldr))
-- Add RPZ support [\#259](https://github.com/voxpupuli/puppet-unbound/pull/259) ([b4ldr](https://github.com/b4ldr))
+- 296: Add support for multiple contents/records in unbound::record [\#300](https://github.com/voxpupuli/puppet-unbound/pull/300) ([b4ldr](https://github.com/b4ldr))
+- \(297\) Add support for stub nameservers and fix docs [\#298](https://github.com/voxpupuli/puppet-unbound/pull/298) ([b4ldr](https://github.com/b4ldr))
+- \(\#250\) Add RPZ support [\#259](https://github.com/voxpupuli/puppet-unbound/pull/259) ([b4ldr](https://github.com/b4ldr))
 
 **Fixed bugs:**
 
