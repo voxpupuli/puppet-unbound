@@ -25,7 +25,7 @@ A puppet module for the Unbound caching resolver.
 
 To use this module requires at least unbound 1.6.6.  Please also consult
 metadata.json to understand the minimum puppet version and any other module
-dependencies
+dependencies.
 
 ## Usage
 
