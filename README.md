@@ -23,18 +23,9 @@ A puppet module for the Unbound caching resolver.
 
 ## Requirements
 
-To use this module, you must be running at least Puppet 4.4.  If you are on an
-older version of Puppet, please use a 1.x version of this module.
-
-To use this module, you must install the `puppetlabs/concat` and
-`puppetlabs/stdlib` modules, either from the forge using `puppet module
-install`, or ensuring the following lines are present in your Puppetfile for an
-[R10k](https://github.com/puppetlabs/r10k) deployment.
-
-```Ruby
-mod 'concat', :git => 'git://github.com/puppetlabs/puppetlabs-concat.git'
-mod 'stdlib', :git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
-```
+To use this module requires at least unbound 1.6.6.  Please also consult
+metadata.json to understand the minimum puppet version and any other module
+dependencies.
 
 ## Usage
 
