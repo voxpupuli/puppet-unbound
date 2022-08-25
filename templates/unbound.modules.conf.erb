@@ -2,8 +2,7 @@
 #
 <%-
   def unbound_version
-    version = @unbound_version ? @unbound_version : '0.a'
-    return version
+    @unbound_version ? @unbound_version : '0.a'
   end
   def print_config(name, value, version=false )
     if version and scope.call_function('versioncmp', [unbound_version, version]) < 0
