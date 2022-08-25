@@ -6,6 +6,8 @@
 #   File path to the root-hints. Set to 'builtin' to remove root-hint option from unbound.conf and use built-in hints.
 # @param hints_file_content
 #   Contents of the root hints file, if it's not remotely fetched.
+# @param unbound_version
+#   the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
 class unbound (
   Boolean                                       $manage_service                  = true,
   Integer[0,5]                                  $verbosity                       = 1,
@@ -212,6 +214,7 @@ class unbound (
   Unbound::Hints_file                           $hints_file                      = "${confdir}/root.hints",
   Optional[String[1]]                           $hints_file_content              = undef,
   Hash[String[1], Unbound::Rpz]                 $rpzs                            = {},
+  Optional[String[1]]                           $unbound_version                 = $facts['unbound_version'],
 ) {
   $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
