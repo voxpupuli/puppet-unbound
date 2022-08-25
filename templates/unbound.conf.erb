@@ -203,7 +203,7 @@ server:
 <%= print_config('insecure-lan-zones', @insecure_lan_zones) -%>
 <%- @local_zone.each_pair do |zone, type| -%>
   local-zone: "<%= zone %>" <%= type %>
-<%- end -%> 
+<%- end -%>
 <%= print_config('local-data', @local_data) -%>
 <%= print_config('local-data-ptr', @local_data_ptr) -%>
 <%- @local_zone_tag.each_pair do |zone, tags| -%>
