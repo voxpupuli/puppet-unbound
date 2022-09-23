@@ -46,6 +46,7 @@ The following parameters are available in the `unbound` class:
 
 * [`hints_file`](#hints_file)
 * [`hints_file_content`](#hints_file_content)
+* [`unbound_version`](#unbound_version)
 * [`manage_service`](#manage_service)
 * [`verbosity`](#verbosity)
 * [`statistics_interval`](#statistics_interval)
@@ -264,6 +265,14 @@ Data type: `Optional[String[1]]`
 Contents of the root hints file, if it's not remotely fetched.
 
 Default value: ``undef``
+
+##### <a name="unbound_version"></a>`unbound_version`
+
+Data type: `Optional[String[1]]`
+
+the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
+
+Default value: `$facts['unbound_version']`
 
 ##### <a name="manage_service"></a>`manage_service`
 

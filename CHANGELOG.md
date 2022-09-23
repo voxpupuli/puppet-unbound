@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v6.0.0) (2022-09-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.1.1...v6.0.0)
+
+**Breaking changes:**
+
+- Require Unbound 1.6.6 or newer [\#287](https://github.com/voxpupuli/puppet-unbound/pull/287) ([b4ldr](https://github.com/b4ldr))
+
+**Implemented enhancements:**
+
+- Introduce unbound\_version parameter [\#307](https://github.com/voxpupuli/puppet-unbound/pull/307) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- unbound.conf: purge trailing whitespace [\#306](https://github.com/voxpupuli/puppet-unbound/pull/306) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- unbound\_version not set on first run causing unexpected config file setting [\#286](https://github.com/voxpupuli/puppet-unbound/issues/286)
+
 ## [v5.1.1](https://github.com/voxpupuli/puppet-unbound/tree/v5.1.1) (2022-07-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.1.0...v5.1.1)
