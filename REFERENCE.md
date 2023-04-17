@@ -7,30 +7,30 @@
 ### Classes
 
 * [`unbound`](#unbound): Class: unbound  Installs and configures Unbound, the caching DNS resolver from NLnet Labs
-* [`unbound::remote`](#unboundremote): Class: unbound::remote  Configure remote control of the unbound daemon process  === Parameters:  [*enable*]   (optional) The option is used t
+* [`unbound::remote`](#unbound--remote): Class: unbound::remote  Configure remote control of the unbound daemon process  === Parameters:  [*enable*]   (optional) The option is used t
 
 ### Defined types
 
-* [`unbound::forward`](#unboundforward): Class: unbound::forward  Configures a zone for DNS forwarding  == Parameters:  [*zone*]   (required) the name of the zone.  [*address*]   IP 
-* [`unbound::localzone`](#unboundlocalzone): Class: unbound::localzone  Configures a local zone. The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the AS112 zones. The 
-* [`unbound::record`](#unboundrecord): Class: unbound::record  Create an unbound static DNS record override  == Parameters:  [*content*]   (required) The name of the record (ip add
-* [`unbound::stub`](#unboundstub): Class: unbound::stub  Create an unbound stub zone for caching upstream name resolvers  === Parameters:  [*address*]   (required) IP address o
+* [`unbound::forward`](#unbound--forward): Class: unbound::forward  Configures a zone for DNS forwarding  == Parameters:  [*zone*]   (required) the name of the zone.  [*address*]   IP 
+* [`unbound::localzone`](#unbound--localzone): Class: unbound::localzone  Configures a local zone. The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the AS112 zones. The 
+* [`unbound::record`](#unbound--record): Class: unbound::record  Create an unbound static DNS record override  == Parameters:  [*content*]   (required) The name of the record (ip add
+* [`unbound::stub`](#unbound--stub): Class: unbound::stub  Create an unbound stub zone for caching upstream name resolvers  === Parameters:  [*address*]   (required) IP address o
 
 ### Data types
 
-* [`Unbound::Access_control`](#unboundaccess_control)
-* [`Unbound::Address`](#unboundaddress): Patterns copied from Stdlib::IP
-* [`Unbound::Chroot`](#unboundchroot)
-* [`Unbound::Hints_file`](#unboundhints_file)
-* [`Unbound::Local_zone`](#unboundlocal_zone): custom enum type for local-zone types
-* [`Unbound::Local_zone_override`](#unboundlocal_zone_override)
-* [`Unbound::Local_zone_type`](#unboundlocal_zone_type): custom enum type for local-zone types
-* [`Unbound::Module`](#unboundmodule): list of valid modules
-* [`Unbound::Range`](#unboundrange)
-* [`Unbound::Resource_record_type`](#unboundresource_record_type): custom type for resource record used for local-data
-* [`Unbound::Rpz`](#unboundrpz): Type used to validate rzp configueration
-* [`Unbound::Rpz::Action`](#unboundrpzaction): list of valid rpz actions
-* [`Unbound::Size`](#unboundsize)
+* [`Unbound::Access_control`](#Unbound--Access_control)
+* [`Unbound::Address`](#Unbound--Address): Patterns copied from Stdlib::IP
+* [`Unbound::Chroot`](#Unbound--Chroot)
+* [`Unbound::Hints_file`](#Unbound--Hints_file)
+* [`Unbound::Local_zone`](#Unbound--Local_zone): custom enum type for local-zone types
+* [`Unbound::Local_zone_override`](#Unbound--Local_zone_override)
+* [`Unbound::Local_zone_type`](#Unbound--Local_zone_type): custom enum type for local-zone types
+* [`Unbound::Module`](#Unbound--Module): list of valid modules
+* [`Unbound::Range`](#Unbound--Range)
+* [`Unbound::Resource_record_type`](#Unbound--Resource_record_type): custom type for resource record used for local-data
+* [`Unbound::Rpz`](#Unbound--Rpz): Type used to validate rzp configueration
+* [`Unbound::Rpz::Action`](#Unbound--Rpz--Action): list of valid rpz actions
+* [`Unbound::Size`](#Unbound--Size)
 
 ## Classes
 
@@ -44,213 +44,213 @@ Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 
 The following parameters are available in the `unbound` class:
 
-* [`hints_file`](#hints_file)
-* [`hints_file_content`](#hints_file_content)
-* [`unbound_version`](#unbound_version)
-* [`manage_service`](#manage_service)
-* [`verbosity`](#verbosity)
-* [`statistics_interval`](#statistics_interval)
-* [`statistics_cumulative`](#statistics_cumulative)
-* [`extended_statistics`](#extended_statistics)
-* [`num_threads`](#num_threads)
-* [`port`](#port)
-* [`interface`](#interface)
-* [`interface_automatic`](#interface_automatic)
-* [`outgoing_interface`](#outgoing_interface)
-* [`outgoing_range`](#outgoing_range)
-* [`outgoing_port_permit`](#outgoing_port_permit)
-* [`outgoing_port_avoid`](#outgoing_port_avoid)
-* [`outgoing_port_permit_first`](#outgoing_port_permit_first)
-* [`outgoing_num_tcp`](#outgoing_num_tcp)
-* [`incoming_num_tcp`](#incoming_num_tcp)
-* [`edns_buffer_size`](#edns_buffer_size)
-* [`max_udp_size`](#max_udp_size)
-* [`stream_wait_size`](#stream_wait_size)
-* [`msg_cache_size`](#msg_cache_size)
-* [`msg_cache_slabs`](#msg_cache_slabs)
-* [`num_queries_per_thread`](#num_queries_per_thread)
-* [`jostle_timeout`](#jostle_timeout)
-* [`delay_close`](#delay_close)
-* [`unknown_server_time_limit`](#unknown_server_time_limit)
-* [`so_rcvbuf`](#so_rcvbuf)
-* [`so_sndbuf`](#so_sndbuf)
-* [`so_reuseport`](#so_reuseport)
-* [`ip_transparent`](#ip_transparent)
-* [`ip_freebind`](#ip_freebind)
-* [`rrset_cache_size`](#rrset_cache_size)
-* [`rrset_cache_slabs`](#rrset_cache_slabs)
-* [`cache_max_ttl`](#cache_max_ttl)
-* [`cache_max_negative_ttl`](#cache_max_negative_ttl)
-* [`cache_min_ttl`](#cache_min_ttl)
-* [`infra_host_ttl`](#infra_host_ttl)
-* [`infra_cache_numhosts`](#infra_cache_numhosts)
-* [`infra_cache_slabs`](#infra_cache_slabs)
-* [`infra_cache_min_rtt`](#infra_cache_min_rtt)
-* [`define_tag`](#define_tag)
-* [`do_ip4`](#do_ip4)
-* [`do_ip6`](#do_ip6)
-* [`prefer_ip6`](#prefer_ip6)
-* [`do_udp`](#do_udp)
-* [`do_tcp`](#do_tcp)
-* [`tcp_mss`](#tcp_mss)
-* [`tls_cert_bundle`](#tls_cert_bundle)
-* [`tls_upstream`](#tls_upstream)
-* [`outgoing_tcp_mss`](#outgoing_tcp_mss)
-* [`tcp_idle_timeout`](#tcp_idle_timeout)
-* [`edns_tcp_keepalive`](#edns_tcp_keepalive)
-* [`edns_tcp_keepalive_timeout`](#edns_tcp_keepalive_timeout)
-* [`tcp_upstream`](#tcp_upstream)
-* [`udp_upstream_without_downstream`](#udp_upstream_without_downstream)
-* [`ssl_upstream`](#ssl_upstream)
-* [`ssl_service_key`](#ssl_service_key)
-* [`ssl_service_pem`](#ssl_service_pem)
-* [`ssl_port`](#ssl_port)
-* [`tls_ciphers`](#tls_ciphers)
-* [`tls_ciphersuites`](#tls_ciphersuites)
-* [`use_systemd`](#use_systemd)
-* [`do_daemonize`](#do_daemonize)
-* [`access_control`](#access_control)
-* [`chroot`](#chroot)
-* [`logfile`](#logfile)
-* [`log_identity`](#log_identity)
-* [`log_time_ascii`](#log_time_ascii)
-* [`log_queries`](#log_queries)
-* [`log_replies`](#log_replies)
-* [`log_tag_queryreply`](#log_tag_queryreply)
-* [`log_local_actions`](#log_local_actions)
-* [`log_servfail`](#log_servfail)
-* [`pidfile`](#pidfile)
-* [`hide_identity`](#hide_identity)
-* [`identity`](#identity)
-* [`hide_version`](#hide_version)
-* [`version`](#version)
-* [`hide_trustanchor`](#hide_trustanchor)
-* [`target_fetch_policy`](#target_fetch_policy)
-* [`harden_short_bufsize`](#harden_short_bufsize)
-* [`harden_large_queries`](#harden_large_queries)
-* [`harden_glue`](#harden_glue)
-* [`harden_dnssec_stripped`](#harden_dnssec_stripped)
-* [`harden_below_nxdomain`](#harden_below_nxdomain)
-* [`harden_referral_path`](#harden_referral_path)
-* [`harden_algo_downgrade`](#harden_algo_downgrade)
-* [`use_caps_for_id`](#use_caps_for_id)
-* [`caps_whitlist`](#caps_whitlist)
-* [`qname_minimisation`](#qname_minimisation)
-* [`qname_minimisation_strict`](#qname_minimisation_strict)
-* [`private_address`](#private_address)
-* [`private_domain`](#private_domain)
-* [`unwanted_reply_threshold`](#unwanted_reply_threshold)
-* [`do_not_query_address`](#do_not_query_address)
-* [`do_not_query_localhost`](#do_not_query_localhost)
-* [`prefetch`](#prefetch)
-* [`prefetch_key`](#prefetch_key)
-* [`deny_any`](#deny_any)
-* [`rrset_roundrobin`](#rrset_roundrobin)
-* [`minimal_responses`](#minimal_responses)
-* [`disable_dnssec_lame_check`](#disable_dnssec_lame_check)
-* [`trust_anchor_file`](#trust_anchor_file)
-* [`trust_anchor`](#trust_anchor)
-* [`trust_anchor_signaling`](#trust_anchor_signaling)
-* [`domain_insecure`](#domain_insecure)
-* [`val_sig_skew_min`](#val_sig_skew_min)
-* [`val_sig_skew_max`](#val_sig_skew_max)
-* [`val_bogus_ttl`](#val_bogus_ttl)
-* [`val_clean_additional`](#val_clean_additional)
-* [`val_log_level`](#val_log_level)
-* [`val_permissive_mode`](#val_permissive_mode)
-* [`ignore_cd_flag`](#ignore_cd_flag)
-* [`serve_expired`](#serve_expired)
-* [`serve_expired_ttl`](#serve_expired_ttl)
-* [`serve_expired_ttl_reset`](#serve_expired_ttl_reset)
-* [`serve_expired_reply_ttl`](#serve_expired_reply_ttl)
-* [`serve_expired_client_timeout`](#serve_expired_client_timeout)
-* [`val_nsec3_keysize_iterations`](#val_nsec3_keysize_iterations)
-* [`add_holddown`](#add_holddown)
-* [`del_holddown`](#del_holddown)
-* [`keep_missing`](#keep_missing)
-* [`permit_small_holddown`](#permit_small_holddown)
-* [`key_cache_size`](#key_cache_size)
-* [`key_cache_slabs`](#key_cache_slabs)
-* [`neg_cache_size`](#neg_cache_size)
-* [`unblock_lan_zones`](#unblock_lan_zones)
-* [`insecure_lan_zones`](#insecure_lan_zones)
-* [`local_zone`](#local_zone)
-* [`local_data`](#local_data)
-* [`local_data_ptr`](#local_data_ptr)
-* [`local_zone_tag`](#local_zone_tag)
-* [`local_zone_override`](#local_zone_override)
-* [`ratelimit`](#ratelimit)
-* [`ratelimit_size`](#ratelimit_size)
-* [`ratelimit_slabs`](#ratelimit_slabs)
-* [`ratelimit_factor`](#ratelimit_factor)
-* [`ratelimit_for_domain`](#ratelimit_for_domain)
-* [`ratelimit_below_domain`](#ratelimit_below_domain)
-* [`ip_ratelimit`](#ip_ratelimit)
-* [`ip_ratelimit_size`](#ip_ratelimit_size)
-* [`ip_ratelimit_slabs`](#ip_ratelimit_slabs)
-* [`ip_ratelimit_factor`](#ip_ratelimit_factor)
-* [`fast_server_permil`](#fast_server_permil)
-* [`fast_server_num`](#fast_server_num)
-* [`forward`](#forward)
-* [`stub`](#stub)
-* [`record`](#record)
-* [`access`](#access)
-* [`confdir`](#confdir)
-* [`directory`](#directory)
-* [`conf_d`](#conf_d)
-* [`config_file`](#config_file)
-* [`control_enable`](#control_enable)
-* [`control_setup_path`](#control_setup_path)
-* [`control_path`](#control_path)
-* [`fetch_client`](#fetch_client)
-* [`group`](#group)
-* [`keys_d`](#keys_d)
-* [`trusted_keys_file`](#trusted_keys_file)
-* [`module_config`](#module_config)
-* [`owner`](#owner)
-* [`username`](#username)
-* [`package_name`](#package_name)
-* [`package_ensure`](#package_ensure)
-* [`purge_unbound_conf_d`](#purge_unbound_conf_d)
-* [`root_hints_url`](#root_hints_url)
-* [`runtime_dir`](#runtime_dir)
-* [`auto_trust_anchor_file`](#auto_trust_anchor_file)
-* [`anchor_fetch_command`](#anchor_fetch_command)
-* [`service_name`](#service_name)
-* [`service_hasstatus`](#service_hasstatus)
-* [`service_ensure`](#service_ensure)
-* [`service_enable`](#service_enable)
-* [`validate_cmd`](#validate_cmd)
-* [`restart_cmd`](#restart_cmd)
-* [`custom_server_conf`](#custom_server_conf)
-* [`skip_roothints_download`](#skip_roothints_download)
-* [`python_script`](#python_script)
-* [`dns64_prefix`](#dns64_prefix)
-* [`dns64_synthall`](#dns64_synthall)
-* [`send_client_subnet`](#send_client_subnet)
-* [`client_subnet_zone`](#client_subnet_zone)
-* [`client_subnet_always_forward`](#client_subnet_always_forward)
-* [`max_client_subnet_ipv6`](#max_client_subnet_ipv6)
-* [`max_client_subnet_ipv4`](#max_client_subnet_ipv4)
-* [`min_client_subnet_ipv6`](#min_client_subnet_ipv6)
-* [`min_client_subnet_ipv4`](#min_client_subnet_ipv4)
-* [`max_ecs_tree_size_ipv4`](#max_ecs_tree_size_ipv4)
-* [`max_ecs_tree_size_ipv6`](#max_ecs_tree_size_ipv6)
-* [`ipsecmod_enabled`](#ipsecmod_enabled)
-* [`ipsecmod_hook`](#ipsecmod_hook)
-* [`ipsecmod_strict`](#ipsecmod_strict)
-* [`ipsecmod_max_ttl`](#ipsecmod_max_ttl)
-* [`ipsecmod_ignore_bogus`](#ipsecmod_ignore_bogus)
-* [`ipsecmod_whitelist`](#ipsecmod_whitelist)
-* [`backend`](#backend)
-* [`secret_seed`](#secret_seed)
-* [`redis_server_host`](#redis_server_host)
-* [`redis_server_port`](#redis_server_port)
-* [`redis_timeout`](#redis_timeout)
-* [`unbound_conf_d`](#unbound_conf_d)
-* [`rpzs`](#rpzs)
+* [`hints_file`](#-unbound--hints_file)
+* [`hints_file_content`](#-unbound--hints_file_content)
+* [`unbound_version`](#-unbound--unbound_version)
+* [`manage_service`](#-unbound--manage_service)
+* [`verbosity`](#-unbound--verbosity)
+* [`statistics_interval`](#-unbound--statistics_interval)
+* [`statistics_cumulative`](#-unbound--statistics_cumulative)
+* [`extended_statistics`](#-unbound--extended_statistics)
+* [`num_threads`](#-unbound--num_threads)
+* [`port`](#-unbound--port)
+* [`interface`](#-unbound--interface)
+* [`interface_automatic`](#-unbound--interface_automatic)
+* [`outgoing_interface`](#-unbound--outgoing_interface)
+* [`outgoing_range`](#-unbound--outgoing_range)
+* [`outgoing_port_permit`](#-unbound--outgoing_port_permit)
+* [`outgoing_port_avoid`](#-unbound--outgoing_port_avoid)
+* [`outgoing_port_permit_first`](#-unbound--outgoing_port_permit_first)
+* [`outgoing_num_tcp`](#-unbound--outgoing_num_tcp)
+* [`incoming_num_tcp`](#-unbound--incoming_num_tcp)
+* [`edns_buffer_size`](#-unbound--edns_buffer_size)
+* [`max_udp_size`](#-unbound--max_udp_size)
+* [`stream_wait_size`](#-unbound--stream_wait_size)
+* [`msg_cache_size`](#-unbound--msg_cache_size)
+* [`msg_cache_slabs`](#-unbound--msg_cache_slabs)
+* [`num_queries_per_thread`](#-unbound--num_queries_per_thread)
+* [`jostle_timeout`](#-unbound--jostle_timeout)
+* [`delay_close`](#-unbound--delay_close)
+* [`unknown_server_time_limit`](#-unbound--unknown_server_time_limit)
+* [`so_rcvbuf`](#-unbound--so_rcvbuf)
+* [`so_sndbuf`](#-unbound--so_sndbuf)
+* [`so_reuseport`](#-unbound--so_reuseport)
+* [`ip_transparent`](#-unbound--ip_transparent)
+* [`ip_freebind`](#-unbound--ip_freebind)
+* [`rrset_cache_size`](#-unbound--rrset_cache_size)
+* [`rrset_cache_slabs`](#-unbound--rrset_cache_slabs)
+* [`cache_max_ttl`](#-unbound--cache_max_ttl)
+* [`cache_max_negative_ttl`](#-unbound--cache_max_negative_ttl)
+* [`cache_min_ttl`](#-unbound--cache_min_ttl)
+* [`infra_host_ttl`](#-unbound--infra_host_ttl)
+* [`infra_cache_numhosts`](#-unbound--infra_cache_numhosts)
+* [`infra_cache_slabs`](#-unbound--infra_cache_slabs)
+* [`infra_cache_min_rtt`](#-unbound--infra_cache_min_rtt)
+* [`define_tag`](#-unbound--define_tag)
+* [`do_ip4`](#-unbound--do_ip4)
+* [`do_ip6`](#-unbound--do_ip6)
+* [`prefer_ip6`](#-unbound--prefer_ip6)
+* [`do_udp`](#-unbound--do_udp)
+* [`do_tcp`](#-unbound--do_tcp)
+* [`tcp_mss`](#-unbound--tcp_mss)
+* [`tls_cert_bundle`](#-unbound--tls_cert_bundle)
+* [`tls_upstream`](#-unbound--tls_upstream)
+* [`outgoing_tcp_mss`](#-unbound--outgoing_tcp_mss)
+* [`tcp_idle_timeout`](#-unbound--tcp_idle_timeout)
+* [`edns_tcp_keepalive`](#-unbound--edns_tcp_keepalive)
+* [`edns_tcp_keepalive_timeout`](#-unbound--edns_tcp_keepalive_timeout)
+* [`tcp_upstream`](#-unbound--tcp_upstream)
+* [`udp_upstream_without_downstream`](#-unbound--udp_upstream_without_downstream)
+* [`ssl_upstream`](#-unbound--ssl_upstream)
+* [`ssl_service_key`](#-unbound--ssl_service_key)
+* [`ssl_service_pem`](#-unbound--ssl_service_pem)
+* [`ssl_port`](#-unbound--ssl_port)
+* [`tls_ciphers`](#-unbound--tls_ciphers)
+* [`tls_ciphersuites`](#-unbound--tls_ciphersuites)
+* [`use_systemd`](#-unbound--use_systemd)
+* [`do_daemonize`](#-unbound--do_daemonize)
+* [`access_control`](#-unbound--access_control)
+* [`chroot`](#-unbound--chroot)
+* [`logfile`](#-unbound--logfile)
+* [`log_identity`](#-unbound--log_identity)
+* [`log_time_ascii`](#-unbound--log_time_ascii)
+* [`log_queries`](#-unbound--log_queries)
+* [`log_replies`](#-unbound--log_replies)
+* [`log_tag_queryreply`](#-unbound--log_tag_queryreply)
+* [`log_local_actions`](#-unbound--log_local_actions)
+* [`log_servfail`](#-unbound--log_servfail)
+* [`pidfile`](#-unbound--pidfile)
+* [`hide_identity`](#-unbound--hide_identity)
+* [`identity`](#-unbound--identity)
+* [`hide_version`](#-unbound--hide_version)
+* [`version`](#-unbound--version)
+* [`hide_trustanchor`](#-unbound--hide_trustanchor)
+* [`target_fetch_policy`](#-unbound--target_fetch_policy)
+* [`harden_short_bufsize`](#-unbound--harden_short_bufsize)
+* [`harden_large_queries`](#-unbound--harden_large_queries)
+* [`harden_glue`](#-unbound--harden_glue)
+* [`harden_dnssec_stripped`](#-unbound--harden_dnssec_stripped)
+* [`harden_below_nxdomain`](#-unbound--harden_below_nxdomain)
+* [`harden_referral_path`](#-unbound--harden_referral_path)
+* [`harden_algo_downgrade`](#-unbound--harden_algo_downgrade)
+* [`use_caps_for_id`](#-unbound--use_caps_for_id)
+* [`caps_whitlist`](#-unbound--caps_whitlist)
+* [`qname_minimisation`](#-unbound--qname_minimisation)
+* [`qname_minimisation_strict`](#-unbound--qname_minimisation_strict)
+* [`private_address`](#-unbound--private_address)
+* [`private_domain`](#-unbound--private_domain)
+* [`unwanted_reply_threshold`](#-unbound--unwanted_reply_threshold)
+* [`do_not_query_address`](#-unbound--do_not_query_address)
+* [`do_not_query_localhost`](#-unbound--do_not_query_localhost)
+* [`prefetch`](#-unbound--prefetch)
+* [`prefetch_key`](#-unbound--prefetch_key)
+* [`deny_any`](#-unbound--deny_any)
+* [`rrset_roundrobin`](#-unbound--rrset_roundrobin)
+* [`minimal_responses`](#-unbound--minimal_responses)
+* [`disable_dnssec_lame_check`](#-unbound--disable_dnssec_lame_check)
+* [`trust_anchor_file`](#-unbound--trust_anchor_file)
+* [`trust_anchor`](#-unbound--trust_anchor)
+* [`trust_anchor_signaling`](#-unbound--trust_anchor_signaling)
+* [`domain_insecure`](#-unbound--domain_insecure)
+* [`val_sig_skew_min`](#-unbound--val_sig_skew_min)
+* [`val_sig_skew_max`](#-unbound--val_sig_skew_max)
+* [`val_bogus_ttl`](#-unbound--val_bogus_ttl)
+* [`val_clean_additional`](#-unbound--val_clean_additional)
+* [`val_log_level`](#-unbound--val_log_level)
+* [`val_permissive_mode`](#-unbound--val_permissive_mode)
+* [`ignore_cd_flag`](#-unbound--ignore_cd_flag)
+* [`serve_expired`](#-unbound--serve_expired)
+* [`serve_expired_ttl`](#-unbound--serve_expired_ttl)
+* [`serve_expired_ttl_reset`](#-unbound--serve_expired_ttl_reset)
+* [`serve_expired_reply_ttl`](#-unbound--serve_expired_reply_ttl)
+* [`serve_expired_client_timeout`](#-unbound--serve_expired_client_timeout)
+* [`val_nsec3_keysize_iterations`](#-unbound--val_nsec3_keysize_iterations)
+* [`add_holddown`](#-unbound--add_holddown)
+* [`del_holddown`](#-unbound--del_holddown)
+* [`keep_missing`](#-unbound--keep_missing)
+* [`permit_small_holddown`](#-unbound--permit_small_holddown)
+* [`key_cache_size`](#-unbound--key_cache_size)
+* [`key_cache_slabs`](#-unbound--key_cache_slabs)
+* [`neg_cache_size`](#-unbound--neg_cache_size)
+* [`unblock_lan_zones`](#-unbound--unblock_lan_zones)
+* [`insecure_lan_zones`](#-unbound--insecure_lan_zones)
+* [`local_zone`](#-unbound--local_zone)
+* [`local_data`](#-unbound--local_data)
+* [`local_data_ptr`](#-unbound--local_data_ptr)
+* [`local_zone_tag`](#-unbound--local_zone_tag)
+* [`local_zone_override`](#-unbound--local_zone_override)
+* [`ratelimit`](#-unbound--ratelimit)
+* [`ratelimit_size`](#-unbound--ratelimit_size)
+* [`ratelimit_slabs`](#-unbound--ratelimit_slabs)
+* [`ratelimit_factor`](#-unbound--ratelimit_factor)
+* [`ratelimit_for_domain`](#-unbound--ratelimit_for_domain)
+* [`ratelimit_below_domain`](#-unbound--ratelimit_below_domain)
+* [`ip_ratelimit`](#-unbound--ip_ratelimit)
+* [`ip_ratelimit_size`](#-unbound--ip_ratelimit_size)
+* [`ip_ratelimit_slabs`](#-unbound--ip_ratelimit_slabs)
+* [`ip_ratelimit_factor`](#-unbound--ip_ratelimit_factor)
+* [`fast_server_permil`](#-unbound--fast_server_permil)
+* [`fast_server_num`](#-unbound--fast_server_num)
+* [`forward`](#-unbound--forward)
+* [`stub`](#-unbound--stub)
+* [`record`](#-unbound--record)
+* [`access`](#-unbound--access)
+* [`confdir`](#-unbound--confdir)
+* [`directory`](#-unbound--directory)
+* [`conf_d`](#-unbound--conf_d)
+* [`config_file`](#-unbound--config_file)
+* [`control_enable`](#-unbound--control_enable)
+* [`control_setup_path`](#-unbound--control_setup_path)
+* [`control_path`](#-unbound--control_path)
+* [`fetch_client`](#-unbound--fetch_client)
+* [`group`](#-unbound--group)
+* [`keys_d`](#-unbound--keys_d)
+* [`trusted_keys_file`](#-unbound--trusted_keys_file)
+* [`module_config`](#-unbound--module_config)
+* [`owner`](#-unbound--owner)
+* [`username`](#-unbound--username)
+* [`package_name`](#-unbound--package_name)
+* [`package_ensure`](#-unbound--package_ensure)
+* [`purge_unbound_conf_d`](#-unbound--purge_unbound_conf_d)
+* [`root_hints_url`](#-unbound--root_hints_url)
+* [`runtime_dir`](#-unbound--runtime_dir)
+* [`auto_trust_anchor_file`](#-unbound--auto_trust_anchor_file)
+* [`anchor_fetch_command`](#-unbound--anchor_fetch_command)
+* [`service_name`](#-unbound--service_name)
+* [`service_hasstatus`](#-unbound--service_hasstatus)
+* [`service_ensure`](#-unbound--service_ensure)
+* [`service_enable`](#-unbound--service_enable)
+* [`validate_cmd`](#-unbound--validate_cmd)
+* [`restart_cmd`](#-unbound--restart_cmd)
+* [`custom_server_conf`](#-unbound--custom_server_conf)
+* [`skip_roothints_download`](#-unbound--skip_roothints_download)
+* [`python_script`](#-unbound--python_script)
+* [`dns64_prefix`](#-unbound--dns64_prefix)
+* [`dns64_synthall`](#-unbound--dns64_synthall)
+* [`send_client_subnet`](#-unbound--send_client_subnet)
+* [`client_subnet_zone`](#-unbound--client_subnet_zone)
+* [`client_subnet_always_forward`](#-unbound--client_subnet_always_forward)
+* [`max_client_subnet_ipv6`](#-unbound--max_client_subnet_ipv6)
+* [`max_client_subnet_ipv4`](#-unbound--max_client_subnet_ipv4)
+* [`min_client_subnet_ipv6`](#-unbound--min_client_subnet_ipv6)
+* [`min_client_subnet_ipv4`](#-unbound--min_client_subnet_ipv4)
+* [`max_ecs_tree_size_ipv4`](#-unbound--max_ecs_tree_size_ipv4)
+* [`max_ecs_tree_size_ipv6`](#-unbound--max_ecs_tree_size_ipv6)
+* [`ipsecmod_enabled`](#-unbound--ipsecmod_enabled)
+* [`ipsecmod_hook`](#-unbound--ipsecmod_hook)
+* [`ipsecmod_strict`](#-unbound--ipsecmod_strict)
+* [`ipsecmod_max_ttl`](#-unbound--ipsecmod_max_ttl)
+* [`ipsecmod_ignore_bogus`](#-unbound--ipsecmod_ignore_bogus)
+* [`ipsecmod_whitelist`](#-unbound--ipsecmod_whitelist)
+* [`backend`](#-unbound--backend)
+* [`secret_seed`](#-unbound--secret_seed)
+* [`redis_server_host`](#-unbound--redis_server_host)
+* [`redis_server_port`](#-unbound--redis_server_port)
+* [`redis_timeout`](#-unbound--redis_timeout)
+* [`unbound_conf_d`](#-unbound--unbound_conf_d)
+* [`rpzs`](#-unbound--rpzs)
 
-##### <a name="hints_file"></a>`hints_file`
+##### <a name="-unbound--hints_file"></a>`hints_file`
 
 Data type: `Unbound::Hints_file`
 
@@ -258,15 +258,15 @@ File path to the root-hints. Set to 'builtin' to remove root-hint option from un
 
 Default value: `"${confdir}/root.hints"`
 
-##### <a name="hints_file_content"></a>`hints_file_content`
+##### <a name="-unbound--hints_file_content"></a>`hints_file_content`
 
 Data type: `Optional[String[1]]`
 
 Contents of the root hints file, if it's not remotely fetched.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="unbound_version"></a>`unbound_version`
+##### <a name="-unbound--unbound_version"></a>`unbound_version`
 
 Data type: `Optional[String[1]]`
 
@@ -274,15 +274,15 @@ the version of the installed unbound instance. defaults to the fact, but you can
 
 Default value: `$facts['unbound_version']`
 
-##### <a name="manage_service"></a>`manage_service`
+##### <a name="-unbound--manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="verbosity"></a>`verbosity`
+##### <a name="-unbound--verbosity"></a>`verbosity`
 
 Data type: `Integer[0,5]`
 
@@ -290,31 +290,31 @@ Data type: `Integer[0,5]`
 
 Default value: `1`
 
-##### <a name="statistics_interval"></a>`statistics_interval`
+##### <a name="-unbound--statistics_interval"></a>`statistics_interval`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="statistics_cumulative"></a>`statistics_cumulative`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="extended_statistics"></a>`extended_statistics`
+##### <a name="-unbound--statistics_cumulative"></a>`statistics_cumulative`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="num_threads"></a>`num_threads`
+##### <a name="-unbound--extended_statistics"></a>`extended_statistics`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--num_threads"></a>`num_threads`
 
 Data type: `Integer[1]`
 
@@ -322,7 +322,7 @@ Data type: `Integer[1]`
 
 Default value: `1`
 
-##### <a name="port"></a>`port`
+##### <a name="-unbound--port"></a>`port`
 
 Data type: `Integer[0, 65535]`
 
@@ -330,7 +330,7 @@ Data type: `Integer[0, 65535]`
 
 Default value: `53`
 
-##### <a name="interface"></a>`interface`
+##### <a name="-unbound--interface"></a>`interface`
 
 Data type: `Array[String[1]]`
 
@@ -338,15 +338,15 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="interface_automatic"></a>`interface_automatic`
+##### <a name="-unbound--interface_automatic"></a>`interface_automatic`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="outgoing_interface"></a>`outgoing_interface`
+##### <a name="-unbound--outgoing_interface"></a>`outgoing_interface`
 
 Data type: `Array[String[1]]`
 
@@ -354,15 +354,15 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="outgoing_range"></a>`outgoing_range`
+##### <a name="-unbound--outgoing_range"></a>`outgoing_range`
 
 Data type: `Optional[Integer[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="outgoing_port_permit"></a>`outgoing_port_permit`
+##### <a name="-unbound--outgoing_port_permit"></a>`outgoing_port_permit`
 
 Data type: `Unbound::Range`
 
@@ -370,7 +370,7 @@ Data type: `Unbound::Range`
 
 Default value: `'32768-65535'`
 
-##### <a name="outgoing_port_avoid"></a>`outgoing_port_avoid`
+##### <a name="-unbound--outgoing_port_avoid"></a>`outgoing_port_avoid`
 
 Data type: `Unbound::Range`
 
@@ -378,31 +378,31 @@ Data type: `Unbound::Range`
 
 Default value: `'0-32767'`
 
-##### <a name="outgoing_port_permit_first"></a>`outgoing_port_permit_first`
+##### <a name="-unbound--outgoing_port_permit_first"></a>`outgoing_port_permit_first`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="outgoing_num_tcp"></a>`outgoing_num_tcp`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="incoming_num_tcp"></a>`incoming_num_tcp`
+##### <a name="-unbound--outgoing_num_tcp"></a>`outgoing_num_tcp`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="edns_buffer_size"></a>`edns_buffer_size`
+##### <a name="-unbound--incoming_num_tcp"></a>`incoming_num_tcp`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--edns_buffer_size"></a>`edns_buffer_size`
 
 Data type: `Integer[0,4096]`
 
@@ -410,183 +410,183 @@ Data type: `Integer[0,4096]`
 
 Default value: `1232`
 
-##### <a name="max_udp_size"></a>`max_udp_size`
+##### <a name="-unbound--max_udp_size"></a>`max_udp_size`
 
 Data type: `Optional[Integer[0,65536]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="stream_wait_size"></a>`stream_wait_size`
-
-Data type: `Optional[Unbound::Size]`
-
-
-
-Default value: ``undef``
-
-##### <a name="msg_cache_size"></a>`msg_cache_size`
+##### <a name="-unbound--stream_wait_size"></a>`stream_wait_size`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="msg_cache_slabs"></a>`msg_cache_slabs`
+##### <a name="-unbound--msg_cache_size"></a>`msg_cache_size`
+
+Data type: `Optional[Unbound::Size]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--msg_cache_slabs"></a>`msg_cache_slabs`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="num_queries_per_thread"></a>`num_queries_per_thread`
+##### <a name="-unbound--num_queries_per_thread"></a>`num_queries_per_thread`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="jostle_timeout"></a>`jostle_timeout`
+##### <a name="-unbound--jostle_timeout"></a>`jostle_timeout`
 
 Data type: `Optional[Integer[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="delay_close"></a>`delay_close`
+##### <a name="-unbound--delay_close"></a>`delay_close`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="unknown_server_time_limit"></a>`unknown_server_time_limit`
+##### <a name="-unbound--unknown_server_time_limit"></a>`unknown_server_time_limit`
 
 Data type: `Optional[Integer[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="so_rcvbuf"></a>`so_rcvbuf`
-
-Data type: `Optional[Unbound::Size]`
-
-
-
-Default value: ``undef``
-
-##### <a name="so_sndbuf"></a>`so_sndbuf`
+##### <a name="-unbound--so_rcvbuf"></a>`so_rcvbuf`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="so_reuseport"></a>`so_reuseport`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="ip_transparent"></a>`ip_transparent`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="ip_freebind"></a>`ip_freebind`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="rrset_cache_size"></a>`rrset_cache_size`
+##### <a name="-unbound--so_sndbuf"></a>`so_sndbuf`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rrset_cache_slabs"></a>`rrset_cache_slabs`
+##### <a name="-unbound--so_reuseport"></a>`so_reuseport`
 
-Data type: `Optional[Integer]`
-
-
-
-Default value: ``undef``
-
-##### <a name="cache_max_ttl"></a>`cache_max_ttl`
-
-Data type: `Optional[Integer]`
+Data type: `Boolean`
 
 
 
-Default value: ``undef``
+Default value: `false`
 
-##### <a name="cache_max_negative_ttl"></a>`cache_max_negative_ttl`
+##### <a name="-unbound--ip_transparent"></a>`ip_transparent`
 
-Data type: `Optional[Integer]`
-
-
-
-Default value: ``undef``
-
-##### <a name="cache_min_ttl"></a>`cache_min_ttl`
-
-Data type: `Optional[Integer]`
+Data type: `Boolean`
 
 
 
-Default value: ``undef``
+Default value: `false`
 
-##### <a name="infra_host_ttl"></a>`infra_host_ttl`
+##### <a name="-unbound--ip_freebind"></a>`ip_freebind`
 
-Data type: `Optional[Integer]`
+Data type: `Boolean`
 
 
 
-Default value: ``undef``
+Default value: `false`
 
-##### <a name="infra_cache_numhosts"></a>`infra_cache_numhosts`
+##### <a name="-unbound--rrset_cache_size"></a>`rrset_cache_size`
+
+Data type: `Optional[Unbound::Size]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--rrset_cache_slabs"></a>`rrset_cache_slabs`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="infra_cache_slabs"></a>`infra_cache_slabs`
-
-Data type: `Optional[Integer]`
-
-
-
-Default value: ``undef``
-
-##### <a name="infra_cache_min_rtt"></a>`infra_cache_min_rtt`
+##### <a name="-unbound--cache_max_ttl"></a>`cache_max_ttl`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="define_tag"></a>`define_tag`
+##### <a name="-unbound--cache_max_negative_ttl"></a>`cache_max_negative_ttl`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--cache_min_ttl"></a>`cache_min_ttl`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--infra_host_ttl"></a>`infra_host_ttl`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--infra_cache_numhosts"></a>`infra_cache_numhosts`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--infra_cache_slabs"></a>`infra_cache_slabs`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--infra_cache_min_rtt"></a>`infra_cache_min_rtt`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--define_tag"></a>`define_tag`
 
 Data type: `Array[String[1]]`
 
@@ -594,183 +594,183 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="do_ip4"></a>`do_ip4`
+##### <a name="-unbound--do_ip4"></a>`do_ip4`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="do_ip6"></a>`do_ip6`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="prefer_ip6"></a>`prefer_ip6`
+##### <a name="-unbound--do_ip6"></a>`do_ip6`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `true`
 
-##### <a name="do_udp"></a>`do_udp`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="do_tcp"></a>`do_tcp`
+##### <a name="-unbound--prefer_ip6"></a>`prefer_ip6`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `false`
 
-##### <a name="tcp_mss"></a>`tcp_mss`
+##### <a name="-unbound--do_udp"></a>`do_udp`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-unbound--do_tcp"></a>`do_tcp`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-unbound--tcp_mss"></a>`tcp_mss`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tls_cert_bundle"></a>`tls_cert_bundle`
+##### <a name="-unbound--tls_cert_bundle"></a>`tls_cert_bundle`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tls_upstream"></a>`tls_upstream`
+##### <a name="-unbound--tls_upstream"></a>`tls_upstream`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="outgoing_tcp_mss"></a>`outgoing_tcp_mss`
+##### <a name="-unbound--outgoing_tcp_mss"></a>`outgoing_tcp_mss`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tcp_idle_timeout"></a>`tcp_idle_timeout`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="edns_tcp_keepalive"></a>`edns_tcp_keepalive`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="edns_tcp_keepalive_timeout"></a>`edns_tcp_keepalive_timeout`
+##### <a name="-unbound--tcp_idle_timeout"></a>`tcp_idle_timeout`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tcp_upstream"></a>`tcp_upstream`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="udp_upstream_without_downstream"></a>`udp_upstream_without_downstream`
+##### <a name="-unbound--edns_tcp_keepalive"></a>`edns_tcp_keepalive`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ssl_upstream"></a>`ssl_upstream`
+##### <a name="-unbound--edns_tcp_keepalive_timeout"></a>`edns_tcp_keepalive_timeout`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--tcp_upstream"></a>`tcp_upstream`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ssl_service_key"></a>`ssl_service_key`
+##### <a name="-unbound--udp_upstream_without_downstream"></a>`udp_upstream_without_downstream`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--ssl_upstream"></a>`ssl_upstream`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--ssl_service_key"></a>`ssl_service_key`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ssl_service_pem"></a>`ssl_service_pem`
+##### <a name="-unbound--ssl_service_pem"></a>`ssl_service_pem`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ssl_port"></a>`ssl_port`
+##### <a name="-unbound--ssl_port"></a>`ssl_port`
 
 Data type: `Optional[Integer[0,65535]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="tls_ciphers"></a>`tls_ciphers`
-
-Data type: `Optional[String[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="tls_ciphersuites"></a>`tls_ciphersuites`
+##### <a name="-unbound--tls_ciphers"></a>`tls_ciphers`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="use_systemd"></a>`use_systemd`
+##### <a name="-unbound--tls_ciphersuites"></a>`tls_ciphersuites`
+
+Data type: `Optional[String[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--use_systemd"></a>`use_systemd`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="do_daemonize"></a>`do_daemonize`
+##### <a name="-unbound--do_daemonize"></a>`do_daemonize`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="access_control"></a>`access_control`
+##### <a name="-unbound--access_control"></a>`access_control`
 
 Data type: `Hash[String[1], Unbound::Access_control]`
 
@@ -778,79 +778,79 @@ Data type: `Hash[String[1], Unbound::Access_control]`
 
 Default value: `{}`
 
-##### <a name="chroot"></a>`chroot`
+##### <a name="-unbound--chroot"></a>`chroot`
 
 Data type: `Optional[Unbound::Chroot]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="logfile"></a>`logfile`
+##### <a name="-unbound--logfile"></a>`logfile`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_identity"></a>`log_identity`
+##### <a name="-unbound--log_identity"></a>`log_identity`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_time_ascii"></a>`log_time_ascii`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="log_queries"></a>`log_queries`
+##### <a name="-unbound--log_time_ascii"></a>`log_time_ascii`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="log_replies"></a>`log_replies`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="log_tag_queryreply"></a>`log_tag_queryreply`
+##### <a name="-unbound--log_queries"></a>`log_queries`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="log_local_actions"></a>`log_local_actions`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="log_servfail"></a>`log_servfail`
+##### <a name="-unbound--log_replies"></a>`log_replies`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="pidfile"></a>`pidfile`
+##### <a name="-unbound--log_tag_queryreply"></a>`log_tag_queryreply`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--log_local_actions"></a>`log_local_actions`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--log_servfail"></a>`log_servfail`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--pidfile"></a>`pidfile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -858,47 +858,47 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `'/var/run/unbound/unbound.pid'`
 
-##### <a name="hide_identity"></a>`hide_identity`
+##### <a name="-unbound--hide_identity"></a>`hide_identity`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="identity"></a>`identity`
+##### <a name="-unbound--identity"></a>`identity`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="hide_version"></a>`hide_version`
+##### <a name="-unbound--hide_version"></a>`hide_version`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="version"></a>`version`
+##### <a name="-unbound--version"></a>`version`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="hide_trustanchor"></a>`hide_trustanchor`
+##### <a name="-unbound--hide_trustanchor"></a>`hide_trustanchor`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="target_fetch_policy"></a>`target_fetch_policy`
+##### <a name="-unbound--target_fetch_policy"></a>`target_fetch_policy`
 
 Data type: `Array[Integer]`
 
@@ -906,71 +906,71 @@ Data type: `Array[Integer]`
 
 Default value: `[]`
 
-##### <a name="harden_short_bufsize"></a>`harden_short_bufsize`
+##### <a name="-unbound--harden_short_bufsize"></a>`harden_short_bufsize`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="harden_large_queries"></a>`harden_large_queries`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="harden_glue"></a>`harden_glue`
+##### <a name="-unbound--harden_large_queries"></a>`harden_large_queries`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `false`
 
-##### <a name="harden_dnssec_stripped"></a>`harden_dnssec_stripped`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="harden_below_nxdomain"></a>`harden_below_nxdomain`
+##### <a name="-unbound--harden_glue"></a>`harden_glue`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="harden_referral_path"></a>`harden_referral_path`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="harden_algo_downgrade"></a>`harden_algo_downgrade`
+##### <a name="-unbound--harden_dnssec_stripped"></a>`harden_dnssec_stripped`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `true`
 
-##### <a name="use_caps_for_id"></a>`use_caps_for_id`
+##### <a name="-unbound--harden_below_nxdomain"></a>`harden_below_nxdomain`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `true`
 
-##### <a name="caps_whitlist"></a>`caps_whitlist`
+##### <a name="-unbound--harden_referral_path"></a>`harden_referral_path`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--harden_algo_downgrade"></a>`harden_algo_downgrade`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--use_caps_for_id"></a>`use_caps_for_id`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--caps_whitlist"></a>`caps_whitlist`
 
 Data type: `Array[String[1]]`
 
@@ -978,23 +978,23 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="qname_minimisation"></a>`qname_minimisation`
+##### <a name="-unbound--qname_minimisation"></a>`qname_minimisation`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="qname_minimisation_strict"></a>`qname_minimisation_strict`
+##### <a name="-unbound--qname_minimisation_strict"></a>`qname_minimisation_strict`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="private_address"></a>`private_address`
+##### <a name="-unbound--private_address"></a>`private_address`
 
 Data type: `Array[String[1]]`
 
@@ -1002,7 +1002,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="private_domain"></a>`private_domain`
+##### <a name="-unbound--private_domain"></a>`private_domain`
 
 Data type: `Array[String[1]]`
 
@@ -1010,7 +1010,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="unwanted_reply_threshold"></a>`unwanted_reply_threshold`
+##### <a name="-unbound--unwanted_reply_threshold"></a>`unwanted_reply_threshold`
 
 Data type: `Integer[0]`
 
@@ -1018,7 +1018,7 @@ Data type: `Integer[0]`
 
 Default value: `10000000`
 
-##### <a name="do_not_query_address"></a>`do_not_query_address`
+##### <a name="-unbound--do_not_query_address"></a>`do_not_query_address`
 
 Data type: `Array[String[1]]`
 
@@ -1026,87 +1026,71 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="do_not_query_localhost"></a>`do_not_query_localhost`
+##### <a name="-unbound--do_not_query_localhost"></a>`do_not_query_localhost`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="prefetch"></a>`prefetch`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="prefetch_key"></a>`prefetch_key`
+##### <a name="-unbound--prefetch"></a>`prefetch`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="deny_any"></a>`deny_any`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="rrset_roundrobin"></a>`rrset_roundrobin`
+##### <a name="-unbound--prefetch_key"></a>`prefetch_key`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="minimal_responses"></a>`minimal_responses`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="disable_dnssec_lame_check"></a>`disable_dnssec_lame_check`
+##### <a name="-unbound--deny_any"></a>`deny_any`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="trust_anchor_file"></a>`trust_anchor_file`
+##### <a name="-unbound--rrset_roundrobin"></a>`rrset_roundrobin`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--minimal_responses"></a>`minimal_responses`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--disable_dnssec_lame_check"></a>`disable_dnssec_lame_check`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--trust_anchor_file"></a>`trust_anchor_file`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="trust_anchor"></a>`trust_anchor`
-
-Data type: `Array[String[1]]`
-
-
-
-Default value: `[]`
-
-##### <a name="trust_anchor_signaling"></a>`trust_anchor_signaling`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="domain_insecure"></a>`domain_insecure`
+##### <a name="-unbound--trust_anchor"></a>`trust_anchor`
 
 Data type: `Array[String[1]]`
 
@@ -1114,103 +1098,119 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="val_sig_skew_min"></a>`val_sig_skew_min`
-
-Data type: `Optional[Integer[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="val_sig_skew_max"></a>`val_sig_skew_max`
-
-Data type: `Optional[Integer[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="val_bogus_ttl"></a>`val_bogus_ttl`
-
-Data type: `Optional[Integer[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="val_clean_additional"></a>`val_clean_additional`
+##### <a name="-unbound--trust_anchor_signaling"></a>`trust_anchor_signaling`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="val_log_level"></a>`val_log_level`
+##### <a name="-unbound--domain_insecure"></a>`domain_insecure`
+
+Data type: `Array[String[1]]`
+
+
+
+Default value: `[]`
+
+##### <a name="-unbound--val_sig_skew_min"></a>`val_sig_skew_min`
+
+Data type: `Optional[Integer[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--val_sig_skew_max"></a>`val_sig_skew_max`
+
+Data type: `Optional[Integer[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--val_bogus_ttl"></a>`val_bogus_ttl`
+
+Data type: `Optional[Integer[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--val_clean_additional"></a>`val_clean_additional`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-unbound--val_log_level"></a>`val_log_level`
 
 Data type: `Optional[Integer[0,2]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="val_permissive_mode"></a>`val_permissive_mode`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="ignore_cd_flag"></a>`ignore_cd_flag`
+##### <a name="-unbound--val_permissive_mode"></a>`val_permissive_mode`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="serve_expired"></a>`serve_expired`
+##### <a name="-unbound--ignore_cd_flag"></a>`ignore_cd_flag`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="serve_expired_ttl"></a>`serve_expired_ttl`
+##### <a name="-unbound--serve_expired"></a>`serve_expired`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--serve_expired_ttl"></a>`serve_expired_ttl`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="serve_expired_ttl_reset"></a>`serve_expired_ttl_reset`
+##### <a name="-unbound--serve_expired_ttl_reset"></a>`serve_expired_ttl_reset`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="serve_expired_reply_ttl"></a>`serve_expired_reply_ttl`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="serve_expired_client_timeout"></a>`serve_expired_client_timeout`
+##### <a name="-unbound--serve_expired_reply_ttl"></a>`serve_expired_reply_ttl`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="val_nsec3_keysize_iterations"></a>`val_nsec3_keysize_iterations`
+##### <a name="-unbound--serve_expired_client_timeout"></a>`serve_expired_client_timeout`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--val_nsec3_keysize_iterations"></a>`val_nsec3_keysize_iterations`
 
 Data type: `Array[Integer[1]]`
 
@@ -1218,79 +1218,79 @@ Data type: `Array[Integer[1]]`
 
 Default value: `[]`
 
-##### <a name="add_holddown"></a>`add_holddown`
+##### <a name="-unbound--add_holddown"></a>`add_holddown`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="del_holddown"></a>`del_holddown`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="keep_missing"></a>`keep_missing`
+##### <a name="-unbound--del_holddown"></a>`del_holddown`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="permit_small_holddown"></a>`permit_small_holddown`
+##### <a name="-unbound--keep_missing"></a>`keep_missing`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--permit_small_holddown"></a>`permit_small_holddown`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="key_cache_size"></a>`key_cache_size`
+##### <a name="-unbound--key_cache_size"></a>`key_cache_size`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="key_cache_slabs"></a>`key_cache_slabs`
+##### <a name="-unbound--key_cache_slabs"></a>`key_cache_slabs`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="neg_cache_size"></a>`neg_cache_size`
+##### <a name="-unbound--neg_cache_size"></a>`neg_cache_size`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="unblock_lan_zones"></a>`unblock_lan_zones`
-
-Data type: `Boolean`
-
-
-
-Default value: ``false``
-
-##### <a name="insecure_lan_zones"></a>`insecure_lan_zones`
+##### <a name="-unbound--unblock_lan_zones"></a>`unblock_lan_zones`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="local_zone"></a>`local_zone`
+##### <a name="-unbound--insecure_lan_zones"></a>`insecure_lan_zones`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--local_zone"></a>`local_zone`
 
 Data type: `Unbound::Local_zone`
 
@@ -1298,7 +1298,7 @@ Data type: `Unbound::Local_zone`
 
 Default value: `{}`
 
-##### <a name="local_data"></a>`local_data`
+##### <a name="-unbound--local_data"></a>`local_data`
 
 Data type: `Array[String[1]]`
 
@@ -1306,7 +1306,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="local_data_ptr"></a>`local_data_ptr`
+##### <a name="-unbound--local_data_ptr"></a>`local_data_ptr`
 
 Data type: `Array[String[1]]`
 
@@ -1314,7 +1314,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="local_zone_tag"></a>`local_zone_tag`
+##### <a name="-unbound--local_zone_tag"></a>`local_zone_tag`
 
 Data type: `Hash[String[1], Array[String[1]]]`
 
@@ -1322,7 +1322,7 @@ Data type: `Hash[String[1], Array[String[1]]]`
 
 Default value: `{}`
 
-##### <a name="local_zone_override"></a>`local_zone_override`
+##### <a name="-unbound--local_zone_override"></a>`local_zone_override`
 
 Data type: `Hash[String[1], Unbound::Local_zone_override]`
 
@@ -1330,39 +1330,39 @@ Data type: `Hash[String[1], Unbound::Local_zone_override]`
 
 Default value: `{}`
 
-##### <a name="ratelimit"></a>`ratelimit`
+##### <a name="-unbound--ratelimit"></a>`ratelimit`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ratelimit_size"></a>`ratelimit_size`
+##### <a name="-unbound--ratelimit_size"></a>`ratelimit_size`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ratelimit_slabs"></a>`ratelimit_slabs`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="ratelimit_factor"></a>`ratelimit_factor`
+##### <a name="-unbound--ratelimit_slabs"></a>`ratelimit_slabs`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ratelimit_for_domain"></a>`ratelimit_for_domain`
+##### <a name="-unbound--ratelimit_factor"></a>`ratelimit_factor`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--ratelimit_for_domain"></a>`ratelimit_for_domain`
 
 Data type: `Hash[String[1], Integer[0]]`
 
@@ -1370,7 +1370,7 @@ Data type: `Hash[String[1], Integer[0]]`
 
 Default value: `{}`
 
-##### <a name="ratelimit_below_domain"></a>`ratelimit_below_domain`
+##### <a name="-unbound--ratelimit_below_domain"></a>`ratelimit_below_domain`
 
 Data type: `Hash[String[1], Integer[0]]`
 
@@ -1378,63 +1378,55 @@ Data type: `Hash[String[1], Integer[0]]`
 
 Default value: `{}`
 
-##### <a name="ip_ratelimit"></a>`ip_ratelimit`
+##### <a name="-unbound--ip_ratelimit"></a>`ip_ratelimit`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ip_ratelimit_size"></a>`ip_ratelimit_size`
+##### <a name="-unbound--ip_ratelimit_size"></a>`ip_ratelimit_size`
 
 Data type: `Optional[Unbound::Size]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ip_ratelimit_slabs"></a>`ip_ratelimit_slabs`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="ip_ratelimit_factor"></a>`ip_ratelimit_factor`
+##### <a name="-unbound--ip_ratelimit_slabs"></a>`ip_ratelimit_slabs`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="fast_server_permil"></a>`fast_server_permil`
+##### <a name="-unbound--ip_ratelimit_factor"></a>`ip_ratelimit_factor`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--fast_server_permil"></a>`fast_server_permil`
 
 Data type: `Optional[Integer[0,1000]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="fast_server_num"></a>`fast_server_num`
+##### <a name="-unbound--fast_server_num"></a>`fast_server_num`
 
 Data type: `Optional[Integer[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="forward"></a>`forward`
-
-Data type: `Hash`
-
-
-
-Default value: `{}`
-
-##### <a name="stub"></a>`stub`
+##### <a name="-unbound--forward"></a>`forward`
 
 Data type: `Hash`
 
@@ -1442,7 +1434,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="record"></a>`record`
+##### <a name="-unbound--stub"></a>`stub`
 
 Data type: `Hash`
 
@@ -1450,7 +1442,15 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="access"></a>`access`
+##### <a name="-unbound--record"></a>`record`
+
+Data type: `Hash`
+
+
+
+Default value: `{}`
+
+##### <a name="-unbound--access"></a>`access`
 
 Data type: `Array`
 
@@ -1458,7 +1458,7 @@ Data type: `Array`
 
 Default value: `['::1', '127.0.0.1']`
 
-##### <a name="confdir"></a>`confdir`
+##### <a name="-unbound--confdir"></a>`confdir`
 
 Data type: `String[1]`
 
@@ -1466,7 +1466,7 @@ Data type: `String[1]`
 
 Default value: `'/etc/unbound'`
 
-##### <a name="directory"></a>`directory`
+##### <a name="-unbound--directory"></a>`directory`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1474,7 +1474,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$confdir`
 
-##### <a name="conf_d"></a>`conf_d`
+##### <a name="-unbound--conf_d"></a>`conf_d`
 
 Data type: `String[1]`
 
@@ -1482,7 +1482,7 @@ Data type: `String[1]`
 
 Default value: `"${confdir}/conf.d"`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--config_file"></a>`config_file`
 
 Data type: `String[1]`
 
@@ -1490,15 +1490,15 @@ Data type: `String[1]`
 
 Default value: `"${confdir}/unbound.conf"`
 
-##### <a name="control_enable"></a>`control_enable`
+##### <a name="-unbound--control_enable"></a>`control_enable`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="control_setup_path"></a>`control_setup_path`
+##### <a name="-unbound--control_setup_path"></a>`control_setup_path`
 
 Data type: `String[1]`
 
@@ -1506,7 +1506,7 @@ Data type: `String[1]`
 
 Default value: `'/usr/sbin/unbound-control-setup'`
 
-##### <a name="control_path"></a>`control_path`
+##### <a name="-unbound--control_path"></a>`control_path`
 
 Data type: `String[1]`
 
@@ -1514,7 +1514,7 @@ Data type: `String[1]`
 
 Default value: `'/usr/sbin/unbound-control'`
 
-##### <a name="fetch_client"></a>`fetch_client`
+##### <a name="-unbound--fetch_client"></a>`fetch_client`
 
 Data type: `String[1]`
 
@@ -1522,7 +1522,7 @@ Data type: `String[1]`
 
 Default value: `'wget -O'`
 
-##### <a name="group"></a>`group`
+##### <a name="-unbound--group"></a>`group`
 
 Data type: `String[1]`
 
@@ -1530,7 +1530,7 @@ Data type: `String[1]`
 
 Default value: `'unbound'`
 
-##### <a name="keys_d"></a>`keys_d`
+##### <a name="-unbound--keys_d"></a>`keys_d`
 
 Data type: `String[1]`
 
@@ -1538,7 +1538,7 @@ Data type: `String[1]`
 
 Default value: `"${confdir}/keys.d"`
 
-##### <a name="trusted_keys_file"></a>`trusted_keys_file`
+##### <a name="-unbound--trusted_keys_file"></a>`trusted_keys_file`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1546,7 +1546,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `"${keys_d}/*.key"`
 
-##### <a name="module_config"></a>`module_config`
+##### <a name="-unbound--module_config"></a>`module_config`
 
 Data type: `Array[Unbound::Module]`
 
@@ -1554,7 +1554,7 @@ Data type: `Array[Unbound::Module]`
 
 Default value: `[]`
 
-##### <a name="owner"></a>`owner`
+##### <a name="-unbound--owner"></a>`owner`
 
 Data type: `String[1]`
 
@@ -1562,7 +1562,7 @@ Data type: `String[1]`
 
 Default value: `'unbound'`
 
-##### <a name="username"></a>`username`
+##### <a name="-unbound--username"></a>`username`
 
 Data type: `String[1]`
 
@@ -1570,7 +1570,7 @@ Data type: `String[1]`
 
 Default value: `$owner`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-unbound--package_name"></a>`package_name`
 
 Data type: `String`
 
@@ -1578,7 +1578,7 @@ Data type: `String`
 
 Default value: `'unbound'`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-unbound--package_ensure"></a>`package_ensure`
 
 Data type: `String[1]`
 
@@ -1586,15 +1586,15 @@ Data type: `String[1]`
 
 Default value: `'installed'`
 
-##### <a name="purge_unbound_conf_d"></a>`purge_unbound_conf_d`
+##### <a name="-unbound--purge_unbound_conf_d"></a>`purge_unbound_conf_d`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="root_hints_url"></a>`root_hints_url`
+##### <a name="-unbound--root_hints_url"></a>`root_hints_url`
 
 Data type: `String[1]`
 
@@ -1602,7 +1602,7 @@ Data type: `String[1]`
 
 Default value: `'https://www.internic.net/domain/named.root'`
 
-##### <a name="runtime_dir"></a>`runtime_dir`
+##### <a name="-unbound--runtime_dir"></a>`runtime_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1610,7 +1610,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$confdir`
 
-##### <a name="auto_trust_anchor_file"></a>`auto_trust_anchor_file`
+##### <a name="-unbound--auto_trust_anchor_file"></a>`auto_trust_anchor_file`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1618,7 +1618,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `"${runtime_dir}/root.key"`
 
-##### <a name="anchor_fetch_command"></a>`anchor_fetch_command`
+##### <a name="-unbound--anchor_fetch_command"></a>`anchor_fetch_command`
 
 Data type: `String[1]`
 
@@ -1626,7 +1626,7 @@ Data type: `String[1]`
 
 Default value: `"unbound-anchor -a ${auto_trust_anchor_file}"`
 
-##### <a name="service_name"></a>`service_name`
+##### <a name="-unbound--service_name"></a>`service_name`
 
 Data type: `String[1]`
 
@@ -1634,15 +1634,15 @@ Data type: `String[1]`
 
 Default value: `'unbound'`
 
-##### <a name="service_hasstatus"></a>`service_hasstatus`
+##### <a name="-unbound--service_hasstatus"></a>`service_hasstatus`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="service_ensure"></a>`service_ensure`
+##### <a name="-unbound--service_ensure"></a>`service_ensure`
 
 Data type: `Enum['running', 'stopped']`
 
@@ -1650,15 +1650,15 @@ Data type: `Enum['running', 'stopped']`
 
 Default value: `'running'`
 
-##### <a name="service_enable"></a>`service_enable`
+##### <a name="-unbound--service_enable"></a>`service_enable`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="validate_cmd"></a>`validate_cmd`
+##### <a name="-unbound--validate_cmd"></a>`validate_cmd`
 
 Data type: `String[1]`
 
@@ -1666,7 +1666,7 @@ Data type: `String[1]`
 
 Default value: `'/usr/sbin/unbound-checkconf %'`
 
-##### <a name="restart_cmd"></a>`restart_cmd`
+##### <a name="-unbound--restart_cmd"></a>`restart_cmd`
 
 Data type: `String[1]`
 
@@ -1674,7 +1674,7 @@ Data type: `String[1]`
 
 Default value: `"/bin/systemctl restart ${service_name}"`
 
-##### <a name="custom_server_conf"></a>`custom_server_conf`
+##### <a name="-unbound--custom_server_conf"></a>`custom_server_conf`
 
 Data type: `Array[String[1]]`
 
@@ -1682,23 +1682,23 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="skip_roothints_download"></a>`skip_roothints_download`
+##### <a name="-unbound--skip_roothints_download"></a>`skip_roothints_download`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="python_script"></a>`python_script`
+##### <a name="-unbound--python_script"></a>`python_script`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="dns64_prefix"></a>`dns64_prefix`
+##### <a name="-unbound--dns64_prefix"></a>`dns64_prefix`
 
 Data type: `String[1]`
 
@@ -1706,15 +1706,15 @@ Data type: `String[1]`
 
 Default value: `'64:ff9b::/96'`
 
-##### <a name="dns64_synthall"></a>`dns64_synthall`
+##### <a name="-unbound--dns64_synthall"></a>`dns64_synthall`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="send_client_subnet"></a>`send_client_subnet`
+##### <a name="-unbound--send_client_subnet"></a>`send_client_subnet`
 
 Data type: `Array[String[1]]`
 
@@ -1722,7 +1722,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="client_subnet_zone"></a>`client_subnet_zone`
+##### <a name="-unbound--client_subnet_zone"></a>`client_subnet_zone`
 
 Data type: `Array[String[1]]`
 
@@ -1730,15 +1730,15 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="client_subnet_always_forward"></a>`client_subnet_always_forward`
+##### <a name="-unbound--client_subnet_always_forward"></a>`client_subnet_always_forward`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="max_client_subnet_ipv6"></a>`max_client_subnet_ipv6`
+##### <a name="-unbound--max_client_subnet_ipv6"></a>`max_client_subnet_ipv6`
 
 Data type: `Integer[0,128]`
 
@@ -1746,7 +1746,7 @@ Data type: `Integer[0,128]`
 
 Default value: `56`
 
-##### <a name="max_client_subnet_ipv4"></a>`max_client_subnet_ipv4`
+##### <a name="-unbound--max_client_subnet_ipv4"></a>`max_client_subnet_ipv4`
 
 Data type: `Integer[0,32]`
 
@@ -1754,63 +1754,63 @@ Data type: `Integer[0,32]`
 
 Default value: `24`
 
-##### <a name="min_client_subnet_ipv6"></a>`min_client_subnet_ipv6`
+##### <a name="-unbound--min_client_subnet_ipv6"></a>`min_client_subnet_ipv6`
 
 Data type: `Optional[Integer[0,128]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="min_client_subnet_ipv4"></a>`min_client_subnet_ipv4`
+##### <a name="-unbound--min_client_subnet_ipv4"></a>`min_client_subnet_ipv4`
 
 Data type: `Optional[Integer[0,32]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="max_ecs_tree_size_ipv4"></a>`max_ecs_tree_size_ipv4`
-
-Data type: `Optional[Integer[0]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="max_ecs_tree_size_ipv6"></a>`max_ecs_tree_size_ipv6`
+##### <a name="-unbound--max_ecs_tree_size_ipv4"></a>`max_ecs_tree_size_ipv4`
 
 Data type: `Optional[Integer[0]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ipsecmod_enabled"></a>`ipsecmod_enabled`
+##### <a name="-unbound--max_ecs_tree_size_ipv6"></a>`max_ecs_tree_size_ipv6`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-unbound--ipsecmod_enabled"></a>`ipsecmod_enabled`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="ipsecmod_hook"></a>`ipsecmod_hook`
+##### <a name="-unbound--ipsecmod_hook"></a>`ipsecmod_hook`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ipsecmod_strict"></a>`ipsecmod_strict`
+##### <a name="-unbound--ipsecmod_strict"></a>`ipsecmod_strict`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ipsecmod_max_ttl"></a>`ipsecmod_max_ttl`
+##### <a name="-unbound--ipsecmod_max_ttl"></a>`ipsecmod_max_ttl`
 
 Data type: `Integer[1]`
 
@@ -1818,15 +1818,15 @@ Data type: `Integer[1]`
 
 Default value: `3600`
 
-##### <a name="ipsecmod_ignore_bogus"></a>`ipsecmod_ignore_bogus`
+##### <a name="-unbound--ipsecmod_ignore_bogus"></a>`ipsecmod_ignore_bogus`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ipsecmod_whitelist"></a>`ipsecmod_whitelist`
+##### <a name="-unbound--ipsecmod_whitelist"></a>`ipsecmod_whitelist`
 
 Data type: `Array[String[1]]`
 
@@ -1834,15 +1834,15 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="backend"></a>`backend`
+##### <a name="-unbound--backend"></a>`backend`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="secret_seed"></a>`secret_seed`
+##### <a name="-unbound--secret_seed"></a>`secret_seed`
 
 Data type: `String[1]`
 
@@ -1850,7 +1850,7 @@ Data type: `String[1]`
 
 Default value: `'default'`
 
-##### <a name="redis_server_host"></a>`redis_server_host`
+##### <a name="-unbound--redis_server_host"></a>`redis_server_host`
 
 Data type: `String[1]`
 
@@ -1858,7 +1858,7 @@ Data type: `String[1]`
 
 Default value: `'127.0.0.1'`
 
-##### <a name="redis_server_port"></a>`redis_server_port`
+##### <a name="-unbound--redis_server_port"></a>`redis_server_port`
 
 Data type: `Integer[1,65536]`
 
@@ -1866,7 +1866,7 @@ Data type: `Integer[1,65536]`
 
 Default value: `6379`
 
-##### <a name="redis_timeout"></a>`redis_timeout`
+##### <a name="-unbound--redis_timeout"></a>`redis_timeout`
 
 Data type: `Integer[1]`
 
@@ -1874,7 +1874,7 @@ Data type: `Integer[1]`
 
 Default value: `100`
 
-##### <a name="unbound_conf_d"></a>`unbound_conf_d`
+##### <a name="-unbound--unbound_conf_d"></a>`unbound_conf_d`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1882,7 +1882,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `"${confdir}/unbound.conf.d"`
 
-##### <a name="rpzs"></a>`rpzs`
+##### <a name="-unbound--rpzs"></a>`rpzs`
 
 Data type: `Hash[String[1], Unbound::Rpz]`
 
@@ -1890,7 +1890,7 @@ Data type: `Hash[String[1], Unbound::Rpz]`
 
 Default value: `{}`
 
-### <a name="unboundremote"></a>`unbound::remote`
+### <a name="unbound--remote"></a>`unbound::remote`
 
 Class: unbound::remote
 
@@ -1946,20 +1946,20 @@ Configure remote control of the unbound daemon process
 
 The following parameters are available in the `unbound::remote` class:
 
-* [`enable`](#enable)
-* [`interface`](#interface)
-* [`port`](#port)
-* [`control_use_cert`](#control_use_cert)
-* [`server_key_file`](#server_key_file)
-* [`server_cert_file`](#server_cert_file)
-* [`control_key_file`](#control_key_file)
-* [`control_cert_file`](#control_cert_file)
-* [`group`](#group)
-* [`confdir`](#confdir)
-* [`config_file`](#config_file)
-* [`control_setup_path`](#control_setup_path)
+* [`enable`](#-unbound--remote--enable)
+* [`interface`](#-unbound--remote--interface)
+* [`port`](#-unbound--remote--port)
+* [`control_use_cert`](#-unbound--remote--control_use_cert)
+* [`server_key_file`](#-unbound--remote--server_key_file)
+* [`server_cert_file`](#-unbound--remote--server_cert_file)
+* [`control_key_file`](#-unbound--remote--control_key_file)
+* [`control_cert_file`](#-unbound--remote--control_cert_file)
+* [`group`](#-unbound--remote--group)
+* [`confdir`](#-unbound--remote--confdir)
+* [`config_file`](#-unbound--remote--config_file)
+* [`control_setup_path`](#-unbound--remote--control_setup_path)
 
-##### <a name="enable"></a>`enable`
+##### <a name="-unbound--remote--enable"></a>`enable`
 
 Data type: `Boolean`
 
@@ -1967,7 +1967,7 @@ Data type: `Boolean`
 
 Default value: `$unbound::control_enable`
 
-##### <a name="interface"></a>`interface`
+##### <a name="-unbound--remote--interface"></a>`interface`
 
 Data type: `Array`
 
@@ -1975,7 +1975,7 @@ Data type: `Array`
 
 Default value: `['::1', '127.0.0.1']`
 
-##### <a name="port"></a>`port`
+##### <a name="-unbound--remote--port"></a>`port`
 
 Data type: `Integer`
 
@@ -1983,15 +1983,15 @@ Data type: `Integer`
 
 Default value: `8953`
 
-##### <a name="control_use_cert"></a>`control_use_cert`
+##### <a name="-unbound--remote--control_use_cert"></a>`control_use_cert`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="server_key_file"></a>`server_key_file`
+##### <a name="-unbound--remote--server_key_file"></a>`server_key_file`
 
 Data type: `String`
 
@@ -1999,7 +1999,7 @@ Data type: `String`
 
 Default value: `"${unbound::confdir}/unbound_server.key"`
 
-##### <a name="server_cert_file"></a>`server_cert_file`
+##### <a name="-unbound--remote--server_cert_file"></a>`server_cert_file`
 
 Data type: `String`
 
@@ -2007,7 +2007,7 @@ Data type: `String`
 
 Default value: `"${unbound::confdir}/unbound_server.pem"`
 
-##### <a name="control_key_file"></a>`control_key_file`
+##### <a name="-unbound--remote--control_key_file"></a>`control_key_file`
 
 Data type: `String`
 
@@ -2015,7 +2015,7 @@ Data type: `String`
 
 Default value: `"${$unbound::confdir}/unbound_control.key"`
 
-##### <a name="control_cert_file"></a>`control_cert_file`
+##### <a name="-unbound--remote--control_cert_file"></a>`control_cert_file`
 
 Data type: `String`
 
@@ -2023,7 +2023,7 @@ Data type: `String`
 
 Default value: `"${$unbound::confdir}/unbound_control.pem"`
 
-##### <a name="group"></a>`group`
+##### <a name="-unbound--remote--group"></a>`group`
 
 Data type: `Any`
 
@@ -2031,7 +2031,7 @@ Data type: `Any`
 
 Default value: `$unbound::group`
 
-##### <a name="confdir"></a>`confdir`
+##### <a name="-unbound--remote--confdir"></a>`confdir`
 
 Data type: `Any`
 
@@ -2039,7 +2039,7 @@ Data type: `Any`
 
 Default value: `$unbound::confdir`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--remote--config_file"></a>`config_file`
 
 Data type: `Any`
 
@@ -2047,7 +2047,7 @@ Data type: `Any`
 
 Default value: `$unbound::config_file`
 
-##### <a name="control_setup_path"></a>`control_setup_path`
+##### <a name="-unbound--remote--control_setup_path"></a>`control_setup_path`
 
 Data type: `Any`
 
@@ -2057,7 +2057,7 @@ Default value: `$unbound::control_setup_path`
 
 ## Defined types
 
-### <a name="unboundforward"></a>`unbound::forward`
+### <a name="unbound--forward"></a>`unbound::forward`
 
 Class: unbound::forward
 
@@ -2094,23 +2094,15 @@ Configures a zone for DNS forwarding
 
 The following parameters are available in the `unbound::forward` defined type:
 
-* [`address`](#address)
-* [`host`](#host)
-* [`zone`](#zone)
-* [`forward_first`](#forward_first)
-* [`forward_ssl_upstream`](#forward_ssl_upstream)
-* [`forward_tls_upstream`](#forward_tls_upstream)
-* [`config_file`](#config_file)
+* [`address`](#-unbound--forward--address)
+* [`host`](#-unbound--forward--host)
+* [`zone`](#-unbound--forward--zone)
+* [`forward_first`](#-unbound--forward--forward_first)
+* [`forward_ssl_upstream`](#-unbound--forward--forward_ssl_upstream)
+* [`forward_tls_upstream`](#-unbound--forward--forward_tls_upstream)
+* [`config_file`](#-unbound--forward--config_file)
 
-##### <a name="address"></a>`address`
-
-Data type: `Array`
-
-
-
-Default value: `[]`
-
-##### <a name="host"></a>`host`
+##### <a name="-unbound--forward--address"></a>`address`
 
 Data type: `Array`
 
@@ -2118,7 +2110,15 @@ Data type: `Array`
 
 Default value: `[]`
 
-##### <a name="zone"></a>`zone`
+##### <a name="-unbound--forward--host"></a>`host`
+
+Data type: `Array`
+
+
+
+Default value: `[]`
+
+##### <a name="-unbound--forward--zone"></a>`zone`
 
 Data type: `Any`
 
@@ -2126,7 +2126,7 @@ Data type: `Any`
 
 Default value: `$name`
 
-##### <a name="forward_first"></a>`forward_first`
+##### <a name="-unbound--forward--forward_first"></a>`forward_first`
 
 Data type: `Pattern[/yes|no/]`
 
@@ -2134,7 +2134,7 @@ Data type: `Pattern[/yes|no/]`
 
 Default value: `'no'`
 
-##### <a name="forward_ssl_upstream"></a>`forward_ssl_upstream`
+##### <a name="-unbound--forward--forward_ssl_upstream"></a>`forward_ssl_upstream`
 
 Data type: `Pattern[/yes|no/]`
 
@@ -2142,7 +2142,7 @@ Data type: `Pattern[/yes|no/]`
 
 Default value: `'no'`
 
-##### <a name="forward_tls_upstream"></a>`forward_tls_upstream`
+##### <a name="-unbound--forward--forward_tls_upstream"></a>`forward_tls_upstream`
 
 Data type: `Pattern[/yes|no/]`
 
@@ -2150,7 +2150,7 @@ Data type: `Pattern[/yes|no/]`
 
 Default value: `'no'`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--forward--config_file"></a>`config_file`
 
 Data type: `Any`
 
@@ -2158,7 +2158,7 @@ Data type: `Any`
 
 Default value: `$unbound::config_file`
 
-### <a name="unboundlocalzone"></a>`unbound::localzone`
+### <a name="unbound--localzone"></a>`unbound::localzone`
 
 Class: unbound::localzone
 
@@ -2204,19 +2204,19 @@ vide correct answers.
 
 The following parameters are available in the `unbound::localzone` defined type:
 
-* [`type`](#type)
-* [`zone`](#zone)
-* [`config_file`](#config_file)
-* [`local_data`](#local_data)
-* [`template_name`](#template_name)
+* [`type`](#-unbound--localzone--type)
+* [`zone`](#-unbound--localzone--zone)
+* [`config_file`](#-unbound--localzone--config_file)
+* [`local_data`](#-unbound--localzone--local_data)
+* [`template_name`](#-unbound--localzone--template_name)
 
-##### <a name="type"></a>`type`
+##### <a name="-unbound--localzone--type"></a>`type`
 
 Data type: `Unbound::Local_zone_type`
 
 
 
-##### <a name="zone"></a>`zone`
+##### <a name="-unbound--localzone--zone"></a>`zone`
 
 Data type: `String`
 
@@ -2224,7 +2224,7 @@ Data type: `String`
 
 Default value: `$name`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--localzone--config_file"></a>`config_file`
 
 Data type: `Any`
 
@@ -2232,7 +2232,7 @@ Data type: `Any`
 
 Default value: `$unbound::config_file`
 
-##### <a name="local_data"></a>`local_data`
+##### <a name="-unbound--localzone--local_data"></a>`local_data`
 
 Data type: `Array[Unbound::Resource_record_type]`
 
@@ -2240,7 +2240,7 @@ Data type: `Array[Unbound::Resource_record_type]`
 
 Default value: `[]`
 
-##### <a name="template_name"></a>`template_name`
+##### <a name="-unbound--localzone--template_name"></a>`template_name`
 
 Data type: `String`
 
@@ -2248,7 +2248,7 @@ Data type: `String`
 
 Default value: `'unbound/local_zone.erb'`
 
-### <a name="unboundrecord"></a>`unbound::record`
+### <a name="unbound--record"></a>`unbound::record`
 
 Class: unbound::record
 
@@ -2278,20 +2278,20 @@ Create an unbound static DNS record override
 
 The following parameters are available in the `unbound::record` defined type:
 
-* [`content`](#content)
-* [`ttl`](#ttl)
-* [`type`](#type)
-* [`reverse`](#reverse)
-* [`entry`](#entry)
-* [`config_file`](#config_file)
+* [`content`](#-unbound--record--content)
+* [`ttl`](#-unbound--record--ttl)
+* [`type`](#-unbound--record--type)
+* [`reverse`](#-unbound--record--reverse)
+* [`entry`](#-unbound--record--entry)
+* [`config_file`](#-unbound--record--config_file)
 
-##### <a name="content"></a>`content`
+##### <a name="-unbound--record--content"></a>`content`
 
 Data type: `Variant[Array[String[1]], String[1]]`
 
 
 
-##### <a name="ttl"></a>`ttl`
+##### <a name="-unbound--record--ttl"></a>`ttl`
 
 Data type: `Any`
 
@@ -2299,7 +2299,7 @@ Data type: `Any`
 
 Default value: `'14400'`
 
-##### <a name="type"></a>`type`
+##### <a name="-unbound--record--type"></a>`type`
 
 Data type: `Any`
 
@@ -2307,15 +2307,15 @@ Data type: `Any`
 
 Default value: `'A'`
 
-##### <a name="reverse"></a>`reverse`
+##### <a name="-unbound--record--reverse"></a>`reverse`
 
 Data type: `Any`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="entry"></a>`entry`
+##### <a name="-unbound--record--entry"></a>`entry`
 
 Data type: `Any`
 
@@ -2323,7 +2323,7 @@ Data type: `Any`
 
 Default value: `$name`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--record--config_file"></a>`config_file`
 
 Data type: `Any`
 
@@ -2331,7 +2331,7 @@ Data type: `Any`
 
 Default value: `$unbound::config_file`
 
-### <a name="unboundstub"></a>`unbound::stub`
+### <a name="unbound--stub"></a>`unbound::stub`
 
 Class: unbound::stub
 
@@ -2370,20 +2370,20 @@ Create an unbound stub zone for caching upstream name resolvers
 
 The following parameters are available in the `unbound::stub` defined type:
 
-* [`address`](#address)
-* [`nameservers`](#nameservers)
-* [`insecure`](#insecure)
-* [`no_cache`](#no_cache)
-* [`type`](#type)
-* [`config_file`](#config_file)
+* [`address`](#-unbound--stub--address)
+* [`nameservers`](#-unbound--stub--nameservers)
+* [`insecure`](#-unbound--stub--insecure)
+* [`no_cache`](#-unbound--stub--no_cache)
+* [`type`](#-unbound--stub--type)
+* [`config_file`](#-unbound--stub--config_file)
 
-##### <a name="address"></a>`address`
+##### <a name="-unbound--stub--address"></a>`address`
 
 Data type: `Variant[Array[Unbound::Address], Unbound::Address]`
 
 
 
-##### <a name="nameservers"></a>`nameservers`
+##### <a name="-unbound--stub--nameservers"></a>`nameservers`
 
 Data type: `Array[Stdlib::Host]`
 
@@ -2391,23 +2391,23 @@ Data type: `Array[Stdlib::Host]`
 
 Default value: `[]`
 
-##### <a name="insecure"></a>`insecure`
+##### <a name="-unbound--stub--insecure"></a>`insecure`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="no_cache"></a>`no_cache`
+##### <a name="-unbound--stub--no_cache"></a>`no_cache`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="type"></a>`type`
+##### <a name="-unbound--stub--type"></a>`type`
 
 Data type: `Unbound::Local_zone_type`
 
@@ -2415,17 +2415,17 @@ Data type: `Unbound::Local_zone_type`
 
 Default value: `'transparent'`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-unbound--stub--config_file"></a>`config_file`
 
 Data type: `Optional[Stdlib::Unixpath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
 ## Data types
 
-### <a name="unboundaccess_control"></a>`Unbound::Access_control`
+### <a name="Unbound--Access_control"></a>`Unbound::Access_control`
 
 The Unbound::Access_control data type.
 
@@ -2440,7 +2440,7 @@ Struct[{
 }]
 ```
 
-### <a name="unboundaddress"></a>`Unbound::Address`
+### <a name="Unbound--Address"></a>`Unbound::Address`
 
 Patterns copied from Stdlib::IP
 
@@ -2468,37 +2468,25 @@ Variant[Stdlib::IP::Address::Nosubnet, Pattern[
   ]]
 ```
 
-### <a name="unboundchroot"></a>`Unbound::Chroot`
+### <a name="Unbound--Chroot"></a>`Unbound::Chroot`
 
 The Unbound::Chroot data type.
 
-Alias of
+Alias of `Variant[Enum[''], Stdlib::Absolutepath]`
 
-```puppet
-Variant[Enum[''], Stdlib::Absolutepath]
-```
-
-### <a name="unboundhints_file"></a>`Unbound::Hints_file`
+### <a name="Unbound--Hints_file"></a>`Unbound::Hints_file`
 
 The Unbound::Hints_file data type.
 
-Alias of
+Alias of `Variant[Enum['builtin'], Stdlib::Absolutepath]`
 
-```puppet
-Variant[Enum['builtin'], Stdlib::Absolutepath]
-```
-
-### <a name="unboundlocal_zone"></a>`Unbound::Local_zone`
+### <a name="Unbound--Local_zone"></a>`Unbound::Local_zone`
 
 custom enum type for local-zone types
 
-Alias of
+Alias of `Hash[String, Unbound::Local_zone_type]`
 
-```puppet
-Hash[String, Unbound::Local_zone_type]
-```
-
-### <a name="unboundlocal_zone_override"></a>`Unbound::Local_zone_override`
+### <a name="Unbound--Local_zone_override"></a>`Unbound::Local_zone_override`
 
 The Unbound::Local_zone_override data type.
 
@@ -2511,37 +2499,25 @@ Struct[{
 }]
 ```
 
-### <a name="unboundlocal_zone_type"></a>`Unbound::Local_zone_type`
+### <a name="Unbound--Local_zone_type"></a>`Unbound::Local_zone_type`
 
 custom enum type for local-zone types
 
-Alias of
+Alias of `Enum['deny', 'refuse', 'static', 'transparent', 'redirect', 'nodefault', 'typetransparent', 'inform', 'inform_deny', 'always_transparent', 'always_refuse', 'always_nxdomain']`
 
-```puppet
-Enum['deny', 'refuse', 'static', 'transparent', 'redirect', 'nodefault', 'typetransparent', 'inform', 'inform_deny', 'always_transparent', 'always_refuse', 'always_nxdomain']
-```
-
-### <a name="unboundmodule"></a>`Unbound::Module`
+### <a name="Unbound--Module"></a>`Unbound::Module`
 
 list of valid modules
 
-Alias of
+Alias of `Enum['validator', 'iterator', 'python', 'dns64', 'subnetcache', 'ipsecmod', 'cachedb', 'respip']`
 
-```puppet
-Enum['validator', 'iterator', 'python', 'dns64', 'subnetcache', 'ipsecmod', 'cachedb', 'respip']
-```
-
-### <a name="unboundrange"></a>`Unbound::Range`
+### <a name="Unbound--Range"></a>`Unbound::Range`
 
 The Unbound::Range data type.
 
-Alias of
+Alias of `Pattern[/\d+(-\d+)?/]`
 
-```puppet
-Pattern[/\d+(-\d+)?/]
-```
-
-### <a name="unboundresource_record_type"></a>`Unbound::Resource_record_type`
+### <a name="Unbound--Resource_record_type"></a>`Unbound::Resource_record_type`
 
 custom type for resource record used for local-data
 
@@ -2557,7 +2533,7 @@ Struct[{
 }]
 ```
 
-### <a name="unboundrpz"></a>`Unbound::Rpz`
+### <a name="Unbound--Rpz"></a>`Unbound::Rpz`
 
 Type used to validate rzp configueration
 
@@ -2582,77 +2558,69 @@ Struct[{
 
 The following parameters are available in the `Unbound::Rpz` data type:
 
-* [`primary`](#primary)
-* [`master`](#master)
-* [`url`](#url)
-* [`allow_notify`](#allow_notify)
-* [`zonefile`](#zonefile)
-* [`rpz_action_override`](#rpz_action_override)
-* [`rpz_cname_override`](#rpz_cname_override)
-* [`rpz_log`](#rpz_log)
-* [`rpz_log_name`](#rpz_log_name)
-* [`tags`](#tags)
+* [`primary`](#-Unbound--Rpz--primary)
+* [`master`](#-Unbound--Rpz--master)
+* [`url`](#-Unbound--Rpz--url)
+* [`allow_notify`](#-Unbound--Rpz--allow_notify)
+* [`zonefile`](#-Unbound--Rpz--zonefile)
+* [`rpz_action_override`](#-Unbound--Rpz--rpz_action_override)
+* [`rpz_cname_override`](#-Unbound--Rpz--rpz_cname_override)
+* [`rpz_log`](#-Unbound--Rpz--rpz_log)
+* [`rpz_log_name`](#-Unbound--Rpz--rpz_log_name)
+* [`tags`](#-Unbound--Rpz--tags)
 
-##### <a name="primary"></a>`primary`
+##### <a name="-Unbound--Rpz--primary"></a>`primary`
 
 the primary name server
 
-##### <a name="master"></a>`master`
+##### <a name="-Unbound--Rpz--master"></a>`master`
 
 another name for the primary name server
 
-##### <a name="url"></a>`url`
+##### <a name="-Unbound--Rpz--url"></a>`url`
 
 to download the rpz zone
 
-##### <a name="allow_notify"></a>`allow_notify`
+##### <a name="-Unbound--Rpz--allow_notify"></a>`allow_notify`
 
 list of hosts allowed to notify
 
-##### <a name="zonefile"></a>`zonefile`
+##### <a name="-Unbound--Rpz--zonefile"></a>`zonefile`
 
 path to zonefile
 
-##### <a name="rpz_action_override"></a>`rpz_action_override`
+##### <a name="-Unbound--Rpz--rpz_action_override"></a>`rpz_action_override`
 
 Always use this RPZ action for matching triggers
 from this zone. Possible action are: nxdomain, nodata, passthru, drop,
 disabled and cname.
 
-##### <a name="rpz_cname_override"></a>`rpz_cname_override`
+##### <a name="-Unbound--Rpz--rpz_cname_override"></a>`rpz_cname_override`
 
 The CNAME target domain to use if the cname action
 is configured for rpz-action-override.
 
-##### <a name="rpz_log"></a>`rpz_log`
+##### <a name="-Unbound--Rpz--rpz_log"></a>`rpz_log`
 
 Log all applied RPZ actions for this RPZ zone
 
-##### <a name="rpz_log_name"></a>`rpz_log_name`
+##### <a name="-Unbound--Rpz--rpz_log_name"></a>`rpz_log_name`
 
 Specify a string to be part of the log line, for easy referencing.
 
-##### <a name="tags"></a>`tags`
+##### <a name="-Unbound--Rpz--tags"></a>`tags`
 
 Limit the policies from this RPZ clause to clients with a matching tag
 
-### <a name="unboundrpzaction"></a>`Unbound::Rpz::Action`
+### <a name="Unbound--Rpz--Action"></a>`Unbound::Rpz::Action`
 
 list of valid rpz actions
 
-Alias of
+Alias of `Enum['nxdomain', 'nodata', 'passthru', 'drop', 'disabled', 'cname']`
 
-```puppet
-Enum['nxdomain', 'nodata', 'passthru', 'drop', 'disabled', 'cname']
-```
-
-### <a name="unboundsize"></a>`Unbound::Size`
+### <a name="Unbound--Size"></a>`Unbound::Size`
 
 The Unbound::Size data type.
 
-Alias of
-
-```puppet
-Pattern[/\d+([kmg])?/]
-```
+Alias of `Pattern[/\d+([kmg])?/]`
 
