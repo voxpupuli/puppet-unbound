@@ -30,7 +30,7 @@ describe Facter::Util::Fact.to_s do
       allow(Facter::Util::Resolution).to receive(:which).with('unbound').and_return(false)
     end
 
-    it { expect(Facter.fact(:unbound_version).value).to eq(nil) }
+    it { expect(Facter.fact(:unbound_version).value).to be_nil }
   end
 
   tests.each_pair do |test, versions|
@@ -50,7 +50,7 @@ describe Facter::Util::Fact.to_s do
           if test == 'valid'
             it { expect(Facter.fact(:unbound_version).value).to eq(version) }
           else
-            it { expect(Facter.fact(:unbound_version).value).to eq(nil) }
+            it { expect(Facter.fact(:unbound_version).value).to be_nil }
           end
         end
       end
