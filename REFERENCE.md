@@ -47,6 +47,7 @@ The following parameters are available in the `unbound` class:
 * [`unbound_version`](#-unbound--unbound_version)
 * [`update_root_hints`](#-unbound--update_root_hints)
 * [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
+* [`force_restart`](#-unbound--force_restart)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -289,6 +290,15 @@ Data type: `Optional[String[1]]`
 specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
 
 Default value: `undef`
+
+##### <a name="-unbound--force_restart"></a>`force_restart`
+
+Data type: `Boolean`
+
+if true and manage_service is also true the unbound service will be restarted instead
+of reloaded.
+
+Default value: `false`
 
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 
@@ -2463,7 +2473,7 @@ Alias of
 
 ```puppet
 Struct[{
-    action    => Optional[Enum['deny', 'refuse', 'allow', 'allow_snoop', 'deny_non_local', 'refuse_non_local']],
+    action    => Optional[Enum['deny', 'refuse', 'allow', 'allow_setrd', 'allow_snoop', 'allow_cookie', 'deny_non_local', 'refuse_non_local']],
     tags      => Optional[Array[String]],
     rr_string => Optional[String],
     view      => Optional[String],
@@ -2533,7 +2543,7 @@ Struct[{
 
 custom enum type for local-zone types
 
-Alias of `Enum['deny', 'refuse', 'static', 'transparent', 'redirect', 'nodefault', 'typetransparent', 'inform', 'inform_deny', 'always_transparent', 'always_refuse', 'always_nxdomain']`
+Alias of `Enum['deny', 'refuse', 'static', 'transparent', 'redirect', 'nodefault', 'typetransparent', 'inform', 'inform_deny', 'inform_redirect', 'always_transparent', 'block_a', 'always_refuse', 'always_nxdomain', 'always_null', 'noview', 'nodefault']`
 
 ### <a name="Unbound--Module"></a>`Unbound::Module`
 

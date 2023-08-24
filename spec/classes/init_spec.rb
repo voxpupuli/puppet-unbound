@@ -24,16 +24,19 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
         let(:purge_unbound_conf_d) { true }
+        let(:control_path) { '/usr/sbin/unbound-control' }
       when 'OpenBSD'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/var/unbound/etc' }
         let(:purge_unbound_conf_d) { false }
+        let(:control_path) { '/usr/sbin/unbound-control' }
       when 'FreeBSD'
         pidfile = '/usr/local/etc/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/usr/local/etc/unbound' }
         let(:purge_unbound_conf_d) { false }
+        let(:control_path) { '/usr/local/sbin/unbound-control' }
       when 'Darwin'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'org.macports.unbound' }
@@ -44,6 +47,7 @@ describe 'unbound' do
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
         let(:purge_unbound_conf_d) { false }
+        let(:control_path) { '/usr/sbin/unbound-control' }
       end
 
       context 'with default params' do
@@ -945,6 +949,8 @@ describe 'unbound' do
           )
         end
 
+        it { is_expected.to contain_service(service).with_restart("#{control_path} reload") }
+
         case facts[:os]['family']
         when 'FreeBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/local/sbin/unbound-control-setup -d /usr/local/etc/unbound') }
@@ -1193,6 +1199,13 @@ describe 'unbound' do
               }x
             )
         end
+      end
+
+      context 'with force_restart' do
+        let(:params) { { force_restart: true, control_enable: true } }
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_service(service).with_restart(nil) }
       end
     end
   end
