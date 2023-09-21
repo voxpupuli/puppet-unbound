@@ -2359,6 +2359,11 @@ Create an unbound stub zone for caching upstream name resolvers
   lookups does not affect an (unsigned) internal domain.  A DS record
   externally can create validation failures for that internal domain.
 
+[*stub_first*]
+  (optional) Defaults to false. Controls 'stub-first' stub zone option.
+  If true, a query that fails with the stub clause is attempted again
+  without the stub clause.
+
 [*type*]
   (optional) Defaults to 'transparent', can be 'deny', 'refuse', 'static',
   'transparent', 'typetransparent', 'redirect' or 'nodefault'.
@@ -2374,6 +2379,7 @@ The following parameters are available in the `unbound::stub` defined type:
 * [`nameservers`](#-unbound--stub--nameservers)
 * [`insecure`](#-unbound--stub--insecure)
 * [`no_cache`](#-unbound--stub--no_cache)
+* [`stub_first`](#-unbound--stub--stub_first)
 * [`type`](#-unbound--stub--type)
 * [`config_file`](#-unbound--stub--config_file)
 
@@ -2400,6 +2406,14 @@ Data type: `Variant[Boolean, Enum['true', 'false']]`
 Default value: `false`
 
 ##### <a name="-unbound--stub--no_cache"></a>`no_cache`
+
+Data type: `Variant[Boolean, Enum['true', 'false']]`
+
+
+
+Default value: `false`
+
+##### <a name="-unbound--stub--stub_first"></a>`stub_first`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
