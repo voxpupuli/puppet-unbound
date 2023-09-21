@@ -6,6 +6,9 @@ stub-zone:
 <% @nameservers.each do |host| -%>
   stub-host: <%= host %>
 <% end -%>
+<% if @stub_first == 'true' or @stub_first == true -%>
+  stub-first: yes
+<% end -%>
 <% if @no_cache == 'true' or @no_cache == true -%>
   stub-no-cache: yes
 <% end -%>

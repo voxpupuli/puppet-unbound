@@ -24,6 +24,11 @@
 #   lookups does not affect an (unsigned) internal domain.  A DS record
 #   externally can create validation failures for that internal domain.
 #
+# [*stub_first*]
+#   (optional) Defaults to false. Controls 'stub-first' stub zone option.
+#   If true, a query that fails with the stub clause is attempted again
+#   without the stub clause.
+#
 # [*type*]
 #   (optional) Defaults to 'transparent', can be 'deny', 'refuse', 'static',
 #   'transparent', 'typetransparent', 'redirect' or 'nodefault'.
@@ -37,6 +42,7 @@ define unbound::stub (
   # lint:ignore:quoted_booleans
   Variant[Boolean, Enum['true', 'false']]            $insecure    = false,
   Variant[Boolean, Enum['true', 'false']]            $no_cache    = false,
+  Variant[Boolean, Enum['true', 'false']]            $stub_first  = false,
   # lint:endignore
   Unbound::Local_zone_type                           $type        = 'transparent',
   Optional[Stdlib::Unixpath]                         $config_file = undef,
