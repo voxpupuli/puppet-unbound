@@ -172,7 +172,7 @@ class unbound (
   String[1]                                     $owner                           = 'unbound',
   String[1]                                     $username                        = $owner,
   # OpenBSD sets this to an empty string
-  String                                        $package_name                    = 'unbound',
+  Variant[String,Array]                         $package_name                    = 'unbound',
   String[1]                                     $package_ensure                  = 'installed',
   Boolean                                       $purge_unbound_conf_d            = false,
   String[1]                                     $root_hints_url                  = 'https://www.internic.net/domain/named.root',
