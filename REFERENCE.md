@@ -47,6 +47,7 @@ The following parameters are available in the `unbound` class:
 * [`hints_file`](#-unbound--hints_file)
 * [`hints_file_content`](#-unbound--hints_file_content)
 * [`unbound_version`](#-unbound--unbound_version)
+* [`force_restart`](#-unbound--force_restart)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -273,6 +274,15 @@ Data type: `Optional[String[1]]`
 the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
 
 Default value: `$facts['unbound_version']`
+
+##### <a name="-unbound--force_restart"></a>`force_restart`
+
+Data type: `Boolean`
+
+if true and manage_service is also true the unbound service will be restarted instead
+of reloaded.
+
+Default value: `false`
 
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 

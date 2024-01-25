@@ -8,6 +8,8 @@
 #   Contents of the root hints file, if it's not remotely fetched.
 # @param unbound_version
 #   the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
+# @param force_restart if true and manage_service is also true the unbound service will be restarted instead
+#   of reloaded.
 class unbound (
   Boolean                                       $manage_service                  = true,
   Integer[0,5]                                  $verbosity                       = 1,
@@ -185,6 +187,7 @@ class unbound (
   Boolean                                       $service_enable                  = true,
   String[1]                                     $validate_cmd                    = '/usr/sbin/unbound-checkconf %',
   String[1]                                     $restart_cmd                     = "/bin/systemctl restart ${service_name}",
+  Boolean                                       $force_restart                   = false,
   Array[String[1]]                              $custom_server_conf              = [],
   Boolean                                       $skip_roothints_download         = false,
   Optional[Stdlib::Absolutepath]                $python_script                   = undef,
@@ -273,9 +276,13 @@ class unbound (
       require     => $service_reuse,
     }
     if $manage_service {
+      $service_require = { 'require' => Class['unbound::remote'] }
+      $service_params = $force_restart ? {
+        true  => $service_require,
+        false => $service_require + { 'restart' => "${control_path} reload" },
+      }
       Service[$service_name] {
-        restart   => "${control_path} reload",
-        require   => Class['unbound::remote'],
+        * => $service_params,
       }
     }
     include unbound::remote
