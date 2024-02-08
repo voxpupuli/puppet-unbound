@@ -1,0 +1,9 @@
+<%- | Stdlib::Absolutepath $hints_file, Stdlib::HTTPSUrl $root_hints_url, String[1] $fetch_client | -%>
+# THIS FILE IS MANAGED BY PUPPET
+# BASED ON https://wiki.archlinux.org/title/Unbound#Roothints_systemd_timer
+[Unit]
+Description=Update root hints for unbound
+After=network.target
+
+[Service]
+ExecStart=<%= $fetch_client %> <%= $hints_file %> <%= $root_hints_url %>

@@ -18,15 +18,6 @@ describe 'unbound' do
 
       pidfile = nil
 
-      if facts.dig(:os, 'family').nil?
-        if facts[:osfamily]
-          puts "Skipping tests on on platform #{facts[:osfamily]} due to missing facts[:os][:family]"
-        else
-          puts "Skipping tests on on platform #{facts[:kernel]} due to missing facts[:os][:family]"
-        end
-        next
-      end
-
       case facts[:os]['family']
       when 'Debian'
         pidfile = '/run/unbound.pid'
@@ -66,6 +57,10 @@ describe 'unbound' do
         it { is_expected.to contain_file(conf_d_dir) }
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
+
+        context 'on Linux', if: facts[:kernel] == 'Linux' do
+          it { is_expected.to contain_systemd__timer('roothints.timer') }
+        end
 
         it do
           expect(subject).to contain_file(unbound_conf_d).with(
@@ -1038,41 +1033,89 @@ describe 'unbound' do
         end
       end
 
-      context 'no root hints in config' do
-        let(:params) do
-          {
-            hints_file: 'builtin'
-          }
+      context 'roothints' do
+        context 'no root hints in config' do
+          let(:params) do
+            {
+              hints_file: 'builtin'
+            }
+          end
+
+          it do
+            expect(subject).to contain_concat__fragment(
+              'unbound-header'
+            ).without_content(%r{root-hints})
+          end
+
+          it { is_expected.not_to contain_systemd__timer('roothints.timer') }
         end
 
-        it do
-          expect(subject).to contain_concat__fragment(
-            'unbound-header'
-          ).without_content(%r{root-hints})
+        context 'no root hints in config and update_root_hints=unmanaged' do
+          let(:params) do
+            {
+              hints_file: 'builtin',
+              update_root_hints: 'unmanaged'
+            }
+          end
+
+          it do
+            expect(subject).to contain_concat__fragment(
+              'unbound-header'
+            ).without_content(%r{root-hints})
+          end
+
+          it { is_expected.not_to contain_systemd__timer('roothints.timer') }
         end
-      end
 
-      context 'hieradata root hints' do
-        let(:params) do
-          {
-            skip_roothints_download: true,
-            hints_file_content: File.read('spec/classes/expected/hieradata-root-hint.conf'),
-          }
+        context 'no root hints in config and update_root_hints=absent' do
+          let(:params) do
+            {
+              hints_file: 'builtin',
+              update_root_hints: 'absent'
+            }
+          end
+
+          it do
+            expect(subject).to contain_concat__fragment(
+              'unbound-header'
+            ).without_content(%r{root-hints})
+          end
+
+          it { is_expected.to contain_systemd__timer('roothints.timer').with_ensure('absent') }
         end
 
-        it do
-          expect(subject).to contain_file(hints_file).with(
-            'ensure' => 'file',
-            'mode' => '0444',
-            'content' => File.read('spec/classes/expected/hieradata-root-hint.conf')
-          )
+        context 'update_root_hints=absent' do
+          let(:params) do
+            {
+              update_root_hints: 'absent'
+            }
+          end
+
+          it { is_expected.to contain_systemd__timer('roothints.timer').with_ensure('absent') }
         end
-      end
 
-      context 'with File defaults' do
-        let(:pre_condition) { "File { mode => '0644', owner => 'root', group => 'root' }" }
+        context 'hieradata root hints' do
+          let(:params) do
+            {
+              skip_roothints_download: true,
+              hints_file_content: File.read('spec/classes/expected/hieradata-root-hint.conf'),
+            }
+          end
 
-        it { is_expected.to compile.with_all_deps }
+          it do
+            expect(subject).to contain_file(hints_file).with(
+              'ensure' => 'file',
+              'mode' => '0444',
+              'content' => File.read('spec/classes/expected/hieradata-root-hint.conf')
+            )
+          end
+        end
+
+        context 'with File defaults' do
+          let(:pre_condition) { "File { mode => '0644', owner => 'root', group => 'root' }" }
+
+          it { is_expected.to compile.with_all_deps }
+        end
       end
 
       context 'RPZs config' do
