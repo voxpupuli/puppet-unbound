@@ -6,7 +6,7 @@
 
 ### Classes
 
-* [`unbound`](#unbound): Class: unbound  Installs and configures Unbound, the caching DNS resolver from NLnet Labs
+* [`unbound`](#unbound): Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 * [`unbound::remote`](#unbound--remote): Class: unbound::remote  Configure remote control of the unbound daemon process  === Parameters:  [*enable*]   (optional) The option is used t
 
 ### Defined types
@@ -36,8 +36,6 @@
 
 ### <a name="unbound"></a>`unbound`
 
-Class: unbound
-
 Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 
 #### Parameters
@@ -47,6 +45,7 @@ The following parameters are available in the `unbound` class:
 * [`hints_file`](#-unbound--hints_file)
 * [`hints_file_content`](#-unbound--hints_file_content)
 * [`unbound_version`](#-unbound--unbound_version)
+* [`update_root_hints`](#-unbound--update_root_hints)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -273,6 +272,14 @@ Data type: `Optional[String[1]]`
 the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
 
 Default value: `$facts['unbound_version']`
+
+##### <a name="-unbound--update_root_hints"></a>`update_root_hints`
+
+Data type: `Enum['absent','present','unmanaged']`
+
+If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
+
+Default value: `fact('systemd') ? { true => 'present', default => 'unmanaged'`
 
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 

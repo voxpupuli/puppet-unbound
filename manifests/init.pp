@@ -1,6 +1,5 @@
-# Class: unbound
 #
-# Installs and configures Unbound, the caching DNS resolver from NLnet Labs
+# @summary Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
 # @param hints_file
 #   File path to the root-hints. Set to 'builtin' to remove root-hint option from unbound.conf and use built-in hints.
@@ -8,6 +7,9 @@
 #   Contents of the root hints file, if it's not remotely fetched.
 # @param unbound_version
 #   the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
+# @param update_root_hints
+#   If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
+#
 class unbound (
   Boolean                                       $manage_service                  = true,
   Integer[0,5]                                  $verbosity                       = 1,
@@ -135,7 +137,7 @@ class unbound (
   Optional[Integer]                             $key_cache_slabs                 = undef,
   Optional[Unbound::Size]                       $neg_cache_size                  = undef,
   Boolean                                       $unblock_lan_zones               = false,
-  Boolean                                       $insecure_lan_zones              = false,  # version 1.5.8 
+  Boolean                                       $insecure_lan_zones              = false,  # version 1.5.8
   Unbound::Local_zone                           $local_zone                      = {},
   Array[String[1]]                              $local_data                      = [],
   Array[String[1]]                              $local_data_ptr                  = [],
@@ -212,6 +214,7 @@ class unbound (
   Integer[1]                                    $redis_timeout                   = 100,
   Stdlib::Absolutepath                          $unbound_conf_d                  = "${confdir}/unbound.conf.d",
   Unbound::Hints_file                           $hints_file                      = "${confdir}/root.hints",
+  Enum['absent','present','unmanaged']          $update_root_hints               = fact('systemd') ? { true => 'present', default => 'unmanaged' },
   Optional[String[1]]                           $hints_file_content              = undef,
   Hash[String[1], Unbound::Rpz]                 $rpzs                            = {},
   Optional[String[1]]                           $unbound_version                 = $facts['unbound_version'],
@@ -315,6 +318,19 @@ class unbound (
       ensure  => file,
       mode    => '0444',
       content => $hints_file_content,
+    }
+    if $update_root_hints == 'present' {
+      systemd::timer { 'roothints.timer':
+        timer_content   => file("${module_name}/roothints.timer"),
+        service_content => epp("${module_name}/roothints.service.epp", { 'hints_file' => $hints_file, 'root_hints_url' => $root_hints_url, 'fetch_client' => $fetch_client }),
+        active          => true,
+        enable          => true,
+      }
+    }
+  }
+  if $update_root_hints == 'absent' {
+    systemd::timer { 'roothints.timer':
+      ensure => 'absent',
     }
   }
 
