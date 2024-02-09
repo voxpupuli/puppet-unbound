@@ -4,7 +4,31 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v6.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v6.0.0) (2022-09-23)
+## [v7.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v7.0.0) (2024-02-09)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v6.0.0...v7.0.0)
+
+**Breaking changes:**
+
+- Drop Debian 10 support [\#335](https://github.com/voxpupuli/puppet-unbound/pull/335) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Ubuntu 18.04 support [\#334](https://github.com/voxpupuli/puppet-unbound/pull/334) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EL7 support [\#333](https://github.com/voxpupuli/puppet-unbound/pull/333) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Puppet 6 support [\#312](https://github.com/voxpupuli/puppet-unbound/pull/312) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add AlmaLinux/Rocky support [\#331](https://github.com/voxpupuli/puppet-unbound/pull/331) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 12 [\#329](https://github.com/voxpupuli/puppet-unbound/pull/329) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ubuntu 22.04 support [\#328](https://github.com/voxpupuli/puppet-unbound/pull/328) ([bastelfreak](https://github.com/bastelfreak))
+- stub: add support for stub-first stub zone option [\#322](https://github.com/voxpupuli/puppet-unbound/pull/322) ([irregulator](https://github.com/irregulator))
+- Add Puppet 8 support [\#317](https://github.com/voxpupuli/puppet-unbound/pull/317) ([bastelfreak](https://github.com/bastelfreak))
+- Relax dependencies version requirements [\#315](https://github.com/voxpupuli/puppet-unbound/pull/315) ([smortex](https://github.com/smortex))
+
+**Fixed bugs:**
+
+- Add systemd timer to update root.hints file [\#332](https://github.com/voxpupuli/puppet-unbound/pull/332) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v6.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v6.0.0) (2022-09-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v5.1.1...v6.0.0)
 
@@ -127,7 +151,7 @@ These should not affect the functionality of the module.
 
 **Implemented enhancements:**
 
-- Add support for stub-no-cache option [\#241](https://github.com/voxpupuli/puppet-unbound/pull/241) ([xaque208](https://github.com/xaque208))
+- Add support for stub-no-cache option [\#241](https://github.com/voxpupuli/puppet-unbound/pull/241) ([zachfi](https://github.com/zachfi))
 
 **Fixed bugs:**
 
@@ -198,7 +222,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 - Update CHANGELOG.md, based on command bundle exec rake changelog [\#227](https://github.com/voxpupuli/puppet-unbound/pull/227) ([dhoppe](https://github.com/dhoppe))
 - ignore lint: quote boolean values have been \[i belive\] supported for … [\#226](https://github.com/voxpupuli/puppet-unbound/pull/226) ([b4ldr](https://github.com/b4ldr))
-- Add test for unbound::stub [\#222](https://github.com/voxpupuli/puppet-unbound/pull/222) ([xaque208](https://github.com/xaque208))
+- Add test for unbound::stub [\#222](https://github.com/voxpupuli/puppet-unbound/pull/222) ([zachfi](https://github.com/zachfi))
 - validate\_unbond\_addr: replace functionality with a custom type [\#220](https://github.com/voxpupuli/puppet-unbound/pull/220) ([b4ldr](https://github.com/b4ldr))
 
 ## [2.5.0](https://github.com/voxpupuli/puppet-unbound/tree/2.5.0) (2019-12-28)
@@ -218,9 +242,9 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 - update type typo [\#214](https://github.com/voxpupuli/puppet-unbound/pull/214) ([dsoltero](https://github.com/dsoltero))
 - update variable typos [\#213](https://github.com/voxpupuli/puppet-unbound/pull/213) ([dsoltero](https://github.com/dsoltero))
 - unbound\_version: add spec tests to the unbound\_version fact [\#212](https://github.com/voxpupuli/puppet-unbound/pull/212) ([b4ldr](https://github.com/b4ldr))
-- Fix facter regex [\#211](https://github.com/voxpupuli/puppet-unbound/pull/211) ([xaque208](https://github.com/xaque208))
+- Fix facter regex [\#211](https://github.com/voxpupuli/puppet-unbound/pull/211) ([zachfi](https://github.com/zachfi))
 - stop managing system directories like /run [\#210](https://github.com/voxpupuli/puppet-unbound/pull/210) ([tequeter](https://github.com/tequeter))
-- Service [\#206](https://github.com/voxpupuli/puppet-unbound/pull/206) ([xaque208](https://github.com/xaque208))
+- Service [\#206](https://github.com/voxpupuli/puppet-unbound/pull/206) ([zachfi](https://github.com/zachfi))
 - Fix neg-cache-size in unbound.conf [\#205](https://github.com/voxpupuli/puppet-unbound/pull/205) ([cohoe](https://github.com/cohoe))
 - Add service control and package ensure parameters [\#204](https://github.com/voxpupuli/puppet-unbound/pull/204) ([cohoe](https://github.com/cohoe))
 - Fix typo [\#203](https://github.com/voxpupuli/puppet-unbound/pull/203) ([cure](https://github.com/cure))
@@ -234,9 +258,9 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Update from xaque208 modulesync\_config [\#195](https://github.com/voxpupuli/puppet-unbound/pull/195) ([xaque208](https://github.com/xaque208))
-- Support TLS [\#193](https://github.com/voxpupuli/puppet-unbound/pull/193) ([xaque208](https://github.com/xaque208))
-- Update from xaque208 modulesync\_config [\#191](https://github.com/voxpupuli/puppet-unbound/pull/191) ([xaque208](https://github.com/xaque208))
+- Update from xaque208 modulesync\_config [\#195](https://github.com/voxpupuli/puppet-unbound/pull/195) ([zachfi](https://github.com/zachfi))
+- Support TLS [\#193](https://github.com/voxpupuli/puppet-unbound/pull/193) ([zachfi](https://github.com/zachfi))
+- Update from xaque208 modulesync\_config [\#191](https://github.com/voxpupuli/puppet-unbound/pull/191) ([zachfi](https://github.com/zachfi))
 
 ## [2.4.2](https://github.com/voxpupuli/puppet-unbound/tree/2.4.2) (2019-03-04)
 
@@ -248,7 +272,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Update from xaque208 modulesync\_config [\#189](https://github.com/voxpupuli/puppet-unbound/pull/189) ([xaque208](https://github.com/xaque208))
+- Update from xaque208 modulesync\_config [\#189](https://github.com/voxpupuli/puppet-unbound/pull/189) ([zachfi](https://github.com/zachfi))
 
 ## [2.4.0](https://github.com/voxpupuli/puppet-unbound/tree/2.4.0) (2018-12-22)
 
@@ -268,7 +292,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 - Add SmartOS support \#184 [\#187](https://github.com/voxpupuli/puppet-unbound/pull/187) ([joelgarboden](https://github.com/joelgarboden))
 - Fix module-config [\#186](https://github.com/voxpupuli/puppet-unbound/pull/186) ([silkeh](https://github.com/silkeh))
-- Change default interface value [\#185](https://github.com/voxpupuli/puppet-unbound/pull/185) ([xaque208](https://github.com/xaque208))
+- Change default interface value [\#185](https://github.com/voxpupuli/puppet-unbound/pull/185) ([zachfi](https://github.com/zachfi))
 - Restore unbound::local\_zone function [\#182](https://github.com/voxpupuli/puppet-unbound/pull/182) ([jlutran](https://github.com/jlutran))
 - Change default values for harden\_short\_bufsize & harden\_large\_queries [\#181](https://github.com/voxpupuli/puppet-unbound/pull/181) ([jlutran](https://github.com/jlutran))
 - add module\_config [\#176](https://github.com/voxpupuli/puppet-unbound/pull/176) ([b4ldr](https://github.com/b4ldr))
@@ -279,7 +303,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Update from xaque208 modulesync\_config [\#178](https://github.com/voxpupuli/puppet-unbound/pull/178) ([xaque208](https://github.com/xaque208))
+- Update from xaque208 modulesync\_config [\#178](https://github.com/voxpupuli/puppet-unbound/pull/178) ([zachfi](https://github.com/zachfi))
 - add method to restart unbound on interface change [\#170](https://github.com/voxpupuli/puppet-unbound/pull/170) ([b4ldr](https://github.com/b4ldr))
 
 ## [2.3.1](https://github.com/voxpupuli/puppet-unbound/tree/2.3.1) (2018-05-31)
@@ -314,13 +338,13 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 **Merged pull requests:**
 
 - Fix regressions [\#169](https://github.com/voxpupuli/puppet-unbound/pull/169) ([fklajn](https://github.com/fklajn))
-- Set unbound pidfile for 6.3 [\#167](https://github.com/voxpupuli/puppet-unbound/pull/167) ([xaque208](https://github.com/xaque208))
-- Update from xaque208 modulesync\_config [\#165](https://github.com/voxpupuli/puppet-unbound/pull/165) ([xaque208](https://github.com/xaque208))
-- Include .sync.yml for lost beaker tests [\#164](https://github.com/voxpupuli/puppet-unbound/pull/164) ([xaque208](https://github.com/xaque208))
-- Update from xaque208 modulesync\_config [\#163](https://github.com/voxpupuli/puppet-unbound/pull/163) ([xaque208](https://github.com/xaque208))
+- Set unbound pidfile for 6.3 [\#167](https://github.com/voxpupuli/puppet-unbound/pull/167) ([zachfi](https://github.com/zachfi))
+- Update from xaque208 modulesync\_config [\#165](https://github.com/voxpupuli/puppet-unbound/pull/165) ([zachfi](https://github.com/zachfi))
+- Include .sync.yml for lost beaker tests [\#164](https://github.com/voxpupuli/puppet-unbound/pull/164) ([zachfi](https://github.com/zachfi))
+- Update from xaque208 modulesync\_config [\#163](https://github.com/voxpupuli/puppet-unbound/pull/163) ([zachfi](https://github.com/zachfi))
 - Allow to set parameter forward-ssl-upstream for forward zones in [\#161](https://github.com/voxpupuli/puppet-unbound/pull/161) ([buzzdeee](https://github.com/buzzdeee))
 - Update to hiera v5 [\#160](https://github.com/voxpupuli/puppet-unbound/pull/160) ([jlutran](https://github.com/jlutran))
-- Allow forward-host option [\#159](https://github.com/voxpupuli/puppet-unbound/pull/159) ([xaque208](https://github.com/xaque208))
+- Allow forward-host option [\#159](https://github.com/voxpupuli/puppet-unbound/pull/159) ([zachfi](https://github.com/zachfi))
 - acceptance testing [\#158](https://github.com/voxpupuli/puppet-unbound/pull/158) ([b4ldr](https://github.com/b4ldr))
 
 ## [2.1.0](https://github.com/voxpupuli/puppet-unbound/tree/2.1.0) (2018-02-26)
@@ -340,9 +364,9 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 - add log options [\#155](https://github.com/voxpupuli/puppet-unbound/pull/155) ([b4ldr](https://github.com/b4ldr))
 - add local\_zone and domain\_insecure parameters [\#153](https://github.com/voxpupuli/puppet-unbound/pull/153) ([b4ldr](https://github.com/b4ldr))
 - Added option to allow unbound to log to file instead of syslog [\#147](https://github.com/voxpupuli/puppet-unbound/pull/147) ([enemarke](https://github.com/enemarke))
-- modulesync 2017-05-03 [\#139](https://github.com/voxpupuli/puppet-unbound/pull/139) ([xaque208](https://github.com/xaque208))
-- Add test for the interface selection [\#137](https://github.com/voxpupuli/puppet-unbound/pull/137) ([xaque208](https://github.com/xaque208))
-- Validation requires the anchor file is present [\#136](https://github.com/voxpupuli/puppet-unbound/pull/136) ([xaque208](https://github.com/xaque208))
+- modulesync 2017-05-03 [\#139](https://github.com/voxpupuli/puppet-unbound/pull/139) ([zachfi](https://github.com/zachfi))
+- Add test for the interface selection [\#137](https://github.com/voxpupuli/puppet-unbound/pull/137) ([zachfi](https://github.com/zachfi))
+- Validation requires the anchor file is present [\#136](https://github.com/voxpupuli/puppet-unbound/pull/136) ([zachfi](https://github.com/zachfi))
 
 ## [2.0.0](https://github.com/voxpupuli/puppet-unbound/tree/2.0.0) (2016-10-28)
 
@@ -354,8 +378,8 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Step into the future [\#133](https://github.com/voxpupuli/puppet-unbound/pull/133) ([xaque208](https://github.com/xaque208))
-- Begin migration away from params [\#132](https://github.com/voxpupuli/puppet-unbound/pull/132) ([xaque208](https://github.com/xaque208))
+- Step into the future [\#133](https://github.com/voxpupuli/puppet-unbound/pull/133) ([zachfi](https://github.com/zachfi))
+- Begin migration away from params [\#132](https://github.com/voxpupuli/puppet-unbound/pull/132) ([zachfi](https://github.com/zachfi))
 
 ## [1.3.6](https://github.com/voxpupuli/puppet-unbound/tree/1.3.6) (2016-07-12)
 
@@ -382,7 +406,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Fix template variable reference [\#123](https://github.com/voxpupuli/puppet-unbound/pull/123) ([xaque208](https://github.com/xaque208))
+- Fix template variable reference [\#123](https://github.com/voxpupuli/puppet-unbound/pull/123) ([zachfi](https://github.com/zachfi))
 - booleans: allow to actually toggle the booleans [\#122](https://github.com/voxpupuli/puppet-unbound/pull/122) ([igalic](https://github.com/igalic))
 
 ## [1.3.4](https://github.com/voxpupuli/puppet-unbound/tree/1.3.4) (2016-04-14)
@@ -407,7 +431,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Update test matrix to exclude duplicate build [\#119](https://github.com/voxpupuli/puppet-unbound/pull/119) ([xaque208](https://github.com/xaque208))
+- Update test matrix to exclude duplicate build [\#119](https://github.com/voxpupuli/puppet-unbound/pull/119) ([zachfi](https://github.com/zachfi))
 
 ## [1.3.1](https://github.com/voxpupuli/puppet-unbound/tree/1.3.1) (2016-04-01)
 
@@ -415,7 +439,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Implemnet metadata lint during testing [\#118](https://github.com/voxpupuli/puppet-unbound/pull/118) ([xaque208](https://github.com/xaque208))
+- Implemnet metadata lint during testing [\#118](https://github.com/voxpupuli/puppet-unbound/pull/118) ([zachfi](https://github.com/zachfi))
 
 ## [1.3.0](https://github.com/voxpupuli/puppet-unbound/tree/1.3.0) (2016-04-01)
 
@@ -427,7 +451,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Puppet4 [\#117](https://github.com/voxpupuli/puppet-unbound/pull/117) ([xaque208](https://github.com/xaque208))
+- Puppet4 [\#117](https://github.com/voxpupuli/puppet-unbound/pull/117) ([zachfi](https://github.com/zachfi))
 
 ## [1.2.2](https://github.com/voxpupuli/puppet-unbound/tree/1.2.2) (2016-02-22)
 
@@ -456,7 +480,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Use the relative path for loading puppet\_x [\#107](https://github.com/voxpupuli/puppet-unbound/pull/107) ([xaque208](https://github.com/xaque208))
+- Use the relative path for loading puppet\_x [\#107](https://github.com/voxpupuli/puppet-unbound/pull/107) ([zachfi](https://github.com/zachfi))
 - Add feature skip\_roothints\_download [\#106](https://github.com/voxpupuli/puppet-unbound/pull/106) ([mrdima](https://github.com/mrdima))
 
 ## [1.2.0](https://github.com/voxpupuli/puppet-unbound/tree/1.2.0) (2015-07-29)
@@ -465,7 +489,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Begin replacing unbound::stub address validation [\#104](https://github.com/voxpupuli/puppet-unbound/pull/104) ([xaque208](https://github.com/xaque208))
+- Begin replacing unbound::stub address validation [\#104](https://github.com/voxpupuli/puppet-unbound/pull/104) ([zachfi](https://github.com/zachfi))
 - Exec calls should have a full path. [\#72](https://github.com/voxpupuli/puppet-unbound/pull/72) ([robbat2](https://github.com/robbat2))
 
 ## [1.1.8](https://github.com/voxpupuli/puppet-unbound/tree/1.1.8) (2015-07-28)
@@ -486,7 +510,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Set correct checkconf on EL platforms [\#100](https://github.com/voxpupuli/puppet-unbound/pull/100) ([xaque208](https://github.com/xaque208))
+- Set correct checkconf on EL platforms [\#100](https://github.com/voxpupuli/puppet-unbound/pull/100) ([zachfi](https://github.com/zachfi))
 - Multiple addressess/hosts for stub zones [\#98](https://github.com/voxpupuli/puppet-unbound/pull/98) ([rswarts](https://github.com/rswarts))
 - Freebsd 10 [\#97](https://github.com/voxpupuli/puppet-unbound/pull/97) ([b4ldr](https://github.com/b4ldr))
 - Change scope of params [\#96](https://github.com/voxpupuli/puppet-unbound/pull/96) ([b4ldr](https://github.com/b4ldr))
@@ -539,17 +563,17 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Some light fixes after recent merge [\#89](https://github.com/voxpupuli/puppet-unbound/pull/89) ([xaque208](https://github.com/xaque208))
+- Some light fixes after recent merge [\#89](https://github.com/voxpupuli/puppet-unbound/pull/89) ([zachfi](https://github.com/zachfi))
 - stub-zone could be specified with either ip or hostname [\#88](https://github.com/voxpupuli/puppet-unbound/pull/88) ([ghost](https://github.com/ghost))
-- Pin repo versions to aim for determinism [\#85](https://github.com/voxpupuli/puppet-unbound/pull/85) ([xaque208](https://github.com/xaque208))
+- Pin repo versions to aim for determinism [\#85](https://github.com/voxpupuli/puppet-unbound/pull/85) ([zachfi](https://github.com/zachfi))
 - restart unbound without starting and stoping the daemon [\#84](https://github.com/voxpupuli/puppet-unbound/pull/84) ([f0](https://github.com/f0))
-- Fix broken commit [\#82](https://github.com/voxpupuli/puppet-unbound/pull/82) ([xaque208](https://github.com/xaque208))
-- Use the master branches status as build indicator [\#81](https://github.com/voxpupuli/puppet-unbound/pull/81) ([xaque208](https://github.com/xaque208))
+- Fix broken commit [\#82](https://github.com/voxpupuli/puppet-unbound/pull/82) ([zachfi](https://github.com/zachfi))
+- Use the master branches status as build indicator [\#81](https://github.com/voxpupuli/puppet-unbound/pull/81) ([zachfi](https://github.com/zachfi))
 - RedHat does not install wget by default, but curl is available [\#79](https://github.com/voxpupuli/puppet-unbound/pull/79) ([robinbowes](https://github.com/robinbowes))
 - Set correct runtime dir [\#78](https://github.com/voxpupuli/puppet-unbound/pull/78) ([robinbowes](https://github.com/robinbowes))
 - Make it work with strict variables [\#77](https://github.com/voxpupuli/puppet-unbound/pull/77) ([robinbowes](https://github.com/robinbowes))
 - Use str2bool so always-string data from hiera can still be used as if it... [\#75](https://github.com/voxpupuli/puppet-unbound/pull/75) ([rswarts](https://github.com/rswarts))
-- Begin spec testing [\#74](https://github.com/voxpupuli/puppet-unbound/pull/74) ([xaque208](https://github.com/xaque208))
+- Begin spec testing [\#74](https://github.com/voxpupuli/puppet-unbound/pull/74) ([zachfi](https://github.com/zachfi))
 - Ensure local-zone is always under server. [\#71](https://github.com/voxpupuli/puppet-unbound/pull/71) ([robbat2](https://github.com/robbat2))
 - Updates to trust anchoring [\#67](https://github.com/voxpupuli/puppet-unbound/pull/67) ([b4ldr](https://github.com/b4ldr))
 
@@ -562,7 +586,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 - create directory before exec [\#68](https://github.com/voxpupuli/puppet-unbound/pull/68) ([f3rr](https://github.com/f3rr))
 - Run unbound-control-setup, in order to create the certificates [\#66](https://github.com/voxpupuli/puppet-unbound/pull/66) ([buzzdeee](https://github.com/buzzdeee))
 - Add custom\_server\_conf configuration option [\#64](https://github.com/voxpupuli/puppet-unbound/pull/64) ([cure](https://github.com/cure))
-- Some minor adjustments for OpenBSD 5.6 [\#63](https://github.com/voxpupuli/puppet-unbound/pull/63) ([xaque208](https://github.com/xaque208))
+- Some minor adjustments for OpenBSD 5.6 [\#63](https://github.com/voxpupuli/puppet-unbound/pull/63) ([zachfi](https://github.com/zachfi))
 
 ## [1.1.3](https://github.com/voxpupuli/puppet-unbound/tree/1.1.3) (2014-10-19)
 
@@ -582,8 +606,8 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Roll some blacksmith using the skeleton data [\#61](https://github.com/voxpupuli/puppet-unbound/pull/61) ([xaque208](https://github.com/xaque208))
-- Clean up some newline issues [\#59](https://github.com/voxpupuli/puppet-unbound/pull/59) ([xaque208](https://github.com/xaque208))
+- Roll some blacksmith using the skeleton data [\#61](https://github.com/voxpupuli/puppet-unbound/pull/61) ([zachfi](https://github.com/zachfi))
+- Clean up some newline issues [\#59](https://github.com/voxpupuli/puppet-unbound/pull/59) ([zachfi](https://github.com/zachfi))
 - Fix syntax error in templates/forward.erb [\#57](https://github.com/voxpupuli/puppet-unbound/pull/57) ([cure](https://github.com/cure))
 - add metadata.json \(before new release\) [\#56](https://github.com/voxpupuli/puppet-unbound/pull/56) ([igalic](https://github.com/igalic))
 - rebase of pull 44 [\#54](https://github.com/voxpupuli/puppet-unbound/pull/54) ([b4ldr](https://github.com/b4ldr))
@@ -599,7 +623,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- Update test files to pass lint [\#48](https://github.com/voxpupuli/puppet-unbound/pull/48) ([xaque208](https://github.com/xaque208))
+- Update test files to pass lint [\#48](https://github.com/voxpupuli/puppet-unbound/pull/48) ([zachfi](https://github.com/zachfi))
 - OS specific client to fetch root hints and edns buffer size option [\#45](https://github.com/voxpupuli/puppet-unbound/pull/45) ([b4ldr](https://github.com/b4ldr))
 - Add support for the prefetch-key option. [\#43](https://github.com/voxpupuli/puppet-unbound/pull/43) ([daenney](https://github.com/daenney))
 - Allow forwarding  reverse DNS queries for the default local zones.  [\#42](https://github.com/voxpupuli/puppet-unbound/pull/42) ([dsolsona](https://github.com/dsolsona))
@@ -621,9 +645,9 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 - unbound header is out of order with concat setup [\#35](https://github.com/voxpupuli/puppet-unbound/pull/35) ([igalic](https://github.com/igalic))
 - using "name" as parameter in types makes life difficult [\#34](https://github.com/voxpupuli/puppet-unbound/pull/34) ([igalic](https://github.com/igalic))
 - enable simple creation of reverse entries [\#33](https://github.com/voxpupuli/puppet-unbound/pull/33) ([igalic](https://github.com/igalic))
-- \(maint\) Add Travis CI testing [\#31](https://github.com/voxpupuli/puppet-unbound/pull/31) ([xaque208](https://github.com/xaque208))
+- \(maint\) Add Travis CI testing [\#31](https://github.com/voxpupuli/puppet-unbound/pull/31) ([zachfi](https://github.com/zachfi))
 - use correct owner variable [\#30](https://github.com/voxpupuli/puppet-unbound/pull/30) ([mmoll](https://github.com/mmoll))
-- \(maint\) Change parameter names and cleanup [\#29](https://github.com/voxpupuli/puppet-unbound/pull/29) ([xaque208](https://github.com/xaque208))
+- \(maint\) Change parameter names and cleanup [\#29](https://github.com/voxpupuli/puppet-unbound/pull/29) ([zachfi](https://github.com/zachfi))
 
 ## [0.0.5](https://github.com/voxpupuli/puppet-unbound/tree/0.0.5) (2013-12-13)
 
@@ -640,8 +664,8 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Merged pull requests:**
 
-- \(maint\) Add OpenBSD support [\#27](https://github.com/voxpupuli/puppet-unbound/pull/27) ([xaque208](https://github.com/xaque208))
-- \(maint\) Mostly pass lint [\#26](https://github.com/voxpupuli/puppet-unbound/pull/26) ([xaque208](https://github.com/xaque208))
+- \(maint\) Add OpenBSD support [\#27](https://github.com/voxpupuli/puppet-unbound/pull/27) ([zachfi](https://github.com/zachfi))
+- \(maint\) Mostly pass lint [\#26](https://github.com/voxpupuli/puppet-unbound/pull/26) ([zachfi](https://github.com/zachfi))
 - Make sure unbound can read the root.hints file [\#25](https://github.com/voxpupuli/puppet-unbound/pull/25) ([michakrause](https://github.com/michakrause))
 - fix typo in template [\#24](https://github.com/voxpupuli/puppet-unbound/pull/24) ([mbakke](https://github.com/mbakke))
 - Add option to enable extended statistics [\#23](https://github.com/voxpupuli/puppet-unbound/pull/23) ([bisscuitt](https://github.com/bisscuitt))
