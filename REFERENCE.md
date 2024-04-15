@@ -55,6 +55,7 @@ The following parameters are available in the `unbound` class:
 * [`port`](#-unbound--port)
 * [`interface`](#-unbound--interface)
 * [`interface_automatic`](#-unbound--interface_automatic)
+* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
 * [`outgoing_interface`](#-unbound--outgoing_interface)
 * [`outgoing_range`](#-unbound--outgoing_range)
 * [`outgoing_port_permit`](#-unbound--outgoing_port_permit)
@@ -352,6 +353,14 @@ Data type: `Boolean`
 
 
 Default value: `false`
+
+##### <a name="-unbound--interface_automatic_ports_"></a>`interface_automatic_ports`
+
+Data type: `Optional[String[1]]`
+
+
+
+Default value: `undef`
 
 ##### <a name="-unbound--outgoing_interface"></a>`outgoing_interface`
 

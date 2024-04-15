@@ -34,6 +34,9 @@ server:
 <%= print_config('port', @port) -%>
 <%= print_config('interface', @interface) -%>
 <%= print_config('interface-automatic', @interface_automatic) -%>
+<% if @interface_automatic_ports -%>
+<%= print_config('interface-automatic-ports', @interface_automatic_ports) -%>
+<% end -%>
 <%= print_config('outgoing-interface', @outgoing_interface) -%>
 <%= print_config('outgoing-range', @outgoing_range) -%>
 <%- if @outgoing_port_permit_first -%>
