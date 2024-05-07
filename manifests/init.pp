@@ -9,6 +9,8 @@
 #   the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
 # @param update_root_hints
 #   If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
+# @param interface_automatic_ports
+#   specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
 #
 class unbound (
   Boolean                                       $manage_service                  = true,
@@ -20,6 +22,7 @@ class unbound (
   Integer[0, 65535]                             $port                            = 53,
   Array[String[1]]                              $interface                       = [],
   Boolean                                       $interface_automatic             = false,
+  Optional[String[1]]                           $interface_automatic_ports       = undef,
   Array[String[1]]                              $outgoing_interface              = [],  # version 1.5.10
   Optional[Integer[1]]                          $outgoing_range                  = undef,
   Unbound::Range                                $outgoing_port_permit            = '32768-65535',

@@ -46,6 +46,7 @@ The following parameters are available in the `unbound` class:
 * [`hints_file_content`](#-unbound--hints_file_content)
 * [`unbound_version`](#-unbound--unbound_version)
 * [`update_root_hints`](#-unbound--update_root_hints)
+* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -280,6 +281,14 @@ Data type: `Enum['absent','present','unmanaged']`
 If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
 
 Default value: `fact('systemd') ? { true => 'present', default => 'unmanaged'`
+
+##### <a name="-unbound--interface_automatic_ports"></a>`interface_automatic_ports`
+
+Data type: `Optional[String[1]]`
+
+specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
+
+Default value: `undef`
 
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 
