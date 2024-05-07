@@ -46,6 +46,7 @@ The following parameters are available in the `unbound` class:
 * [`hints_file_content`](#-unbound--hints_file_content)
 * [`unbound_version`](#-unbound--unbound_version)
 * [`update_root_hints`](#-unbound--update_root_hints)
+* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -55,7 +56,6 @@ The following parameters are available in the `unbound` class:
 * [`port`](#-unbound--port)
 * [`interface`](#-unbound--interface)
 * [`interface_automatic`](#-unbound--interface_automatic)
-* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
 * [`outgoing_interface`](#-unbound--outgoing_interface)
 * [`outgoing_range`](#-unbound--outgoing_range)
 * [`outgoing_port_permit`](#-unbound--outgoing_port_permit)
@@ -282,6 +282,14 @@ If set to true (and hints_file isn't set to 'builtin') a systemd timer will be c
 
 Default value: `fact('systemd') ? { true => 'present', default => 'unmanaged'`
 
+##### <a name="-unbound--interface_automatic_ports"></a>`interface_automatic_ports`
+
+Data type: `Optional[String[1]]`
+
+specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
+
+Default value: `undef`
+
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 
 Data type: `Boolean`
@@ -353,14 +361,6 @@ Data type: `Boolean`
 
 
 Default value: `false`
-
-##### <a name="-unbound--interface_automatic_ports_"></a>`interface_automatic_ports`
-
-Data type: `Optional[String[1]]`
-
-
-
-Default value: `undef`
 
 ##### <a name="-unbound--outgoing_interface"></a>`outgoing_interface`
 
