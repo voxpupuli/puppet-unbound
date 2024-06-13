@@ -175,8 +175,11 @@ server:
 <%- unless @module_config.empty? %>
   module-config: "<%= @module_config.join(' ') %>"
 <%- end -%>
+<%- if @trust_anchor_file -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
+<%- else -%>
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
+<%- end -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>
 <%= print_config('trusted-keys-file', @trusted_keys_file) -%>
 <%= print_config('trust-anchor-signaling', @trust_anchor_signaling) -%>
