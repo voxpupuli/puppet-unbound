@@ -43,8 +43,8 @@ server:
 <%= print_config('outgoing-port-permit', @outgoing_port_permit) -%>
 <%= print_config('outgoing-port-avoid', @outgoing_port_avoid) -%>
 <%- else -%>
-<%= print_config('outgoing-port-permit', @outgoing_port_avoid) -%>
 <%= print_config('outgoing-port-avoid', @outgoing_port_permit) -%>
+<%= print_config('outgoing-port-permit', @outgoing_port_avoid) -%>
 <%- end -%>
 <%= print_config('outgoing-num-tcp', @outgoing_num_tcp) -%>
 <%= print_config('incoming-num-tcp', @incoming_num_tcp) -%>
