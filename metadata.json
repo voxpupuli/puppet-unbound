@@ -1,6 +1,6 @@
 {
   "name": "puppet-unbound",
-  "version": "6.0.1-rc0",
+  "version": "7.0.1-rc0",
   "author": "Vox Pupuli",
   "summary": "A module to deploy and manage the Unbound caching resolver",
   "license": "Apache-2.0",
@@ -9,9 +9,20 @@
   "issues_url": "https://github.com/voxpupuli/puppet-unbound/issues",
   "operatingsystem_support": [
     {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -19,7 +30,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -27,7 +37,6 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -35,22 +44,21 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "7",
         "8"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "10",
-        "11"
+        "11",
+        "12"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04",
-        "20.04"
+        "20.04",
+        "22.04"
       ]
     },
     {
@@ -72,7 +80,8 @@
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "12",
-        "13"
+        "13",
+        "14"
       ]
     },
     {
@@ -107,6 +116,10 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.25.0 < 10.0.0"
+    },
+    {
+      "name": "puppet/systemd",
+      "version_requirement": ">= 6.3.0 < 8.0.0"
     }
   ]
 }

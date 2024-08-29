@@ -21,6 +21,9 @@ A puppet module for the Unbound caching resolver.
 * openSUSE (local repo or obs://server:dns)
 * Archlinux
 
+For an up2date list of supported operating systems and their versions, please
+check the metadata.json.
+
 ## Requirements
 
 To use this module requires at least unbound 1.6.6.  Please also consult
@@ -85,8 +88,8 @@ unbound::stub { "0.0.10.in-addr.arpa.":
 #
 # note that conf will be generated in the same order provided.
 unbound::stub { "10.0.10.in-addr.arpa.":
-  address    => [ 10.0.0.53', '10.0.0.10@10053'],
-  namservers => [ 'ns1.example.com', 'ns2.example.com' ],
+  address    => [ '10.0.0.53', '10.0.0.10@10053'],
+  nameservers => [ 'ns1.example.com', 'ns2.example.com' ],
 }
 ```
 

@@ -34,14 +34,17 @@ server:
 <%= print_config('port', @port) -%>
 <%= print_config('interface', @interface) -%>
 <%= print_config('interface-automatic', @interface_automatic) -%>
+<% if @interface_automatic_ports -%>
+<%= print_config('interface-automatic-ports', @interface_automatic_ports) -%>
+<% end -%>
 <%= print_config('outgoing-interface', @outgoing_interface) -%>
 <%= print_config('outgoing-range', @outgoing_range) -%>
 <%- if @outgoing_port_permit_first -%>
 <%= print_config('outgoing-port-permit', @outgoing_port_permit) -%>
 <%= print_config('outgoing-port-avoid', @outgoing_port_avoid) -%>
 <%- else -%>
-<%= print_config('outgoing-port-permit', @outgoing_port_avoid) -%>
 <%= print_config('outgoing-port-avoid', @outgoing_port_permit) -%>
+<%= print_config('outgoing-port-permit', @outgoing_port_avoid) -%>
 <%- end -%>
 <%= print_config('outgoing-num-tcp', @outgoing_num_tcp) -%>
 <%= print_config('incoming-num-tcp', @incoming_num_tcp) -%>
@@ -172,8 +175,11 @@ server:
 <%- unless @module_config.empty? %>
   module-config: "<%= @module_config.join(' ') %>"
 <%- end -%>
+<%- if @trust_anchor_file -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
+<%- else -%>
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
+<%- end -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>
 <%= print_config('trusted-keys-file', @trusted_keys_file) -%>
 <%= print_config('trust-anchor-signaling', @trust_anchor_signaling) -%>

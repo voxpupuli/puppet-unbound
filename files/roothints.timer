@@ -1,0 +1,11 @@
+# THIS FILE IS MANAGED BY PUPPET
+# BASED ON https://wiki.archlinux.org/title/Unbound#Roothints_systemd_timer
+[Unit]
+Description=Run root.hints monthly
+
+[Timer]
+OnCalendar=monthly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -9,7 +9,12 @@ type Unbound::Local_zone_type = Enum[
   'typetransparent',
   'inform',
   'inform_deny',
+  'inform_redirect',
   'always_transparent',
+  'block_a',
   'always_refuse',
   'always_nxdomain',
+  'always_null',
+  'noview',
+  'nodefault',
 ]
