@@ -1,19 +1,215 @@
 #
 # @summary Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 #
-# @param hints_file
-#   File path to the root-hints. Set to 'builtin' to remove root-hint option from unbound.conf and use built-in hints.
-# @param hints_file_content
-#   Contents of the root hints file, if it's not remotely fetched.
-# @param unbound_version
-#   the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
-# @param update_root_hints
-#   If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
-# @param interface_automatic_ports
-#   specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
-#
-# @param force_restart if true and manage_service is also true the unbound service will be restarted instead
-#   of reloaded.
+# @param manage_service ensure puppet manages the service
+# @param verbosity see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param statistics_interval see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param statistics_cumulative see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param extended_statistics see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param num_threads see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param port see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param interface see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param interface_automatic see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param interface_automatic_ports see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_interface see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_range see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_port_permit see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_port_avoid see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_port_permit_first see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_num_tcp see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param incoming_num_tcp see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param edns_buffer_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param max_udp_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param stream_wait_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param msg_cache_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param msg_cache_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param num_queries_per_thread see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param jostle_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param delay_close see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param unknown_server_time_limit see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param so_rcvbuf see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param so_sndbuf see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param so_reuseport see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_transparent see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_freebind see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param rrset_cache_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param rrset_cache_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param cache_max_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param cache_max_negative_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param cache_min_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param infra_host_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param infra_cache_numhosts see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param infra_cache_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param infra_cache_min_rtt see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param define_tag see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_ip4 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_ip6 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param prefer_ip6 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_udp see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_tcp see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tcp_mss see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tls_cert_bundle see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tls_upstream see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param outgoing_tcp_mss see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tcp_idle_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param edns_tcp_keepalive see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param edns_tcp_keepalive_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tcp_upstream see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param udp_upstream_without_downstream see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ssl_upstream see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ssl_service_key see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ssl_service_pem see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ssl_port see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tls_ciphers see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param tls_ciphersuites see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param use_systemd see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_daemonize see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param access_control see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param chroot see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param logfile see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_identity see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_time_ascii see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_queries see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_replies see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_tag_queryreply see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_local_actions see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param log_servfail see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param pidfile see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param hide_identity see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param identity see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param hide_version see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param version see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param hide_trustanchor see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param target_fetch_policy see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_short_bufsize see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_large_queries see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_glue see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_dnssec_stripped see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_below_nxdomain see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_referral_path see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param harden_algo_downgrade see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param use_caps_for_id see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param caps_whitlist see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param qname_minimisation see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param qname_minimisation_strict see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param private_address see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param private_domain see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param unwanted_reply_threshold see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_not_query_address see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param do_not_query_localhost see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param prefetch see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param prefetch_key see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param deny_any see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param rrset_roundrobin see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param minimal_responses see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param disable_dnssec_lame_check see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param trust_anchor_file see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param trust_anchor see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param trust_anchor_signaling see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param domain_insecure see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_sig_skew_min see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_sig_skew_max see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_bogus_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_clean_additional see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_log_level see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_permissive_mode see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ignore_cd_flag see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param serve_expired see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param serve_expired_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param serve_expired_ttl_reset see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param serve_expired_reply_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param serve_expired_client_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param val_nsec3_keysize_iterations see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param add_holddown see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param del_holddown see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param keep_missing see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param permit_small_holddown see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param key_cache_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param key_cache_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param neg_cache_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param unblock_lan_zones see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param insecure_lan_zones see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param local_zone see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param local_data see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param local_data_ptr see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param local_zone_tag see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param local_zone_override see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit_factor see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit_for_domain see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ratelimit_below_domain see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_ratelimit see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_ratelimit_size see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_ratelimit_slabs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ip_ratelimit_factor see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param fast_server_permil see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param fast_server_num see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param forward see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param stub see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param record see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param access see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param confdir see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param directory see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param conf_d see A directory often included in unbound.conf config
+# @param config_file The location of the main config file
+# @param control_enable enable nsd-control
+# @param control_setup_path the path to nsd-control-setup
+# @param control_path see the path to nsd-control
+# @param fetch_client client used to fetch files e.g. curl
+# @param group the group to use for files
+# @param keys_d the directory to store keys
+# @param trusted_keys_file the directory for trusted keys
+# @param module_config see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param owner the owner to use for files
+# @param username see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param package_name The package(s) to install to get unbound
+# @param package_ensure the ensure value for the packages
+# @param purge_unbound_conf_d if true all unmanaged files in $unbound_conf_d will be purged
+# @param root_hints_url the url to download the root hints file
+# @param runtime_dir the runtime directory used
+# @param auto_trust_anchor_file see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param anchor_fetch_command the command to use to fetch the root anchor
+# @param service_name the name of the managed service
+# @param service_hasstatus Indicate if the service supports the status parameter
+# @param service_ensure the ensure parameter for the managed service
+# @param service_enable the enable parameter for the managed service
+# @param validate_cmd the validate_cmd to use to check the config
+# @param restart_cmd The restart command to use when reload is not enough
+# @param force_restart Always force a service reload
+# @param custom_server_conf Add some custome config to $configfile
+# @param skip_roothints_download don't download the root hints file
+# @param python_script see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param dns64_prefix see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param dns64_synthall see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param send_client_subnet see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param client_subnet_zone see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param client_subnet_always_forward see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param max_client_subnet_ipv4 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param max_client_subnet_ipv6 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param min_client_subnet_ipv4 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param min_client_subnet_ipv6 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param max_ecs_tree_size_ipv4 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param max_ecs_tree_size_ipv6 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_enabled see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_hook see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_strict see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_max_ttl see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_ignore_bogus see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param ipsecmod_whitelist see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param backend see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param secret_seed see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param redis_server_host see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param redis_server_port see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param redis_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param unbound_conf_d similar to conf_d, will be merged with conf_d version in future
+# @param hints_file the root hints file to use
+# @param update_root_hints f we should update the root hints file
+# @param hints_file_content the contents of the root hints file
+# @param rpzs see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+# @param unbound_version the unbound_version to use, we can caluclate from the fact but
+#   specifying reduces the number of puppet runs
 class unbound (
   Boolean                                       $manage_service                  = true,
   Integer[0,5]                                  $verbosity                       = 1,

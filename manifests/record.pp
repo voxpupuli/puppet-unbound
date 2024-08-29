@@ -1,26 +1,10 @@
-# Class: unbound::record
-#
-# Create an unbound static DNS record override
-#
-# == Parameters:
-#
-# [*content*]
-#   (required) The name of the record (ip address)
-#
-# [*ttl*]
-#   (optional) The time to live for this record, defaults to '14400'
-#
-# [*type*]
-#   (optional) Type or the record
-#
-# [*reverse*]
-#   (optional) Reverse record or not, defaults to false
-#
-# [*entry*]
-#   (optional) Name entry for the record (name)
-#
-# [*config_file*]
-#   (optional) name of configuration file
+# @summary Create an unbound static DNS record override
+# @param content The name of the record (ip address)
+# @param ttl The time to live for this record, defaults to '14400'
+# @param type Type or the record
+# @param reverse Reverse record or not, defaults to false
+# @param entry Name entry for the record (name)
+# @param config_file name of configuration file
 #
 define unbound::record (
   Variant[Array[String[1]], String[1]] $content,
