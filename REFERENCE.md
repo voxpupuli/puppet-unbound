@@ -7,30 +7,30 @@
 ### Classes
 
 * [`unbound`](#unbound): Installs and configures Unbound, the caching DNS resolver from NLnet Labs
-* [`unbound::remote`](#unbound--remote): Class: unbound::remote  Configure remote control of the unbound daemon process  === Parameters:  [*enable*]   (optional) The option is used t
+* [`unbound::remote`](#unbound--remote): Configure remote control of the unbound daemon process
 
 ### Defined types
 
-* [`unbound::forward`](#unbound--forward): Class: unbound::forward  Configures a zone for DNS forwarding  == Parameters:  [*zone*]   (required) the name of the zone.  [*address*]   IP 
-* [`unbound::localzone`](#unbound--localzone): Class: unbound::localzone  Configures a local zone. The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the AS112 zones. The 
-* [`unbound::record`](#unbound--record): Class: unbound::record  Create an unbound static DNS record override  == Parameters:  [*content*]   (required) The name of the record (ip add
-* [`unbound::stub`](#unbound--stub): Class: unbound::stub  Create an unbound stub zone for caching upstream name resolvers  === Parameters:  [*address*]   (required) IP address o
+* [`unbound::forward`](#unbound--forward): Configures a zone for DNS forwarding
+* [`unbound::localzone`](#unbound--localzone): Configures a local zone.
+* [`unbound::record`](#unbound--record): Create an unbound static DNS record override
+* [`unbound::stub`](#unbound--stub): Create an unbound stub zone for caching upstream name resolvers
 
 ### Data types
 
-* [`Unbound::Access_control`](#Unbound--Access_control)
+* [`Unbound::Access_control`](#Unbound--Access_control): custom type for access control lists
 * [`Unbound::Address`](#Unbound--Address): Patterns copied from Stdlib::IP
-* [`Unbound::Chroot`](#Unbound--Chroot)
-* [`Unbound::Hints_file`](#Unbound--Hints_file)
+* [`Unbound::Chroot`](#Unbound--Chroot): custom type for access chroot dir to allow support for empty string
+* [`Unbound::Hints_file`](#Unbound--Hints_file): custom type for hints file
 * [`Unbound::Local_zone`](#Unbound--Local_zone): custom enum type for local-zone types
-* [`Unbound::Local_zone_override`](#Unbound--Local_zone_override)
+* [`Unbound::Local_zone_override`](#Unbound--Local_zone_override): custom type for local zone overrides
 * [`Unbound::Local_zone_type`](#Unbound--Local_zone_type): custom enum type for local-zone types
 * [`Unbound::Module`](#Unbound--Module): list of valid modules
-* [`Unbound::Range`](#Unbound--Range)
+* [`Unbound::Range`](#Unbound--Range): custom type for ranges
 * [`Unbound::Resource_record_type`](#Unbound--Resource_record_type): custom type for resource record used for local-data
 * [`Unbound::Rpz`](#Unbound--Rpz): Type used to validate rzp configueration
 * [`Unbound::Rpz::Action`](#Unbound--Rpz--Action): list of valid rpz actions
-* [`Unbound::Size`](#Unbound--Size)
+* [`Unbound::Size`](#Unbound--Size): custom type for size
 
 ## Classes
 
@@ -42,12 +42,6 @@ Installs and configures Unbound, the caching DNS resolver from NLnet Labs
 
 The following parameters are available in the `unbound` class:
 
-* [`hints_file`](#-unbound--hints_file)
-* [`hints_file_content`](#-unbound--hints_file_content)
-* [`unbound_version`](#-unbound--unbound_version)
-* [`update_root_hints`](#-unbound--update_root_hints)
-* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
-* [`force_restart`](#-unbound--force_restart)
 * [`manage_service`](#-unbound--manage_service)
 * [`verbosity`](#-unbound--verbosity)
 * [`statistics_interval`](#-unbound--statistics_interval)
@@ -57,6 +51,7 @@ The following parameters are available in the `unbound` class:
 * [`port`](#-unbound--port)
 * [`interface`](#-unbound--interface)
 * [`interface_automatic`](#-unbound--interface_automatic)
+* [`interface_automatic_ports`](#-unbound--interface_automatic_ports)
 * [`outgoing_interface`](#-unbound--outgoing_interface)
 * [`outgoing_range`](#-unbound--outgoing_range)
 * [`outgoing_port_permit`](#-unbound--outgoing_port_permit)
@@ -223,6 +218,7 @@ The following parameters are available in the `unbound` class:
 * [`service_enable`](#-unbound--service_enable)
 * [`validate_cmd`](#-unbound--validate_cmd)
 * [`restart_cmd`](#-unbound--restart_cmd)
+* [`force_restart`](#-unbound--force_restart)
 * [`custom_server_conf`](#-unbound--custom_server_conf)
 * [`skip_roothints_download`](#-unbound--skip_roothints_download)
 * [`python_script`](#-unbound--python_script)
@@ -231,10 +227,10 @@ The following parameters are available in the `unbound` class:
 * [`send_client_subnet`](#-unbound--send_client_subnet)
 * [`client_subnet_zone`](#-unbound--client_subnet_zone)
 * [`client_subnet_always_forward`](#-unbound--client_subnet_always_forward)
-* [`max_client_subnet_ipv6`](#-unbound--max_client_subnet_ipv6)
 * [`max_client_subnet_ipv4`](#-unbound--max_client_subnet_ipv4)
-* [`min_client_subnet_ipv6`](#-unbound--min_client_subnet_ipv6)
+* [`max_client_subnet_ipv6`](#-unbound--max_client_subnet_ipv6)
 * [`min_client_subnet_ipv4`](#-unbound--min_client_subnet_ipv4)
+* [`min_client_subnet_ipv6`](#-unbound--min_client_subnet_ipv6)
 * [`max_ecs_tree_size_ipv4`](#-unbound--max_ecs_tree_size_ipv4)
 * [`max_ecs_tree_size_ipv6`](#-unbound--max_ecs_tree_size_ipv6)
 * [`ipsecmod_enabled`](#-unbound--ipsecmod_enabled)
@@ -249,62 +245,17 @@ The following parameters are available in the `unbound` class:
 * [`redis_server_port`](#-unbound--redis_server_port)
 * [`redis_timeout`](#-unbound--redis_timeout)
 * [`unbound_conf_d`](#-unbound--unbound_conf_d)
+* [`hints_file`](#-unbound--hints_file)
+* [`update_root_hints`](#-unbound--update_root_hints)
+* [`hints_file_content`](#-unbound--hints_file_content)
 * [`rpzs`](#-unbound--rpzs)
-
-##### <a name="-unbound--hints_file"></a>`hints_file`
-
-Data type: `Unbound::Hints_file`
-
-File path to the root-hints. Set to 'builtin' to remove root-hint option from unbound.conf and use built-in hints.
-
-Default value: `"${confdir}/root.hints"`
-
-##### <a name="-unbound--hints_file_content"></a>`hints_file_content`
-
-Data type: `Optional[String[1]]`
-
-Contents of the root hints file, if it's not remotely fetched.
-
-Default value: `undef`
-
-##### <a name="-unbound--unbound_version"></a>`unbound_version`
-
-Data type: `Optional[String[1]]`
-
-the version of the installed unbound instance. defaults to the fact, but you can overwrite it. this reduces the initial puppet runs from two to one
-
-Default value: `$facts['unbound_version']`
-
-##### <a name="-unbound--update_root_hints"></a>`update_root_hints`
-
-Data type: `Enum['absent','present','unmanaged']`
-
-If set to true (and hints_file isn't set to 'builtin') a systemd timer will be configured to update the root hints file every month
-
-Default value: `fact('systemd') ? { true => 'present', default => 'unmanaged'`
-
-##### <a name="-unbound--interface_automatic_ports"></a>`interface_automatic_ports`
-
-Data type: `Optional[String[1]]`
-
-specifies the default ports to listen on when interface_automatic is also set to true, defaults to undef, specify as a string of space seperated ports e.g. "53 853 443"
-
-Default value: `undef`
-
-##### <a name="-unbound--force_restart"></a>`force_restart`
-
-Data type: `Boolean`
-
-if true and manage_service is also true the unbound service will be restarted instead
-of reloaded.
-
-Default value: `false`
+* [`unbound_version`](#-unbound--unbound_version)
 
 ##### <a name="-unbound--manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
-
+ensure puppet manages the service
 
 Default value: `true`
 
@@ -312,7 +263,7 @@ Default value: `true`
 
 Data type: `Integer[0,5]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `1`
 
@@ -320,7 +271,7 @@ Default value: `1`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -328,7 +279,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -336,7 +287,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -344,7 +295,7 @@ Default value: `false`
 
 Data type: `Integer[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `1`
 
@@ -352,7 +303,7 @@ Default value: `1`
 
 Data type: `Integer[0, 65535]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `53`
 
@@ -360,7 +311,7 @@ Default value: `53`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -368,15 +319,23 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
+
+##### <a name="-unbound--interface_automatic_ports"></a>`interface_automatic_ports`
+
+Data type: `Optional[String[1]]`
+
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
+
+Default value: `undef`
 
 ##### <a name="-unbound--outgoing_interface"></a>`outgoing_interface`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -384,7 +343,7 @@ Default value: `[]`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -392,7 +351,7 @@ Default value: `undef`
 
 Data type: `Unbound::Range`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'32768-65535'`
 
@@ -400,7 +359,7 @@ Default value: `'32768-65535'`
 
 Data type: `Unbound::Range`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'0-32767'`
 
@@ -408,7 +367,7 @@ Default value: `'0-32767'`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -416,7 +375,7 @@ Default value: `true`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -424,7 +383,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -432,7 +391,7 @@ Default value: `undef`
 
 Data type: `Integer[0,4096]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `1232`
 
@@ -440,7 +399,7 @@ Default value: `1232`
 
 Data type: `Optional[Integer[0,65536]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -448,7 +407,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -456,7 +415,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -464,7 +423,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -472,7 +431,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -480,7 +439,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -488,7 +447,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -496,7 +455,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -504,7 +463,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -512,7 +471,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -520,7 +479,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -528,7 +487,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -536,7 +495,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -544,7 +503,7 @@ Default value: `false`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -552,7 +511,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -560,7 +519,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -568,7 +527,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -576,7 +535,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -584,7 +543,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -592,7 +551,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -600,7 +559,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -608,7 +567,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -616,7 +575,7 @@ Default value: `undef`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -624,7 +583,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -632,7 +591,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -640,7 +599,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -648,7 +607,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -656,7 +615,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -664,7 +623,7 @@ Default value: `true`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -672,7 +631,7 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -680,7 +639,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -688,7 +647,7 @@ Default value: `false`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -696,7 +655,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -704,7 +663,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -712,7 +671,7 @@ Default value: `false`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -720,7 +679,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -728,7 +687,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -736,7 +695,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -744,7 +703,7 @@ Default value: `false`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -752,7 +711,7 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -760,7 +719,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0,65535]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -768,7 +727,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -776,7 +735,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -784,7 +743,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -792,7 +751,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -800,7 +759,7 @@ Default value: `true`
 
 Data type: `Hash[String[1], Unbound::Access_control]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -808,7 +767,7 @@ Default value: `{}`
 
 Data type: `Optional[Unbound::Chroot]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -816,7 +775,7 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -824,7 +783,7 @@ Default value: `undef`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -832,7 +791,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -840,7 +799,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -848,7 +807,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -856,7 +815,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -864,7 +823,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -872,7 +831,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -880,7 +839,7 @@ Default value: `false`
 
 Data type: `Stdlib::Absolutepath`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'/var/run/unbound/unbound.pid'`
 
@@ -888,7 +847,7 @@ Default value: `'/var/run/unbound/unbound.pid'`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -896,7 +855,7 @@ Default value: `true`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -904,7 +863,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -912,7 +871,7 @@ Default value: `true`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -920,7 +879,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -928,7 +887,7 @@ Default value: `true`
 
 Data type: `Array[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -936,7 +895,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -944,7 +903,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -952,7 +911,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -960,7 +919,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -968,7 +927,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -976,7 +935,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -984,7 +943,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -992,7 +951,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1000,7 +959,7 @@ Default value: `false`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1008,7 +967,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1016,7 +975,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1024,7 +983,7 @@ Default value: `false`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1032,7 +991,7 @@ Default value: `[]`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1040,7 +999,7 @@ Default value: `[]`
 
 Data type: `Integer[0]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `10000000`
 
@@ -1048,7 +1007,7 @@ Default value: `10000000`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1056,7 +1015,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -1064,7 +1023,7 @@ Default value: `true`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1072,7 +1031,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1080,7 +1039,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1088,7 +1047,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1096,7 +1055,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1104,7 +1063,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1112,7 +1071,7 @@ Default value: `false`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1120,7 +1079,7 @@ Default value: `undef`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1128,7 +1087,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -1136,7 +1095,7 @@ Default value: `true`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1144,7 +1103,7 @@ Default value: `[]`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1152,7 +1111,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1160,7 +1119,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1168,7 +1127,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -1176,7 +1135,7 @@ Default value: `true`
 
 Data type: `Optional[Integer[0,2]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1184,7 +1143,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1192,7 +1151,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1200,7 +1159,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1208,7 +1167,7 @@ Default value: `false`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1216,7 +1175,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1224,7 +1183,7 @@ Default value: `false`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1232,7 +1191,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1240,7 +1199,7 @@ Default value: `undef`
 
 Data type: `Array[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1248,7 +1207,7 @@ Default value: `[]`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1256,7 +1215,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1264,7 +1223,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1272,7 +1231,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1280,7 +1239,7 @@ Default value: `false`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1288,7 +1247,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1296,7 +1255,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1304,7 +1263,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1312,7 +1271,7 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1320,7 +1279,7 @@ Default value: `false`
 
 Data type: `Unbound::Local_zone`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1328,7 +1287,7 @@ Default value: `{}`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1336,7 +1295,7 @@ Default value: `[]`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1344,7 +1303,7 @@ Default value: `[]`
 
 Data type: `Hash[String[1], Array[String[1]]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1352,7 +1311,7 @@ Default value: `{}`
 
 Data type: `Hash[String[1], Unbound::Local_zone_override]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1360,7 +1319,7 @@ Default value: `{}`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1368,7 +1327,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1376,7 +1335,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1384,7 +1343,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1392,7 +1351,7 @@ Default value: `undef`
 
 Data type: `Hash[String[1], Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1400,7 +1359,7 @@ Default value: `{}`
 
 Data type: `Hash[String[1], Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1408,7 +1367,7 @@ Default value: `{}`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1416,7 +1375,7 @@ Default value: `undef`
 
 Data type: `Optional[Unbound::Size]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1424,7 +1383,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1432,7 +1391,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1440,7 +1399,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0,1000]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1448,7 +1407,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1456,7 +1415,7 @@ Default value: `undef`
 
 Data type: `Hash`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1464,7 +1423,7 @@ Default value: `{}`
 
 Data type: `Hash`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1472,7 +1431,7 @@ Default value: `{}`
 
 Data type: `Hash`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
@@ -1480,7 +1439,7 @@ Default value: `{}`
 
 Data type: `Array`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `['::1', '127.0.0.1']`
 
@@ -1488,7 +1447,7 @@ Default value: `['::1', '127.0.0.1']`
 
 Data type: `String[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'/etc/unbound'`
 
@@ -1496,7 +1455,7 @@ Default value: `'/etc/unbound'`
 
 Data type: `Stdlib::Absolutepath`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `$confdir`
 
@@ -1504,7 +1463,7 @@ Default value: `$confdir`
 
 Data type: `String[1]`
 
-
+see A directory often included in unbound.conf config
 
 Default value: `"${confdir}/conf.d"`
 
@@ -1512,7 +1471,7 @@ Default value: `"${confdir}/conf.d"`
 
 Data type: `String[1]`
 
-
+The location of the main config file
 
 Default value: `"${confdir}/unbound.conf"`
 
@@ -1520,7 +1479,7 @@ Default value: `"${confdir}/unbound.conf"`
 
 Data type: `Boolean`
 
-
+enable nsd-control
 
 Default value: `false`
 
@@ -1528,7 +1487,7 @@ Default value: `false`
 
 Data type: `String[1]`
 
-
+the path to nsd-control-setup
 
 Default value: `'/usr/sbin/unbound-control-setup'`
 
@@ -1536,7 +1495,7 @@ Default value: `'/usr/sbin/unbound-control-setup'`
 
 Data type: `String[1]`
 
-
+see the path to nsd-control
 
 Default value: `'/usr/sbin/unbound-control'`
 
@@ -1544,7 +1503,7 @@ Default value: `'/usr/sbin/unbound-control'`
 
 Data type: `String[1]`
 
-
+client used to fetch files e.g. curl
 
 Default value: `'wget -O'`
 
@@ -1552,7 +1511,7 @@ Default value: `'wget -O'`
 
 Data type: `String[1]`
 
-
+the group to use for files
 
 Default value: `'unbound'`
 
@@ -1560,7 +1519,7 @@ Default value: `'unbound'`
 
 Data type: `String[1]`
 
-
+the directory to store keys
 
 Default value: `"${confdir}/keys.d"`
 
@@ -1568,7 +1527,7 @@ Default value: `"${confdir}/keys.d"`
 
 Data type: `Stdlib::Absolutepath`
 
-
+the directory for trusted keys
 
 Default value: `"${keys_d}/*.key"`
 
@@ -1576,7 +1535,7 @@ Default value: `"${keys_d}/*.key"`
 
 Data type: `Array[Unbound::Module]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1584,7 +1543,7 @@ Default value: `[]`
 
 Data type: `String[1]`
 
-
+the owner to use for files
 
 Default value: `'unbound'`
 
@@ -1592,7 +1551,7 @@ Default value: `'unbound'`
 
 Data type: `String[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `$owner`
 
@@ -1600,7 +1559,7 @@ Default value: `$owner`
 
 Data type: `Variant[String,Array]`
 
-
+The package(s) to install to get unbound
 
 Default value: `'unbound'`
 
@@ -1608,7 +1567,7 @@ Default value: `'unbound'`
 
 Data type: `String[1]`
 
-
+the ensure value for the packages
 
 Default value: `'installed'`
 
@@ -1616,7 +1575,7 @@ Default value: `'installed'`
 
 Data type: `Boolean`
 
-
+if true all unmanaged files in $unbound_conf_d will be purged
 
 Default value: `false`
 
@@ -1624,7 +1583,7 @@ Default value: `false`
 
 Data type: `String[1]`
 
-
+the url to download the root hints file
 
 Default value: `'https://www.internic.net/domain/named.root'`
 
@@ -1632,7 +1591,7 @@ Default value: `'https://www.internic.net/domain/named.root'`
 
 Data type: `Stdlib::Absolutepath`
 
-
+the runtime directory used
 
 Default value: `$confdir`
 
@@ -1640,7 +1599,7 @@ Default value: `$confdir`
 
 Data type: `Stdlib::Absolutepath`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `"${runtime_dir}/root.key"`
 
@@ -1648,7 +1607,7 @@ Default value: `"${runtime_dir}/root.key"`
 
 Data type: `String[1]`
 
-
+the command to use to fetch the root anchor
 
 Default value: `"unbound-anchor -a ${auto_trust_anchor_file}"`
 
@@ -1656,7 +1615,7 @@ Default value: `"unbound-anchor -a ${auto_trust_anchor_file}"`
 
 Data type: `String[1]`
 
-
+the name of the managed service
 
 Default value: `'unbound'`
 
@@ -1664,7 +1623,7 @@ Default value: `'unbound'`
 
 Data type: `Boolean`
 
-
+Indicate if the service supports the status parameter
 
 Default value: `true`
 
@@ -1672,7 +1631,7 @@ Default value: `true`
 
 Data type: `Enum['running', 'stopped']`
 
-
+the ensure parameter for the managed service
 
 Default value: `'running'`
 
@@ -1680,7 +1639,7 @@ Default value: `'running'`
 
 Data type: `Boolean`
 
-
+the enable parameter for the managed service
 
 Default value: `true`
 
@@ -1688,7 +1647,7 @@ Default value: `true`
 
 Data type: `String[1]`
 
-
+the validate_cmd to use to check the config
 
 Default value: `'/usr/sbin/unbound-checkconf %'`
 
@@ -1696,15 +1655,23 @@ Default value: `'/usr/sbin/unbound-checkconf %'`
 
 Data type: `String[1]`
 
-
+The restart command to use when reload is not enough
 
 Default value: `"/bin/systemctl restart ${service_name}"`
+
+##### <a name="-unbound--force_restart"></a>`force_restart`
+
+Data type: `Boolean`
+
+Always force a service reload
+
+Default value: `false`
 
 ##### <a name="-unbound--custom_server_conf"></a>`custom_server_conf`
 
 Data type: `Array[String[1]]`
 
-
+Add some custome config to $configfile
 
 Default value: `[]`
 
@@ -1712,7 +1679,7 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+don't download the root hints file
 
 Default value: `false`
 
@@ -1720,7 +1687,7 @@ Default value: `false`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1728,7 +1695,7 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'64:ff9b::/96'`
 
@@ -1736,7 +1703,7 @@ Default value: `'64:ff9b::/96'`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1744,7 +1711,7 @@ Default value: `false`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1752,7 +1719,7 @@ Default value: `[]`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1760,39 +1727,39 @@ Default value: `[]`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
-
-##### <a name="-unbound--max_client_subnet_ipv6"></a>`max_client_subnet_ipv6`
-
-Data type: `Integer[0,128]`
-
-
-
-Default value: `56`
 
 ##### <a name="-unbound--max_client_subnet_ipv4"></a>`max_client_subnet_ipv4`
 
 Data type: `Integer[0,32]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `24`
 
-##### <a name="-unbound--min_client_subnet_ipv6"></a>`min_client_subnet_ipv6`
+##### <a name="-unbound--max_client_subnet_ipv6"></a>`max_client_subnet_ipv6`
 
-Data type: `Optional[Integer[0,128]]`
+Data type: `Integer[0,128]`
 
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
-
-Default value: `undef`
+Default value: `56`
 
 ##### <a name="-unbound--min_client_subnet_ipv4"></a>`min_client_subnet_ipv4`
 
 Data type: `Optional[Integer[0,32]]`
 
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
+Default value: `undef`
+
+##### <a name="-unbound--min_client_subnet_ipv6"></a>`min_client_subnet_ipv6`
+
+Data type: `Optional[Integer[0,128]]`
+
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1800,7 +1767,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1808,7 +1775,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1816,7 +1783,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `true`
 
@@ -1824,7 +1791,7 @@ Default value: `true`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1832,7 +1799,7 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1840,7 +1807,7 @@ Default value: `false`
 
 Data type: `Integer[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `3600`
 
@@ -1848,7 +1815,7 @@ Default value: `3600`
 
 Data type: `Boolean`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `false`
 
@@ -1856,7 +1823,7 @@ Default value: `false`
 
 Data type: `Array[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `[]`
 
@@ -1864,7 +1831,7 @@ Default value: `[]`
 
 Data type: `Optional[String[1]]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `undef`
 
@@ -1872,7 +1839,7 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'default'`
 
@@ -1880,7 +1847,7 @@ Default value: `'default'`
 
 Data type: `String[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `'127.0.0.1'`
 
@@ -1888,7 +1855,7 @@ Default value: `'127.0.0.1'`
 
 Data type: `Integer[1,65536]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `6379`
 
@@ -1896,7 +1863,7 @@ Default value: `6379`
 
 Data type: `Integer[1]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `100`
 
@@ -1904,69 +1871,54 @@ Default value: `100`
 
 Data type: `Stdlib::Absolutepath`
 
-
+similar to conf_d, will be merged with conf_d version in future
 
 Default value: `"${confdir}/unbound.conf.d"`
+
+##### <a name="-unbound--hints_file"></a>`hints_file`
+
+Data type: `Unbound::Hints_file`
+
+the root hints file to use
+
+Default value: `"${confdir}/root.hints"`
+
+##### <a name="-unbound--update_root_hints"></a>`update_root_hints`
+
+Data type: `Enum['absent','present','unmanaged']`
+
+f we should update the root hints file
+
+Default value: `fact('systemd') ? { true => 'present', default => 'unmanaged'`
+
+##### <a name="-unbound--hints_file_content"></a>`hints_file_content`
+
+Data type: `Optional[String[1]]`
+
+the contents of the root hints file
+
+Default value: `undef`
 
 ##### <a name="-unbound--rpzs"></a>`rpzs`
 
 Data type: `Hash[String[1], Unbound::Rpz]`
 
-
+see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `{}`
 
+##### <a name="-unbound--unbound_version"></a>`unbound_version`
+
+Data type: `Optional[String[1]]`
+
+the unbound_version to use, we can caluclate from the fact but
+specifying reduces the number of puppet runs
+
+Default value: `$facts['unbound_version']`
+
 ### <a name="unbound--remote"></a>`unbound::remote`
 
-Class: unbound::remote
-
 Configure remote control of the unbound daemon process
-
-=== Parameters:
-
-[*enable*]
-  (optional) The option is used to enable remote control, default is false.
-  If turned off, the server does not listen for  control.
-
-[*interface*]
-  (optional) Give  IPv4  or IPv6 addresses to listen on for control commands.
-  By default localhost (127.0.0.1 and ::1) is listened.
-
-[*port*]
-  (optional) The port number to listen on for control commands, default is
-  8953.  If you change this port number,  and  permissions have been dropped,
-  a reload is not sufficient to open the port again, you must then restart.
-
-[*server_key_file*]
-  (optional) Path to the server private key, by default unbound_server.key.
-  This file is generated by the unbound-control-setup utility.  This file is
-  used by the unbound server, but not by unbound-control.
-
-[*server_cert_file*]
-  (optional) Path to the server self signed certificate, by default
-  unbound_server.pem.  This file is generated by the unbound-control-setup
-  utility.  This file is used by the unbound server, and also by
-  unbound-control.
-
-[*control_key_file*]
-  (optional) Path to the control client private key, by default
-  unbound_control.key.  This file is generated by the unbound-control-setup
-  utility.  This file is used by unbound-control.
-
-[*control_cert_file*]
-  (optional) Path to the control client certificate, by default
-  unbound_control.pem.  This certificate has to be  signed  with  the server
-  certificate. This file is generated by the unbound-control-setup utility.
-  This file is used by unbound-control.
-
-[*group*]
-  (optional) Name of the group for unbound files and directory
-
-[*confdir*]
-  (optional) Name of the directory where configuration files are stored
-
-[*config_file*]
-  (optional) Name of the unbound config file
 
 #### Parameters
 
@@ -1975,8 +1927,8 @@ The following parameters are available in the `unbound::remote` class:
 * [`enable`](#-unbound--remote--enable)
 * [`interface`](#-unbound--remote--interface)
 * [`port`](#-unbound--remote--port)
-* [`control_use_cert`](#-unbound--remote--control_use_cert)
 * [`server_key_file`](#-unbound--remote--server_key_file)
+* [`control_use_cert`](#-unbound--remote--control_use_cert)
 * [`server_cert_file`](#-unbound--remote--server_cert_file)
 * [`control_key_file`](#-unbound--remote--control_key_file)
 * [`control_cert_file`](#-unbound--remote--control_cert_file)
@@ -1989,7 +1941,8 @@ The following parameters are available in the `unbound::remote` class:
 
 Data type: `Boolean`
 
-
+The option is used to enable remote control, default is false.
+If turned off, the server does not listen for  control.
 
 Default value: `$unbound::control_enable`
 
@@ -1997,7 +1950,8 @@ Default value: `$unbound::control_enable`
 
 Data type: `Array`
 
-
+Give  IPv4  or IPv6 addresses to listen on for control commands.
+By default localhost (127.0.0.1 and ::1) is listened.
 
 Default value: `['::1', '127.0.0.1']`
 
@@ -2005,31 +1959,38 @@ Default value: `['::1', '127.0.0.1']`
 
 Data type: `Integer`
 
-
+The port number to listen on for control commands, default is
+8953.  If you change this port number,  and  permissions have been dropped,
+a reload is not sufficient to open the port again, you must then restart.
 
 Default value: `8953`
-
-##### <a name="-unbound--remote--control_use_cert"></a>`control_use_cert`
-
-Data type: `Boolean`
-
-
-
-Default value: `true`
 
 ##### <a name="-unbound--remote--server_key_file"></a>`server_key_file`
 
 Data type: `String`
 
-
+Path to the server private key, by default unbound_server.key.
+This file is generated by the unbound-control-setup utility.  This file is
+used by the unbound server, but not by unbound-control.
 
 Default value: `"${unbound::confdir}/unbound_server.key"`
+
+##### <a name="-unbound--remote--control_use_cert"></a>`control_use_cert`
+
+Data type: `Boolean`
+
+if we should use certs for the control channel
+
+Default value: `true`
 
 ##### <a name="-unbound--remote--server_cert_file"></a>`server_cert_file`
 
 Data type: `String`
 
-
+Path to the server self signed certificate, by default
+unbound_server.pem.  This file is generated by the unbound-control-setup
+utility.  This file is used by the unbound server, and also by
+unbound-control.
 
 Default value: `"${unbound::confdir}/unbound_server.pem"`
 
@@ -2037,7 +1998,9 @@ Default value: `"${unbound::confdir}/unbound_server.pem"`
 
 Data type: `String`
 
-
+Path to the control client private key, by default
+unbound_control.key.  This file is generated by the unbound-control-setup
+utility.  This file is used by unbound-control.
 
 Default value: `"${$unbound::confdir}/unbound_control.key"`
 
@@ -2045,7 +2008,10 @@ Default value: `"${$unbound::confdir}/unbound_control.key"`
 
 Data type: `String`
 
-
+Path to the control client certificate, by default
+unbound_control.pem.  This certificate has to be  signed  with  the server
+certificate. This file is generated by the unbound-control-setup utility.
+This file is used by unbound-control.
 
 Default value: `"${$unbound::confdir}/unbound_control.pem"`
 
@@ -2053,7 +2019,7 @@ Default value: `"${$unbound::confdir}/unbound_control.pem"`
 
 Data type: `Any`
 
-
+Name of the group for unbound files and directory
 
 Default value: `$unbound::group`
 
@@ -2061,7 +2027,7 @@ Default value: `$unbound::group`
 
 Data type: `Any`
 
-
+Name of the directory where configuration files are stored
 
 Default value: `$unbound::confdir`
 
@@ -2069,7 +2035,7 @@ Default value: `$unbound::confdir`
 
 Data type: `Any`
 
-
+Name of the unbound config file
 
 Default value: `$unbound::config_file`
 
@@ -2077,7 +2043,7 @@ Default value: `$unbound::config_file`
 
 Data type: `Any`
 
-
+the path to nsd-control-setup
 
 Default value: `$unbound::control_setup_path`
 
@@ -2085,54 +2051,35 @@ Default value: `$unbound::control_setup_path`
 
 ### <a name="unbound--forward"></a>`unbound::forward`
 
-Class: unbound::forward
-
 Configures a zone for DNS forwarding
-
-== Parameters:
-
-[*zone*]
-  (required) the name of the zone.
-
-[*address*]
-  IP address of server to forward queries to. Can be IP 4 or IP 6 (and an
-  array or a single value. To use a nondefault port for DNS communication
-  append '@' with the port number.
-
-[*host*]
-  Hostname of server to forward queries to. Can be IP 4 or IP 6 (and an array
-  or a single value. To use a nondefault port for DNS communication append
-  '@' with the port number.
-
-[*forward_first*]
-  (optional) If enabled, a query is attempted without the forward clause if
-  it fails.  The data could not be retrieved and would have caused SERVFAIL
-  because the servers are unreachable, instead it is tried without this
-  clause. The default is 'no'.
-
-[*forward_ssl_upstream*]
-  (optional) If enabled, unbound will query the forward DNS server via TLS.
-
-[*config_file*]
-  (optional) name of configuration file
 
 #### Parameters
 
 The following parameters are available in the `unbound::forward` defined type:
 
+* [`zone`](#-unbound--forward--zone)
 * [`address`](#-unbound--forward--address)
 * [`host`](#-unbound--forward--host)
-* [`zone`](#-unbound--forward--zone)
 * [`forward_first`](#-unbound--forward--forward_first)
 * [`forward_ssl_upstream`](#-unbound--forward--forward_ssl_upstream)
 * [`forward_tls_upstream`](#-unbound--forward--forward_tls_upstream)
 * [`config_file`](#-unbound--forward--config_file)
 
+##### <a name="-unbound--forward--zone"></a>`zone`
+
+Data type: `Any`
+
+the name of the zone.
+
+Default value: `$name`
+
 ##### <a name="-unbound--forward--address"></a>`address`
 
 Data type: `Array`
 
-
+IP address of server to forward queries to. Can be IP 4 or IP 6 (and an
+array or a single value. To use a nondefault port for DNS communication
+append '@' with the port number.
 
 Default value: `[]`
 
@@ -2140,23 +2087,20 @@ Default value: `[]`
 
 Data type: `Array`
 
-
+Hostname of server to forward queries to. Can be IP 4 or IP 6 (and an array
+or a single value. To use a nondefault port for DNS communication append
+'@' with the port number.
 
 Default value: `[]`
-
-##### <a name="-unbound--forward--zone"></a>`zone`
-
-Data type: `Any`
-
-
-
-Default value: `$name`
 
 ##### <a name="-unbound--forward--forward_first"></a>`forward_first`
 
 Data type: `Pattern[/yes|no/]`
 
-
+If enabled, a query is attempted without the forward clause if
+it fails.  The data could not be retrieved and would have caused SERVFAIL
+because the servers are unreachable, instead it is tried without this
+clause. The default is 'no'.
 
 Default value: `'no'`
 
@@ -2164,7 +2108,7 @@ Default value: `'no'`
 
 Data type: `Pattern[/yes|no/]`
 
-
+If enabled, unbound will query the forward DNS server via TLS.
 
 Default value: `'no'`
 
@@ -2172,7 +2116,7 @@ Default value: `'no'`
 
 Data type: `Pattern[/yes|no/]`
 
-
+If enabled, unbound will query the forward DNS server via TLS.
 
 Default value: `'no'`
 
@@ -2180,15 +2124,12 @@ Default value: `'no'`
 
 Data type: `Any`
 
-
+name of configuration file
 
 Default value: `$unbound::config_file`
 
 ### <a name="unbound--localzone"></a>`unbound::localzone`
 
-Class: unbound::localzone
-
-Configures a local zone.
 The  default  zones  are  localhost, reverse 127.0.0.1 and ::1, and the
 AS112 zones. The AS112 zones are reverse DNS zones for private use  and
 reserved IP addresses for which the servers on the internet cannot pro-
@@ -2196,65 +2137,35 @@ vide correct answers.
 
 === Parameters:
 
-[*zone*]
-  (required) String. Zone name.
-
-[*type*]
-  (required) Custom type Unbound::Local_zone_type.
-
-[*config_file*]
-  (optional) name of configuration file.
-
-[*local_data*]
-  (optional) Array.
-  Define local data which should be rendered into configuration file. Required
-  value is an Array of the custom type Unbond::Resource_record_type.
-  Default value: [].
-  Example:
-    unbound::localzone::local_data:
-      - name: 'api.test.com'
-        ttl: 15
-        class: IN
-        type: A
-        data: '1.1.1.1'
-      - name: 'backend.test.com'
-        type: A
-        data: '2.2.2.2'
-
-[*template_name*]
-  (optional) String.
-  Use a custom template.
-  Default value: 'unbound/local_zone.erb'.
-
 #### Parameters
 
 The following parameters are available in the `unbound::localzone` defined type:
 
-* [`type`](#-unbound--localzone--type)
 * [`zone`](#-unbound--localzone--zone)
+* [`type`](#-unbound--localzone--type)
 * [`config_file`](#-unbound--localzone--config_file)
 * [`local_data`](#-unbound--localzone--local_data)
 * [`template_name`](#-unbound--localzone--template_name)
-
-##### <a name="-unbound--localzone--type"></a>`type`
-
-Data type: `Unbound::Local_zone_type`
-
-
 
 ##### <a name="-unbound--localzone--zone"></a>`zone`
 
 Data type: `String`
 
-
+String. Zone name.
 
 Default value: `$name`
+
+##### <a name="-unbound--localzone--type"></a>`type`
+
+Data type: `Unbound::Local_zone_type`
+
+Custom type Unbound::Local_zone_type.
 
 ##### <a name="-unbound--localzone--config_file"></a>`config_file`
 
 Data type: `Any`
 
-
+name of configuration file.
 
 Default value: `$unbound::config_file`
 
@@ -2262,7 +2173,19 @@ Default value: `$unbound::config_file`
 
 Data type: `Array[Unbound::Resource_record_type]`
 
-
+Define local data which should be rendered into configuration file. Required
+value is an Array of the custom type Unbond::Resource_record_type.
+Default value: [].
+Example:
+  unbound::localzone::local_data:
+    - name: 'api.test.com'
+      ttl: 15
+      class: IN
+      type: A
+      data: '1.1.1.1'
+    - name: 'backend.test.com'
+      type: A
+      data: '2.2.2.2'
 
 Default value: `[]`
 
@@ -2270,35 +2193,13 @@ Default value: `[]`
 
 Data type: `String`
 
-
+Use a custom template.
 
 Default value: `'unbound/local_zone.erb'`
 
 ### <a name="unbound--record"></a>`unbound::record`
 
-Class: unbound::record
-
 Create an unbound static DNS record override
-
-== Parameters:
-
-[*content*]
-  (required) The name of the record (ip address)
-
-[*ttl*]
-  (optional) The time to live for this record, defaults to '14400'
-
-[*type*]
-  (optional) Type or the record
-
-[*reverse*]
-  (optional) Reverse record or not, defaults to false
-
-[*entry*]
-  (optional) Name entry for the record (name)
-
-[*config_file*]
-  (optional) name of configuration file
 
 #### Parameters
 
@@ -2315,13 +2216,13 @@ The following parameters are available in the `unbound::record` defined type:
 
 Data type: `Variant[Array[String[1]], String[1]]`
 
-
+The name of the record (ip address)
 
 ##### <a name="-unbound--record--ttl"></a>`ttl`
 
 Data type: `Any`
 
-
+The time to live for this record, defaults to '14400'
 
 Default value: `'14400'`
 
@@ -2329,7 +2230,7 @@ Default value: `'14400'`
 
 Data type: `Any`
 
-
+Type or the record
 
 Default value: `'A'`
 
@@ -2337,7 +2238,7 @@ Default value: `'A'`
 
 Data type: `Any`
 
-
+Reverse record or not, defaults to false
 
 Default value: `false`
 
@@ -2345,7 +2246,7 @@ Default value: `false`
 
 Data type: `Any`
 
-
+Name entry for the record (name)
 
 Default value: `$name`
 
@@ -2353,49 +2254,13 @@ Default value: `$name`
 
 Data type: `Any`
 
-
+name of configuration file
 
 Default value: `$unbound::config_file`
 
 ### <a name="unbound--stub"></a>`unbound::stub`
 
-Class: unbound::stub
-
 Create an unbound stub zone for caching upstream name resolvers
-
-=== Parameters:
-
-[*address*]
-  (required) IP address of server to forward to. Can be IP 4 or IP 6 (and an
-  array or a single value. To use a nondefault port for DNS communication
-  append  '@' with the port number.
-
-[*nameservers*]
-  (optional) Name of stub zone nameserver. Is itself resolved before it is used.
-
-[*insecure*]
-  (optional) Defaults to false. Sets domain name to be insecure, DNSSEC chain
-  of trust is ignored towards the domain name.  So a trust anchor  above the
-  domain  name can not make the domain secure with a DS record, such a DS
-  record is then ignored.  Also keys from DLV are ignored for the domain.
-  Can be given multiple times to specify multiple domains  that  are  treated
-  as  if unsigned.  If you set trust anchors for the domain they override
-  this setting (and the domain is secured).
-  This can be useful if you want to make sure a trust anchor for external
-  lookups does not affect an (unsigned) internal domain.  A DS record
-  externally can create validation failures for that internal domain.
-
-[*stub_first*]
-  (optional) Defaults to false. Controls 'stub-first' stub zone option.
-  If true, a query that fails with the stub clause is attempted again
-  without the stub clause.
-
-[*type*]
-  (optional) Defaults to 'transparent', can be 'deny', 'refuse', 'static',
-  'transparent', 'typetransparent', 'redirect' or 'nodefault'.
-
-[*config_file*]
-  (optional) Name of the unbound config file
 
 #### Parameters
 
@@ -2413,13 +2278,15 @@ The following parameters are available in the `unbound::stub` defined type:
 
 Data type: `Variant[Array[Unbound::Address], Unbound::Address]`
 
-
+IP address of server to forward to. Can be IP 4 or IP 6 (and an
+array or a single value. To use a nondefault port for DNS communication
+append  '@' with the port number.
 
 ##### <a name="-unbound--stub--nameservers"></a>`nameservers`
 
 Data type: `Array[Stdlib::Host]`
 
-
+Name of stub zone nameserver. Is itself resolved before it is used.
 
 Default value: `[]`
 
@@ -2427,7 +2294,16 @@ Default value: `[]`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
-
+Sets domain name to be insecure, DNSSEC chain
+of trust is ignored towards the domain name.  So a trust anchor  above the
+domain  name can not make the domain secure with a DS record, such a DS
+record is then ignored.  Also keys from DLV are ignored for the domain.
+Can be given multiple times to specify multiple domains  that  are  treated
+as  if unsigned.  If you set trust anchors for the domain they override
+this setting (and the domain is secured).
+This can be useful if you want to make sure a trust anchor for external
+lookups does not affect an (unsigned) internal domain.  A DS record
+externally can create validation failures for that internal domain.
 
 Default value: `false`
 
@@ -2435,7 +2311,7 @@ Default value: `false`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
-
+don't cache
 
 Default value: `false`
 
@@ -2443,7 +2319,9 @@ Default value: `false`
 
 Data type: `Variant[Boolean, Enum['true', 'false']]`
 
-
+Controls 'stub-first' stub zone option.
+If true, a query that fails with the stub clause is attempted again
+without the stub clause.
 
 Default value: `false`
 
@@ -2451,7 +2329,7 @@ Default value: `false`
 
 Data type: `Unbound::Local_zone_type`
 
-
+can be 'deny', 'refuse', 'static', 'transparent', 'typetransparent', 'redirect' or 'nodefault'.
 
 Default value: `'transparent'`
 
@@ -2459,7 +2337,7 @@ Default value: `'transparent'`
 
 Data type: `Optional[Stdlib::Unixpath]`
 
-
+Name of the unbound config file
 
 Default value: `undef`
 
@@ -2467,7 +2345,7 @@ Default value: `undef`
 
 ### <a name="Unbound--Access_control"></a>`Unbound::Access_control`
 
-The Unbound::Access_control data type.
+custom type for access control lists
 
 Alias of
 
@@ -2510,13 +2388,13 @@ Variant[Stdlib::IP::Address::Nosubnet, Pattern[
 
 ### <a name="Unbound--Chroot"></a>`Unbound::Chroot`
 
-The Unbound::Chroot data type.
+custom type for access chroot dir to allow support for empty string
 
 Alias of `Variant[Enum[''], Stdlib::Absolutepath]`
 
 ### <a name="Unbound--Hints_file"></a>`Unbound::Hints_file`
 
-The Unbound::Hints_file data type.
+custom type for hints file
 
 Alias of `Variant[Enum['builtin'], Stdlib::Absolutepath]`
 
@@ -2528,7 +2406,7 @@ Alias of `Hash[String, Unbound::Local_zone_type]`
 
 ### <a name="Unbound--Local_zone_override"></a>`Unbound::Local_zone_override`
 
-The Unbound::Local_zone_override data type.
+custom type for local zone overrides
 
 Alias of
 
@@ -2553,7 +2431,7 @@ Alias of `Enum['validator', 'iterator', 'python', 'dns64', 'subnetcache', 'ipsec
 
 ### <a name="Unbound--Range"></a>`Unbound::Range`
 
-The Unbound::Range data type.
+custom type for ranges
 
 Alias of `Pattern[/\d+(-\d+)?/]`
 
@@ -2660,7 +2538,7 @@ Alias of `Enum['nxdomain', 'nodata', 'passthru', 'drop', 'disabled', 'cname']`
 
 ### <a name="Unbound--Size"></a>`Unbound::Size`
 
-The Unbound::Size data type.
+custom type for size
 
 Alias of `Pattern[/\d+([kmg])?/]`
 

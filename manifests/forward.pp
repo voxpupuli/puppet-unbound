@@ -1,33 +1,23 @@
-# Class: unbound::forward
-#
-# Configures a zone for DNS forwarding
-#
-# == Parameters:
-#
-# [*zone*]
-#   (required) the name of the zone.
-#
-# [*address*]
+# @summary Configures a zone for DNS forwarding
+# @param zone the name of the zone.
+# @param address
 #   IP address of server to forward queries to. Can be IP 4 or IP 6 (and an
 #   array or a single value. To use a nondefault port for DNS communication
 #   append '@' with the port number.
-#
-# [*host*]
+# @param host
 #   Hostname of server to forward queries to. Can be IP 4 or IP 6 (and an array
 #   or a single value. To use a nondefault port for DNS communication append
 #   '@' with the port number.
-#
-# [*forward_first*]
-#   (optional) If enabled, a query is attempted without the forward clause if
+# @param forward_first
+#   If enabled, a query is attempted without the forward clause if
 #   it fails.  The data could not be retrieved and would have caused SERVFAIL
 #   because the servers are unreachable, instead it is tried without this
 #   clause. The default is 'no'.
-#
-# [*forward_ssl_upstream*]
-#   (optional) If enabled, unbound will query the forward DNS server via TLS.
-#
-# [*config_file*]
-#   (optional) name of configuration file
+# @param forward_ssl_upstream
+#   If enabled, unbound will query the forward DNS server via TLS.
+# @param forward_tls_upstream
+#   If enabled, unbound will query the forward DNS server via TLS.
+# @param config_file name of configuration file
 #
 define unbound::forward (
   Array $address                          = [],
