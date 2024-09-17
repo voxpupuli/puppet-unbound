@@ -1598,7 +1598,7 @@ Default value: `$owner`
 
 ##### <a name="-unbound--package_name"></a>`package_name`
 
-Data type: `String`
+Data type: `Variant[String,Array]`
 
 
 
