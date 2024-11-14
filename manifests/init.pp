@@ -377,7 +377,7 @@ class unbound (
   # OpenBSD sets this to an empty string
   Variant[String,Array]                         $package_name                    = 'unbound',
   String[1]                                     $package_ensure                  = 'installed',
-  Boolean                                       $purge_unbound_conf_d            = false,
+  Boolean                                       $purge_conf_d                    = false,
   String[1]                                     $root_hints_url                  = 'https://www.internic.net/domain/named.root',
   Stdlib::Absolutepath                          $runtime_dir                     = $confdir,
   Stdlib::Absolutepath                          $auto_trust_anchor_file          = "${runtime_dir}/root.key",
@@ -414,14 +414,13 @@ class unbound (
   String[1]                                     $redis_server_host               = '127.0.0.1',
   Integer[1,65536]                              $redis_server_port               = 6379,
   Integer[1]                                    $redis_timeout                   = 100,
-  Stdlib::Absolutepath                          $unbound_conf_d                  = "${confdir}/unbound.conf.d",
   Unbound::Hints_file                           $hints_file                      = "${confdir}/root.hints",
   Enum['absent','present','unmanaged']          $update_root_hints               = fact('systemd') ? { true => 'present', default => 'unmanaged' },
   Optional[String[1]]                           $hints_file_content              = undef,
   Hash[String[1], Unbound::Rpz]                 $rpzs                            = {},
   Optional[String[1]]                           $unbound_version                 = $facts['unbound_version'],
 ) {
-  $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
+  $_base_dirs = [$confdir, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
   if $_piddir and !($_piddir in ['/run', '/var/run']) {
     $dirs = unique($_base_dirs + [$_piddir])
@@ -541,12 +540,11 @@ class unbound (
   }
 
   # purge unmanaged files in configuration directory
-  file { $unbound_conf_d:
+  file { $conf_d:
     ensure  => 'directory',
-    owner   => 'root',
-    group   => '0',
-    purge   => $purge_unbound_conf_d,
-    recurse => $purge_unbound_conf_d,
+    owner   => $owner,
+    purge   => $purge_conf_d,
+    recurse => $purge_conf_d,
   }
 
   concat { $config_file:
