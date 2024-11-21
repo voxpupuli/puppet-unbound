@@ -45,11 +45,11 @@ describe 'unbound class' do
       its(:stdout) { is_expected.to match %r{flags: qr rd ra ad;} }
     end
 
-    describe command('dig +dnssec SOA dnssec-failed.org @localhost') do
+    describe command('dig +dnssec SOA servfail.nl @localhost') do
       its(:stdout) { is_expected.to match %r{status: SERVFAIL} }
     end
 
-    describe command('dig +dnssec +cd SOA dnssec-failed.org @localhost') do
+    describe command('dig +dnssec +cd SOA servfail.nl @localhost') do
       its(:stdout) { is_expected.to match %r{status: NOERROR} }
     end
   end
