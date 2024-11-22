@@ -207,7 +207,7 @@ The following parameters are available in the `unbound` class:
 * [`username`](#-unbound--username)
 * [`package_name`](#-unbound--package_name)
 * [`package_ensure`](#-unbound--package_ensure)
-* [`purge_unbound_conf_d`](#-unbound--purge_unbound_conf_d)
+* [`purge_conf_d`](#-unbound--purge_conf_d)
 * [`root_hints_url`](#-unbound--root_hints_url)
 * [`runtime_dir`](#-unbound--runtime_dir)
 * [`auto_trust_anchor_file`](#-unbound--auto_trust_anchor_file)
@@ -244,7 +244,6 @@ The following parameters are available in the `unbound` class:
 * [`redis_server_host`](#-unbound--redis_server_host)
 * [`redis_server_port`](#-unbound--redis_server_port)
 * [`redis_timeout`](#-unbound--redis_timeout)
-* [`unbound_conf_d`](#-unbound--unbound_conf_d)
 * [`hints_file`](#-unbound--hints_file)
 * [`update_root_hints`](#-unbound--update_root_hints)
 * [`hints_file_content`](#-unbound--hints_file_content)
@@ -1571,11 +1570,11 @@ the ensure value for the packages
 
 Default value: `'installed'`
 
-##### <a name="-unbound--purge_unbound_conf_d"></a>`purge_unbound_conf_d`
+##### <a name="-unbound--purge_conf_d"></a>`purge_conf_d`
 
 Data type: `Boolean`
 
-if true all unmanaged files in $unbound_conf_d will be purged
+if true purge all unmanaged files in conf_d folder
 
 Default value: `false`
 
@@ -1866,14 +1865,6 @@ Data type: `Integer[1]`
 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 
 Default value: `100`
-
-##### <a name="-unbound--unbound_conf_d"></a>`unbound_conf_d`
-
-Data type: `Stdlib::Absolutepath`
-
-similar to conf_d, will be merged with conf_d version in future
-
-Default value: `"${confdir}/unbound.conf.d"`
 
 ##### <a name="-unbound--hints_file"></a>`hints_file`
 
