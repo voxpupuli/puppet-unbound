@@ -9,12 +9,10 @@ describe 'unbound' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts.merge(concat_basedir: '/dne') }
-      let(:package) { 'unbound' }
       let(:conf_file) { "#{conf_dir}/unbound.conf" }
-      let(:conf_d_dir) { "#{conf_dir}/conf.d" }
-      let(:unbound_conf_d) { "#{conf_dir}/unbound.conf.d" }
       let(:keys_d_dir) { "#{conf_dir}/keys.d" }
       let(:hints_file) { "#{conf_dir}/root.hints" }
+      let(:package) { 'unbound' }
 
       pidfile = nil
 
@@ -23,31 +21,42 @@ describe 'unbound' do
         pidfile = '/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
-        let(:purge_unbound_conf_d) { true }
+        let(:purge_conf_d) { true }
         let(:control_path) { '/usr/sbin/unbound-control' }
       when 'OpenBSD'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/var/unbound/etc' }
-        let(:purge_unbound_conf_d) { false }
+        let(:purge_conf_d) { false }
         let(:control_path) { '/usr/sbin/unbound-control' }
       when 'FreeBSD'
         pidfile = '/usr/local/etc/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/usr/local/etc/unbound' }
-        let(:purge_unbound_conf_d) { false }
+        let(:purge_conf_d) { false }
         let(:control_path) { '/usr/local/sbin/unbound-control' }
       when 'Darwin'
         pidfile = '/var/run/unbound.pid'
         let(:service) { 'org.macports.unbound' }
         let(:conf_dir) { '/opt/local//etc/unbound' }
-        let(:purge_unbound_conf_d) { false }
+        let(:purge_conf_d) { false }
       else
         pidfile = '/var/run/unbound/unbound.pid'
         let(:service) { 'unbound' }
         let(:conf_dir) { '/etc/unbound' }
-        let(:purge_unbound_conf_d) { false }
+        let(:purge_conf_d) { false }
         let(:control_path) { '/usr/sbin/unbound-control' }
+      end
+
+      if facts[:os]['family'] == 'Archlinux'
+        let(:owner) { 'root' }
+      else
+        let(:owner) { 'unbound' }
+      end
+      if facts[:os]['family'] == 'Debian'
+        let(:conf_d_dir) { "#{conf_dir}/unbound.conf.d" }
+      else
+        let(:conf_d_dir) { "#{conf_dir}/conf.d" }
       end
 
       context 'with default params' do
@@ -58,7 +67,6 @@ describe 'unbound' do
         it { is_expected.to contain_service(service) }
         it { is_expected.to contain_concat(conf_file) }
         it { is_expected.to contain_file(conf_dir) }
-        it { is_expected.to contain_file(conf_d_dir) }
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
 
@@ -67,12 +75,11 @@ describe 'unbound' do
         end
 
         it do
-          expect(subject).to contain_file(unbound_conf_d).with(
+          expect(subject).to contain_file(conf_d_dir).with(
             'ensure' => 'directory',
-            'owner' => 'root',
-            'group' => '0',
-            'purge' => purge_unbound_conf_d,
-            'recurse' => purge_unbound_conf_d
+            'owner' => owner,
+            'purge' => purge_conf_d,
+            'recurse' => purge_conf_d
           )
         end
 

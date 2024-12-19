@@ -166,7 +166,7 @@
 # @param username see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 # @param package_name The package(s) to install to get unbound
 # @param package_ensure the ensure value for the packages
-# @param purge_unbound_conf_d if true all unmanaged files in $unbound_conf_d will be purged
+# @param purge_conf_d if true purge all unmanaged files in conf_d folder
 # @param root_hints_url the url to download the root hints file
 # @param runtime_dir the runtime directory used
 # @param auto_trust_anchor_file see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
@@ -203,7 +203,6 @@
 # @param redis_server_host see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 # @param redis_server_port see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 # @param redis_timeout see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
-# @param unbound_conf_d similar to conf_d, will be merged with conf_d version in future
 # @param hints_file the root hints file to use
 # @param update_root_hints f we should update the root hints file
 # @param hints_file_content the contents of the root hints file
@@ -377,7 +376,7 @@ class unbound (
   # OpenBSD sets this to an empty string
   Variant[String,Array]                         $package_name                    = 'unbound',
   String[1]                                     $package_ensure                  = 'installed',
-  Boolean                                       $purge_unbound_conf_d            = false,
+  Boolean                                       $purge_conf_d                    = false,
   String[1]                                     $root_hints_url                  = 'https://www.internic.net/domain/named.root',
   Stdlib::Absolutepath                          $runtime_dir                     = $confdir,
   Stdlib::Absolutepath                          $auto_trust_anchor_file          = "${runtime_dir}/root.key",
@@ -414,14 +413,13 @@ class unbound (
   String[1]                                     $redis_server_host               = '127.0.0.1',
   Integer[1,65536]                              $redis_server_port               = 6379,
   Integer[1]                                    $redis_timeout                   = 100,
-  Stdlib::Absolutepath                          $unbound_conf_d                  = "${confdir}/unbound.conf.d",
   Unbound::Hints_file                           $hints_file                      = "${confdir}/root.hints",
   Enum['absent','present','unmanaged']          $update_root_hints               = fact('systemd') ? { true => 'present', default => 'unmanaged' },
   Optional[String[1]]                           $hints_file_content              = undef,
   Hash[String[1], Unbound::Rpz]                 $rpzs                            = {},
   Optional[String[1]]                           $unbound_version                 = $facts['unbound_version'],
 ) {
-  $_base_dirs = [$confdir, $conf_d, $keys_d, $runtime_dir]
+  $_base_dirs = [$confdir, $keys_d, $runtime_dir]
   $_piddir = if $pidfile { dirname($pidfile) } else { undef }
   if $_piddir and !($_piddir in ['/run', '/var/run']) {
     $dirs = unique($_base_dirs + [$_piddir])
@@ -541,12 +539,11 @@ class unbound (
   }
 
   # purge unmanaged files in configuration directory
-  file { $unbound_conf_d:
+  file { $conf_d:
     ensure  => 'directory',
-    owner   => 'root',
-    group   => '0',
-    purge   => $purge_unbound_conf_d,
-    recurse => $purge_unbound_conf_d,
+    owner   => $owner,
+    purge   => $purge_conf_d,
+    recurse => $purge_conf_d,
   }
 
   concat { $config_file:
