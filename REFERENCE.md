@@ -2543,7 +2543,7 @@ Type: Puppet Language
 
 Print a configuration value if it is defined and the version is supported
 
-#### `unbound::print_config(String[1] $name, Optional[Variant[Boolean, Integer, String, Array[String, 1]]] $value = undef, Optional[String[1]] $version = undef)`
+#### `unbound::print_config(String[1] $name, Optional[Variant[Boolean, Integer, String, Array[String]]] $value = undef, Optional[String[1]] $version = undef)`
 
 The unbound::print_config function.
 
@@ -2557,7 +2557,7 @@ the config item name
 
 ##### `value`
 
-Data type: `Optional[Variant[Boolean, Integer, String, Array[String, 1]]]`
+Data type: `Optional[Variant[Boolean, Integer, String, Array[String]]]`
 
 the config item value
 
