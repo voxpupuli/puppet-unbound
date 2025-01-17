@@ -19,6 +19,7 @@
 
 ### Functions
 
+* [`unbound::clean_blank_lines`](#unbound--clean_blank_lines): Remove blank lines from a string
 * [`unbound::print_config`](#unbound--print_config): Print a configuration value if it is defined and the version is supported
 
 ### Data types
@@ -2536,6 +2537,24 @@ Name of the unbound config file
 Default value: `undef`
 
 ## Functions
+
+### <a name="unbound--clean_blank_lines"></a>`unbound::clean_blank_lines`
+
+Type: Puppet Language
+
+Remove blank lines from a string
+
+#### `unbound::clean_blank_lines(String[1] $content)`
+
+The unbound::clean_blank_lines function.
+
+Returns: `String[1]` The content with blank lines removed
+
+##### `content`
+
+Data type: `String[1]`
+
+The content to remove blank lines from
 
 ### <a name="unbound--print_config"></a>`unbound::print_config`
 
