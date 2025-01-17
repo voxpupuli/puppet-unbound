@@ -7,6 +7,7 @@
 ### Classes
 
 * [`unbound`](#unbound): Installs and configures Unbound, the caching DNS resolver from NLnet Labs
+* [`unbound::dnstap`](#unbound--dnstap)
 * [`unbound::remote`](#unbound--remote): Configure remote control of the unbound daemon process
 
 ### Defined types
@@ -1919,6 +1920,195 @@ the unbound_version to use, we can caluclate from the fact but
 specifying reduces the number of puppet runs
 
 Default value: `$facts['unbound_version']`
+
+### <a name="unbound--dnstap"></a>`unbound::dnstap`
+
+The unbound::dnstap class.
+
+#### Parameters
+
+The following parameters are available in the `unbound::dnstap` class:
+
+* [`enable`](#-unbound--dnstap--enable)
+* [`bidirectional`](#-unbound--dnstap--bidirectional)
+* [`socket_path`](#-unbound--dnstap--socket_path)
+* [`ip`](#-unbound--dnstap--ip)
+* [`tls`](#-unbound--dnstap--tls)
+* [`tls_host`](#-unbound--dnstap--tls_host)
+* [`tls_cert_bundle`](#-unbound--dnstap--tls_cert_bundle)
+* [`tls_cert_key_file`](#-unbound--dnstap--tls_cert_key_file)
+* [`tls_cert_cert_file`](#-unbound--dnstap--tls_cert_cert_file)
+* [`send_identity`](#-unbound--dnstap--send_identity)
+* [`send_version`](#-unbound--dnstap--send_version)
+* [`identity`](#-unbound--dnstap--identity)
+* [`version`](#-unbound--dnstap--version)
+* [`sample_rate`](#-unbound--dnstap--sample_rate)
+* [`log_resolver_query_messages`](#-unbound--dnstap--log_resolver_query_messages)
+* [`log_resolver_response_messages`](#-unbound--dnstap--log_resolver_response_messages)
+* [`log_client_query_messages`](#-unbound--dnstap--log_client_query_messages)
+* [`log_client_response_messages`](#-unbound--dnstap--log_client_response_messages)
+* [`log_forwarder_query_messages`](#-unbound--dnstap--log_forwarder_query_messages)
+* [`log_forwarder_response_messages`](#-unbound--dnstap--log_forwarder_response_messages)
+
+##### <a name="-unbound--dnstap--enable"></a>`enable`
+
+Data type: `Boolean`
+
+Whether to enable dnstap.
+
+Default value: `true`
+
+##### <a name="-unbound--dnstap--bidirectional"></a>`bidirectional`
+
+Data type: `Boolean`
+
+Whether to enable bidirectional dnstap.
+
+Default value: `true`
+
+##### <a name="-unbound--dnstap--socket_path"></a>`socket_path`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The path to the dnstap socket.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--ip"></a>`ip`
+
+Data type: `Optional[Unbound::Address]`
+
+The IP address for dnstap.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--tls"></a>`tls`
+
+Data type: `Boolean`
+
+Whether to enable TLS for dnstap.
+
+Default value: `true`
+
+##### <a name="-unbound--dnstap--tls_host"></a>`tls_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+The TLS host for dnstap.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--tls_cert_bundle"></a>`tls_cert_bundle`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The path to the TLS certificate bundle.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--tls_cert_key_file"></a>`tls_cert_key_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The path to the TLS certificate key file.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--tls_cert_cert_file"></a>`tls_cert_cert_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The path to the TLS certificate file.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--send_identity"></a>`send_identity`
+
+Data type: `Boolean`
+
+Whether to send the identity in dnstap messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--send_version"></a>`send_version`
+
+Data type: `Boolean`
+
+Whether to send the version in dnstap messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--identity"></a>`identity`
+
+Data type: `Optional[String[1]]`
+
+The identity to send in dnstap messages.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--version"></a>`version`
+
+Data type: `Optional[String[1]]`
+
+The version to send in dnstap messages.
+
+Default value: `undef`
+
+##### <a name="-unbound--dnstap--sample_rate"></a>`sample_rate`
+
+Data type: `Integer[0,1000]`
+
+The sample rate for dnstap messages.
+
+Default value: `0`
+
+##### <a name="-unbound--dnstap--log_resolver_query_messages"></a>`log_resolver_query_messages`
+
+Data type: `Boolean`
+
+Whether to log resolver query messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--log_resolver_response_messages"></a>`log_resolver_response_messages`
+
+Data type: `Boolean`
+
+Whether to log resolver response messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--log_client_query_messages"></a>`log_client_query_messages`
+
+Data type: `Boolean`
+
+Whether to log client query messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--log_client_response_messages"></a>`log_client_response_messages`
+
+Data type: `Boolean`
+
+Whether to log client response messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--log_forwarder_query_messages"></a>`log_forwarder_query_messages`
+
+Data type: `Boolean`
+
+Whether to log forwarder query messages.
+
+Default value: `false`
+
+##### <a name="-unbound--dnstap--log_forwarder_response_messages"></a>`log_forwarder_response_messages`
+
+Data type: `Boolean`
+
+Whether to log forwarder response messages.
+
+Default value: `false`
 
 ### <a name="unbound--remote"></a>`unbound::remote`
 
