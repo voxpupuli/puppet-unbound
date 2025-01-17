@@ -16,6 +16,10 @@
 * [`unbound::record`](#unbound--record): Create an unbound static DNS record override
 * [`unbound::stub`](#unbound--stub): Create an unbound stub zone for caching upstream name resolvers
 
+### Functions
+
+* [`unbound::print_config`](#unbound--print_config): Print a configuration value if it is defined and the version is supported
+
 ### Data types
 
 * [`Unbound::Access_control`](#Unbound--Access_control): custom type for access control lists
@@ -2340,6 +2344,38 @@ Data type: `Optional[Stdlib::Unixpath]`
 Name of the unbound config file
 
 Default value: `undef`
+
+## Functions
+
+### <a name="unbound--print_config"></a>`unbound::print_config`
+
+Type: Puppet Language
+
+Print a configuration value if it is defined and the version is supported
+
+#### `unbound::print_config(String[1] $name, Optional[Variant[Boolean, Integer, String, Array[String, 1]]] $value = undef, Optional[String[1]] $version = undef)`
+
+The unbound::print_config function.
+
+Returns: `String` the config item as a string or an empty string if the version is not supported
+
+##### `name`
+
+Data type: `String[1]`
+
+the config item name
+
+##### `value`
+
+Data type: `Optional[Variant[Boolean, Integer, String, Array[String, 1]]]`
+
+the config item value
+
+##### `version`
+
+Data type: `Optional[String[1]]`
+
+the version when the config item was introduced
 
 ## Data types
 
