@@ -50,10 +50,24 @@ class unbound::remote (
   $config_file                        = $unbound::config_file,
   $control_setup_path                 = $unbound::control_setup_path,
 ) {
+  $_tls_config = @("CONFIG")
+      ${unbound::print_config('server-key-file', $server_key_file)}
+      ${unbound::print_config('server-cert-file', $server_cert_file)}
+      ${unbound::print_config('control-key-file', $control_key_file)}
+      ${unbound::print_config('control-cert-file', $control_cert_file)}
+    | CONFIG
+  $tls_config = $control_use_cert.bool2str($_tls_config, '')
+  $content = @("CONFIG")
+    remote-control:
+      ${unbound::print_config('control-enable', $enable)}
+      ${unbound::print_config('control-interface', $interface)}
+      ${unbound::print_config('control-port', $port)}
+    ${tls_config}
+    | CONFIG
   concat::fragment { 'unbound-remote':
     order   => '10',
     target  => $config_file,
-    content => template('unbound/remote.erb'),
+    content => $content.extlib::remove_blank_lines(),
   }
 
   unless $control_setup_path.empty {

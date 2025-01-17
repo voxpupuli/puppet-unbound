@@ -29,13 +29,13 @@ describe 'unbound::remote' do
             %r{
               ^remote-control:
               \s+control-enable:\sno
-              \s+control-interface:\s::1
-              \s+control-interface:\s127.0.0.1
+              \s+control-interface:\s"::1"
+              \s+control-interface:\s"127.0.0.1"
               \s+control-port:\s8953
-              \s+server-key-file:\s/etc/unbound/unbound_server.key
-              \s+server-cert-file:\s/etc/unbound/unbound_server.pem
-              \s+control-key-file:\s/etc/unbound/unbound_control.key
-              \s+control-cert-file:\s/etc/unbound/unbound_control.pem
+              \s+server-key-file:\s"/etc/unbound/unbound_server.key"
+              \s+server-cert-file:\s"/etc/unbound/unbound_server.pem"
+              \s+control-key-file:\s"/etc/unbound/unbound_control.key"
+              \s+control-cert-file:\s"/etc/unbound/unbound_control.pem"
             }x
           )
         end
@@ -62,7 +62,7 @@ describe 'unbound::remote' do
 
         it do
           is_expected.to contain_concat__fragment('unbound-remote').with_content(
-            %r{control-interface:\s192.0.2.42}
+            %r{control-interface:\s"192.0.2.42"}
           )
         end
       end

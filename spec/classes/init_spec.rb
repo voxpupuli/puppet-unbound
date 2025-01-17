@@ -829,7 +829,14 @@ describe 'unbound' do
 
         it do
           expect(subject).to contain_concat__fragment('unbound-stub-example-stub.com').with_content(
-            %r{^stub-zone:\n  name: "example-stub.com"\n  stub-addr: 10.0.0.1\n  stub-addr: 10.0.0.2}
+            %r{
+              ^stub-zone:
+              \s+name:\s"example-stub.com"
+              \s+stub-addr:\s"10.0.0.1"
+              \s+stub-addr:\s"10.0.0.2"
+              \s+stub-first:\sno
+              \s+stub-no-cache:\sno
+            }x
           )
         end
       end
@@ -843,7 +850,15 @@ describe 'unbound' do
 
         it do
           expect(subject).to contain_concat__fragment('unbound-forward-example-forward.com').with_content(
-            %r{^forward-zone:\n  name: "example-forward.com"\n  forward-addr: 10.0.0.1\n  forward-addr: 10.0.0.2\n  forward-first: yes\n  forward-ssl-upstream: yes}
+            %r{
+              ^forward-zone:
+              \s+name:\s"example-forward.com"
+              \s+forward-addr:\s"10.0.0.1"
+              \s+forward-addr:\s"10.0.0.2"
+              \s+forward-first:\s"yes"
+              \s+forward-ssl-upstream:\s"yes"
+              \s+forward-tls-upstream:\s"no"
+            }x
           )
         end
       end

@@ -2358,7 +2358,7 @@ Custom type Unbound::Local_zone_type.
 
 ##### <a name="-unbound--localzone--config_file"></a>`config_file`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
 name of configuration file.
 
