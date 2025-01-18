@@ -20,6 +20,7 @@
 ### Functions
 
 * [`unbound::print_config`](#unbound--print_config): Print a configuration value if it is defined and the version is supported
+* [`unbound::split_txt`](#unbound--split_txt): function to split TXT records. Long TXT records must be broken into strings of 255 characters as per RFC 4408
 
 ### Data types
 
@@ -2566,6 +2567,24 @@ the config item value
 Data type: `Optional[String[1]]`
 
 the version when the config item was introduced
+
+### <a name="unbound--split_txt"></a>`unbound::split_txt`
+
+Type: Puppet Language
+
+function to split TXT records. Long TXT records must be broken into strings of 255 characters as per RFC 4408
+
+#### `unbound::split_txt(String[1] $data)`
+
+The unbound::split_txt function.
+
+Returns: `String[1]` A string of 255 character strings
+
+##### `data`
+
+Data type: `String[1]`
+
+A TXT record to split
 
 ## Data types
 
