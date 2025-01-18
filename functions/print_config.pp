@@ -5,11 +5,14 @@
 # @return the config item as a string or an empty string if the version is not supported
 function unbound::print_config (
   String[1]                                                     $name,
-  Optional[Variant[Boolean, Integer, String, Array[String, 1]]] $value   = undef,
+  Optional[Variant[Boolean, Integer, String, Array[String]]] $value   = undef,
   Optional[String[1]]                                           $version = undef,
 ) >> String {
   $unbound_version = $facts['unbound_version'].lest || { '0.a' }
   if ($value =~ Undef or ($version =~ NotUndef and versioncmp($unbound_version, $version) < 0)) {
+    return ''
+  }
+  if $value =~ Array and $value.empty {
     return ''
   }
   $value ? {

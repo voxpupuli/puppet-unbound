@@ -19,7 +19,9 @@
 
 ### Functions
 
+* [`unbound::clean_blank_lines`](#unbound--clean_blank_lines): Remove blank lines from a string
 * [`unbound::print_config`](#unbound--print_config): Print a configuration value if it is defined and the version is supported
+* [`unbound::split_txt`](#unbound--split_txt): function to split TXT records. Long TXT records must be broken into strings of 255 characters as per RFC 4408
 
 ### Data types
 
@@ -2357,7 +2359,7 @@ Custom type Unbound::Local_zone_type.
 
 ##### <a name="-unbound--localzone--config_file"></a>`config_file`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
 name of configuration file.
 
@@ -2537,13 +2539,31 @@ Default value: `undef`
 
 ## Functions
 
+### <a name="unbound--clean_blank_lines"></a>`unbound::clean_blank_lines`
+
+Type: Puppet Language
+
+Remove blank lines from a string
+
+#### `unbound::clean_blank_lines(String[1] $content)`
+
+The unbound::clean_blank_lines function.
+
+Returns: `String[1]` The content with blank lines removed
+
+##### `content`
+
+Data type: `String[1]`
+
+The content to remove blank lines from
+
 ### <a name="unbound--print_config"></a>`unbound::print_config`
 
 Type: Puppet Language
 
 Print a configuration value if it is defined and the version is supported
 
-#### `unbound::print_config(String[1] $name, Optional[Variant[Boolean, Integer, String, Array[String, 1]]] $value = undef, Optional[String[1]] $version = undef)`
+#### `unbound::print_config(String[1] $name, Optional[Variant[Boolean, Integer, String, Array[String]]] $value = undef, Optional[String[1]] $version = undef)`
 
 The unbound::print_config function.
 
@@ -2557,7 +2577,7 @@ the config item name
 
 ##### `value`
 
-Data type: `Optional[Variant[Boolean, Integer, String, Array[String, 1]]]`
+Data type: `Optional[Variant[Boolean, Integer, String, Array[String]]]`
 
 the config item value
 
@@ -2566,6 +2586,24 @@ the config item value
 Data type: `Optional[String[1]]`
 
 the version when the config item was introduced
+
+### <a name="unbound--split_txt"></a>`unbound::split_txt`
+
+Type: Puppet Language
+
+function to split TXT records. Long TXT records must be broken into strings of 255 characters as per RFC 4408
+
+#### `unbound::split_txt(String[1] $data)`
+
+The unbound::split_txt function.
+
+Returns: `String[1]` A string of 255 character strings
+
+##### `data`
+
+Data type: `String[1]`
+
+A TXT record to split
 
 ## Data types
 
