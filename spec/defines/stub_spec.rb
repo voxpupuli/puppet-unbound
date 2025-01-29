@@ -5,9 +5,9 @@ require 'spec_helper'
 describe 'unbound::stub' do
   let(:title) { 'lab.example.com' }
 
-  on_supported_os.each do |os, facts|
+  on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { facts }
+      let(:facts) { os_facts }
 
       context 'basic' do
         let(:params) do
