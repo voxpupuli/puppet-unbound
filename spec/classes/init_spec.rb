@@ -6,9 +6,9 @@ describe 'unbound' do
   let(:params) { {} }
 
   # rubocop:disable RSpec/MultipleMemoizedHelpers
-  on_supported_os.each do |os, facts|
+  on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { facts.merge(concat_basedir: '/dne') }
+      let(:facts) { os_facts.merge(concat_basedir: '/dne') }
       let(:package) { 'unbound' }
       let(:conf_file) { "#{conf_dir}/unbound.conf" }
       let(:conf_d_dir) { "#{conf_dir}/conf.d" }
@@ -18,7 +18,7 @@ describe 'unbound' do
 
       pidfile = nil
 
-      case facts[:os]['family']
+      case os_facts[:os]['family']
       when 'Debian'
         pidfile = '/run/unbound.pid'
         let(:service) { 'unbound' }
@@ -54,7 +54,7 @@ describe 'unbound' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('unbound') }
 
-        it { is_expected.to contain_package(package) } if facts[:os]['family'] != 'OpenBSD'
+        it { is_expected.to contain_package(package) } if os_facts[:os]['family'] != 'OpenBSD'
         it { is_expected.to contain_service(service) }
         it { is_expected.to contain_concat(conf_file) }
         it { is_expected.to contain_file(conf_dir) }
@@ -62,7 +62,7 @@ describe 'unbound' do
         it { is_expected.to contain_file(keys_d_dir) }
         it { is_expected.to contain_file(hints_file) }
 
-        context 'on Linux', if: facts[:kernel] == 'Linux' do
+        context 'on Linux', if: os_facts[:kernel] == 'Linux' do
           it { is_expected.to contain_systemd__timer('roothints.timer') }
         end
 
@@ -118,7 +118,7 @@ describe 'unbound' do
       end
 
       context 'with access control configured' do
-        let(:facts) { facts.merge(unbound_version: '1.6.1') }
+        let(:facts) { os_facts.merge(unbound_version: '1.6.1') }
         let :params do
           {
             access_control: {
@@ -227,7 +227,7 @@ describe 'unbound' do
         end
 
         context 'subnetcache' do
-          let(:facts) { facts.merge(unbound_version: '1.6.1') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.1') }
 
           before { params.merge!(module_config: %w[subnetcache]) }
 
@@ -249,7 +249,7 @@ describe 'unbound' do
         end
 
         context 'subnetcache send-client-subnet' do
-          let(:facts) { facts.merge(unbound_version: '1.6.1') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.1') }
 
           before do
             params.merge!(
@@ -407,7 +407,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod disable' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -437,7 +437,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod default' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -466,7 +466,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod ipsecmod-hook' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -495,7 +495,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod ipsecmod_strict' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -525,7 +525,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod ipsecmod_max_ttl' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -555,7 +555,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod ipsecmod-ignore-bogus' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -585,7 +585,7 @@ describe 'unbound' do
         end
 
         context 'ipsecmod ipsecmod-whitelist' do
-          let(:facts) { facts.merge(unbound_version: '1.6.4') }
+          let(:facts) { os_facts.merge(unbound_version: '1.6.4') }
 
           before do
             params.merge!(
@@ -893,7 +893,7 @@ describe 'unbound' do
       end
 
       context 'custom log_identity passed to class' do
-        let(:facts) { facts.merge(unbound_version: '1.6.1') }
+        let(:facts) { os_facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_identity: 'bind' } }
 
         it do
@@ -924,7 +924,7 @@ describe 'unbound' do
       end
 
       context 'custom log_replies passed to class' do
-        let(:facts) { facts.merge(unbound_version: '1.6.1') }
+        let(:facts) { os_facts.merge(unbound_version: '1.6.1') }
         let(:params) { { log_replies: true } }
 
         it do
@@ -951,7 +951,7 @@ describe 'unbound' do
 
         it { is_expected.to contain_service(service).with_restart("#{control_path} reload") }
 
-        case facts[:os]['family']
+        case os_facts[:os]['family']
         when 'FreeBSD'
           it { is_expected.to contain_exec('unbound-control-setup').with_command('/usr/local/sbin/unbound-control-setup -d /usr/local/etc/unbound') }
         when 'OpenBSD'

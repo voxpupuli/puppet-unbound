@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe 'unbound::dnstap' do
-  on_supported_os.each do |os, facts|
+  on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { facts.merge(concat_basedir: '/dne', unbound_version: '1.21.0') }
+      let(:facts) { os_facts.merge(concat_basedir: '/dne', unbound_version: '1.21.0') }
 
-      case facts[:os]['family']
+      case os_facts[:os]['family']
       when 'FreeBSD'
         let(:config_file) { '/usr/local/etc/unbound/unbound.conf' }
       when 'OpenBSD'
