@@ -20,11 +20,13 @@ describe 'unbound::stub' do
         it { is_expected.to contain_unbound__stub('lab.example.com') }
 
         it {
-          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with_content(
+            <<~ZONE
               stub-zone:
                 name: "lab.example.com"
-                stub-addr: ::1
+                stub-addr: "::1"
+                stub-first: no
+                stub-no-cache: no
             ZONE
           )
         }
@@ -42,13 +44,15 @@ describe 'unbound::stub' do
         it { is_expected.to contain_unbound__stub('lab.example.com') }
 
         it {
-          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with_content(
+            <<~ZONE
               stub-zone:
                 name: "lab.example.com"
-                stub-addr: 10.0.0.10@10053
-                stub-host: ns1.example.com
-                stub-host: ns2.example.com
+                stub-addr: "10.0.0.10@10053"
+                stub-host: "ns1.example.com"
+                stub-host: "ns2.example.com"
+                stub-first: no
+                stub-no-cache: no
             ZONE
           )
         }
@@ -66,11 +70,12 @@ describe 'unbound::stub' do
         it { is_expected.to contain_unbound__stub('lab.example.com') }
 
         it {
-          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with_content(
+            <<~ZONE
               stub-zone:
                 name: "lab.example.com"
-                stub-addr: ::1
+                stub-addr: "::1"
+                stub-first: no
                 stub-no-cache: yes
             ZONE
           )
@@ -89,12 +94,13 @@ describe 'unbound::stub' do
         it { is_expected.to contain_unbound__stub('lab.example.com') }
 
         it {
-          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with_content(
+            <<~ZONE
               stub-zone:
                 name: "lab.example.com"
-                stub-addr: ::1
+                stub-addr: "::1"
                 stub-first: yes
+                stub-no-cache: no
             ZONE
           )
         }
@@ -112,11 +118,12 @@ describe 'unbound::stub' do
         it { is_expected.to contain_unbound__stub('lab.example.com') }
 
         it {
-          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+          expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with_content(
+            <<~ZONE
               stub-zone:
                 name: "lab.example.com"
-                stub-addr: ::1
+                stub-addr: "::1"
+                stub-first: no
                 stub-no-cache: yes
             ZONE
           )

@@ -26,15 +26,34 @@
 # @param template_name Use a custom template.
 #
 define unbound::localzone (
-  Unbound::Local_zone_type $type,
-  String $zone = $name,
-  $config_file = $unbound::config_file,
-  Array[Unbound::Resource_record_type] $local_data = [],
-  String $template_name = 'unbound/local_zone.erb'
+  Unbound::Local_zone_type             $type,
+  String                               $zone          = $name,
+  Stdlib::Absolutepath                 $config_file   = $unbound::config_file,
+  String                               $template_name = 'unbound/local_zone.erb',
+  Array[Unbound::Resource_record_type] $local_data    = [],
 ) {
+  # Loop through the local_data hash and create ablock of local-data strings with the correctly formated
+  # local-data lines which are ued in the final content block below.
+  # local-data: 'api.test.com 15 300 IN A 192.0.2.1
+  $records = $local_data.map |$record| {
+    $data = $record['data']
+    $_data = $record['type'] ? {
+      'TXT'   => $data.unbound::split_txt(),
+      default => $data,
+    }
+    $record_txt = "${record['name']} ${record['ttl']} ${record['class']} ${record['type']} ${_data}".regsubst(
+      /\s+/, ' ', 'G'
+    )  # Remove multiple spaces
+    "  local-data: '${record_txt}'"
+  }.join("\n")
+  $content = @("CONTENT")
+    server:
+      local-zone: "${zone}" ${type}
+    ${records}
+    | CONTENT
   concat::fragment { "unbound-localzone-${name}":
     order   => '06',
     target  => $config_file,
-    content => template($template_name),
+    content => $content,
   }
 }
