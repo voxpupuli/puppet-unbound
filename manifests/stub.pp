@@ -20,7 +20,7 @@
 #   Controls 'stub-first' stub zone option.
 #   If true, a query that fails with the stub clause is attempted again
 #   without the stub clause.
-# @param type 
+# @param type
 #   can be 'deny', 'refuse', 'static', 'transparent', 'typetransparent', 'redirect' or 'nodefault'.
 # @param config_file Name of the unbound config file
 #
@@ -37,10 +37,18 @@ define unbound::stub (
 ) {
   include unbound
   $_config_file = pick($config_file, $unbound::config_file)
+  $content = @("CONFIG")
+    stub-zone:
+    ${unbound::print_config('name', $name)}
+    ${unbound::print_config('stub-addr', $address)}
+    ${unbound::print_config('stub-host', $nameservers)}
+    ${unbound::print_config('stub-first', $stub_first)}
+    ${unbound::print_config('stub-no-cache', $no_cache)}
+    | CONFIG
   concat::fragment { "unbound-stub-${name}":
     order   => '15',
     target  => $_config_file,
-    content => template('unbound/stub.erb'),
+    content => $content.extlib::remove_blank_lines(),
   }
 
   if str2bool($insecure) == true {

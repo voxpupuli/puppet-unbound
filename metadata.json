@@ -127,6 +127,10 @@
     {
       "name": "puppet/systemd",
       "version_requirement": ">= 6.3.0 < 9.0.0"
+    },
+    {
+      "name": "puppet/extlib",
+      "version_requirement": ">= 7.4.0 < 8.0.0"
     }
   ]
 }

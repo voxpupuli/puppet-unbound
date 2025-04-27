@@ -98,7 +98,7 @@ class unbound::dnstap (
     concat::fragment { 'unbound-dnstap':
       order   => '20',
       target  => $unbound::config_file,
-      content => $config.split("\n").filter |$x| { !$x.empty }.join("\n"),
+      content => $config.extlib::remove_blank_lines(),
     }
   }
 }

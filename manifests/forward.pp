@@ -28,9 +28,18 @@ define unbound::forward (
   Pattern[/yes|no/] $forward_tls_upstream = 'no',
   $config_file                            = $unbound::config_file,
 ) {
+  $content = @("CONTENT")
+    forward-zone:
+    ${unbound::print_config('name', $zone)}
+    ${unbound::print_config('forward-addr', $address)}
+    ${unbound::print_config('forward-host', $host)}
+    ${unbound::print_config('forward-first', $forward_first)}
+    ${unbound::print_config('forward-ssl-upstream', $forward_ssl_upstream)}
+    ${unbound::print_config('forward-tls-upstream', $forward_tls_upstream)}
+    | CONTENT
   concat::fragment { "unbound-forward-${name}":
     order   => '20',
     target  => $config_file,
-    content => template('unbound/forward.erb'),
+    content => $content.extlib::remove_blank_lines(),
   }
 }
