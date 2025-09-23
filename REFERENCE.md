@@ -2577,10 +2577,10 @@ Alias of
 
 ```puppet
 Struct[{
-    action    => Optional[Enum['deny', 'refuse', 'allow', 'allow_setrd', 'allow_snoop', 'allow_cookie', 'deny_non_local', 'refuse_non_local']],
-    tags      => Optional[Array[String]],
-    rr_string => Optional[String],
-    view      => Optional[String],
+  action    => Optional[Enum['deny', 'refuse', 'allow', 'allow_setrd', 'allow_snoop', 'allow_cookie', 'deny_non_local', 'refuse_non_local']],
+  tags      => Optional[Array[String]],
+  rr_string => Optional[String],
+  view      => Optional[String],
 }]
 ```
 
@@ -2638,8 +2638,8 @@ Alias of
 
 ```puppet
 Struct[{
-    netblock => String,
-    type     => Unbound::Local_zone_type
+  netblock => String,
+  type     => Unbound::Local_zone_type
 }]
 ```
 
@@ -2669,11 +2669,11 @@ Alias of
 
 ```puppet
 Struct[{
-    'name'      => String,
-    'ttl'       => Optional[Integer],
-    'class'     => Optional[String],
-    'type'      => String,
-    'data'      => String,
+  'name'      => String,
+  'ttl'       => Optional[Integer],
+  'class'     => Optional[String],
+  'type'      => String,
+  'data'      => String,
 }]
 ```
 
@@ -2685,16 +2685,16 @@ Alias of
 
 ```puppet
 Struct[{
-    primary             => Optional[Array[Stdlib::Host]],
-    master              => Optional[Array[Stdlib::Host]],
-    url                 => Optional[Array[Stdlib::HTTPUrl]],
-    allow_notify        => Optional[Array[Stdlib::Host]],
-    zonefile            => Optional[Stdlib::Unixpath],
-    rpz_action_override => Optional[Unbound::Rpz::Action],
-    rpz_cname_override  => Optional[Stdlib::Fqdn],
-    rpz_log             => Optional[Boolean],
-    rpz_log_name        => Optional[String],
-    tags                => Optional[Array[String]],
+  primary             => Optional[Array[Stdlib::Host]],
+  master              => Optional[Array[Stdlib::Host]],
+  url                 => Optional[Array[Stdlib::HTTPUrl]],
+  allow_notify        => Optional[Array[Stdlib::Host]],
+  zonefile            => Optional[Stdlib::Unixpath],
+  rpz_action_override => Optional[Unbound::Rpz::Action],
+  rpz_cname_override  => Optional[Stdlib::Fqdn],
+  rpz_log             => Optional[Boolean],
+  rpz_log_name        => Optional[String],
+  tags                => Optional[Array[String]],
 }]
 ```
 
