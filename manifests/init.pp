@@ -380,7 +380,7 @@ class unbound (
   Boolean                                       $purge_unbound_conf_d            = false,
   String[1]                                     $root_hints_url                  = 'https://www.internic.net/domain/named.root',
   Stdlib::Absolutepath                          $runtime_dir                     = $confdir,
-  Stdlib::Absolutepath                          $auto_trust_anchor_file          = "${runtime_dir}/root.key",
+  Variant[Stdlib::Absolutepath, Boolean[false]] $auto_trust_anchor_file          = "${runtime_dir}/root.key",
   String[1]                                     $anchor_fetch_command            = "unbound-anchor -a ${auto_trust_anchor_file}",
   String[1]                                     $service_name                    = 'unbound',
   Boolean                                       $service_hasstatus               = true,
@@ -494,14 +494,18 @@ class unbound (
     }
   }
 
-  exec { 'download-anchor-file':
-    command => $anchor_fetch_command,
-    creates => $auto_trust_anchor_file,
-    user    => $owner,
-    path    => ['/usr/sbin','/usr/local/sbin'],
-    returns => 1,
-    before  => Concat::Fragment['unbound-header'],
-    require => File[$runtime_dir],
+  if $auto_trust_anchor_file {
+    exec { 'download-anchor-file':
+      command => $anchor_fetch_command,
+      creates => $auto_trust_anchor_file,
+      user    => $owner,
+      path    => ['/usr/sbin','/usr/local/sbin'],
+      returns => 1,
+      before  => Concat::Fragment['unbound-header'],
+      require => File[$runtime_dir],
+    }
+
+    Exec['download-anchor-file'] -> Concat[$config_file]
   }
 
   # If hint_file is 'builtin', Unbound should use built-in hints instead of file
@@ -551,7 +555,6 @@ class unbound (
 
   concat { $config_file:
     validate_cmd => $validate_cmd,
-    require      => Exec['download-anchor-file'],
     notify       => $service_reuse,
   }
 
