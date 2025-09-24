@@ -13,14 +13,14 @@
 # @param rpz_log_name Specify a string to be part of the log line, for easy referencing.
 # @param tags Limit the policies from this RPZ clause to clients with a matching tag
 type Unbound::Rpz = Struct[{
-    primary             => Optional[Array[Stdlib::Host]],
-    master              => Optional[Array[Stdlib::Host]],
-    url                 => Optional[Array[Stdlib::HTTPUrl]],
-    allow_notify        => Optional[Array[Stdlib::Host]],
-    zonefile            => Optional[Stdlib::Unixpath],
-    rpz_action_override => Optional[Unbound::Rpz::Action],
-    rpz_cname_override  => Optional[Stdlib::Fqdn],
-    rpz_log             => Optional[Boolean],
-    rpz_log_name        => Optional[String],
-    tags                => Optional[Array[String]],
+  primary             => Optional[Array[Stdlib::Host]],
+  master              => Optional[Array[Stdlib::Host]],
+  url                 => Optional[Array[Stdlib::HTTPUrl]],
+  allow_notify        => Optional[Array[Stdlib::Host]],
+  zonefile            => Optional[Stdlib::Unixpath],
+  rpz_action_override => Optional[Unbound::Rpz::Action],
+  rpz_cname_override  => Optional[Stdlib::Fqdn],
+  rpz_log             => Optional[Boolean],
+  rpz_log_name        => Optional[String],
+  tags                => Optional[Array[String]],
 }]
