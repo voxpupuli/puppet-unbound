@@ -1602,7 +1602,7 @@ Default value: `$confdir`
 
 ##### <a name="-unbound--auto_trust_anchor_file"></a>`auto_trust_anchor_file`
 
-Data type: `Stdlib::Absolutepath`
+Data type: `Variant[Stdlib::Absolutepath, Boolean[false]]`
 
 see https://nlnetlabs.nl/documentation/unbound/unbound.conf/
 

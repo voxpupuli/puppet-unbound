@@ -177,7 +177,7 @@ server:
 <%- end -%>
 <%- if @trust_anchor_file -%>
 <%= print_config('trust-anchor-file', @trust_anchor_file) -%>
-<%- else -%>
+<%- elsif @auto_trust_anchor_file -%>
 <%= print_config('auto-trust-anchor-file', @auto_trust_anchor_file) -%>
 <%- end -%>
 <%= print_config('trust-anchor', @trust_anchor) -%>
