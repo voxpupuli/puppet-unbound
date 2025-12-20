@@ -4,6 +4,45 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.0.0) (2025-12-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v7.0.0...v8.0.0)
+
+**Breaking changes:**
+
+- Drop EoL CentOS/Scientific 8 support & Drop EoL Ubuntu 20.04 support [\#374](https://github.com/voxpupuli/puppet-unbound/pull/374) ([bastelfreak](https://github.com/bastelfreak))
+- Drop puppet, update openvox minimum version to 8.19 [\#367](https://github.com/voxpupuli/puppet-unbound/pull/367) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Add an option to disable trust-anchor validation keys \(DNSSEC\) [\#369](https://github.com/voxpupuli/puppet-unbound/pull/369) ([wilful](https://github.com/wilful))
+- metadata.json: Add OpenVox [\#363](https://github.com/voxpupuli/puppet-unbound/pull/363) ([jstraw](https://github.com/jstraw))
+- Dnstap: Add new class to manage dnstap configueration [\#356](https://github.com/voxpupuli/puppet-unbound/pull/356) ([b4ldr](https://github.com/b4ldr))
+- puppet/systemd: allow 8.x [\#354](https://github.com/voxpupuli/puppet-unbound/pull/354) ([jay7x](https://github.com/jay7x))
+- EL9: Add EL9 support [\#353](https://github.com/voxpupuli/puppet-unbound/pull/353) ([b4ldr](https://github.com/b4ldr))
+- Add support for FreeBSD 14 [\#347](https://github.com/voxpupuli/puppet-unbound/pull/347) ([smortex](https://github.com/smortex))
+- Add support for interface\_automatic\_ports [\#339](https://github.com/voxpupuli/puppet-unbound/pull/339) ([anthonysomerset](https://github.com/anthonysomerset))
+- Add Debian 12 support [\#326](https://github.com/voxpupuli/puppet-unbound/pull/326) ([sfoutrel](https://github.com/sfoutrel))
+- Allow forcing service restart if control\_enable true [\#321](https://github.com/voxpupuli/puppet-unbound/pull/321) ([b4ldr](https://github.com/b4ldr))
+
+**Fixed bugs:**
+
+- unbound.conf: prefer trust\_anchor\_file to auto\_trust\_anchor\_file [\#324](https://github.com/voxpupuli/puppet-unbound/pull/324) ([b4ldr](https://github.com/b4ldr))
+- outgoing\_port\_permit\_first: update to actually invert order [\#323](https://github.com/voxpupuli/puppet-unbound/pull/323) ([b4ldr](https://github.com/b4ldr))
+
+**Closed issues:**
+
+- Allow to restart instead of reload on config changes [\#318](https://github.com/voxpupuli/puppet-unbound/issues/318)
+- Outgoing port permit/avoid order wrong when outgoing\_port\_permit\_first = false [\#313](https://github.com/voxpupuli/puppet-unbound/issues/313)
+
+**Merged pull requests:**
+
+- remote\_spec: Add spec test for the unbound::remote class [\#358](https://github.com/voxpupuli/puppet-unbound/pull/358) ([b4ldr](https://github.com/b4ldr))
+- Add documentation [\#352](https://github.com/voxpupuli/puppet-unbound/pull/352) ([b4ldr](https://github.com/b4ldr))
+- unbound::local\_zone\_type: Add `inform_redirect`, `black_a`, `always_null`, `noview`, `nodefault` [\#345](https://github.com/voxpupuli/puppet-unbound/pull/345) ([and0x000](https://github.com/and0x000))
+- unbound::access\_control: add `allow_setrd` & `allow_cookie` [\#344](https://github.com/voxpupuli/puppet-unbound/pull/344) ([and0x000](https://github.com/and0x000))
+- README: fix typos [\#337](https://github.com/voxpupuli/puppet-unbound/pull/337) ([pfrayer](https://github.com/pfrayer))
+
 ## [v7.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v7.0.0) (2024-02-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v6.0.0...v7.0.0)
@@ -27,6 +66,10 @@ These should not affect the functionality of the module.
 **Fixed bugs:**
 
 - Add systemd timer to update root.hints file [\#332](https://github.com/voxpupuli/puppet-unbound/pull/332) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Option trust\_anchor\_file is not usable [\#316](https://github.com/voxpupuli/puppet-unbound/issues/316)
 
 ## [v6.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v6.0.0) (2022-09-25)
 
@@ -173,7 +216,7 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 **Fixed bugs:**
 
-- Single quote TXT records and break them into strings of 255 characters [\#238](https://github.com/voxpupuli/puppet-unbound/pull/238) ([FredericLespez](https://github.com/FredericLespez))
+- Single quote TXT records and break them into strings of 255 characters [\#238](https://github.com/voxpupuli/puppet-unbound/pull/238) ([FredL69](https://github.com/FredL69))
 
 **Closed issues:**
 
@@ -545,7 +588,6 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 
 - stub: local-zones have multiple types; allow type to be overwritten [\#94](https://github.com/voxpupuli/puppet-unbound/pull/94) ([kmullin](https://github.com/kmullin))
 - Bring back hide\_version and hide\_identity [\#93](https://github.com/voxpupuli/puppet-unbound/pull/93) ([kmullin](https://github.com/kmullin))
-- default port 8953 for remote-control [\#91](https://github.com/voxpupuli/puppet-unbound/pull/91) ([ghost](https://github.com/ghost))
 - add forward-first option for forward zones. [\#87](https://github.com/voxpupuli/puppet-unbound/pull/87) ([ryanfolsom](https://github.com/ryanfolsom))
 
 ## [1.1.5](https://github.com/voxpupuli/puppet-unbound/tree/1.1.5) (2015-06-03)
@@ -564,7 +606,6 @@ Debian 8 is EOL since some time now. This 2.8.0 release will be the last one wit
 **Merged pull requests:**
 
 - Some light fixes after recent merge [\#89](https://github.com/voxpupuli/puppet-unbound/pull/89) ([zachfi](https://github.com/zachfi))
-- stub-zone could be specified with either ip or hostname [\#88](https://github.com/voxpupuli/puppet-unbound/pull/88) ([ghost](https://github.com/ghost))
 - Pin repo versions to aim for determinism [\#85](https://github.com/voxpupuli/puppet-unbound/pull/85) ([zachfi](https://github.com/zachfi))
 - restart unbound without starting and stoping the daemon [\#84](https://github.com/voxpupuli/puppet-unbound/pull/84) ([f0](https://github.com/f0))
 - Fix broken commit [\#82](https://github.com/voxpupuli/puppet-unbound/pull/82) ([zachfi](https://github.com/zachfi))
