@@ -32,7 +32,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "8",
         "9"
       ]
     },
@@ -46,7 +45,6 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "8",
         "9"
       ]
     },
@@ -60,7 +58,6 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "20.04",
         "22.04"
       ]
     },
