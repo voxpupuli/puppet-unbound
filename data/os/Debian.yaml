@@ -1,4 +1,5 @@
 ---
 unbound::pidfile: '/run/unbound.pid'
 unbound::runtime_dir: '/var/lib/unbound'
-unbound::purge_unbound_conf_d: true
+unbound::conf_d: "/etc/unbound/unbound.conf.d"
+unbound::purge_conf_d: true
