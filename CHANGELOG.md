@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.1.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.1.0) (2026-02-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v8.0.0...v8.1.0)
+
+**Implemented enhancements:**
+
+- Add support for FreeBSD 15 [\#377](https://github.com/voxpupuli/puppet-unbound/pull/377) ([smortex](https://github.com/smortex))
+- Add Debian 13 "Trixie" support [\#375](https://github.com/voxpupuli/puppet-unbound/pull/375) ([alaunay](https://github.com/alaunay))
+
+**Merged pull requests:**
+
+- puppet/systemd: Allow 9.x [\#378](https://github.com/voxpupuli/puppet-unbound/pull/378) ([iglov](https://github.com/iglov))
+
 ## [v8.0.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.0.0) (2025-12-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v7.0.0...v8.0.0)
