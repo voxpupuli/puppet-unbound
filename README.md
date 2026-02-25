@@ -101,7 +101,7 @@ unbound::stub:
     address:
       - '10.0.0.53
       - '10.0.0.10@10053'
-    nameserveres:
+    nameservers:
       - 'ns1.example.com'
       - 'ns2.example.com'
 ```
