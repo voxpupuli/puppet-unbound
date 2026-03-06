@@ -21,7 +21,7 @@ describe 'Unbound::Access_control' do
       {
         'action' => 'allow',
         'rr_string' => '::/0',
-      }
+      },
     ]
     values.each do |value|
       describe value.inspect do

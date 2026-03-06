@@ -20,7 +20,7 @@ VERSION
 
 tests = {
   'valid' => ['1.1.1', '1.90.24', '1.0.404', '2.5.6'],
-  'invalid' => ['1', '1.1', '1.1.1.1', '1,1,1', '2:5.1', 'foobar']
+  'invalid' => ['1', '1.1', '1.1.1.1', '1,1,1', '2:5.1', 'foobar'],
 }
 describe Facter::Util::Fact.to_s do
   before { Facter.clear }

@@ -15,7 +15,7 @@ describe 'Unbound::Rpz' do
         'rpz_cname_override' => 'cname.example.org',
         'rpz_log' => true,
         'rpz_log_name' => 'rpzlog',
-        'tags' => %w[foo bar]
+        'tags' => %w[foo bar],
       },
       {
         'primary' => ['primary.example.org'],
@@ -45,8 +45,8 @@ describe 'Unbound::Rpz' do
         'rpz_log_name' => 'rpzlog',
       },
       {
-        'tags' => %w[foo bar]
-      }
+        'tags' => %w[foo bar],
+      },
     ]
     values.each do |value|
       describe value.inspect do

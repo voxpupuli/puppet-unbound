@@ -35,7 +35,7 @@ if Puppet::Util::Package.versioncmp(Puppet.version, '4.5.0') >= 0
           '0649',
           'deNy',
           'refse',
-          'sta tic'
+          'sta tic',
         ].each do |value|
           describe value.inspect do
             it { is_expected.not_to allow_value(value) }

@@ -36,7 +36,7 @@ describe 'unbound::remote' do
               \s+server-cert-file:\s/etc/unbound/unbound_server.pem
               \s+control-key-file:\s/etc/unbound/unbound_control.key
               \s+control-cert-file:\s/etc/unbound/unbound_control.pem
-            }x
+            }x,
           )
         end
 
@@ -52,7 +52,7 @@ describe 'unbound::remote' do
 
         it do
           is_expected.to contain_concat__fragment('unbound-remote').with_content(
-            %r{control-enable:\syes}
+            %r{control-enable:\syes},
           )
         end
       end
@@ -62,7 +62,7 @@ describe 'unbound::remote' do
 
         it do
           is_expected.to contain_concat__fragment('unbound-remote').with_content(
-            %r{control-interface:\s192.0.2.42}
+            %r{control-interface:\s192.0.2.42},
           )
         end
       end
@@ -71,8 +71,8 @@ describe 'unbound::remote' do
         let(:params) { super().merge(control_use_cert: false) }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-remote').
-            without_content(%r{(server|control)-(key|cert)-file})
+          is_expected.to contain_concat__fragment('unbound-remote')
+            .without_content(%r{(server|control)-(key|cert)-file})
         end
       end
     end

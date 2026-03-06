@@ -18,9 +18,9 @@ describe 'unbound::localzone' do
               {
                 name: 'txt.example.com',
                 type: 'TXT',
-                data: 'Short TXT Record'
-              }
-            ]
+                data: 'Short TXT Record',
+              },
+            ],
           }
         end
 
@@ -28,7 +28,7 @@ describe 'unbound::localzone' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               server:
                 local-zone: "example.com" transparent
                 local-data: 'txt.example.com TXT "Short TXT Record"'
@@ -47,9 +47,9 @@ describe 'unbound::localzone' do
               {
                 name: 'txt.example.com',
                 type: 'TXT',
-                data: long_txt_record
-              }
-            ]
+                data: long_txt_record,
+              },
+            ],
           }
         end
 
@@ -57,7 +57,7 @@ describe 'unbound::localzone' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-localzone-example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               server:
                 local-zone: "example.com" transparent
                 local-data: 'txt.example.com TXT "#{long_txt_record_chunked}"'

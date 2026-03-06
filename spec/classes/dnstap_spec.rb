@@ -46,7 +46,7 @@ describe 'unbound::dnstap' do
               \s+dnstap-log-client-response-messages:\sno
               \s+dnstap-log-forwarder-query-messages:\sno
               \s+dnstap-log-forwarder-response-messages:\sno
-            }x
+            }x,
           )
         end
       end
@@ -74,7 +74,7 @@ describe 'unbound::dnstap' do
               \s+dnstap-log-client-response-messages:\sno
               \s+dnstap-log-forwarder-query-messages:\sno
               \s+dnstap-log-forwarder-response-messages:\sno
-            }x
+            }x,
           )
         end
 
@@ -83,7 +83,7 @@ describe 'unbound::dnstap' do
 
           it do
             is_expected.to contain_concat__fragment('unbound-dnstap').with_content(
-              %r{^  dnstap-tls-host:\s"dnstap.example.com"}
+              %r{^  dnstap-tls-host:\s"dnstap.example.com"},
             )
           end
         end
@@ -93,7 +93,7 @@ describe 'unbound::dnstap' do
 
           it do
             is_expected.to contain_concat__fragment('unbound-dnstap').with_content(
-              %r{^  dnstap-tls-cert-bundle:\s"/etc/ssl/cert.pem"}
+              %r{^  dnstap-tls-cert-bundle:\s"/etc/ssl/cert.pem"},
             )
           end
         end
@@ -103,7 +103,7 @@ describe 'unbound::dnstap' do
 
           it do
             is_expected.to contain_concat__fragment('unbound-dnstap').with_content(
-              %r{^  dnstap-tls-cert-key-file:\s"/etc/ssl/key.pem"}
+              %r{^  dnstap-tls-cert-key-file:\s"/etc/ssl/key.pem"},
             )
           end
         end
@@ -113,7 +113,7 @@ describe 'unbound::dnstap' do
 
           it do
             is_expected.to contain_concat__fragment('unbound-dnstap').with_content(
-              %r{^  dnstap-tls-cert-cert-file:\s"/etc/ssl/cert.pem"}
+              %r{^  dnstap-tls-cert-cert-file:\s"/etc/ssl/cert.pem"},
             )
           end
         end
