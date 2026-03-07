@@ -12,7 +12,7 @@ describe 'unbound::stub' do
       context 'basic' do
         let(:params) do
           {
-            address: ['::1']
+            address: ['::1'],
           }
         end
 
@@ -21,7 +21,7 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               stub-zone:
                 name: "lab.example.com"
                 stub-addr: ::1
@@ -43,7 +43,7 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               stub-zone:
                 name: "lab.example.com"
                 stub-addr: 10.0.0.10@10053
@@ -58,7 +58,7 @@ describe 'unbound::stub' do
         let(:params) do
           {
             address: ['::1'],
-            no_cache: true
+            no_cache: true,
           }
         end
 
@@ -67,7 +67,7 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               stub-zone:
                 name: "lab.example.com"
                 stub-addr: ::1
@@ -81,7 +81,7 @@ describe 'unbound::stub' do
         let(:params) do
           {
             address: ['::1'],
-            stub_first: true
+            stub_first: true,
           }
         end
 
@@ -90,7 +90,7 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               stub-zone:
                 name: "lab.example.com"
                 stub-addr: ::1
@@ -104,7 +104,7 @@ describe 'unbound::stub' do
         let(:params) do
           {
             address: '::1',
-            no_cache: true
+            no_cache: true,
           }
         end
 
@@ -113,7 +113,7 @@ describe 'unbound::stub' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-lab.example.com').with(
-            content: <<~ZONE
+            content: <<~ZONE,
               stub-zone:
                 name: "lab.example.com"
                 stub-addr: ::1

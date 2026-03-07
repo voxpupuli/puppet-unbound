@@ -15,7 +15,7 @@ describe 'unbound::record' do
           {
             type: 'TXT',
             content: 'Short TXT Record',
-            reverse: false
+            reverse: false,
           }
         end
 
@@ -23,7 +23,7 @@ describe 'unbound::record' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
-            content: "  local-data: 'record.example.com 14400 IN TXT \"Short TXT Record\"'\n"
+            content: "  local-data: 'record.example.com 14400 IN TXT \"Short TXT Record\"'\n",
           )
         }
       end
@@ -35,7 +35,7 @@ describe 'unbound::record' do
           {
             type: 'TXT',
             content: long_txt_record,
-            reverse: false
+            reverse: false,
           }
         end
 
@@ -43,7 +43,7 @@ describe 'unbound::record' do
 
         it {
           expect(subject).to contain_concat__fragment('unbound-stub-record.example.com-local-record').with(
-            content: "  local-data: 'record.example.com 14400 IN TXT \"#{long_txt_record_chunked}\"'\n"
+            content: "  local-data: 'record.example.com 14400 IN TXT \"#{long_txt_record_chunked}\"'\n",
           )
         }
       end
@@ -59,12 +59,12 @@ describe 'unbound::record' do
         it { is_expected.to contain_unbound__record('record.example.com') }
 
         it do
-          is_expected.to contain_concat__fragment('unbound-stub-record.example.com-local-record').
-            with_content(
+          is_expected.to contain_concat__fragment('unbound-stub-record.example.com-local-record')
+            .with_content(
               %r{
                   \s+local-data:\s"record.example.com\s14400\sIN\sA\s192.0.2.53"
                   \s+local-data:\s"record.example.com\s14400\sIN\sA\s192.0.2.42"
-                }x
+                }x,
             )
         end
       end
