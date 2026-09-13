@@ -23,26 +23,46 @@ tests = {
   'invalid' => ['1', '1.1', '1.1.1.1', '1,1,1', '2:5.1', 'foobar'],
 }
 describe Facter::Util::Fact.to_s do
-  before { Facter.clear }
+  # Avoid invoking kernel resolution internals in specs unless we are testing it.
+  before do
+    Facter.clear
+    allow(Facter).to receive(:value).with(:kernel).and_return('Linux')
+  end
+
+  context 'windows kernel' do
+    before do
+      allow(Facter).to receive(:value).with(:kernel).and_return('windows')
+      allow(Facter::Core::Execution).to receive(:execute)
+    end
+
+    it 'returns nil when fact is confined by kernel' do
+      expect(Facter.fact(:unbound_version).value).to be_nil
+      expect(Facter::Core::Execution).not_to have_received(:execute).with('unbound -V 2>&1')
+    end
+  end
 
   context 'unbound not in path' do
     before do
-      allow(Facter::Util::Resolution).to receive(:which).with('unbound').and_return(false)
+      allow(Facter::Core::Execution).to receive(:which).with('unbound').and_return(false)
+      allow(Facter::Core::Execution).to receive(:execute)
     end
 
-    it { expect(Facter.fact(:unbound_version).value).to be_nil }
+    it 'returns nil when fact is confined by missing executable' do
+      expect(Facter.fact(:unbound_version).value).to be_nil
+      expect(Facter::Core::Execution).not_to have_received(:execute).with('unbound -V 2>&1')
+    end
   end
 
   tests.each_pair do |test, versions|
     describe "test #{test} versions" do
       before do
-        allow(Facter::Util::Resolution).to receive(:which).with('unbound').and_return(true)
+        allow(Facter::Core::Execution).to receive(:which).with('unbound').and_return(true)
       end
 
       versions.each do |version|
         context "test version #{version}" do
           before do
-            allow(Facter::Util::Resolution).to receive(:exec).with('unbound -V 2>&1') do
+            allow(Facter::Core::Execution).to receive(:execute).with('unbound -V 2>&1') do
               version_string % version
             end
           end
