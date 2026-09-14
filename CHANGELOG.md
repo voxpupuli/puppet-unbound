@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.2.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.2.0) (2026-09-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v8.1.0...v8.2.0)
+
+**Implemented enhancements:**
+
+- replace deprecated calls with Facter::Core::Execution [\#385](https://github.com/voxpupuli/puppet-unbound/pull/385) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
+**Merged pull requests:**
+
+- readme: fix stub nameserver typo [\#380](https://github.com/voxpupuli/puppet-unbound/pull/380) ([foxxx0](https://github.com/foxxx0))
+
 ## [v8.1.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.1.0) (2026-02-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v8.0.0...v8.1.0)
