@@ -2767,4 +2767,3 @@ Alias of `Enum['nxdomain', 'nodata', 'passthru', 'drop', 'disabled', 'cname']`
 custom type for size
 
 Alias of `Pattern[/\d+([kmg])?/]`
-
