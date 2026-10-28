@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.3.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.3.0) (2026-10-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v8.2.0...v8.3.0)
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 11.x [\#390](https://github.com/voxpupuli/puppet-unbound/pull/390) ([bastelfreak](https://github.com/bastelfreak))
+- Update requirements to allow OpenVox 9 [\#389](https://github.com/voxpupuli/puppet-unbound/pull/389) ([sebastianrakel](https://github.com/sebastianrakel))
+
 ## [v8.2.0](https://github.com/voxpupuli/puppet-unbound/tree/v8.2.0) (2026-09-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-unbound/compare/v8.1.0...v8.2.0)
